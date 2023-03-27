@@ -329,7 +329,7 @@ export const HostView = () => {
 
     if ( location.host.includes( 'live.api.stream' ) ) {
       ENV = 'prod';
-    } else if ( location.host.includes( 'live.silly.horse' ) ) {
+    } else if ( location.host.includes( 'live.stream.horse' ) ) {
       ENV = 'stage';
     }
 
@@ -337,7 +337,7 @@ export const HostView = () => {
     switch ( ENV ) {
       case 'dev':
       case 'stage':
-        liveURL = 'https://live.silly.horse/live/v2';
+        liveURL = 'https://live.stream.horse/live/v2';
         break;
       case 'prod':
         liveURL = 'https://live.api.stream/live/v2';
