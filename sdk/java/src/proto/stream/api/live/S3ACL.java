@@ -8,89 +8,69 @@
 package stream.api.live;
 
 /**
- * <pre>
- * defined roles
- * </pre>
- *
- * Protobuf enum {@code live.v21.Role}
+ * Protobuf enum {@code live.v21.S3ACL}
  */
-public enum Role
+public enum S3ACL
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
-   * <code>ROLE_UNSPECIFIED = 0;</code>
+   * <code>S3ACL_UNSPECIFIED = 0;</code>
    */
-  ROLE_UNSPECIFIED(0),
+  S3ACL_UNSPECIFIED(0),
   /**
-   * <code>ROLE_HOST = 1;</code>
+   * <code>S3ACL_PRIVATE = 1;</code>
    */
-  ROLE_HOST(1),
+  S3ACL_PRIVATE(1),
   /**
-   * <code>ROLE_COHOST = 2;</code>
+   * <code>S3ACL_PUBLIC_READ = 2;</code>
    */
-  ROLE_COHOST(2),
+  S3ACL_PUBLIC_READ(2),
   /**
-   * <code>ROLE_CONTRIBUTOR = 3;</code>
+   * <code>S3ACL_PUBLIC_READ_WRITE = 3;</code>
    */
-  ROLE_CONTRIBUTOR(3),
+  S3ACL_PUBLIC_READ_WRITE(3),
   /**
-   * <code>ROLE_GUEST = 4;</code>
+   * <code>S3ACL_AUTHENTICATED_READ = 4;</code>
    */
-  ROLE_GUEST(4),
+  S3ACL_AUTHENTICATED_READ(4),
   /**
-   * <code>ROLE_VIEWER = 5;</code>
+   * <code>S3ACL_BUCKET_OWNER_READ = 5;</code>
    */
-  ROLE_VIEWER(5),
+  S3ACL_BUCKET_OWNER_READ(5),
   /**
-   * <code>ROLE_RENDERER = 6;</code>
+   * <code>S3ACL_BUCKET_OWNER_FULL_CONTROL = 6;</code>
    */
-  ROLE_RENDERER(6),
-  /**
-   * <code>ROLE_PLATFORM = 7;</code>
-   */
-  ROLE_PLATFORM(7),
-  /**
-   * <code>ROLE_IMPERSONATE = 8;</code>
-   */
-  ROLE_IMPERSONATE(8),
+  S3ACL_BUCKET_OWNER_FULL_CONTROL(6),
   UNRECOGNIZED(-1),
   ;
 
   /**
-   * <code>ROLE_UNSPECIFIED = 0;</code>
+   * <code>S3ACL_UNSPECIFIED = 0;</code>
    */
-  public static final int ROLE_UNSPECIFIED_VALUE = 0;
+  public static final int S3ACL_UNSPECIFIED_VALUE = 0;
   /**
-   * <code>ROLE_HOST = 1;</code>
+   * <code>S3ACL_PRIVATE = 1;</code>
    */
-  public static final int ROLE_HOST_VALUE = 1;
+  public static final int S3ACL_PRIVATE_VALUE = 1;
   /**
-   * <code>ROLE_COHOST = 2;</code>
+   * <code>S3ACL_PUBLIC_READ = 2;</code>
    */
-  public static final int ROLE_COHOST_VALUE = 2;
+  public static final int S3ACL_PUBLIC_READ_VALUE = 2;
   /**
-   * <code>ROLE_CONTRIBUTOR = 3;</code>
+   * <code>S3ACL_PUBLIC_READ_WRITE = 3;</code>
    */
-  public static final int ROLE_CONTRIBUTOR_VALUE = 3;
+  public static final int S3ACL_PUBLIC_READ_WRITE_VALUE = 3;
   /**
-   * <code>ROLE_GUEST = 4;</code>
+   * <code>S3ACL_AUTHENTICATED_READ = 4;</code>
    */
-  public static final int ROLE_GUEST_VALUE = 4;
+  public static final int S3ACL_AUTHENTICATED_READ_VALUE = 4;
   /**
-   * <code>ROLE_VIEWER = 5;</code>
+   * <code>S3ACL_BUCKET_OWNER_READ = 5;</code>
    */
-  public static final int ROLE_VIEWER_VALUE = 5;
+  public static final int S3ACL_BUCKET_OWNER_READ_VALUE = 5;
   /**
-   * <code>ROLE_RENDERER = 6;</code>
+   * <code>S3ACL_BUCKET_OWNER_FULL_CONTROL = 6;</code>
    */
-  public static final int ROLE_RENDERER_VALUE = 6;
-  /**
-   * <code>ROLE_PLATFORM = 7;</code>
-   */
-  public static final int ROLE_PLATFORM_VALUE = 7;
-  /**
-   * <code>ROLE_IMPERSONATE = 8;</code>
-   */
-  public static final int ROLE_IMPERSONATE_VALUE = 8;
+  public static final int S3ACL_BUCKET_OWNER_FULL_CONTROL_VALUE = 6;
 
 
   public final int getNumber() {
@@ -107,7 +87,7 @@ public enum Role
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
-  public static Role valueOf(int value) {
+  public static S3ACL valueOf(int value) {
     return forNumber(value);
   }
 
@@ -115,30 +95,28 @@ public enum Role
    * @param value The numeric wire value of the corresponding enum entry.
    * @return The enum associated with the given numeric wire value.
    */
-  public static Role forNumber(int value) {
+  public static S3ACL forNumber(int value) {
     switch (value) {
-      case 0: return ROLE_UNSPECIFIED;
-      case 1: return ROLE_HOST;
-      case 2: return ROLE_COHOST;
-      case 3: return ROLE_CONTRIBUTOR;
-      case 4: return ROLE_GUEST;
-      case 5: return ROLE_VIEWER;
-      case 6: return ROLE_RENDERER;
-      case 7: return ROLE_PLATFORM;
-      case 8: return ROLE_IMPERSONATE;
+      case 0: return S3ACL_UNSPECIFIED;
+      case 1: return S3ACL_PRIVATE;
+      case 2: return S3ACL_PUBLIC_READ;
+      case 3: return S3ACL_PUBLIC_READ_WRITE;
+      case 4: return S3ACL_AUTHENTICATED_READ;
+      case 5: return S3ACL_BUCKET_OWNER_READ;
+      case 6: return S3ACL_BUCKET_OWNER_FULL_CONTROL;
       default: return null;
     }
   }
 
-  public static com.google.protobuf.Internal.EnumLiteMap<Role>
+  public static com.google.protobuf.Internal.EnumLiteMap<S3ACL>
       internalGetValueMap() {
     return internalValueMap;
   }
   private static final com.google.protobuf.Internal.EnumLiteMap<
-      Role> internalValueMap =
-        new com.google.protobuf.Internal.EnumLiteMap<Role>() {
-          public Role findValueByNumber(int number) {
-            return Role.forNumber(number);
+      S3ACL> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<S3ACL>() {
+          public S3ACL findValueByNumber(int number) {
+            return S3ACL.forNumber(number);
           }
         };
 
@@ -156,12 +134,12 @@ public enum Role
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return stream.api.live.Api.getDescriptor().getEnumTypes().get(12);
+    return stream.api.live.Api.getDescriptor().getEnumTypes().get(9);
   }
 
-  private static final Role[] VALUES = values();
+  private static final S3ACL[] VALUES = values();
 
-  public static Role valueOf(
+  public static S3ACL valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
       throw new java.lang.IllegalArgumentException(
@@ -175,10 +153,10 @@ public enum Role
 
   private final int value;
 
-  private Role(int value) {
+  private S3ACL(int value) {
     this.value = value;
   }
 
-  // @@protoc_insertion_point(enum_scope:live.v21.Role)
+  // @@protoc_insertion_point(enum_scope:live.v21.S3ACL)
 }
 

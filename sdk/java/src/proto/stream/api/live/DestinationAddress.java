@@ -98,6 +98,20 @@ private static final long serialVersionUID = 0L;
             typeCase_ = 3;
             break;
           }
+          case 34: {
+            stream.api.live.DestinationSrtPushAddress.Builder subBuilder = null;
+            if (typeCase_ == 4) {
+              subBuilder = ((stream.api.live.DestinationSrtPushAddress) type_).toBuilder();
+            }
+            type_ =
+                input.readMessage(stream.api.live.DestinationSrtPushAddress.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((stream.api.live.DestinationSrtPushAddress) type_);
+              type_ = subBuilder.buildPartial();
+            }
+            typeCase_ = 4;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -138,6 +152,7 @@ private static final long serialVersionUID = 0L;
     RTMP_PUSH(1),
     AGORA(2),
     S3_STORAGE(3),
+    SRT_PUSH(4),
     TYPE_NOT_SET(0);
     private final int value;
     private TypeCase(int value) {
@@ -158,6 +173,7 @@ private static final long serialVersionUID = 0L;
         case 1: return RTMP_PUSH;
         case 2: return AGORA;
         case 3: return S3_STORAGE;
+        case 4: return SRT_PUSH;
         case 0: return TYPE_NOT_SET;
         default: return null;
       }
@@ -302,6 +318,49 @@ private static final long serialVersionUID = 0L;
     return stream.api.live.S3StorageAddress.getDefaultInstance();
   }
 
+  public static final int SRT_PUSH_FIELD_NUMBER = 4;
+  /**
+   * <pre>
+   * srt push addressing
+   * </pre>
+   *
+   * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+   * @return Whether the srtPush field is set.
+   */
+  @java.lang.Override
+  public boolean hasSrtPush() {
+    return typeCase_ == 4;
+  }
+  /**
+   * <pre>
+   * srt push addressing
+   * </pre>
+   *
+   * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+   * @return The srtPush.
+   */
+  @java.lang.Override
+  public stream.api.live.DestinationSrtPushAddress getSrtPush() {
+    if (typeCase_ == 4) {
+       return (stream.api.live.DestinationSrtPushAddress) type_;
+    }
+    return stream.api.live.DestinationSrtPushAddress.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * srt push addressing
+   * </pre>
+   *
+   * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+   */
+  @java.lang.Override
+  public stream.api.live.DestinationSrtPushAddressOrBuilder getSrtPushOrBuilder() {
+    if (typeCase_ == 4) {
+       return (stream.api.live.DestinationSrtPushAddress) type_;
+    }
+    return stream.api.live.DestinationSrtPushAddress.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -325,6 +384,9 @@ private static final long serialVersionUID = 0L;
     if (typeCase_ == 3) {
       output.writeMessage(3, (stream.api.live.S3StorageAddress) type_);
     }
+    if (typeCase_ == 4) {
+      output.writeMessage(4, (stream.api.live.DestinationSrtPushAddress) type_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -345,6 +407,10 @@ private static final long serialVersionUID = 0L;
     if (typeCase_ == 3) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, (stream.api.live.S3StorageAddress) type_);
+    }
+    if (typeCase_ == 4) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, (stream.api.live.DestinationSrtPushAddress) type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -375,6 +441,10 @@ private static final long serialVersionUID = 0L;
         if (!getS3Storage()
             .equals(other.getS3Storage())) return false;
         break;
+      case 4:
+        if (!getSrtPush()
+            .equals(other.getSrtPush())) return false;
+        break;
       case 0:
       default:
     }
@@ -401,6 +471,10 @@ private static final long serialVersionUID = 0L;
       case 3:
         hash = (37 * hash) + S3_STORAGE_FIELD_NUMBER;
         hash = (53 * hash) + getS3Storage().hashCode();
+        break;
+      case 4:
+        hash = (37 * hash) + SRT_PUSH_FIELD_NUMBER;
+        hash = (53 * hash) + getSrtPush().hashCode();
         break;
       case 0:
       default:
@@ -591,6 +665,13 @@ private static final long serialVersionUID = 0L;
           result.type_ = s3StorageBuilder_.build();
         }
       }
+      if (typeCase_ == 4) {
+        if (srtPushBuilder_ == null) {
+          result.type_ = type_;
+        } else {
+          result.type_ = srtPushBuilder_.build();
+        }
+      }
       result.typeCase_ = typeCase_;
       onBuilt();
       return result;
@@ -651,6 +732,10 @@ private static final long serialVersionUID = 0L;
         }
         case S3_STORAGE: {
           mergeS3Storage(other.getS3Storage());
+          break;
+        }
+        case SRT_PUSH: {
+          mergeSrtPush(other.getSrtPush());
           break;
         }
         case TYPE_NOT_SET: {
@@ -1230,6 +1315,183 @@ private static final long serialVersionUID = 0L;
       typeCase_ = 3;
       onChanged();;
       return s3StorageBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        stream.api.live.DestinationSrtPushAddress, stream.api.live.DestinationSrtPushAddress.Builder, stream.api.live.DestinationSrtPushAddressOrBuilder> srtPushBuilder_;
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     * @return Whether the srtPush field is set.
+     */
+    @java.lang.Override
+    public boolean hasSrtPush() {
+      return typeCase_ == 4;
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     * @return The srtPush.
+     */
+    @java.lang.Override
+    public stream.api.live.DestinationSrtPushAddress getSrtPush() {
+      if (srtPushBuilder_ == null) {
+        if (typeCase_ == 4) {
+          return (stream.api.live.DestinationSrtPushAddress) type_;
+        }
+        return stream.api.live.DestinationSrtPushAddress.getDefaultInstance();
+      } else {
+        if (typeCase_ == 4) {
+          return srtPushBuilder_.getMessage();
+        }
+        return stream.api.live.DestinationSrtPushAddress.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    public Builder setSrtPush(stream.api.live.DestinationSrtPushAddress value) {
+      if (srtPushBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        type_ = value;
+        onChanged();
+      } else {
+        srtPushBuilder_.setMessage(value);
+      }
+      typeCase_ = 4;
+      return this;
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    public Builder setSrtPush(
+        stream.api.live.DestinationSrtPushAddress.Builder builderForValue) {
+      if (srtPushBuilder_ == null) {
+        type_ = builderForValue.build();
+        onChanged();
+      } else {
+        srtPushBuilder_.setMessage(builderForValue.build());
+      }
+      typeCase_ = 4;
+      return this;
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    public Builder mergeSrtPush(stream.api.live.DestinationSrtPushAddress value) {
+      if (srtPushBuilder_ == null) {
+        if (typeCase_ == 4 &&
+            type_ != stream.api.live.DestinationSrtPushAddress.getDefaultInstance()) {
+          type_ = stream.api.live.DestinationSrtPushAddress.newBuilder((stream.api.live.DestinationSrtPushAddress) type_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          type_ = value;
+        }
+        onChanged();
+      } else {
+        if (typeCase_ == 4) {
+          srtPushBuilder_.mergeFrom(value);
+        }
+        srtPushBuilder_.setMessage(value);
+      }
+      typeCase_ = 4;
+      return this;
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    public Builder clearSrtPush() {
+      if (srtPushBuilder_ == null) {
+        if (typeCase_ == 4) {
+          typeCase_ = 0;
+          type_ = null;
+          onChanged();
+        }
+      } else {
+        if (typeCase_ == 4) {
+          typeCase_ = 0;
+          type_ = null;
+        }
+        srtPushBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    public stream.api.live.DestinationSrtPushAddress.Builder getSrtPushBuilder() {
+      return getSrtPushFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    @java.lang.Override
+    public stream.api.live.DestinationSrtPushAddressOrBuilder getSrtPushOrBuilder() {
+      if ((typeCase_ == 4) && (srtPushBuilder_ != null)) {
+        return srtPushBuilder_.getMessageOrBuilder();
+      } else {
+        if (typeCase_ == 4) {
+          return (stream.api.live.DestinationSrtPushAddress) type_;
+        }
+        return stream.api.live.DestinationSrtPushAddress.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * srt push addressing
+     * </pre>
+     *
+     * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        stream.api.live.DestinationSrtPushAddress, stream.api.live.DestinationSrtPushAddress.Builder, stream.api.live.DestinationSrtPushAddressOrBuilder> 
+        getSrtPushFieldBuilder() {
+      if (srtPushBuilder_ == null) {
+        if (!(typeCase_ == 4)) {
+          type_ = stream.api.live.DestinationSrtPushAddress.getDefaultInstance();
+        }
+        srtPushBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            stream.api.live.DestinationSrtPushAddress, stream.api.live.DestinationSrtPushAddress.Builder, stream.api.live.DestinationSrtPushAddressOrBuilder>(
+                (stream.api.live.DestinationSrtPushAddress) type_,
+                getParentForChildren(),
+                isClean());
+        type_ = null;
+      }
+      typeCase_ = 4;
+      onChanged();;
+      return srtPushBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

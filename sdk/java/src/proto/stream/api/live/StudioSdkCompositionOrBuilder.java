@@ -13,7 +13,7 @@ public interface StudioSdkCompositionOrBuilder extends
 
   /**
    * <pre>
-   * the url to pass to the studiosdk
+   * the page to render studio kit with. If set, this takes priority over `version`
    * </pre>
    *
    * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -22,7 +22,7 @@ public interface StudioSdkCompositionOrBuilder extends
   boolean hasRendererUrl();
   /**
    * <pre>
-   * the url to pass to the studiosdk
+   * the page to render studio kit with. If set, this takes priority over `version`
    * </pre>
    *
    * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -31,7 +31,7 @@ public interface StudioSdkCompositionOrBuilder extends
   java.lang.String getRendererUrl();
   /**
    * <pre>
-   * the url to pass to the studiosdk
+   * the page to render studio kit with. If set, this takes priority over `version`
    * </pre>
    *
    * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -41,16 +41,28 @@ public interface StudioSdkCompositionOrBuilder extends
       getRendererUrlBytes();
 
   /**
+   * <pre>
+   * the version of the studio kit renderer to use. Ignored if renderer_url is set
+   * </pre>
+   *
    * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
    * @return Whether the version field is set.
    */
   boolean hasVersion();
   /**
+   * <pre>
+   * the version of the studio kit renderer to use. Ignored if renderer_url is set
+   * </pre>
+   *
    * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
    * @return The version.
    */
   java.lang.String getVersion();
   /**
+   * <pre>
+   * the version of the studio kit renderer to use. Ignored if renderer_url is set
+   * </pre>
+   *
    * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
    * @return The bytes for version.
    */

@@ -150,11 +150,12 @@ public final class Api {
       "\001\n\007Publish\022\".apis.event.v2.PublishEventR" +
       "equest\032#.apis.event.v2.PublishEventRespo" +
       "nse\"1\222A\033J\031\n\003404\022\022\n\020Layout not found\202\323\344\223\002" +
-      "\r\"\010/publish:\001*B\257\001\n\020stream.api.eventP\001ZAg" +
-      "ithub.com/streamjar/services/libraries/g" +
-      "o/protocol/apis/event/v1\222AU\022\020\n\tEvent API" +
-      "2\0032.0\032\017live.api.stream\"\t/event/v2*\001\0022\020ap" +
-      "plication/json:\020application/jsonb\006proto3"
+      "\r:\001*\"\010/publishB\304\001\n\020stream.api.eventP\001ZVg" +
+      "ithub.com/golightstream/apistream-layout" +
+      "-services/libraries/go/protocol/apis/eve" +
+      "nt/v1\222AU\022\020\n\tEvent API2\0032.0\032\017live.api.str" +
+      "eam\"\t/event/v2*\001\0022\020application/json:\020app" +
+      "lication/jsonb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

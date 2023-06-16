@@ -1,0 +1,2587 @@
+syntax = "proto3";
+
+// API.stream Live API
+//
+// The Live API enables developers to build video-enabled applications.
+package live.v21;
+
+import "common/v21/ext.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "apistream/livev21";
+option java_multiple_files = true;
+option java_package = "stream.api.live";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "2.1"}
+  extensions: {
+    key: "x-tagGroups"
+    value: {
+      list_value: {
+        values: {
+          struct_value: {
+            fields: {
+              key: "name"
+              value: {string_value: "Services"}
+            }
+            fields: {
+              key: "tags"
+              value: {
+                list_value: {
+                  values: {string_value: "CollectionService"}
+                  values: {string_value: "ProjectService"}
+                  values: {string_value: "SourceService"}
+                  values: {string_value: "DestinationService"}
+                  values: {string_value: "AuthenticationService"}
+                  values: {string_value: "BackendAuthenticationService"}
+                  values: {string_value: "PublicAuthenticationService"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  responses: {
+    key: "401"
+    value: {description: "The access token provided is not valid"}
+  }
+  responses: {
+    key: "403"
+    value: {description:
+        "The access token provided does not have access to "
+        "specified resource"
+}
+  }
+  responses: {
+    key: "404"
+    value: {description: "The specified resource was not found"}
+  }
+  responses: {
+    key: "429"
+    value: {description:
+        "The specified service is busy; please use an exponential "
+        "backoff on subsequent requests."
+}
+  }
+  responses: {
+    key: "500"
+    value: {description:
+        "The specified service is unavailable; please try again "
+        "later"
+}
+  }
+  host: "live.api.stream"
+  base_path: "/live/v2"
+  schemes: HTTPS
+  consumes: "application/json"
+  produces: "application/json"
+  security_definitions: {
+    security: {
+      key: "ApiKey"
+      value: {
+        type: TYPE_API_KEY
+        in: IN_HEADER
+        name: "X-API-Key"
+        description:
+          "Assert your api key into a HTTP Header named "
+          "'X-API-Key'<br><pre>curl -H 'X-API-Key:bar' "
+          "https://live.api.stream/live/v2/collection/foo</"
+          "pre>"
+      }
+    }
+    security: {
+      key: "AccessToken"
+      value: {
+        type: TYPE_API_KEY
+        in: IN_HEADER
+        name: "Authorization: Bearer"
+        description:
+          "Assert your access token into a HTTP Header named "
+          "'Authorization: Bearer'<br><pre>curl -H 'Authorization: "
+          "Bearer bar' "
+          "https://live.api.stream/live/v2/collection/foo</"
+          "pre>"
+      }
+    }
+  }
+  security: {
+    security_requirement: {
+      key: "AccessToken"
+      value: {}
+    }
+  }
+};
+
+// image binary format
+enum ImageFormat {
+  IMAGE_FORMAT_UNSPECIFIED = 0;
+  IMAGE_FORMAT_JPEG = 1;
+}
+
+// rendering color space
+enum VideoColorSpace {
+  VIDEO_COLOR_SPACE_UNSPECIFIED = 0;
+  VIDEO_COLOR_SPACE_YUV420 = 1;
+}
+
+// audio channel layout
+enum AudioChannelLayout {
+  AUDIO_CHANNEL_LAYOUT_UNSPECIFIED = 0;
+  AUDIO_CHANNEL_LAYOUT_STEREO = 1;
+}
+
+// composition video parameters
+message VideoRendering {
+  // canvas height (pixels)
+  optional uint32 height = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "720",
+    default: "720",
+    minimum: 240,
+    maximum: 2160
+  }];
+  // canvas width (pixels)
+  optional uint32 width = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "1280",
+    default: "1280",
+    minimum: 320,
+    maximum: 3840
+  }];
+  // canvas frame rate (frames/s)
+  optional float framerate = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "30",
+    default: "30",
+    minimum: 1,
+    maximum: 60
+  }];
+  // rendering color space
+  optional VideoColorSpace color_space = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"VIDEO_COLOR_SPACE_YUV420\"",
+    default: "VIDEO_COLOR_SPACE_YUV420"
+  }];
+}
+
+// composition audio parameters
+message AudioRendering {
+  // audio channel layout
+  optional AudioChannelLayout channel_layout = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"AUDIO_CHANNEL_LAYOUT_STEREO\"",
+    default: "AUDIO_CHANNEL_LAYOUT_STEREO"
+  }];
+}
+
+// rendering quality
+enum RenderingQuality {
+  RENDERING_QUALITY_UNSPECIFIED = 0;
+  RENDERING_QUALITY_STANDARD = 1;
+  RENDERING_QUALITY_HIGH = 2;
+}
+
+// composition parameters
+message Rendering {
+  // composition video parameters
+  optional VideoRendering video = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // composition audio parameters
+  optional AudioRendering audio = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // rendering quality
+  optional RenderingQuality quality = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"RENDERING_QUALITY_STANDARD\""
+    default: "RENDERING_QUALITY_STANDARD"
+  }];
+
+  // target end-to-end latency (in ms)
+  optional uint32 target_latency = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "500",
+    minimum: 100,
+    maximum: 5000
+  }];
+
+  // estimated composition complexity (where 0 is nominal complexity)
+  optional int32 complexity = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "0",
+    default: "0",
+    minimum: -4,
+    maximum: 4
+  }];
+}
+
+// video encoding codec
+enum VideoCodec {
+  VIDEO_CODEC_UNSPECIFIED = 0;
+  VIDEO_CODEC_H264 = 1;
+}
+
+// video encoding codec profile
+enum VideoCodecProfile {
+  VIDEO_CODEC_PROFILE_UNSPECIFIED = 0;
+  reserved 1;
+  VIDEO_CODEC_PROFILE_BASELINE = 2;
+  VIDEO_CODEC_PROFILE_MAIN = 3;
+  VIDEO_CODEC_PROFILE_HIGH = 4;
+}
+
+// audio encoding codec
+enum AudioCodec {
+  AUDIO_CODEC_UNSPECIFIED = 0;
+  AUDIO_CODEC_AAC = 1;
+}
+
+// video encoding rate control mode
+enum VideoCodecRateControlMode {
+  VIDEO_CODEC_RATE_CONTROL_MODE_UNSPECIFIED = 0;
+  // constant bit rate encoding
+  VIDEO_CODEC_RATE_CONTROL_MODE_CBR = 1;
+}
+
+// video encoding CBR rate control params
+message VideoCodecRateControl {
+  optional VideoCodecRateControlMode mode = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"VIDEO_CODEC_RATE_CONTROL_MODE_CBR\"",
+    default: "VIDEO_CODEC_RATE_CONTROL_MODE_CBR"
+  }];
+
+  // video encoding target bitrate (bits/s)
+  optional uint32 target_bitrate = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"3145728\"",
+    minimum: 256000,
+    maximum: 20971520
+  }];
+
+  // maximum video encoding key frame interval (frames)
+  optional uint32 max_key_frame_interval = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "30",
+    default: "30",
+    minimum: 1,
+    maximum: 30000
+  }];
+}
+
+// encoding video parameters
+message VideoEncoding {
+  // video encoding codec
+  optional VideoCodec codec = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"VIDEO_CODEC_H264\"",
+    default: "VIDEO_CODEC_H264"
+  }];
+
+  // video encoding rate control
+  optional VideoCodecRateControl rate_control = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // video encoding codec profile
+  optional VideoCodecProfile profile = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"VIDEO_CODEC_PROFILE_HIGH\"",
+    default: "VIDEO_CODEC_PROFILE_HIGH"
+  }];
+}
+
+// encoding audio parameters
+message AudioEncoding {
+  // audio encoding codec
+  optional AudioCodec codec = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"AUDIO_CODEC_AAC\"",
+    default: "AUDIO_CODEC_AAC"
+  }];
+}
+
+// the parameters of the encoding
+message Encoding {
+  // the video parameters of the encoding
+  optional VideoEncoding video = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // the audio parameters of the encoding
+  optional AudioEncoding audio = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+}
+
+// broadcast phase of project
+enum ProjectBroadcastPhase {
+  PROJECT_BROADCAST_PHASE_UNSPECIFIED = 0;
+  PROJECT_BROADCAST_PHASE_NOT_RUNNING = 1;
+  // broadcast is waiting to be scheduled
+  PROJECT_BROADCAST_PHASE_WAITING = 2;
+  PROJECT_BROADCAST_PHASE_STARTING = 3;
+  PROJECT_BROADCAST_PHASE_RUNNING = 4;
+  PROJECT_BROADCAST_PHASE_STOPPING = 5;
+  PROJECT_BROADCAST_PHASE_STOPPED = 6;
+  PROJECT_BROADCAST_PHASE_ARCHIVED = 7;
+}
+
+// rtmp push source address
+message SourceRtmpPushAddress {
+  // enable source rtmp push address
+  optional bool enabled = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "true"
+  }];
+
+  // assigned rtmp stream key
+  optional string key = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (common.v21.field_options).database_optimize_search = true
+  ];
+
+  // assigned rtmp destination url
+  optional string url = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"rtmp://ingest.golightstream.com/api2/"
+        "7132b004-61e8-49c1-8dc8-4bb3269ce6f\""
+},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // base_url without stream key
+  optional string base_url = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"rtmp://ingest.golightstream.com/api2\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+// srt push addressing
+message SrtPushAddress {
+  // enable source srt push address
+  optional bool enabled = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "true"
+  }];
+
+  // assigned srt streamid
+  optional string stream_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (common.v21.field_options).database_optimize_search = true
+  ];
+
+  // assigned srt destination url
+  optional string url = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"srt://ingest.api.stream"
+        "?streamid=7132b004-61e8-49c1-8dc8-4bb3269ce6f/"
+        "7132b004-61e8-49c1-8dc8-4bb3269ce6f\""
+},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // base_url without streamid
+  optional string base_url = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"srt://ingest.api.stream\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+// rtmp pull addressing
+message RtmpPullAddress {
+  // rtmp source url
+  string url = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"rtmp://ingest.fakecompany.com/inbound/abc123\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// srt pull addressing
+message SrtPullAddress {
+  // srt url
+  string url = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"srt://ingest.fakecompany.com\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// live source address (select one)
+message SourceAddress {
+  oneof type {
+    // rtmp push addressing
+    SourceRtmpPushAddress rtmp_push = 1;
+    // the srt address to publish to
+    SrtPushAddress srt_push = 2;
+    // the rtmp address to pull from
+    RtmpPullAddress rtmp_pull = 3;
+    // the srt address to pull from
+    SrtPullAddress srt_pull = 4;
+  }
+}
+
+// rtmp push destination address
+message DestinationRtmpPushAddress {
+  // rtmp stream key
+  optional string key = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // rtmp destination url
+  string url = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"rtmp://ingest.fakecompany.com\""},
+    (google.api.field_behavior) = REQUIRED,
+    (common.v21.field_options).url_protocols = "'rtmp','rtmps'"
+  ];
+}
+
+// srt push destination address
+message DestinationSrtPushAddress {
+  // srt destination url
+  string url = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"srt://ingest.fakecompany.com\""},
+    (google.api.field_behavior) = REQUIRED,
+    (common.v21.field_options).url_protocols = "'srt'"
+  ];
+}
+
+// Agora push addressing
+message DestinationAgoraPushAddress {
+  // Agora app id
+  string app_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Agora channel id
+  string channel_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // Agora user id
+  string user_id = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// live hls lifecycle management
+message HlsLifecycleLive {
+  // number of entries to advertise in playlist file
+  optional int32 playlist_count = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "5",
+    default: "5",
+    minimum: 2
+  }];
+
+  // number of files to keep on disk
+  optional int32 file_count = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "10",
+    default: "10",
+    minimum: 4
+  }];
+}
+
+// vod hls lifecycle management
+message HlsLifecycleVod {
+  // max duration of the recording in ms (0 is indefinite)
+  optional int32 max_duration = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "0",
+    default: "0"
+  }];
+}
+
+// hls lifecycle management
+message HlsLifecycle {
+  oneof type {
+    // lifecycle of vod
+    HlsLifecycleVod vod = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+    // lifecycle of live
+    HlsLifecycleLive live = 2;
+  }
+}
+
+// hls packaging options
+message HlsPackaging {
+  // lifecycle of hls segments
+  HlsLifecycle lifecycle = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // duration of segments in ms
+  optional int32 segment_duration = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "2000",
+    default: "2000",
+    minimum: 2000,
+    maximum: 18000
+  }];
+}
+
+// packaging options for object storage
+message ObjectStoragePackaging {
+  oneof type {
+    // hls format
+    HlsPackaging hls = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+  }
+}
+
+enum S3ACL {
+  S3ACL_UNSPECIFIED = 0;
+  S3ACL_PRIVATE = 1;
+  S3ACL_PUBLIC_READ = 2;
+  S3ACL_PUBLIC_READ_WRITE = 3;
+  S3ACL_AUTHENTICATED_READ = 4;
+  S3ACL_BUCKET_OWNER_READ = 5;
+  S3ACL_BUCKET_OWNER_FULL_CONTROL = 6;
+}
+
+message S3StorageAddress {
+  // cloud region
+  string region = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"us-west-1\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // cloud bucket
+  string bucket = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"company\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+  // cloud bucket prefix
+  optional string prefix = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"app\""}];
+
+  // cloud access key
+  string access_key = 4 [(google.api.field_behavior) = REQUIRED];
+  // cloud secret key
+  string secret_key = 5 [(google.api.field_behavior) = REQUIRED];
+
+  // token based auth
+  optional string token = 6;
+  // token duration in ms
+  optional int32 token_duration = 7;
+
+  // access control list
+  optional S3ACL acl = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"S3ACL_PUBLIC_READ\""}];
+
+  // endpoint for non aws s3 destinations
+  optional string endpoint = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"fra1.digitaloceanspaces.com\""}];
+
+  // the format of the files to be written
+  ObjectStoragePackaging packaging = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+}
+
+// destination address (select one)
+message DestinationAddress {
+  oneof type {
+    // rtmp push addressing
+    DestinationRtmpPushAddress rtmp_push = 1;
+    // Agora addressing
+    DestinationAgoraPushAddress agora = 2;
+    // s3 storage addressing
+    S3StorageAddress s3_storage = 3;
+    // srt push addressing
+    DestinationSrtPushAddress srt_push = 4;
+  }
+}
+
+// boolean logic for trigger
+enum SourceTriggerAction {
+  SOURCE_TRIGGER_ACTION_UNSPECIFIED = 0;
+  SOURCE_TRIGGER_ACTION_IGNORE = 1;
+  // SOURCE_TRIGGER_ACTION_AND = 2;
+  SOURCE_TRIGGER_ACTION_OR = 3;
+}
+
+// triggers to indicate what actions to take on the project for a given Source
+message SourceTrigger {
+  // the id of the source
+  string source_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // source should trigger project(s) to start
+  optional SourceTriggerAction start = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"SOURCE_TRIGGER_ACTION_OR\""
+    default: "SOURCE_TRIGGER_ACTION_IGNORE"
+  }];
+
+  // source should trigger project(s) to stop
+  optional SourceTriggerAction stop = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"SOURCE_TRIGGER_ACTION_OR\""
+    default: "SOURCE_TRIGGER_ACTION_IGNORE"
+  }];
+
+  /*
+     // if stop=true, time to wait (ms) after source has stopped before triggering
+     project(s) stop optional uint32 stop_timeout = 4
+     [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example:
+     "30000", default: "1000" minimum: 250, maximum: 60000
+     }];*/
+}
+
+message WebRtcTrigger {
+  // optional string service_user_id = 1;
+
+  // // source start should trigger project(s) to start
+  // optional SourceTriggerAction start = 2
+  // [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  //     example: "SOURCE_TRIGGER_ACTION_OR"
+  //     default: "SOURCE_TRIGGER_ACTION_IGNORE"
+  // }, (google.api.field_behavior) = REQUIRED];
+
+  // webrtc stop should trigger project to stop
+  optional SourceTriggerAction stop = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"SOURCE_TRIGGER_ACTION_OR\""
+    default: "SOURCE_TRIGGER_ACTION_IGNORE"
+  }];
+
+  // // if stop=true, time to wait (ms) after source has stopped before
+  // triggering project(s) stop optional uint32 stop_timeout = 4
+  // [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  //     example: "30000",
+  //     default: "1000"
+  //     minimum: 250,
+  //     maximum: 60000
+  // }];
+}
+
+// the trigger type (select one)
+message ProjectTrigger {
+  oneof type {
+    // start/stop project with source
+    SourceTrigger source = 1;
+    // WebRtcTrigger webrtc = 2;
+  }
+}
+
+// request hls preview
+message PreviewHlsPullAddress {
+  // request hls preview
+  optional bool enabled = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "true"
+      default: "true"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // hls manifest url
+  optional string url = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"https://devstreaming-cdn.apple.com/videos/streaming/"
+        "examples/img_bipbop_adv_example_ts/master.m3u8\""
+},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+// webrtc addressing parameters
+message PreviewWebRtcAddress {
+  // request rtmp preview
+  optional bool enabled = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "true"
+      default: "true"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the name this source will use in the webrtc room
+  optional string display_name = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Camera1\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the id this source was assigned in the webrtc room
+  optional string participant_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+// addresses of source previews
+message PreviewAddress {
+  // hls preview address
+  // optional PreviewHlsPullAddress hls = 1;
+  // webrtc preview address
+  optional PreviewWebRtcAddress webrtc = 2;
+  // srt preview address
+  // optional SrtPullAddress srt = 3 [(common.v21.field_options).future = true
+  // ];
+}
+
+// compose using the studiosdk renderer
+message StudioSdkComposition {
+  // the page to render studio kit with. If set, this takes priority over `version`
+  optional string renderer_url = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"https:\\/\\/rainmaker.gg\\/overlay\\/"
+        "e67cfd6ad57560962fddcf63611d2834\\/1\""
+},
+    (common.v21.field_options).url_protocols = "'http','https'"
+  ];
+
+  // the version of the studio kit renderer to use. Ignored if renderer_url is set
+  optional string version = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"latest\"",
+    default: "latest"
+  }];
+}
+
+// compose scenes using the browser-based compositor
+message SceneComposition {
+  // the url to pass to the studiosdk
+  optional string renderer_url = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"https:\\/\\/rainmaker.gg\\/overlay\\/"
+        "e67cfd6ad57560962fddcf63611d2834\\/1\""
+},
+    (common.v21.field_options).url_protocols = "'http','https'"
+  ];
+
+  // the active "scene" to render
+  optional string selected_layout_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"e67cfd6ad57560962fddcf63611d2835\""}];
+
+  optional bool debug = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false",
+    default: "false"
+  }];
+}
+
+// compose using an external renderer
+message ExternalComposition {
+  string url = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"https:\\/\\/rainmaker.gg\\/overlay\\/"
+        "e67cfd6ad57560962fddcf63611d2834\\/1\""
+},
+    (common.v21.field_options).url_protocols = "'http','https'",
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// composition source for project (select one)
+message Composition {
+  oneof type {
+    // compose using an external renderer
+    ExternalComposition external = 1;
+    // compose using the studiosdk renderer
+    StudioSdkComposition studio_sdk = 2;
+    // compose scenes using the browser-based compositor
+    SceneComposition scene = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+  }
+}
+
+// hosted webrtc configuration
+message HostedWebRtc {
+  // enable webrtc services
+  optional bool enabled = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true",
+    default: "true"
+  }];
+
+  // trigger to control broadcast
+  // optional WebRtcTrigger trigger = 2 [
+  //   (google.api.field_behavior) = INPUT_ONLY,
+  //   (common.v21.field_options).database_ignore = true
+  // ];
+}
+
+// webrtc service (select one)
+message WebRtc {
+  oneof type {
+    // hosted webrtc configuration
+    HostedWebRtc hosted = 1;
+  }
+}
+
+// webrtc access parameters
+message WebRtcAccess {
+  // access token for webrtc room
+  string access_token = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+      "\"eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkN3dXNNbmZFZl"
+      "93Nk9\""
+}];
+
+  // the id this user was assigned in the webrtc room
+  optional string participant_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+// region which is hosting broadcast
+enum Region {
+  REGION_UNSPECIFIED = 0;
+  // US East
+  REGION_US_EAST_1 = 1;
+  REGION_US_EAST_2 = 2;
+  // US West
+  REGION_US_WEST_1 = 3;
+  REGION_US_WEST_2 = 4;
+  // US Central
+  REGION_US_CENTRAL_1 = 5;
+  // Asia Pacific Southeast
+  REGION_AP_SOUTHEAST_1 = 10;
+  REGION_AP_SOUTHEAST_2 = 11;
+  // Asia Pacific South
+  REGION_AP_SOUTH_1 = 15;
+  // Canada East
+  REGION_CA_EAST_1 = 20;
+  // Europe Central
+  REGION_EU_CENTRAL_1 = 30;
+  // Europe West
+  REGION_EU_WEST_1 = 31;
+}
+
+// optimal location of broadcast (to optimize routing and delay)
+message LatLong {
+  double latitude = 1;
+  double longitude = 2;
+}
+
+// ------------ HIGH-LEVEL CONTAINERS
+
+// broadcast status
+message ProjectBroadcastStatus {
+  // collection which owns the project which owns the broadcast
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // project which owns the broadcast
+  string project_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  optional string broadcast_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // broadcast duration (ms)
+  optional uint32 duration = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "300000"}];
+
+  // broadcast start timestamp (ISO8601 UTC)
+  optional google.protobuf.Timestamp start = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"1981-08-01T00:01:00Z\""}];
+
+  // broadcast stop timestamp (ISO8601 UTC)
+  optional google.protobuf.Timestamp stop = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"1981-08-01T00:04:21Z\""}];
+
+  // broadcast phase
+  ProjectBroadcastPhase phase = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"PROJECT_BROADCAST_PHASE_UNSPECIFIED\""}];
+
+  // region broadcast is located
+  optional Region region = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"REGION_US_EAST\""}];
+
+  // datacenter broadcast is located
+  optional string datacenter = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"nyc1\""}];
+}
+
+// collection live source
+message Source {
+  option (common.v21.message_options).database_model = true;
+  option (common.v21.message_options).database_custom_id = true;
+
+  // collection which owns the source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_owner_reference = "Collection",
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // collection source id
+  string source_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_id = true,
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // arbitrary metadata associated with this collection source
+  optional google.protobuf.Value metadata = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // preview addresses
+  optional PreviewAddress preview = 4;
+
+  // source address
+  SourceAddress address = 6;
+
+  // projects which reference this source
+  // repeated Project projects = 7
+  // [(common.v21.field_options).database_reference_from_array = true,
+  // (common.v21.field_options).database_reference_deep = false ];
+}
+
+// streaming destination of project
+message Destination {
+  option (common.v21.message_options).database_model = true;
+
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_owner_reference = "Collection",
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_owner_reference = "Project",
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_id = true,
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // arbitrary metadata associated with this destination
+  optional google.protobuf.Value metadata = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // is output stream enabled?
+  optional bool enabled = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true",
+    default: "true"
+  }];
+
+  // address of the destination
+  DestinationAddress address = 6;
+
+  // timeout (ms) to wait before resetting a connection
+  optional uint32 timeout = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "5000",
+    default: "5000"
+  }];
+}
+
+// project which owns a broadcast, sources, and destinations
+message Project {
+  option (common.v21.message_options).database_model = true;
+
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_owner_reference = "Collection",
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_id = true,
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // arbitrary metadata associated with this project
+  optional google.protobuf.Value metadata = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // composition parameters
+  Rendering rendering = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // encoding parameters
+  Encoding encoding = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // collection live sources added to this project
+  repeated Source sources = 6 [
+    (common.v21.field_options).database_reference_to = true,
+    (common.v21.field_options).database_reference_deep = false
+  ];
+
+  // destinations associated with this project
+  repeated Destination destinations = 7 [(common.v21.field_options).database_reference_from = true];
+
+  // composition/layout source of the broadcast
+  Composition composition = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // maximum duration (ms) of project broadcasts
+  optional uint32 max_duration = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "172800000",
+    default: "172800000",
+    maximum: 604800000
+  }];
+
+  // configuration for webrtc services (if requested)
+  optional WebRtc webrtc = 10;
+
+  // external triggers to start and stop this broadcast
+  repeated ProjectTrigger triggers = 11;
+
+  // optional optimal location to start broadcast
+  optional LatLong location = 12;
+
+  // guest codes associated with this project
+  repeated GuestCode guest_codes = 13 [
+    (common.v21.field_options).database_reference_from = true,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+// a Collection of Projects and Sources
+message Collection {
+  option (common.v21.message_options).database_model = true;
+
+  // collection id
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_id = true,
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // arbitrary metadata associated with this collection
+  optional google.protobuf.Value metadata = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // projects owned by this collection
+  repeated Project projects = 3 [(common.v21.field_options).database_reference_from = true];
+
+  // collection live sources owned by this collection
+  repeated Source sources = 4 [(common.v21.field_options).database_reference_from = true];
+}
+
+// ------------ RPC
+
+message CreateCollectionRequest {
+  // arbitrary metadata to associate with this collection
+  optional google.protobuf.Value metadata = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+}
+
+message CreateCollectionResponse {
+  Collection collection = 1;
+}
+
+message GetCollectionRequest {
+  // collection id
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // optionally populate projects
+  optional bool populate_projects = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "true"}];
+
+  // optionally populate sources
+  optional bool populate_sources = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "true"}];
+}
+
+message GetCollectionResponse {
+  Collection collection = 1;
+}
+
+message UpdateCollectionRequest {
+  // collection id
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // fields to update
+  google.protobuf.FieldMask update_mask = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"metadata\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata to associate with this collection
+  optional google.protobuf.Value metadata = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+}
+
+message UpdateCollectionResponse {
+  // the updated collection
+  Collection collection = 1;
+}
+
+message DeleteCollectionRequest {
+  // collection id
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // forcibly end all child project broadcasts in progress
+  optional bool force = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false",
+    default: "false"
+  }];
+}
+
+message DeleteCollectionResponse {
+  // number of live sources owned by this collection which were deleted
+  uint32 sources_deleted = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "1"}];
+
+  // number of projects owned by this collection which were deleted
+  uint32 projects_deleted = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "1"}];
+
+  // project ids owned by this collection whose broadcasts were stopped
+  repeated string project_ids_stopped = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "[\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"]"}];
+}
+
+message GetCollectionsRequest {}
+
+message GetCollectionsResponse {
+  // all collections owned by this user
+  repeated Collection collections = 1;
+}
+
+// The Collection Service operates on collections, which contain projects and
+// collection live sources used in projects.
+service CollectionService {
+  // Create Collection
+  //
+  // Create a new collection of related projects and collection live sources
+  rpc CreateCollection(CreateCollectionRequest) returns (CreateCollectionResponse) {
+    option (google.api.http) = {
+      post: "/collection",
+      body: "*"
+    };
+  }
+
+  // Get Collection
+  //
+  // Get an existing collection of related projects and collection live
+  // sources
+  rpc GetCollection(GetCollectionRequest) returns (GetCollectionResponse) {
+    option (google.api.http) = {get: "/collection/{collection_id}"};
+  }
+
+  // Get Collections
+  //
+  // Get all collections owned by the user
+  rpc GetCollections(GetCollectionsRequest) returns (GetCollectionsResponse) {
+    option (google.api.http) = {get: "/collection"};
+  }
+
+  // Update Collection
+  //
+  // Update select collection document data
+  rpc UpdateCollection(UpdateCollectionRequest) returns (UpdateCollectionResponse) {
+    option (google.api.http) = {
+      patch: "/collection/{collection_id}",
+      body: "*"
+    };
+  }
+
+  // Delete Collection
+  //
+  // Delete a collection of related projects and collection live sources
+  rpc DeleteCollection(DeleteCollectionRequest) returns (DeleteCollectionResponse) {
+    option (google.api.http) = {delete: "/collection/{collection_id}"};
+  }
+}
+
+message CreateProjectRequest {
+  // collection which will own this project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata to associate with this project
+  optional google.protobuf.Value metadata = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // composition parameters
+  optional Rendering rendering = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // encoding parameters
+  optional Encoding encoding = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+
+  // composition/layout source of the broadcast
+  Composition composition = 5 [(google.api.field_behavior) = REQUIRED];
+
+  // maximum duration of project broadcasts (ms)
+  optional uint32 max_duration = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "172800000",
+    default: "172800000",
+    maximum: 604800000
+  }];
+
+  // request webrtc services
+  optional WebRtc webrtc = 7;
+
+  // optimal broadcast location (for routing and delay)
+  optional LatLong location = 9;
+}
+
+message CreateProjectResponse {
+  Project project = 1;
+}
+
+message UpdateProjectRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // fields to update
+  google.protobuf.FieldMask update_mask = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"metadata, maxDuration, rendering.video.frameRate\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata to associate with this project
+  optional google.protobuf.Value metadata = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // composition parameters
+  optional Rendering rendering = 5;
+
+  // encoding parameters
+  optional Encoding encoding = 6;
+
+  // composition/layout source of the broadcast
+  optional Composition composition = 7;
+
+  // maximum duration of project broadcasts (ms)
+  optional uint32 max_duration = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "172800000",
+    maximum: 604800000
+  }];
+
+  // configuration for webrtc services (if requested)
+  optional WebRtc webrtc = 9;
+
+  // optimal broadcast location (for routing and delay)
+  optional LatLong location = 10;
+}
+
+message UpdateProjectResponse {
+  // updated project
+  Project project = 1;
+
+  // indicates whether the broadcast was updated as a function of this request
+  bool broadcast_updated = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+}
+
+message DeleteProjectRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // forcibly end broadcast in progress
+  optional bool force = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false",
+    default: "false"
+  }];
+}
+
+message DeleteProjectResponse {
+  // was a broadcast stopped
+  bool broadcast_stopped = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+
+  // the number of associated layouts deleted
+  uint32 layouts_deleted = 2;
+}
+
+message StartProjectBroadcastRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // also start webrtc room
+  optional bool webrtc_start = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "false"
+  }];
+}
+
+message StartProjectBroadcastResponse {
+  // the id of the broadcast started
+  string broadcast_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+}
+
+message StopProjectBroadcastRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // stop the associated webrtc room,
+  optional bool webrtc_stop = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "false"
+  }];
+}
+
+message StopProjectBroadcastResponse {}
+
+message GetProjectRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // also query project broadcast status
+  optional bool status = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "false"
+  }];
+}
+
+message GetProjectResponse {
+  // the request project
+  Project project = 1;
+  // the status of the project broadcast (if requested)
+  optional ProjectBroadcastStatus status = 2;
+}
+
+message GetProjectBroadcastSnapshotRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // snapshot binary format
+  optional ImageFormat format = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"IMAGE_FORMAT_JPEG\"",
+    default: "IMAGE_FORMAT_JPEG"
+  }];
+}
+
+message GetProjectBroadcastSnapshotResponse {
+  // the format of the returned snapshot
+  ImageFormat format = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"IMAGE_FORMAT_JPEG\""}];
+
+  // the binary snapshot
+  bytes image = 2;
+}
+
+message GetProjectBroadcastStatusRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetProjectBroadcastStatusResponse {
+  // the status of the project broadcast
+  ProjectBroadcastStatus status = 1;
+}
+
+message StartProjectWebRtcRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message StartProjectWebRtcResponse {}
+
+message StopProjectWebRtcRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message StopProjectWebRtcResponse {}
+
+// The Project Service operates on a Project.
+service ProjectService {
+  // Create Project
+  //
+  // Create a new project
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {
+    option (google.api.http) = {
+      post: "/collection/{collection_id}/project",
+      body: "*"
+    };
+  }
+
+  // Get Project
+  //
+  // Get an existing project
+  rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {
+    option (google.api.http) = {get: "/collection/{collection_id}/project/{project_id}"};
+  }
+
+  // Delete Project
+  //
+  // Delete a project
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse) {
+    option (google.api.http) = {delete: "/collection/{collection_id}/project/{project_id}"};
+  }
+
+  // Update Project
+  //
+  // Updates a project
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse) {
+    option (google.api.http) = {
+      patch: "/collection/{collection_id}/project/{project_id}",
+      body: "*"
+    };
+  }
+
+  // Start Broadcast
+  //
+  // Start broadcasting a project
+  rpc StartProjectBroadcast(StartProjectBroadcastRequest) returns (StartProjectBroadcastResponse) {
+    option (google.api.http) = {put: "/collection/{collection_id}/project/{project_id}/broadcast/start"};
+  }
+
+  // Stop Broadcast
+  //
+  // Stop broadcasting a project
+  rpc StopProjectBroadcast(StopProjectBroadcastRequest) returns (StopProjectBroadcastResponse) {
+    option (google.api.http) = {put: "/collection/{collection_id}/project/{project_id}/broadcast/stop"};
+  }
+
+  // Start WebRTC
+  //
+  // Start WebRTC services
+  rpc StartProjectWebRtc(StartProjectWebRtcRequest) returns (StartProjectWebRtcResponse) {
+    option (google.api.http) = {put: "/collection/{collection_id}/project/{project_id}/webrtc/start"};
+  }
+
+  // Stop WebRTC
+  //
+  // Stop WebRTC services
+  rpc StopProjectWebRtc(StopProjectWebRtcRequest) returns (StopProjectWebRtcResponse) {
+    option (google.api.http) = {put: "/collection/{collection_id}/project/{project_id}/webrtc/stop"};
+  }
+
+  // Get Snapshot
+  //
+  // Get a snapshot of the current output frame of the broadcast
+  rpc GetProjectBroadcastSnapshot(GetProjectBroadcastSnapshotRequest) returns (GetProjectBroadcastSnapshotResponse) {
+    option (google.api.http) = {get:
+        "/collection/{collection_id}/project/{project_id}/broadcast/"
+        "snapshot"
+};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {produces: "image/jpeg"};
+  }
+
+  // Get Broadcast Status
+  //
+  // Get the broadcast status of the project
+  rpc GetProjectBroadcastStatus(GetProjectBroadcastStatusRequest) returns (GetProjectBroadcastStatusResponse) {
+    option (google.api.http) = {get:
+        "/collection/{collection_id}/project/{project_id}/broadcast/"
+        "status"
+};
+  }
+}
+
+message CreateDestinationRequest {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which will own this destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata associated with this destination
+  optional google.protobuf.Value metadata = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // destination address (select one)
+  DestinationAddress address = 5;
+
+  // enable or disable this destination
+  optional bool enabled = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true",
+    default: "true"
+  }];
+
+  // timeout (in milliseconds) to wait before resetting a connection
+  optional uint32 timeout = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "5000",
+    default: "5000",
+    minimum: 100,
+    maximum: 30000
+  }];
+}
+
+message CreateDestinationResponse {
+  // the newly created destination
+  Destination destination = 1;
+}
+
+message GetDestinationRequest {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetDestinationResponse {
+  // the requested destination
+  Destination destination = 1;
+}
+
+message DeleteDestinationRequest {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // forcibly remove destination if enabled
+  optional bool force = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false",
+    default: "false"
+  }];
+}
+
+message DeleteDestinationResponse {
+  // indicates whether the broadcast was updated as a function of this request
+  bool broadcast_updated = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+}
+
+message UpdateDestinationRequest {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // fields to update (default updates any non-null field)
+  google.protobuf.FieldMask update_mask = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"metadata, address.rtmpPush.url\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata associated with this destination
+  optional google.protobuf.Value metadata = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // destination address (select one)
+  optional DestinationAddress address = 6;
+
+  // enable or disable this destination
+  optional bool enabled = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true",
+    default: "true"
+  }];
+
+  // timeout (in milliseconds) to wait before resetting a connection
+  optional uint32 timeout = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "5000",
+    minimum: 100,
+    maximum: 30000
+  }];
+}
+
+message UpdateDestinationResponse {
+  // updated destination
+  Destination destination = 1;
+
+  // indicates whether the broadcast was updated as a function of this request
+  bool broadcast_updated = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+}
+
+// The Destination Service operates on Project Destinations. Destinations
+// designate where a Broadcast associated with a Project is distributed
+// downstream.
+service DestinationService {
+  // Create Destination
+  //
+  // Create a new Destination
+  rpc CreateDestination(CreateDestinationRequest) returns (CreateDestinationResponse) {
+    option (google.api.http) = {
+      post: "/collection/{collection_id}/project/{project_id}/destination",
+      body: "*"
+    };
+  }
+
+  // Get Destination
+  //
+  // Get an existing Destination.
+  rpc GetDestination(GetDestinationRequest) returns (GetDestinationResponse) {
+    option (google.api.http) = {get:
+        "/collection/{collection_id}/project/{project_id}/destination/"
+        "{destination_id}"
+};
+  }
+
+  // Update Destination
+  //
+  // Update a destination
+  rpc UpdateDestination(UpdateDestinationRequest) returns (UpdateDestinationResponse) {
+    option (google.api.http) = {
+      patch:
+        "/collection/{collection_id}/project/{project_id}/destination/"
+        "{destination_id}",
+      body: "*"
+    };
+  }
+
+  // Delete Destination
+  //
+  // Delete a destination
+  rpc DeleteDestination(DeleteDestinationRequest) returns (DeleteDestinationResponse) {
+    option (google.api.http) = {delete:
+        "/collection/{collection_id}/project/{project_id}/destination/"
+        "{destination_id}"
+};
+  }
+}
+
+message CreateSourceRequest {
+  // collection which will own this collection live source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata to associate with this collection live source
+  optional google.protobuf.Value metadata = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // type of collection live source
+  SourceAddress address = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // enable real-time previews
+  optional PreviewAddress preview = 4;
+}
+
+message CreateSourceResponse {
+  Source source = 1;
+}
+
+message DeleteSourceRequest {
+  // collection which owns the live source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // live source id
+  string source_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // delete a live source even if it is in use in a broadcast
+  optional bool force = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false",
+    default: "false"
+  }];
+}
+
+message DeleteSourceResponse {
+  // project ids owned by this collection which were affected
+  repeated string project_ids_updated = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "[\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"]"}];
+}
+
+message AddSourceToProjectRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which will own the source
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // live source id
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // allow this source to trigger a project broadcast
+  optional SourceTrigger trigger = 4;
+}
+
+message AddSourceToProjectResponse {
+  // updated project
+  Project project = 1;
+
+  // indicates whether the broadcast was updated as a function of this request
+  bool broadcast_updated = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+}
+
+message UpdateSourceInProjectRequest {
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which will own the source
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // live source id
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // fields to update (default updates any non-null field)
+  google.protobuf.FieldMask update_mask = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"metadata\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // allow this source to trigger a project broadcast
+  optional SourceTrigger trigger = 5;
+}
+
+message UpdateSourceInProjectResponse {
+  // updated project
+  Project project = 1;
+}
+
+message GetSourceRequest {
+  // collection which owns the project which owns the source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // source id
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetSourceResponse {
+  Source source = 1;
+}
+
+message GetSourcesRequest {
+  // collection which owns the project which owns the source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message GetSourcesResponse {
+  repeated Source sources = 1;
+}
+
+message UpdateSourceRequest {
+  // collection which owns the project which owns the source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // source id
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // fields to update (default updates any non-null field)
+  google.protobuf.FieldMask update_mask = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"metadata\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // arbitrary metadata to associate with this source
+  optional google.protobuf.Value metadata = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+
+  // type of collection live source
+  optional SourceAddress address = 6;
+
+  // enable real-time previews
+  optional PreviewAddress preview = 7;
+}
+
+message UpdateSourceResponse {
+  // updated source
+  Source source = 1;
+
+  // indicates whether the broadcast was updated as a function of this request
+  bool broadcast_updated = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+}
+
+message RemoveSourceFromProjectRequest {
+  // the id of the parent Collection
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the id of the Project
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the id of the Source
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // delete a live source even if it is in use in a broadcast
+  optional bool force = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false",
+    default: "false"
+  }];
+}
+
+message RemoveSourceFromProjectResponse {
+  // updated project
+  Project project = 1;
+
+  // indicates whether the broadcast was updated as a function of this request
+  bool broadcast_updated = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
+}
+
+// The Source Service operates on Collection Live Sources and Project Sources.
+service SourceService {
+  // Create Collection Live Source
+  //
+  // Create a new live source in a collection
+  // ### Permissions
+  // * scope: `SCOPE_VAPI_CREATE`
+  rpc CreateSource(CreateSourceRequest) returns (CreateSourceResponse) {
+    option (google.api.http) = {
+      post: "/collection/{collection_id}/source",
+      body: "*"
+    };
+  }
+
+  // Delete Live Source
+  //
+  // Deletes a live source from a collection
+  rpc DeleteSource(DeleteSourceRequest) returns (DeleteSourceResponse) {
+    option (google.api.http) = {delete: "/collection/{collection_id}/source/{source_id}"};
+  }
+
+  // Update Source
+  //
+  // Update attributes of the Source.
+  rpc UpdateSource(UpdateSourceRequest) returns (UpdateSourceResponse) {
+    option (google.api.http) = {
+      patch: "/collection/{collection_id}/source/{source_id}",
+      body: "*"
+    };
+  }
+
+  // Update Source
+  //
+  // Update attributes of the Source.
+  rpc UpdateSourceInProject(UpdateSourceInProjectRequest) returns (UpdateSourceInProjectResponse) {
+    option (google.api.http) = {
+      patch:
+        "/collection/{collection_id}/project/{project_id}/source/"
+        "{source_id}",
+      body: "*"
+    };
+  }
+
+  // Get Source
+  //
+  // Get an existing source in a project
+  rpc GetSource(GetSourceRequest) returns (GetSourceResponse) {
+    option (google.api.http) = {get: "/collection/{collection_id}/source/{source_id}"};
+  }
+
+  // Get Source
+  //
+  // Get existing sources in a collection
+  rpc GetSources(GetSourcesRequest) returns (GetSourcesResponse) {
+    option (google.api.http) = {get: "/collection/{collection_id}/source"};
+  }
+
+  // Add Source to Project
+  //
+  // Add a source to a project
+  rpc AddSourceToProject(AddSourceToProjectRequest) returns (AddSourceToProjectResponse) {
+    option (google.api.http) = {
+      put:
+        "/collection/{collection_id}/project/{project_id}/source/"
+        "{source_id}",
+      body: "*"
+    };
+  }
+
+  // Delete Source From Project
+  //
+  // Removes a source from a project.
+  rpc RemoveSourceFromProject(RemoveSourceFromProjectRequest) returns (RemoveSourceFromProjectResponse) {
+    option (google.api.http) = {delete:
+        "/collection/{collection_id}/project/{project_id}/source/"
+        "{source_id}"
+};
+  }
+}
+
+message CreateAccessTokenRequest {
+  // service-specific user id
+  // ### Usage
+  // * this should be an opaque GUID with no spaces
+  string service_user_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  optional string display_name = 4;
+
+  // the requested role
+  optional Role role = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"ROLE_OWNER\""}];
+
+  // requested duration of token before it expires (ms)
+  optional uint32 max_duration = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "172800000",
+    default: "172800000"
+  }];
+}
+
+message CreateAccessTokenResponse {
+  // access token for owner to be asserted in subsequent Video and Layout API
+  // calls
+  string access_token = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+}
+
+// The Backend Authentication Service provides token services for partner
+// backend systems
+service BackendAuthenticationService {
+  // Create Access Token
+  //
+  // Create an access token for a session host
+  rpc CreateAccessToken(CreateAccessTokenRequest) returns (CreateAccessTokenResponse) {
+    option (google.api.http) = {
+      post: "/authentication/token",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKey"
+          value: {}
+        }
+      }
+    };
+  }
+}
+
+// defined roles
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+
+  ROLE_HOST = 1;
+  ROLE_COHOST = 2;
+  ROLE_CONTRIBUTOR = 3;
+  ROLE_GUEST = 4;
+
+  ROLE_VIEWER = 5;
+  ROLE_RENDERER = 6;
+
+  ROLE_PLATFORM = 7;
+  ROLE_IMPERSONATE = 8;
+}
+
+// create an immutable, single-use guest access token
+message GuestAccessTokenDirect {
+  // display name of the guest (used to generate webrtc particpant name)
+  string display_name = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Eddy Current\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // service-specific user id (used for record auditing purposes)
+  optional string service_user_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+}
+
+// create a multi-use guest access token
+message GuestAccessTokenExchange {
+  // the max duration this token is valid for redemption
+  optional uint32 max_duration = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "300000",
+    default: "300000"
+  }];
+}
+
+// the type of access token (selec one)
+message GuestAccessToken {
+  oneof type {
+    GuestAccessTokenDirect direct = 1;
+    GuestAccessTokenExchange exchange = 2;
+  }
+}
+
+message CreateGuestAccessTokenRequest {
+  // id of the collection this token is allowed to access
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // id of the project this token is allowed to access
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // requested duration (ms) of token before it expires
+  optional uint32 max_duration = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "172800000",
+    default: "172800000"
+  }];
+
+  // the requested role of the guest
+  Role role = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"ROLE_GUEST\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the type of token
+  GuestAccessToken token = 5 [(google.api.field_behavior) = REQUIRED];
+
+  // request a shortened url
+  optional string url = 6 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"https:\\/\\/rainmaker.gg\\/overlay\\/"
+        "e67cfd6ad57560962fddcf63611d2834\\/1\""
+},
+    (common.v21.field_options).url_protocols = "'http','https'"
+  ];
+}
+
+message CreateGuestAccessTokenResponse {
+  // access token for guest to be used in subsequent API calls
+  string access_token = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // the shortened url
+  optional string url = 2;
+}
+
+message CreateWebRtcAccessTokenRequest {
+  // id of the collection this token is allowed to access
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // id of the project this token is allowed to access
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // display name of the guest (used to generate webrtc particpant name)
+  string display_name = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Eddy Current\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+message CreateWebRtcAccessTokenResponse {
+  // the webrtc token parameters
+  WebRtcAccess webrtc_access = 2;
+}
+
+message RefreshAccessTokenRequest {}
+
+message RefreshAccessTokenResponse {}
+
+message GuestCode {
+  option (common.v21.message_options).database_model = true;
+  option (common.v21.message_options).database_custom_id = true;
+
+  // collection which owns the project
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_owner_reference = "Collection",
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // project id
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (common.v21.field_options).database_owner_reference = "Project",
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // the short url code
+  string code = 3 [
+    (common.v21.field_options).database_id = true,
+    (google.api.field_behavior) = IMMUTABLE
+  ];
+
+  // the short url
+  string url = 4;
+
+  // auto-delete after time
+  google.protobuf.Timestamp auto_delete = 5 [(common.v21.field_options).database_auto_delete = true];
+}
+
+message GuestCodeRedirectRequest {
+  // the id of the service
+  string service_id = 1;
+  // the short url code
+  string code = 2;
+}
+message GuestCodeRedirectResponse {}
+
+// The Authentication Service provides token services for clients
+service AuthenticationService {
+  // Create Guest Access Token
+  //
+  // Create an access token for a guest
+  rpc CreateGuestAccessToken(CreateGuestAccessTokenRequest) returns (CreateGuestAccessTokenResponse) {
+    option (google.api.http) = {
+      post: "/authentication/token/guest",
+      body: "*"
+    };
+  }
+
+  // Refresh Access Token
+  //
+  // Forcibly refresh an access token prior to expiration
+  rpc RefreshAccessToken(RefreshAccessTokenRequest) returns (RefreshAccessTokenResponse) {
+    option (google.api.http) = {
+      put: "/authentication/token",
+      body: "*"
+    };
+  }
+
+  // Create WebRTC Access Token
+  //
+  // Create a WebRTC Access Token
+  rpc CreateWebRtcAccessToken(CreateWebRtcAccessTokenRequest) returns (CreateWebRtcAccessTokenResponse) {}
+}
+
+message JsonWebKey {
+  string alg = 1;
+  string kty = 2;
+  string use = 3;
+  string kid = 4;
+
+  string e = 5;
+  string n = 6;
+}
+
+message GetJsonWebKeySetRequest {}
+message GetJsonWebKeySetResponse {
+  // public keys used to sign access tokens
+  repeated JsonWebKey keys = 1;
+}
+
+message GetTestTokenRequest {}
+message GetTestTokenResponse {
+  // a dummy access key (with no grants)
+  string access_token = 1;
+}
+
+// The Public Authentication Service provides token verification services
+service PublicAuthenticationService {
+  // Get Public Keys
+  //
+  // Get public keys used to sign access tokens
+  rpc GetJsonWebKeySet(GetJsonWebKeySetRequest) returns (GetJsonWebKeySetResponse) {
+    option (google.api.http) = {get: "/authentication/jwks"};
+  }
+
+  // Exchange Guest Access Token
+  //
+  // Exchange a guest access token with updated user identifiers
+  rpc GuestCodeRedirect(GuestCodeRedirectRequest) returns (GuestCodeRedirectResponse) {
+    option (google.api.http) = {get: "/r/{service_id}/{code}"};
+  }
+}
+
+// ------------ EVENT
+
+// an error that occured during a broadcast
+enum ProjectBroadcastError {
+  PROJECT_BROADCAST_ERROR_UNSPECIFIED = 0;
+  PROJECT_BROADCAST_ERROR_INTERNAL = 1;
+  PROJECT_BROADCAST_ERROR_DURATION_EXCEEDED = 2;
+}
+
+// a destination was created
+message DestinationCreateEvent {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // the new destination
+  Destination destination = 4;
+}
+
+// a destination was deleted
+message DestinationDeleteEvent {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// a destination was updated
+message DestinationUpdateEvent {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // changed fields
+  repeated string update_mask = 4;
+
+  // the updated destination
+  Destination destination = 5;
+}
+
+// the state of the connection
+enum ConnectState {
+  CONNECT_STATE_UNSPECIFIED = 0;
+  CONNECT_STATE_CONNECTED = 1;
+  CONNECT_STATE_DISCONNECTED = 2;
+}
+
+// the state of a destination changed
+message DestinationStateEvent {
+  // collection which owns the project which owns the destination
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project which owns the destination
+  string project_id = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // destination id
+  string destination_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // what changed
+  oneof type {
+    // the state of the connection changed
+    ConnectState connect = 4;
+  }
+}
+
+// a project was created
+message ProjectCreateEvent {
+  // collection which owns the project
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // project id
+  string project_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // the new project
+  Project project = 3;
+}
+
+// a project was deleted
+message ProjectDeleteEvent {
+  // collection which owns the project
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // project id
+  string project_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+}
+
+// a project was updated
+message ProjectUpdateEvent {
+  // collection which owns the project
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // project id
+  string project_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // the fields that were updated
+  repeated string update_mask = 3;
+
+  // the updated project
+  Project project = 4;
+}
+
+// the state of a project broadcast has changed
+message ProjectBroadcastStateEvent {
+  // collection which owns the project
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // project id
+  string project_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // the id of the broadcast
+  string broadcast_id = 3;
+
+  // the type of state change
+  oneof type {
+    ProjectBroadcastPhase phase = 4;
+    ProjectBroadcastError error = 5;
+  }
+}
+
+// a collection was created
+message CollectionCreateEvent {
+  // collection id
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // the new collection
+  Collection collection = 2;
+}
+
+// a collection was deleted
+message CollectionDeleteEvent {
+  // collection id
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+}
+
+// a collection was updated
+message CollectionUpdateEvent {
+  // collection id
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // the fields which were updated
+  repeated string update_mask = 2;
+
+  // the updated collection
+  Collection collection = 3;
+}
+
+message SourceCreateEvent {
+  // collection which owns the source
+  string collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // source id
+  string source_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  Source source = 3;
+}
+
+message SourceDeleteEvent {
+  string collection_id = 1;
+  string source_id = 2;
+}
+
+message SourceUpdateEvent {
+  string collection_id = 1;
+  string source_id = 2;
+  repeated string update_mask = 3;
+
+  Source source = 4;
+}
+
+message SourceAddEvent {
+  string collection_id = 1;
+  string source_id = 2;
+  string project_id = 3;
+
+  Source source = 4;
+}
+
+message SourceRemoveEvent {
+  string collection_id = 1;
+  string source_id = 2;
+  string project_id = 3;
+}
+
+// the state of a destination changed
+message SourceStateEvent {
+  // collection which owns the project which owns the source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // project id
+  string project_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""}];
+
+  // destination id
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // what changed
+  oneof type {
+    // the state of the connection changed
+    ConnectState connect = 4;
+  }
+}
+
+enum EventSubType {
+  EVENT_SUB_TYPE_UNSPECIFIED = 0;
+  EVENT_SUB_TYPE_CREATE = 1;
+  EVENT_SUB_TYPE_UPDATE = 2;
+  EVENT_SUB_TYPE_DELETE = 3;
+  EVENT_SUB_TYPE_ADD = 4;
+  EVENT_SUB_TYPE_REMOVE = 5;
+  EVENT_SUB_TYPE_STATE = 6;
+}
+
+enum EventType {
+  EVENT_TYPE_UNSPECIFIED = 0;
+  EVENT_TYPE_COLLECTION = 1;
+  EVENT_TYPE_PROJECT = 2;
+  EVENT_TYPE_SOURCE = 4;
+  EVENT_TYPE_DESTINATION = 5;
+}
+
+message CollectionEvent {
+  oneof type {
+    CollectionCreateEvent create = 1;
+    CollectionUpdateEvent update = 2;
+    CollectionDeleteEvent delete = 3;
+  }
+}
+
+message DestinationEvent {
+  oneof type {
+    DestinationCreateEvent create = 1;
+    DestinationUpdateEvent update = 2;
+    DestinationDeleteEvent delete = 3;
+
+    DestinationStateEvent state = 4;
+  }
+}
+
+message ProjectEvent {
+  oneof type {
+    ProjectCreateEvent create = 1;
+    ProjectUpdateEvent update = 2;
+    ProjectDeleteEvent delete = 3;
+
+    ProjectBroadcastStateEvent state = 4;
+  }
+}
+
+message SourceEvent {
+  oneof type {
+    SourceCreateEvent create = 1;
+    SourceUpdateEvent update = 2;
+    SourceDeleteEvent delete = 3;
+    SourceAddEvent add = 4;
+    SourceDeleteEvent remove = 5;
+
+    SourceStateEvent state = 6;
+  }
+}
+
+message LiveEvent {
+  oneof type {
+    CollectionEvent collection = 1;
+    DestinationEvent destination = 2;
+    ProjectEvent project = 3;
+    SourceEvent source = 4;
+
+    google.protobuf.NullValue unspecified = 5;
+  }
+}

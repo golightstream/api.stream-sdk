@@ -582,6 +582,55 @@ public final class Openapiv2 {
 
     /**
      * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag> 
+        getTagsList();
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag getTags(int index);
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    int getTagsCount();
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    java.util.List<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder> 
+        getTagsOrBuilderList();
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder getTagsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
      * Additional external documentation.
      * </pre>
      *
@@ -608,10 +657,22 @@ public final class Openapiv2 {
     grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentationOrBuilder getExternalDocsOrBuilder();
 
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
     int getExtensionsCount();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
     boolean containsExtensions(
@@ -623,11 +684,23 @@ public final class Openapiv2 {
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensions();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensionsMap();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
 
@@ -635,6 +708,12 @@ public final class Openapiv2 {
         java.lang.String key,
         com.google.protobuf.Value defaultValue);
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
 
@@ -650,7 +729,7 @@ public final class Openapiv2 {
    *    info: {
    *      title: "Echo API";
    *      version: "1.0";
-   *      description: ";
+   *      description: "";
    *      contact: {
    *        name: "gRPC-Gateway project";
    *        url: "https://github.com/grpc-ecosystem/grpc-gateway";
@@ -658,7 +737,7 @@ public final class Openapiv2 {
    *      };
    *      license: {
    *        name: "BSD 3-Clause License";
-   *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+   *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
    *      };
    *    };
    *    schemes: HTTPS;
@@ -686,6 +765,7 @@ public final class Openapiv2 {
       consumes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       produces_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       security_ = java.util.Collections.emptyList();
+      tags_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -826,6 +906,15 @@ public final class Openapiv2 {
                   input.readMessage(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.SecurityRequirement.parser(), extensionRegistry));
               break;
             }
+            case 106: {
+              if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                tags_ = new java.util.ArrayList<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag>();
+                mutable_bitField0_ |= 0x00000020;
+              }
+              tags_.add(
+                  input.readMessage(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.parser(), extensionRegistry));
+              break;
+            }
             case 114: {
               grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentation.Builder subBuilder = null;
               if (externalDocs_ != null) {
@@ -840,10 +929,10 @@ public final class Openapiv2 {
               break;
             }
             case 122: {
-              if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+              if (!((mutable_bitField0_ & 0x00000040) != 0)) {
                 extensions_ = com.google.protobuf.MapField.newMapField(
                     ExtensionsDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000040;
               }
               com.google.protobuf.MapEntry<java.lang.String, com.google.protobuf.Value>
               extensions__ = input.readMessage(
@@ -878,6 +967,9 @@ public final class Openapiv2 {
         }
         if (((mutable_bitField0_ & 0x00000010) != 0)) {
           security_ = java.util.Collections.unmodifiableList(security_);
+        }
+        if (((mutable_bitField0_ & 0x00000020) != 0)) {
+          tags_ = java.util.Collections.unmodifiableList(tags_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1535,6 +1627,71 @@ public final class Openapiv2 {
       return security_.get(index);
     }
 
+    public static final int TAGS_FIELD_NUMBER = 13;
+    private java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag> tags_;
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag> getTagsList() {
+      return tags_;
+    }
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder> 
+        getTagsOrBuilderList() {
+      return tags_;
+    }
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    @java.lang.Override
+    public int getTagsCount() {
+      return tags_.size();
+    }
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag getTags(int index) {
+      return tags_.get(index);
+    }
+    /**
+     * <pre>
+     * A list of tags for API documentation control. Tags can be used for logical
+     * grouping of operations by resources or any other qualifier.
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+     */
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder getTagsOrBuilder(
+        int index) {
+      return tags_.get(index);
+    }
+
     public static final int EXTERNAL_DOCS_FIELD_NUMBER = 14;
     private grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentation externalDocs_;
     /**
@@ -1600,6 +1757,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap().size();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
 
@@ -1618,6 +1781,12 @@ public final class Openapiv2 {
       return getExtensionsMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -1626,6 +1795,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -1639,6 +1814,12 @@ public final class Openapiv2 {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -1705,6 +1886,9 @@ public final class Openapiv2 {
       }
       for (int i = 0; i < security_.size(); i++) {
         output.writeMessage(12, security_.get(i));
+      }
+      for (int i = 0; i < tags_.size(); i++) {
+        output.writeMessage(13, tags_.get(i));
       }
       if (externalDocs_ != null) {
         output.writeMessage(14, getExternalDocs());
@@ -1783,6 +1967,10 @@ public final class Openapiv2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(12, security_.get(i));
       }
+      for (int i = 0; i < tags_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(13, tags_.get(i));
+      }
       if (externalDocs_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(14, getExternalDocs());
@@ -1837,6 +2025,8 @@ public final class Openapiv2 {
       }
       if (!getSecurityList()
           .equals(other.getSecurityList())) return false;
+      if (!getTagsList()
+          .equals(other.getTagsList())) return false;
       if (hasExternalDocs() != other.hasExternalDocs()) return false;
       if (hasExternalDocs()) {
         if (!getExternalDocs()
@@ -1888,6 +2078,10 @@ public final class Openapiv2 {
       if (getSecurityCount() > 0) {
         hash = (37 * hash) + SECURITY_FIELD_NUMBER;
         hash = (53 * hash) + getSecurityList().hashCode();
+      }
+      if (getTagsCount() > 0) {
+        hash = (37 * hash) + TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getTagsList().hashCode();
       }
       if (hasExternalDocs()) {
         hash = (37 * hash) + EXTERNAL_DOCS_FIELD_NUMBER;
@@ -2001,7 +2195,7 @@ public final class Openapiv2 {
      *    info: {
      *      title: "Echo API";
      *      version: "1.0";
-     *      description: ";
+     *      description: "";
      *      contact: {
      *        name: "gRPC-Gateway project";
      *        url: "https://github.com/grpc-ecosystem/grpc-gateway";
@@ -2009,7 +2203,7 @@ public final class Openapiv2 {
      *      };
      *      license: {
      *        name: "BSD 3-Clause License";
-     *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+     *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
      *      };
      *    };
      *    schemes: HTTPS;
@@ -2077,6 +2271,7 @@ public final class Openapiv2 {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getSecurityFieldBuilder();
+          getTagsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -2112,6 +2307,12 @@ public final class Openapiv2 {
           bitField0_ = (bitField0_ & ~0x00000010);
         } else {
           securityBuilder_.clear();
+        }
+        if (tagsBuilder_ == null) {
+          tags_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+        } else {
+          tagsBuilder_.clear();
         }
         if (externalDocsBuilder_ == null) {
           externalDocs_ = null;
@@ -2185,6 +2386,15 @@ public final class Openapiv2 {
           result.security_ = security_;
         } else {
           result.security_ = securityBuilder_.build();
+        }
+        if (tagsBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) != 0)) {
+            tags_ = java.util.Collections.unmodifiableList(tags_);
+            bitField0_ = (bitField0_ & ~0x00000020);
+          }
+          result.tags_ = tags_;
+        } else {
+          result.tags_ = tagsBuilder_.build();
         }
         if (externalDocsBuilder_ == null) {
           result.externalDocs_ = externalDocs_;
@@ -2314,6 +2524,32 @@ public final class Openapiv2 {
                    getSecurityFieldBuilder() : null;
             } else {
               securityBuilder_.addAllMessages(other.security_);
+            }
+          }
+        }
+        if (tagsBuilder_ == null) {
+          if (!other.tags_.isEmpty()) {
+            if (tags_.isEmpty()) {
+              tags_ = other.tags_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+            } else {
+              ensureTagsIsMutable();
+              tags_.addAll(other.tags_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.tags_.isEmpty()) {
+            if (tagsBuilder_.isEmpty()) {
+              tagsBuilder_.dispose();
+              tagsBuilder_ = null;
+              tags_ = other.tags_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+              tagsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTagsFieldBuilder() : null;
+            } else {
+              tagsBuilder_.addAllMessages(other.tags_);
             }
           }
         }
@@ -4096,6 +4332,336 @@ public final class Openapiv2 {
         return securityBuilder_;
       }
 
+      private java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag> tags_ =
+        java.util.Collections.emptyList();
+      private void ensureTagsIsMutable() {
+        if (!((bitField0_ & 0x00000020) != 0)) {
+          tags_ = new java.util.ArrayList<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag>(tags_);
+          bitField0_ |= 0x00000020;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder> tagsBuilder_;
+
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag> getTagsList() {
+        if (tagsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(tags_);
+        } else {
+          return tagsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public int getTagsCount() {
+        if (tagsBuilder_ == null) {
+          return tags_.size();
+        } else {
+          return tagsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag getTags(int index) {
+        if (tagsBuilder_ == null) {
+          return tags_.get(index);
+        } else {
+          return tagsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder setTags(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag value) {
+        if (tagsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTagsIsMutable();
+          tags_.set(index, value);
+          onChanged();
+        } else {
+          tagsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder setTags(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder builderForValue) {
+        if (tagsBuilder_ == null) {
+          ensureTagsIsMutable();
+          tags_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          tagsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder addTags(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag value) {
+        if (tagsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTagsIsMutable();
+          tags_.add(value);
+          onChanged();
+        } else {
+          tagsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder addTags(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag value) {
+        if (tagsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTagsIsMutable();
+          tags_.add(index, value);
+          onChanged();
+        } else {
+          tagsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder addTags(
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder builderForValue) {
+        if (tagsBuilder_ == null) {
+          ensureTagsIsMutable();
+          tags_.add(builderForValue.build());
+          onChanged();
+        } else {
+          tagsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder addTags(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder builderForValue) {
+        if (tagsBuilder_ == null) {
+          ensureTagsIsMutable();
+          tags_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          tagsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder addAllTags(
+          java.lang.Iterable<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag> values) {
+        if (tagsBuilder_ == null) {
+          ensureTagsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, tags_);
+          onChanged();
+        } else {
+          tagsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder clearTags() {
+        if (tagsBuilder_ == null) {
+          tags_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+          onChanged();
+        } else {
+          tagsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public Builder removeTags(int index) {
+        if (tagsBuilder_ == null) {
+          ensureTagsIsMutable();
+          tags_.remove(index);
+          onChanged();
+        } else {
+          tagsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder getTagsBuilder(
+          int index) {
+        return getTagsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder getTagsOrBuilder(
+          int index) {
+        if (tagsBuilder_ == null) {
+          return tags_.get(index);  } else {
+          return tagsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public java.util.List<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder> 
+           getTagsOrBuilderList() {
+        if (tagsBuilder_ != null) {
+          return tagsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(tags_);
+        }
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder addTagsBuilder() {
+        return getTagsFieldBuilder().addBuilder(
+            grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder addTagsBuilder(
+          int index) {
+        return getTagsFieldBuilder().addBuilder(
+            index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * A list of tags for API documentation control. Tags can be used for logical
+       * grouping of operations by resources or any other qualifier.
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.Tag tags = 13 [json_name = "tags"];</code>
+       */
+      public java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder> 
+           getTagsBuilderList() {
+        return getTagsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder> 
+          getTagsFieldBuilder() {
+        if (tagsBuilder_ == null) {
+          tagsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.TagOrBuilder>(
+                  tags_,
+                  ((bitField0_ & 0x00000020) != 0),
+                  getParentForChildren(),
+                  isClean());
+          tags_ = null;
+        }
+        return tagsBuilder_;
+      }
+
       private grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentation externalDocs_;
       private com.google.protobuf.SingleFieldBuilderV3<
           grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentation, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentation.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentationOrBuilder> externalDocsBuilder_;
@@ -4278,6 +4844,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap().size();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
 
@@ -4296,6 +4868,12 @@ public final class Openapiv2 {
         return getExtensionsMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -4304,6 +4882,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -4317,6 +4901,12 @@ public final class Openapiv2 {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -4338,6 +4928,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
 
@@ -4357,6 +4953,12 @@ public final class Openapiv2 {
         return internalGetMutableExtensions().getMutableMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
       public Builder putExtensions(
@@ -4372,6 +4974,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 15 [json_name = "extensions"];</code>
        */
 
@@ -4872,10 +5480,22 @@ public final class Openapiv2 {
         int index);
 
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
     int getExtensionsCount();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
     boolean containsExtensions(
@@ -4887,11 +5507,23 @@ public final class Openapiv2 {
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensions();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensionsMap();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
 
@@ -4899,11 +5531,50 @@ public final class Openapiv2 {
         java.lang.String key,
         com.google.protobuf.Value defaultValue);
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
 
     com.google.protobuf.Value getExtensionsOrThrow(
         java.lang.String key);
+
+    /**
+     * <pre>
+     * Custom parameters such as HTTP request headers.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+     * and https://swagger.io/specification/v2/#parameter-object.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+     * @return Whether the parameters field is set.
+     */
+    boolean hasParameters();
+    /**
+     * <pre>
+     * Custom parameters such as HTTP request headers.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+     * and https://swagger.io/specification/v2/#parameter-object.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+     * @return The parameters.
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters getParameters();
+    /**
+     * <pre>
+     * Custom parameters such as HTTP request headers.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+     * and https://swagger.io/specification/v2/#parameter-object.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder getParametersOrBuilder();
   }
   /**
    * <pre>
@@ -5102,6 +5773,19 @@ public final class Openapiv2 {
                   ExtensionsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
               extensions_.getMutableMap().put(
                   extensions__.getKey(), extensions__.getValue());
+              break;
+            }
+            case 114: {
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder subBuilder = null;
+              if (parameters_ != null) {
+                subBuilder = parameters_.toBuilder();
+              }
+              parameters_ = input.readMessage(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(parameters_);
+                parameters_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -5836,6 +6520,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap().size();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
 
@@ -5854,6 +6544,12 @@ public final class Openapiv2 {
       return getExtensionsMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -5862,6 +6558,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -5875,6 +6577,12 @@ public final class Openapiv2 {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -5888,6 +6596,50 @@ public final class Openapiv2 {
         throw new java.lang.IllegalArgumentException();
       }
       return map.get(key);
+    }
+
+    public static final int PARAMETERS_FIELD_NUMBER = 14;
+    private grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parameters_;
+    /**
+     * <pre>
+     * Custom parameters such as HTTP request headers.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+     * and https://swagger.io/specification/v2/#parameter-object.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+     * @return Whether the parameters field is set.
+     */
+    @java.lang.Override
+    public boolean hasParameters() {
+      return parameters_ != null;
+    }
+    /**
+     * <pre>
+     * Custom parameters such as HTTP request headers.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+     * and https://swagger.io/specification/v2/#parameter-object.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+     * @return The parameters.
+     */
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters getParameters() {
+      return parameters_ == null ? grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.getDefaultInstance() : parameters_;
+    }
+    /**
+     * <pre>
+     * Custom parameters such as HTTP request headers.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+     * and https://swagger.io/specification/v2/#parameter-object.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+     */
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder getParametersOrBuilder() {
+      return getParameters();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5951,6 +6703,9 @@ public final class Openapiv2 {
           internalGetExtensions(),
           ExtensionsDefaultEntryHolder.defaultEntry,
           13);
+      if (parameters_ != null) {
+        output.writeMessage(14, getParameters());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -6037,6 +6792,10 @@ public final class Openapiv2 {
         size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(13, extensions__);
       }
+      if (parameters_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(14, getParameters());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -6078,6 +6837,11 @@ public final class Openapiv2 {
           .equals(other.getSecurityList())) return false;
       if (!internalGetExtensions().equals(
           other.internalGetExtensions())) return false;
+      if (hasParameters() != other.hasParameters()) return false;
+      if (hasParameters()) {
+        if (!getParameters()
+            .equals(other.getParameters())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6129,6 +6893,10 @@ public final class Openapiv2 {
       if (!internalGetExtensions().getMap().isEmpty()) {
         hash = (37 * hash) + EXTENSIONS_FIELD_NUMBER;
         hash = (53 * hash) + internalGetExtensions().hashCode();
+      }
+      if (hasParameters()) {
+        hash = (37 * hash) + PARAMETERS_FIELD_NUMBER;
+        hash = (53 * hash) + getParameters().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -6344,6 +7112,12 @@ public final class Openapiv2 {
           securityBuilder_.clear();
         }
         internalGetMutableExtensions().clear();
+        if (parametersBuilder_ == null) {
+          parameters_ = null;
+        } else {
+          parameters_ = null;
+          parametersBuilder_ = null;
+        }
         return this;
       }
 
@@ -6413,6 +7187,11 @@ public final class Openapiv2 {
         }
         result.extensions_ = internalGetExtensions();
         result.extensions_.makeImmutable();
+        if (parametersBuilder_ == null) {
+          result.parameters_ = parameters_;
+        } else {
+          result.parameters_ = parametersBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -6549,6 +7328,9 @@ public final class Openapiv2 {
         }
         internalGetMutableExtensions().mergeFrom(
             other.internalGetExtensions());
+        if (other.hasParameters()) {
+          mergeParameters(other.getParameters());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -8365,6 +9147,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap().size();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
 
@@ -8383,6 +9171,12 @@ public final class Openapiv2 {
         return getExtensionsMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -8391,6 +9185,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -8404,6 +9204,12 @@ public final class Openapiv2 {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -8425,6 +9231,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
 
@@ -8444,6 +9256,12 @@ public final class Openapiv2 {
         return internalGetMutableExtensions().getMutableMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
       public Builder putExtensions(
@@ -8459,6 +9277,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 13 [json_name = "extensions"];</code>
        */
 
@@ -8467,6 +9291,179 @@ public final class Openapiv2 {
         internalGetMutableExtensions().getMutableMap()
             .putAll(values);
         return this;
+      }
+
+      private grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parameters_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder> parametersBuilder_;
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       * @return Whether the parameters field is set.
+       */
+      public boolean hasParameters() {
+        return parametersBuilder_ != null || parameters_ != null;
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       * @return The parameters.
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters getParameters() {
+        if (parametersBuilder_ == null) {
+          return parameters_ == null ? grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.getDefaultInstance() : parameters_;
+        } else {
+          return parametersBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      public Builder setParameters(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters value) {
+        if (parametersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          parameters_ = value;
+          onChanged();
+        } else {
+          parametersBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      public Builder setParameters(
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder builderForValue) {
+        if (parametersBuilder_ == null) {
+          parameters_ = builderForValue.build();
+          onChanged();
+        } else {
+          parametersBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      public Builder mergeParameters(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters value) {
+        if (parametersBuilder_ == null) {
+          if (parameters_ != null) {
+            parameters_ =
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.newBuilder(parameters_).mergeFrom(value).buildPartial();
+          } else {
+            parameters_ = value;
+          }
+          onChanged();
+        } else {
+          parametersBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      public Builder clearParameters() {
+        if (parametersBuilder_ == null) {
+          parameters_ = null;
+          onChanged();
+        } else {
+          parameters_ = null;
+          parametersBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder getParametersBuilder() {
+        
+        onChanged();
+        return getParametersFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder getParametersOrBuilder() {
+        if (parametersBuilder_ != null) {
+          return parametersBuilder_.getMessageOrBuilder();
+        } else {
+          return parameters_ == null ?
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.getDefaultInstance() : parameters_;
+        }
+      }
+      /**
+       * <pre>
+       * Custom parameters such as HTTP request headers.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/
+       * and https://swagger.io/specification/v2/#parameter-object.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.Parameters parameters = 14 [json_name = "parameters"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder> 
+          getParametersFieldBuilder() {
+        if (parametersBuilder_ == null) {
+          parametersBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder>(
+                  getParameters(),
+                  getParentForChildren(),
+                  isClean());
+          parameters_ = null;
+        }
+        return parametersBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -8516,6 +9513,2324 @@ public final class Openapiv2 {
 
     @java.lang.Override
     public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Operation getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ParametersOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:grpc.gateway.protoc_gen_openapiv2.options.Parameters)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter> 
+        getHeadersList();
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter getHeaders(int index);
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    int getHeadersCount();
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    java.util.List<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder> 
+        getHeadersOrBuilderList();
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder getHeadersOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * `Parameters` is a representation of OpenAPI v2 specification's parameters object.
+   * Note: This technically breaks compatibility with the OpenAPI 2 definition structure as we only
+   * allow header parameters to be set here since we do not want users specifying custom non-header
+   * parameters beyond those inferred from the Protobuf schema.
+   * See: https://swagger.io/specification/v2/#parameter-object
+   * </pre>
+   *
+   * Protobuf type {@code grpc.gateway.protoc_gen_openapiv2.options.Parameters}
+   */
+  public static final class Parameters extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:grpc.gateway.protoc_gen_openapiv2.options.Parameters)
+      ParametersOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Parameters.newBuilder() to construct.
+    private Parameters(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Parameters() {
+      headers_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Parameters();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Parameters(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                headers_ = new java.util.ArrayList<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              headers_.add(
+                  input.readMessage(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          headers_ = java.util.Collections.unmodifiableList(headers_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.class, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder.class);
+    }
+
+    public static final int HEADERS_FIELD_NUMBER = 1;
+    private java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter> headers_;
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter> getHeadersList() {
+      return headers_;
+    }
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder> 
+        getHeadersOrBuilderList() {
+      return headers_;
+    }
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    @java.lang.Override
+    public int getHeadersCount() {
+      return headers_.size();
+    }
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter getHeaders(int index) {
+      return headers_.get(index);
+    }
+    /**
+     * <pre>
+     * `Headers` is one or more HTTP header parameter.
+     * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+     * </pre>
+     *
+     * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+     */
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder getHeadersOrBuilder(
+        int index) {
+      return headers_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < headers_.size(); i++) {
+        output.writeMessage(1, headers_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < headers_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, headers_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters)) {
+        return super.equals(obj);
+      }
+      grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters other = (grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters) obj;
+
+      if (!getHeadersList()
+          .equals(other.getHeadersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getHeadersCount() > 0) {
+        hash = (37 * hash) + HEADERS_FIELD_NUMBER;
+        hash = (53 * hash) + getHeadersList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * `Parameters` is a representation of OpenAPI v2 specification's parameters object.
+     * Note: This technically breaks compatibility with the OpenAPI 2 definition structure as we only
+     * allow header parameters to be set here since we do not want users specifying custom non-header
+     * parameters beyond those inferred from the Protobuf schema.
+     * See: https://swagger.io/specification/v2/#parameter-object
+     * </pre>
+     *
+     * Protobuf type {@code grpc.gateway.protoc_gen_openapiv2.options.Parameters}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:grpc.gateway.protoc_gen_openapiv2.options.Parameters)
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ParametersOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.class, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.Builder.class);
+      }
+
+      // Construct using grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getHeadersFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (headersBuilder_ == null) {
+          headers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          headersBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_descriptor;
+      }
+
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters getDefaultInstanceForType() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters build() {
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters buildPartial() {
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters result = new grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters(this);
+        int from_bitField0_ = bitField0_;
+        if (headersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            headers_ = java.util.Collections.unmodifiableList(headers_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.headers_ = headers_;
+        } else {
+          result.headers_ = headersBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters) {
+          return mergeFrom((grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters other) {
+        if (other == grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters.getDefaultInstance()) return this;
+        if (headersBuilder_ == null) {
+          if (!other.headers_.isEmpty()) {
+            if (headers_.isEmpty()) {
+              headers_ = other.headers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureHeadersIsMutable();
+              headers_.addAll(other.headers_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.headers_.isEmpty()) {
+            if (headersBuilder_.isEmpty()) {
+              headersBuilder_.dispose();
+              headersBuilder_ = null;
+              headers_ = other.headers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              headersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getHeadersFieldBuilder() : null;
+            } else {
+              headersBuilder_.addAllMessages(other.headers_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter> headers_ =
+        java.util.Collections.emptyList();
+      private void ensureHeadersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          headers_ = new java.util.ArrayList<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter>(headers_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder> headersBuilder_;
+
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter> getHeadersList() {
+        if (headersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(headers_);
+        } else {
+          return headersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public int getHeadersCount() {
+        if (headersBuilder_ == null) {
+          return headers_.size();
+        } else {
+          return headersBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter getHeaders(int index) {
+        if (headersBuilder_ == null) {
+          return headers_.get(index);
+        } else {
+          return headersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder setHeaders(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter value) {
+        if (headersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHeadersIsMutable();
+          headers_.set(index, value);
+          onChanged();
+        } else {
+          headersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder setHeaders(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder builderForValue) {
+        if (headersBuilder_ == null) {
+          ensureHeadersIsMutable();
+          headers_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          headersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder addHeaders(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter value) {
+        if (headersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHeadersIsMutable();
+          headers_.add(value);
+          onChanged();
+        } else {
+          headersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder addHeaders(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter value) {
+        if (headersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHeadersIsMutable();
+          headers_.add(index, value);
+          onChanged();
+        } else {
+          headersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder addHeaders(
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder builderForValue) {
+        if (headersBuilder_ == null) {
+          ensureHeadersIsMutable();
+          headers_.add(builderForValue.build());
+          onChanged();
+        } else {
+          headersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder addHeaders(
+          int index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder builderForValue) {
+        if (headersBuilder_ == null) {
+          ensureHeadersIsMutable();
+          headers_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          headersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder addAllHeaders(
+          java.lang.Iterable<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter> values) {
+        if (headersBuilder_ == null) {
+          ensureHeadersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, headers_);
+          onChanged();
+        } else {
+          headersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder clearHeaders() {
+        if (headersBuilder_ == null) {
+          headers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          headersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public Builder removeHeaders(int index) {
+        if (headersBuilder_ == null) {
+          ensureHeadersIsMutable();
+          headers_.remove(index);
+          onChanged();
+        } else {
+          headersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder getHeadersBuilder(
+          int index) {
+        return getHeadersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder getHeadersOrBuilder(
+          int index) {
+        if (headersBuilder_ == null) {
+          return headers_.get(index);  } else {
+          return headersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public java.util.List<? extends grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder> 
+           getHeadersOrBuilderList() {
+        if (headersBuilder_ != null) {
+          return headersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(headers_);
+        }
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder addHeadersBuilder() {
+        return getHeadersFieldBuilder().addBuilder(
+            grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder addHeadersBuilder(
+          int index) {
+        return getHeadersFieldBuilder().addBuilder(
+            index, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * `Headers` is one or more HTTP header parameter.
+       * See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+       * </pre>
+       *
+       * <code>repeated .grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter headers = 1 [json_name = "headers"];</code>
+       */
+      public java.util.List<grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder> 
+           getHeadersBuilderList() {
+        return getHeadersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder> 
+          getHeadersFieldBuilder() {
+        if (headersBuilder_ == null) {
+          headersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder>(
+                  headers_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          headers_ = null;
+        }
+        return headersBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:grpc.gateway.protoc_gen_openapiv2.options.Parameters)
+    }
+
+    // @@protoc_insertion_point(class_scope:grpc.gateway.protoc_gen_openapiv2.options.Parameters)
+    private static final grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters();
+    }
+
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Parameters>
+        PARSER = new com.google.protobuf.AbstractParser<Parameters>() {
+      @java.lang.Override
+      public Parameters parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Parameters(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Parameters> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Parameters> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Parameters getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface HeaderParameterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * `Name` is the header name.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * `Name` is the header name.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * `Description` is a short description of the header.
+     * </pre>
+     *
+     * <code>string description = 2 [json_name = "description"];</code>
+     * @return The description.
+     */
+    java.lang.String getDescription();
+    /**
+     * <pre>
+     * `Description` is a short description of the header.
+     * </pre>
+     *
+     * <code>string description = 2 [json_name = "description"];</code>
+     * @return The bytes for description.
+     */
+    com.google.protobuf.ByteString
+        getDescriptionBytes();
+
+    /**
+     * <pre>
+     * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+     * See: https://swagger.io/specification/v2/#parameterType.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <pre>
+     * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+     * See: https://swagger.io/specification/v2/#parameterType.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+     * @return The type.
+     */
+    grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type getType();
+
+    /**
+     * <pre>
+     * `Format` The extending format for the previously mentioned type.
+     * </pre>
+     *
+     * <code>string format = 4 [json_name = "format"];</code>
+     * @return The format.
+     */
+    java.lang.String getFormat();
+    /**
+     * <pre>
+     * `Format` The extending format for the previously mentioned type.
+     * </pre>
+     *
+     * <code>string format = 4 [json_name = "format"];</code>
+     * @return The bytes for format.
+     */
+    com.google.protobuf.ByteString
+        getFormatBytes();
+
+    /**
+     * <pre>
+     * `Required` indicates if the header is optional
+     * </pre>
+     *
+     * <code>bool required = 5 [json_name = "required"];</code>
+     * @return The required.
+     */
+    boolean getRequired();
+  }
+  /**
+   * <pre>
+   * `HeaderParameter` a HTTP header parameter.
+   * See: https://swagger.io/specification/v2/#parameter-object
+   * </pre>
+   *
+   * Protobuf type {@code grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter}
+   */
+  public static final class HeaderParameter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter)
+      HeaderParameterOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use HeaderParameter.newBuilder() to construct.
+    private HeaderParameter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private HeaderParameter() {
+      name_ = "";
+      description_ = "";
+      type_ = 0;
+      format_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new HeaderParameter();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private HeaderParameter(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              description_ = s;
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              format_ = s;
+              break;
+            }
+            case 40: {
+
+              required_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.class, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder.class);
+    }
+
+    /**
+     * <pre>
+     * `Type` is a a supported HTTP header type.
+     * See https://swagger.io/specification/v2/#parameterType.
+     * </pre>
+     *
+     * Protobuf enum {@code grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>UNKNOWN = 0;</code>
+       */
+      UNKNOWN(0),
+      /**
+       * <code>STRING = 1;</code>
+       */
+      STRING(1),
+      /**
+       * <code>NUMBER = 2;</code>
+       */
+      NUMBER(2),
+      /**
+       * <code>INTEGER = 3;</code>
+       */
+      INTEGER(3),
+      /**
+       * <code>BOOLEAN = 4;</code>
+       */
+      BOOLEAN(4),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>UNKNOWN = 0;</code>
+       */
+      public static final int UNKNOWN_VALUE = 0;
+      /**
+       * <code>STRING = 1;</code>
+       */
+      public static final int STRING_VALUE = 1;
+      /**
+       * <code>NUMBER = 2;</code>
+       */
+      public static final int NUMBER_VALUE = 2;
+      /**
+       * <code>INTEGER = 3;</code>
+       */
+      public static final int INTEGER_VALUE = 3;
+      /**
+       * <code>BOOLEAN = 4;</code>
+       */
+      public static final int BOOLEAN_VALUE = 4;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Type valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Type forNumber(int value) {
+        switch (value) {
+          case 0: return UNKNOWN;
+          case 1: return STRING;
+          case 2: return NUMBER;
+          case 3: return INTEGER;
+          case 4: return BOOLEAN;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Type> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Type(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type)
+    }
+
+    public static final int NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * `Name` is the header name.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * `Name` is the header name.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DESCRIPTION_FIELD_NUMBER = 2;
+    private volatile java.lang.Object description_;
+    /**
+     * <pre>
+     * `Description` is a short description of the header.
+     * </pre>
+     *
+     * <code>string description = 2 [json_name = "description"];</code>
+     * @return The description.
+     */
+    @java.lang.Override
+    public java.lang.String getDescription() {
+      java.lang.Object ref = description_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        description_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * `Description` is a short description of the header.
+     * </pre>
+     *
+     * <code>string description = 2 [json_name = "description"];</code>
+     * @return The bytes for description.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDescriptionBytes() {
+      java.lang.Object ref = description_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        description_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private int type_;
+    /**
+     * <pre>
+     * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+     * See: https://swagger.io/specification/v2/#parameterType.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <pre>
+     * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+     * See: https://swagger.io/specification/v2/#parameterType.
+     * </pre>
+     *
+     * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+     * @return The type.
+     */
+    @java.lang.Override public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type getType() {
+      @SuppressWarnings("deprecation")
+      grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type result = grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type.valueOf(type_);
+      return result == null ? grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type.UNRECOGNIZED : result;
+    }
+
+    public static final int FORMAT_FIELD_NUMBER = 4;
+    private volatile java.lang.Object format_;
+    /**
+     * <pre>
+     * `Format` The extending format for the previously mentioned type.
+     * </pre>
+     *
+     * <code>string format = 4 [json_name = "format"];</code>
+     * @return The format.
+     */
+    @java.lang.Override
+    public java.lang.String getFormat() {
+      java.lang.Object ref = format_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        format_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * `Format` The extending format for the previously mentioned type.
+     * </pre>
+     *
+     * <code>string format = 4 [json_name = "format"];</code>
+     * @return The bytes for format.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFormatBytes() {
+      java.lang.Object ref = format_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        format_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REQUIRED_FIELD_NUMBER = 5;
+    private boolean required_;
+    /**
+     * <pre>
+     * `Required` indicates if the header is optional
+     * </pre>
+     *
+     * <code>bool required = 5 [json_name = "required"];</code>
+     * @return The required.
+     */
+    @java.lang.Override
+    public boolean getRequired() {
+      return required_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, description_);
+      }
+      if (type_ != grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type.UNKNOWN.getNumber()) {
+        output.writeEnum(3, type_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(format_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, format_);
+      }
+      if (required_ != false) {
+        output.writeBool(5, required_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, description_);
+      }
+      if (type_ != grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type.UNKNOWN.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, type_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(format_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, format_);
+      }
+      if (required_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, required_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter)) {
+        return super.equals(obj);
+      }
+      grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter other = (grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter) obj;
+
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getDescription()
+          .equals(other.getDescription())) return false;
+      if (type_ != other.type_) return false;
+      if (!getFormat()
+          .equals(other.getFormat())) return false;
+      if (getRequired()
+          != other.getRequired()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
+      hash = (53 * hash) + getDescription().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      hash = (37 * hash) + FORMAT_FIELD_NUMBER;
+      hash = (53 * hash) + getFormat().hashCode();
+      hash = (37 * hash) + REQUIRED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRequired());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * `HeaderParameter` a HTTP header parameter.
+     * See: https://swagger.io/specification/v2/#parameter-object
+     * </pre>
+     *
+     * Protobuf type {@code grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter)
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameterOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.class, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Builder.class);
+      }
+
+      // Construct using grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+
+        description_ = "";
+
+        type_ = 0;
+
+        format_ = "";
+
+        required_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_descriptor;
+      }
+
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter getDefaultInstanceForType() {
+        return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter build() {
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter buildPartial() {
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter result = new grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter(this);
+        result.name_ = name_;
+        result.description_ = description_;
+        result.type_ = type_;
+        result.format_ = format_;
+        result.required_ = required_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter) {
+          return mergeFrom((grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter other) {
+        if (other == grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getDescription().isEmpty()) {
+          description_ = other.description_;
+          onChanged();
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        if (!other.getFormat().isEmpty()) {
+          format_ = other.format_;
+          onChanged();
+        }
+        if (other.getRequired() != false) {
+          setRequired(other.getRequired());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * `Name` is the header name.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * `Name` is the header name.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * `Name` is the header name.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Name` is the header name.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Name` is the header name.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object description_ = "";
+      /**
+       * <pre>
+       * `Description` is a short description of the header.
+       * </pre>
+       *
+       * <code>string description = 2 [json_name = "description"];</code>
+       * @return The description.
+       */
+      public java.lang.String getDescription() {
+        java.lang.Object ref = description_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          description_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * `Description` is a short description of the header.
+       * </pre>
+       *
+       * <code>string description = 2 [json_name = "description"];</code>
+       * @return The bytes for description.
+       */
+      public com.google.protobuf.ByteString
+          getDescriptionBytes() {
+        java.lang.Object ref = description_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          description_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * `Description` is a short description of the header.
+       * </pre>
+       *
+       * <code>string description = 2 [json_name = "description"];</code>
+       * @param value The description to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDescription(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        description_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Description` is a short description of the header.
+       * </pre>
+       *
+       * <code>string description = 2 [json_name = "description"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDescription() {
+        
+        description_ = getDefaultInstance().getDescription();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Description` is a short description of the header.
+       * </pre>
+       *
+       * <code>string description = 2 [json_name = "description"];</code>
+       * @param value The bytes for description to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDescriptionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        description_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <pre>
+       * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+       * See: https://swagger.io/specification/v2/#parameterType.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <pre>
+       * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+       * See: https://swagger.io/specification/v2/#parameterType.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+       * See: https://swagger.io/specification/v2/#parameterType.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type getType() {
+        @SuppressWarnings("deprecation")
+        grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type result = grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type.valueOf(type_);
+        return result == null ? grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+       * See: https://swagger.io/specification/v2/#parameterType.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+       * See: https://swagger.io/specification/v2/#parameterType.
+       * </pre>
+       *
+       * <code>.grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter.Type type = 3 [json_name = "type"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object format_ = "";
+      /**
+       * <pre>
+       * `Format` The extending format for the previously mentioned type.
+       * </pre>
+       *
+       * <code>string format = 4 [json_name = "format"];</code>
+       * @return The format.
+       */
+      public java.lang.String getFormat() {
+        java.lang.Object ref = format_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          format_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * `Format` The extending format for the previously mentioned type.
+       * </pre>
+       *
+       * <code>string format = 4 [json_name = "format"];</code>
+       * @return The bytes for format.
+       */
+      public com.google.protobuf.ByteString
+          getFormatBytes() {
+        java.lang.Object ref = format_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          format_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * `Format` The extending format for the previously mentioned type.
+       * </pre>
+       *
+       * <code>string format = 4 [json_name = "format"];</code>
+       * @param value The format to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFormat(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        format_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Format` The extending format for the previously mentioned type.
+       * </pre>
+       *
+       * <code>string format = 4 [json_name = "format"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFormat() {
+        
+        format_ = getDefaultInstance().getFormat();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Format` The extending format for the previously mentioned type.
+       * </pre>
+       *
+       * <code>string format = 4 [json_name = "format"];</code>
+       * @param value The bytes for format to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFormatBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        format_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean required_ ;
+      /**
+       * <pre>
+       * `Required` indicates if the header is optional
+       * </pre>
+       *
+       * <code>bool required = 5 [json_name = "required"];</code>
+       * @return The required.
+       */
+      @java.lang.Override
+      public boolean getRequired() {
+        return required_;
+      }
+      /**
+       * <pre>
+       * `Required` indicates if the header is optional
+       * </pre>
+       *
+       * <code>bool required = 5 [json_name = "required"];</code>
+       * @param value The required to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRequired(boolean value) {
+        
+        required_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * `Required` indicates if the header is optional
+       * </pre>
+       *
+       * <code>bool required = 5 [json_name = "required"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRequired() {
+        
+        required_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter)
+    }
+
+    // @@protoc_insertion_point(class_scope:grpc.gateway.protoc_gen_openapiv2.options.HeaderParameter)
+    private static final grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter();
+    }
+
+    public static grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<HeaderParameter>
+        PARSER = new com.google.protobuf.AbstractParser<HeaderParameter>() {
+      @java.lang.Override
+      public HeaderParameter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new HeaderParameter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<HeaderParameter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<HeaderParameter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.HeaderParameter getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -10077,10 +13392,22 @@ public final class Openapiv2 {
         java.lang.String key);
 
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
     int getExtensionsCount();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
     boolean containsExtensions(
@@ -10092,11 +13419,23 @@ public final class Openapiv2 {
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensions();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensionsMap();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
 
@@ -10104,6 +13443,12 @@ public final class Openapiv2 {
         java.lang.String key,
         com.google.protobuf.Value defaultValue);
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
 
@@ -10590,6 +13935,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap().size();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
 
@@ -10608,6 +13959,12 @@ public final class Openapiv2 {
       return getExtensionsMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -10616,6 +13973,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -10629,6 +13992,12 @@ public final class Openapiv2 {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -11725,6 +15094,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap().size();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
 
@@ -11743,6 +15118,12 @@ public final class Openapiv2 {
         return getExtensionsMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -11751,6 +15132,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -11764,6 +15151,12 @@ public final class Openapiv2 {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -11785,6 +15178,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
 
@@ -11804,6 +15203,12 @@ public final class Openapiv2 {
         return internalGetMutableExtensions().getMutableMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
       public Builder putExtensions(
@@ -11819,6 +15224,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 5 [json_name = "extensions"];</code>
        */
 
@@ -12024,10 +15435,22 @@ public final class Openapiv2 {
         getVersionBytes();
 
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
     int getExtensionsCount();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
     boolean containsExtensions(
@@ -12039,11 +15462,23 @@ public final class Openapiv2 {
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensions();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensionsMap();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
 
@@ -12051,6 +15486,12 @@ public final class Openapiv2 {
         java.lang.String key,
         com.google.protobuf.Value defaultValue);
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
 
@@ -12066,7 +15507,7 @@ public final class Openapiv2 {
    *    info: {
    *      title: "Echo API";
    *      version: "1.0";
-   *      description: ";
+   *      description: "";
    *      contact: {
    *        name: "gRPC-Gateway project";
    *        url: "https://github.com/grpc-ecosystem/grpc-gateway";
@@ -12074,7 +15515,7 @@ public final class Openapiv2 {
    *      };
    *      license: {
    *        name: "BSD 3-Clause License";
-   *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+   *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
    *      };
    *    };
    *    ...
@@ -12528,6 +15969,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap().size();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
 
@@ -12546,6 +15993,12 @@ public final class Openapiv2 {
       return getExtensionsMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -12554,6 +16007,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -12567,6 +16026,12 @@ public final class Openapiv2 {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -12829,7 +16294,7 @@ public final class Openapiv2 {
      *    info: {
      *      title: "Echo API";
      *      version: "1.0";
-     *      description: ";
+     *      description: "";
      *      contact: {
      *        name: "gRPC-Gateway project";
      *        url: "https://github.com/grpc-ecosystem/grpc-gateway";
@@ -12837,7 +16302,7 @@ public final class Openapiv2 {
      *      };
      *      license: {
      *        name: "BSD 3-Clause License";
-     *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+     *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
      *      };
      *    };
      *    ...
@@ -13800,6 +17265,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap().size();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
 
@@ -13818,6 +17289,12 @@ public final class Openapiv2 {
         return getExtensionsMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -13826,6 +17303,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -13839,6 +17322,12 @@ public final class Openapiv2 {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -13860,6 +17349,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
 
@@ -13879,6 +17374,12 @@ public final class Openapiv2 {
         return internalGetMutableExtensions().getMutableMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
       public Builder putExtensions(
@@ -13894,6 +17395,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 7 [json_name = "extensions"];</code>
        */
 
@@ -15040,7 +18547,7 @@ public final class Openapiv2 {
    *      ...
    *      license: {
    *        name: "BSD 3-Clause License";
-   *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+   *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
    *      };
    *      ...
    *    };
@@ -15404,7 +18911,7 @@ public final class Openapiv2 {
      *      ...
      *      license: {
      *        name: "BSD 3-Clause License";
-     *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+     *        url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
      *      };
      *      ...
      *    };
@@ -18464,10 +21971,22 @@ public final class Openapiv2 {
     grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.JSONSchema.FieldConfigurationOrBuilder getFieldConfigurationOrBuilder();
 
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
     int getExtensionsCount();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
     boolean containsExtensions(
@@ -18479,11 +21998,23 @@ public final class Openapiv2 {
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensions();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensionsMap();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
 
@@ -18491,6 +22022,12 @@ public final class Openapiv2 {
         java.lang.String key,
         com.google.protobuf.Value defaultValue);
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
 
@@ -20353,6 +23890,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap().size();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
 
@@ -20371,6 +23914,12 @@ public final class Openapiv2 {
       return getExtensionsMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -20379,6 +23928,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -20392,6 +23947,12 @@ public final class Openapiv2 {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -23121,6 +26682,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap().size();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
 
@@ -23139,6 +26706,12 @@ public final class Openapiv2 {
         return getExtensionsMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -23147,6 +26720,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -23160,6 +26739,12 @@ public final class Openapiv2 {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -23181,6 +26766,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
 
@@ -23200,6 +26791,12 @@ public final class Openapiv2 {
         return internalGetMutableExtensions().getMutableMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
       public Builder putExtensions(
@@ -23215,6 +26812,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 48 [json_name = "extensions"];</code>
        */
 
@@ -23283,6 +26886,30 @@ public final class Openapiv2 {
 
     /**
      * <pre>
+     * The name of the tag. Use it to allow override of the name of a
+     * global Tag object, then use that name to reference the tag throughout the
+     * OpenAPI file.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * The name of the tag. Use it to allow override of the name of a
+     * global Tag object, then use that name to reference the tag throughout the
+     * OpenAPI file.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
      * A short description for the tag. GFM syntax can be used for rich text
      * representation.
      * </pre>
@@ -23329,6 +26956,70 @@ public final class Openapiv2 {
      * <code>.grpc.gateway.protoc_gen_openapiv2.options.ExternalDocumentation external_docs = 3 [json_name = "externalDocs"];</code>
      */
     grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ExternalDocumentationOrBuilder getExternalDocsOrBuilder();
+
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+    int getExtensionsCount();
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+    boolean containsExtensions(
+        java.lang.String key);
+    /**
+     * Use {@link #getExtensionsMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, com.google.protobuf.Value>
+    getExtensions();
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+    java.util.Map<java.lang.String, com.google.protobuf.Value>
+    getExtensionsMap();
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+
+    com.google.protobuf.Value getExtensionsOrDefault(
+        java.lang.String key,
+        com.google.protobuf.Value defaultValue);
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+
+    com.google.protobuf.Value getExtensionsOrThrow(
+        java.lang.String key);
   }
   /**
    * <pre>
@@ -23348,6 +27039,7 @@ public final class Openapiv2 {
       super(builder);
     }
     private Tag() {
+      name_ = "";
       description_ = "";
     }
 
@@ -23371,6 +27063,7 @@ public final class Openapiv2 {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -23381,6 +27074,12 @@ public final class Openapiv2 {
             case 0:
               done = true;
               break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -23398,6 +27097,19 @@ public final class Openapiv2 {
                 externalDocs_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                extensions_ = com.google.protobuf.MapField.newMapField(
+                    ExtensionsDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000001;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, com.google.protobuf.Value>
+              extensions__ = input.readMessage(
+                  ExtensionsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              extensions_.getMutableMap().put(
+                  extensions__.getKey(), extensions__.getValue());
               break;
             }
             default: {
@@ -23424,12 +27136,74 @@ public final class Openapiv2 {
       return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 4:
+          return internalGetExtensions();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.class, grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.Builder.class);
+    }
+
+    public static final int NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * The name of the tag. Use it to allow override of the name of a
+     * global Tag object, then use that name to reference the tag throughout the
+     * OpenAPI file.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The name of the tag. Use it to allow override of the name of a
+     * global Tag object, then use that name to reference the tag throughout the
+     * OpenAPI file.
+     * </pre>
+     *
+     * <code>string name = 1 [json_name = "name"];</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int DESCRIPTION_FIELD_NUMBER = 2;
@@ -23518,6 +27292,111 @@ public final class Openapiv2 {
       return getExternalDocs();
     }
 
+    public static final int EXTENSIONS_FIELD_NUMBER = 4;
+    private static final class ExtensionsDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, com.google.protobuf.Value> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, com.google.protobuf.Value>newDefaultInstance(
+                  grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_ExtensionsEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  com.google.protobuf.Value.getDefaultInstance());
+    }
+    private com.google.protobuf.MapField<
+        java.lang.String, com.google.protobuf.Value> extensions_;
+    private com.google.protobuf.MapField<java.lang.String, com.google.protobuf.Value>
+    internalGetExtensions() {
+      if (extensions_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            ExtensionsDefaultEntryHolder.defaultEntry);
+      }
+      return extensions_;
+    }
+
+    public int getExtensionsCount() {
+      return internalGetExtensions().getMap().size();
+    }
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+
+    @java.lang.Override
+    public boolean containsExtensions(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetExtensions().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getExtensionsMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, com.google.protobuf.Value> getExtensions() {
+      return getExtensionsMap();
+    }
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+    @java.lang.Override
+
+    public java.util.Map<java.lang.String, com.google.protobuf.Value> getExtensionsMap() {
+      return internalGetExtensions().getMap();
+    }
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+    @java.lang.Override
+
+    public com.google.protobuf.Value getExtensionsOrDefault(
+        java.lang.String key,
+        com.google.protobuf.Value defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, com.google.protobuf.Value> map =
+          internalGetExtensions().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
+     * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+     */
+    @java.lang.Override
+
+    public com.google.protobuf.Value getExtensionsOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, com.google.protobuf.Value> map =
+          internalGetExtensions().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -23532,12 +27411,21 @@ public final class Openapiv2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, description_);
       }
       if (externalDocs_ != null) {
         output.writeMessage(3, getExternalDocs());
       }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetExtensions(),
+          ExtensionsDefaultEntryHolder.defaultEntry,
+          4);
       unknownFields.writeTo(output);
     }
 
@@ -23547,12 +27435,25 @@ public final class Openapiv2 {
       if (size != -1) return size;
 
       size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, description_);
       }
       if (externalDocs_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getExternalDocs());
+      }
+      for (java.util.Map.Entry<java.lang.String, com.google.protobuf.Value> entry
+           : internalGetExtensions().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, com.google.protobuf.Value>
+        extensions__ = ExtensionsDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(4, extensions__);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -23569,6 +27470,8 @@ public final class Openapiv2 {
       }
       grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag other = (grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag) obj;
 
+      if (!getName()
+          .equals(other.getName())) return false;
       if (!getDescription()
           .equals(other.getDescription())) return false;
       if (hasExternalDocs() != other.hasExternalDocs()) return false;
@@ -23576,6 +27479,8 @@ public final class Openapiv2 {
         if (!getExternalDocs()
             .equals(other.getExternalDocs())) return false;
       }
+      if (!internalGetExtensions().equals(
+          other.internalGetExtensions())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -23587,11 +27492,17 @@ public final class Openapiv2 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
       hash = (53 * hash) + getDescription().hashCode();
       if (hasExternalDocs()) {
         hash = (37 * hash) + EXTERNAL_DOCS_FIELD_NUMBER;
         hash = (53 * hash) + getExternalDocs().hashCode();
+      }
+      if (!internalGetExtensions().getMap().isEmpty()) {
+        hash = (37 * hash) + EXTENSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetExtensions().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -23705,6 +27616,28 @@ public final class Openapiv2 {
         return grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 4:
+            return internalGetExtensions();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 4:
+            return internalGetMutableExtensions();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -23731,6 +27664,8 @@ public final class Openapiv2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        name_ = "";
+
         description_ = "";
 
         if (externalDocsBuilder_ == null) {
@@ -23739,6 +27674,7 @@ public final class Openapiv2 {
           externalDocs_ = null;
           externalDocsBuilder_ = null;
         }
+        internalGetMutableExtensions().clear();
         return this;
       }
 
@@ -23765,12 +27701,16 @@ public final class Openapiv2 {
       @java.lang.Override
       public grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag buildPartial() {
         grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag result = new grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag(this);
+        int from_bitField0_ = bitField0_;
+        result.name_ = name_;
         result.description_ = description_;
         if (externalDocsBuilder_ == null) {
           result.externalDocs_ = externalDocs_;
         } else {
           result.externalDocs_ = externalDocsBuilder_.build();
         }
+        result.extensions_ = internalGetExtensions();
+        result.extensions_.makeImmutable();
         onBuilt();
         return result;
       }
@@ -23819,6 +27759,10 @@ public final class Openapiv2 {
 
       public Builder mergeFrom(grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag other) {
         if (other == grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.Tag.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
         if (!other.getDescription().isEmpty()) {
           description_ = other.description_;
           onChanged();
@@ -23826,6 +27770,8 @@ public final class Openapiv2 {
         if (other.hasExternalDocs()) {
           mergeExternalDocs(other.getExternalDocs());
         }
+        internalGetMutableExtensions().mergeFrom(
+            other.internalGetExtensions());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -23852,6 +27798,113 @@ public final class Openapiv2 {
             mergeFrom(parsedMessage);
           }
         }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * The name of the tag. Use it to allow override of the name of a
+       * global Tag object, then use that name to reference the tag throughout the
+       * OpenAPI file.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The name of the tag. Use it to allow override of the name of a
+       * global Tag object, then use that name to reference the tag throughout the
+       * OpenAPI file.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The name of the tag. Use it to allow override of the name of a
+       * global Tag object, then use that name to reference the tag throughout the
+       * OpenAPI file.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The name of the tag. Use it to allow override of the name of a
+       * global Tag object, then use that name to reference the tag throughout the
+       * OpenAPI file.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The name of the tag. Use it to allow override of the name of a
+       * global Tag object, then use that name to reference the tag throughout the
+       * OpenAPI file.
+       * </pre>
+       *
+       * <code>string name = 1 [json_name = "name"];</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
         return this;
       }
 
@@ -24109,6 +28162,179 @@ public final class Openapiv2 {
           externalDocs_ = null;
         }
         return externalDocsBuilder_;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, com.google.protobuf.Value> extensions_;
+      private com.google.protobuf.MapField<java.lang.String, com.google.protobuf.Value>
+      internalGetExtensions() {
+        if (extensions_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              ExtensionsDefaultEntryHolder.defaultEntry);
+        }
+        return extensions_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, com.google.protobuf.Value>
+      internalGetMutableExtensions() {
+        onChanged();;
+        if (extensions_ == null) {
+          extensions_ = com.google.protobuf.MapField.newMapField(
+              ExtensionsDefaultEntryHolder.defaultEntry);
+        }
+        if (!extensions_.isMutable()) {
+          extensions_ = extensions_.copy();
+        }
+        return extensions_;
+      }
+
+      public int getExtensionsCount() {
+        return internalGetExtensions().getMap().size();
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+
+      @java.lang.Override
+      public boolean containsExtensions(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetExtensions().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getExtensionsMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, com.google.protobuf.Value> getExtensions() {
+        return getExtensionsMap();
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+      @java.lang.Override
+
+      public java.util.Map<java.lang.String, com.google.protobuf.Value> getExtensionsMap() {
+        return internalGetExtensions().getMap();
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+      @java.lang.Override
+
+      public com.google.protobuf.Value getExtensionsOrDefault(
+          java.lang.String key,
+          com.google.protobuf.Value defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, com.google.protobuf.Value> map =
+            internalGetExtensions().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+      @java.lang.Override
+
+      public com.google.protobuf.Value getExtensionsOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, com.google.protobuf.Value> map =
+            internalGetExtensions().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearExtensions() {
+        internalGetMutableExtensions().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+
+      public Builder removeExtensions(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableExtensions().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, com.google.protobuf.Value>
+      getMutableExtensions() {
+        return internalGetMutableExtensions().getMutableMap();
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+      public Builder putExtensions(
+          java.lang.String key,
+          com.google.protobuf.Value value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) {
+  throw new NullPointerException("map value");
+}
+
+        internalGetMutableExtensions().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
+       * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 4 [json_name = "extensions"];</code>
+       */
+
+      public Builder putAllExtensions(
+          java.util.Map<java.lang.String, com.google.protobuf.Value> values) {
+        internalGetMutableExtensions().getMutableMap()
+            .putAll(values);
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -25194,10 +29420,22 @@ public final class Openapiv2 {
     grpc.gateway.protoc_gen_openapiv2.options.Openapiv2.ScopesOrBuilder getScopesOrBuilder();
 
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
     int getExtensionsCount();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
     boolean containsExtensions(
@@ -25209,11 +29447,23 @@ public final class Openapiv2 {
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensions();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
     java.util.Map<java.lang.String, com.google.protobuf.Value>
     getExtensionsMap();
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
 
@@ -25221,6 +29471,12 @@ public final class Openapiv2 {
         java.lang.String key,
         com.google.protobuf.Value defaultValue);
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
 
@@ -26147,6 +30403,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap().size();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
 
@@ -26165,6 +30427,12 @@ public final class Openapiv2 {
       return getExtensionsMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -26173,6 +30441,12 @@ public final class Openapiv2 {
       return internalGetExtensions().getMap();
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -26186,6 +30460,12 @@ public final class Openapiv2 {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
+     * <pre>
+     * Custom properties that start with "x-" such as "x-foo" used to describe
+     * extra functionality that is not covered by the standard OpenAPI Specification.
+     * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+     * </pre>
+     *
      * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
      */
     @java.lang.Override
@@ -27540,6 +31820,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap().size();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
 
@@ -27558,6 +31844,12 @@ public final class Openapiv2 {
         return getExtensionsMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -27566,6 +31858,12 @@ public final class Openapiv2 {
         return internalGetExtensions().getMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -27579,6 +31877,12 @@ public final class Openapiv2 {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
       @java.lang.Override
@@ -27600,6 +31904,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
 
@@ -27619,6 +31929,12 @@ public final class Openapiv2 {
         return internalGetMutableExtensions().getMutableMap();
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
       public Builder putExtensions(
@@ -27634,6 +31950,12 @@ public final class Openapiv2 {
         return this;
       }
       /**
+       * <pre>
+       * Custom properties that start with "x-" such as "x-foo" used to describe
+       * extra functionality that is not covered by the standard OpenAPI Specification.
+       * See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+       * </pre>
+       *
        * <code>map&lt;string, .google.protobuf.Value&gt; extensions = 9 [json_name = "extensions"];</code>
        */
 
@@ -30085,6 +34407,16 @@ public final class Openapiv2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_ExtensionsEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Header_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -30160,6 +34492,11 @@ public final class Openapiv2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_ExtensionsEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_ExtensionsEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityDefinitions_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -30216,7 +34553,7 @@ public final class Openapiv2 {
       "\n,protoc-gen-openapiv2/options/openapiv2" +
       ".proto\022)grpc.gateway.protoc_gen_openapiv" +
       "2.options\032\034google/protobuf/struct.proto\"" +
-      "\365\007\n\007Swagger\022\030\n\007swagger\030\001 \001(\tR\007swagger\022C\n" +
+      "\263\010\n\007Swagger\022\030\n\007swagger\030\001 \001(\tR\007swagger\022C\n" +
       "\004info\030\002 \001(\0132/.grpc.gateway.protoc_gen_op" +
       "enapiv2.options.InfoR\004info\022\022\n\004host\030\003 \001(\t" +
       "R\004host\022\033\n\tbase_path\030\004 \001(\tR\010basePath\022K\n\007s" +
@@ -30230,170 +34567,189 @@ public final class Openapiv2 {
       "n_openapiv2.options.SecurityDefinitionsR" +
       "\023securityDefinitions\022Z\n\010security\030\014 \003(\0132>" +
       ".grpc.gateway.protoc_gen_openapiv2.optio" +
-      "ns.SecurityRequirementR\010security\022e\n\rexte" +
-      "rnal_docs\030\016 \001(\0132@.grpc.gateway.protoc_ge" +
-      "n_openapiv2.options.ExternalDocumentatio" +
-      "nR\014externalDocs\022b\n\nextensions\030\017 \003(\0132B.gr" +
-      "pc.gateway.protoc_gen_openapiv2.options." +
-      "Swagger.ExtensionsEntryR\nextensions\032q\n\016R" +
-      "esponsesEntry\022\020\n\003key\030\001 \001(\tR\003key\022I\n\005value" +
-      "\030\002 \001(\01323.grpc.gateway.protoc_gen_openapi" +
-      "v2.options.ResponseR\005value:\0028\001\032U\n\017Extens" +
-      "ionsEntry\022\020\n\003key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001" +
-      "(\0132\026.google.protobuf.ValueR\005value:\0028\001J\004\010" +
-      "\010\020\tJ\004\010\t\020\nJ\004\010\r\020\016\"\377\006\n\tOperation\022\022\n\004tags\030\001 " +
-      "\003(\tR\004tags\022\030\n\007summary\030\002 \001(\tR\007summary\022 \n\013d" +
-      "escription\030\003 \001(\tR\013description\022e\n\rexterna" +
-      "l_docs\030\004 \001(\0132@.grpc.gateway.protoc_gen_o" +
-      "penapiv2.options.ExternalDocumentationR\014" +
-      "externalDocs\022!\n\014operation_id\030\005 \001(\tR\013oper" +
-      "ationId\022\032\n\010consumes\030\006 \003(\tR\010consumes\022\032\n\010p" +
-      "roduces\030\007 \003(\tR\010produces\022a\n\tresponses\030\t \003" +
-      "(\0132C.grpc.gateway.protoc_gen_openapiv2.o" +
-      "ptions.Operation.ResponsesEntryR\trespons" +
-      "es\022K\n\007schemes\030\n \003(\01621.grpc.gateway.proto" +
-      "c_gen_openapiv2.options.SchemeR\007schemes\022" +
-      "\036\n\ndeprecated\030\013 \001(\010R\ndeprecated\022Z\n\010secur" +
-      "ity\030\014 \003(\0132>.grpc.gateway.protoc_gen_open" +
-      "apiv2.options.SecurityRequirementR\010secur" +
-      "ity\022d\n\nextensions\030\r \003(\0132D.grpc.gateway.p" +
-      "rotoc_gen_openapiv2.options.Operation.Ex" +
-      "tensionsEntryR\nextensions\032q\n\016ResponsesEn" +
-      "try\022\020\n\003key\030\001 \001(\tR\003key\022I\n\005value\030\002 \001(\01323.g" +
-      "rpc.gateway.protoc_gen_openapiv2.options" +
-      ".ResponseR\005value:\0028\001\032U\n\017ExtensionsEntry\022" +
-      "\020\n\003key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132\026.googl" +
-      "e.protobuf.ValueR\005value:\0028\001J\004\010\010\020\t\"\330\001\n\006He" +
-      "ader\022 \n\013description\030\001 \001(\tR\013description\022\022" +
-      "\n\004type\030\002 \001(\tR\004type\022\026\n\006format\030\003 \001(\tR\006form" +
-      "at\022\030\n\007default\030\006 \001(\tR\007default\022\030\n\007pattern\030" +
-      "\r \001(\tR\007patternJ\004\010\004\020\005J\004\010\005\020\006J\004\010\007\020\010J\004\010\010\020\tJ\004" +
-      "\010\t\020\nJ\004\010\n\020\013J\004\010\013\020\014J\004\010\014\020\rJ\004\010\016\020\017J\004\010\017\020\020J\004\010\020\020\021" +
-      "J\004\010\021\020\022J\004\010\022\020\023\"\232\005\n\010Response\022 \n\013description" +
-      "\030\001 \001(\tR\013description\022I\n\006schema\030\002 \001(\01321.gr" +
-      "pc.gateway.protoc_gen_openapiv2.options." +
-      "SchemaR\006schema\022Z\n\007headers\030\003 \003(\0132@.grpc.g" +
-      "ateway.protoc_gen_openapiv2.options.Resp" +
-      "onse.HeadersEntryR\007headers\022]\n\010examples\030\004" +
-      " \003(\0132A.grpc.gateway.protoc_gen_openapiv2" +
-      ".options.Response.ExamplesEntryR\010example" +
-      "s\022c\n\nextensions\030\005 \003(\0132C.grpc.gateway.pro" +
-      "toc_gen_openapiv2.options.Response.Exten" +
-      "sionsEntryR\nextensions\032m\n\014HeadersEntry\022\020" +
-      "\n\003key\030\001 \001(\tR\003key\022G\n\005value\030\002 \001(\01321.grpc.g" +
-      "ateway.protoc_gen_openapiv2.options.Head" +
-      "erR\005value:\0028\001\032;\n\rExamplesEntry\022\020\n\003key\030\001 " +
-      "\001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\032U\n\017Ex" +
-      "tensionsEntry\022\020\n\003key\030\001 \001(\tR\003key\022,\n\005value" +
-      "\030\002 \001(\0132\026.google.protobuf.ValueR\005value:\0028" +
-      "\001\"\326\003\n\004Info\022\024\n\005title\030\001 \001(\tR\005title\022 \n\013desc" +
-      "ription\030\002 \001(\tR\013description\022(\n\020terms_of_s" +
-      "ervice\030\003 \001(\tR\016termsOfService\022L\n\007contact\030" +
-      "\004 \001(\01322.grpc.gateway.protoc_gen_openapiv" +
-      "2.options.ContactR\007contact\022L\n\007license\030\005 " +
-      "\001(\01322.grpc.gateway.protoc_gen_openapiv2." +
-      "options.LicenseR\007license\022\030\n\007version\030\006 \001(" +
-      "\tR\007version\022_\n\nextensions\030\007 \003(\0132?.grpc.ga" +
-      "teway.protoc_gen_openapiv2.options.Info." +
-      "ExtensionsEntryR\nextensions\032U\n\017Extension" +
-      "sEntry\022\020\n\003key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132" +
-      "\026.google.protobuf.ValueR\005value:\0028\001\"E\n\007Co" +
-      "ntact\022\022\n\004name\030\001 \001(\tR\004name\022\020\n\003url\030\002 \001(\tR\003" +
-      "url\022\024\n\005email\030\003 \001(\tR\005email\"/\n\007License\022\022\n\004" +
-      "name\030\001 \001(\tR\004name\022\020\n\003url\030\002 \001(\tR\003url\"K\n\025Ex" +
-      "ternalDocumentation\022 \n\013description\030\001 \001(\t" +
-      "R\013description\022\020\n\003url\030\002 \001(\tR\003url\"\252\002\n\006Sche" +
-      "ma\022V\n\013json_schema\030\001 \001(\01325.grpc.gateway.p" +
-      "rotoc_gen_openapiv2.options.JSONSchemaR\n" +
-      "jsonSchema\022$\n\rdiscriminator\030\002 \001(\tR\rdiscr" +
-      "iminator\022\033\n\tread_only\030\003 \001(\010R\010readOnly\022e\n" +
-      "\rexternal_docs\030\005 \001(\0132@.grpc.gateway.prot" +
-      "oc_gen_openapiv2.options.ExternalDocumen" +
-      "tationR\014externalDocs\022\030\n\007example\030\006 \001(\tR\007e" +
-      "xampleJ\004\010\004\020\005\"\327\n\n\nJSONSchema\022\020\n\003ref\030\003 \001(\t" +
-      "R\003ref\022\024\n\005title\030\005 \001(\tR\005title\022 \n\013descripti" +
-      "on\030\006 \001(\tR\013description\022\030\n\007default\030\007 \001(\tR\007" +
-      "default\022\033\n\tread_only\030\010 \001(\010R\010readOnly\022\030\n\007" +
-      "example\030\t \001(\tR\007example\022\037\n\013multiple_of\030\n " +
-      "\001(\001R\nmultipleOf\022\030\n\007maximum\030\013 \001(\001R\007maximu" +
-      "m\022+\n\021exclusive_maximum\030\014 \001(\010R\020exclusiveM" +
-      "aximum\022\030\n\007minimum\030\r \001(\001R\007minimum\022+\n\021excl" +
-      "usive_minimum\030\016 \001(\010R\020exclusiveMinimum\022\035\n" +
-      "\nmax_length\030\017 \001(\004R\tmaxLength\022\035\n\nmin_leng" +
-      "th\030\020 \001(\004R\tminLength\022\030\n\007pattern\030\021 \001(\tR\007pa" +
-      "ttern\022\033\n\tmax_items\030\024 \001(\004R\010maxItems\022\033\n\tmi" +
-      "n_items\030\025 \001(\004R\010minItems\022!\n\014unique_items\030" +
-      "\026 \001(\010R\013uniqueItems\022%\n\016max_properties\030\030 \001" +
-      "(\004R\rmaxProperties\022%\n\016min_properties\030\031 \001(" +
-      "\004R\rminProperties\022\032\n\010required\030\032 \003(\tR\010requ" +
-      "ired\022\024\n\005array\030\" \003(\tR\005array\022_\n\004type\030# \003(\016" +
-      "2K.grpc.gateway.protoc_gen_openapiv2.opt" +
-      "ions.JSONSchema.JSONSchemaSimpleTypesR\004t" +
-      "ype\022\026\n\006format\030$ \001(\tR\006format\022\022\n\004enum\030. \003(" +
-      "\tR\004enum\022z\n\023field_configuration\030\351\007 \001(\0132H." +
-      "grpc.gateway.protoc_gen_openapiv2.option" +
-      "s.JSONSchema.FieldConfigurationR\022fieldCo" +
-      "nfiguration\022e\n\nextensions\0300 \003(\0132E.grpc.g" +
-      "ateway.protoc_gen_openapiv2.options.JSON" +
-      "Schema.ExtensionsEntryR\nextensions\032<\n\022Fi" +
-      "eldConfiguration\022&\n\017path_param_name\030/ \001(" +
-      "\tR\rpathParamName\032U\n\017ExtensionsEntry\022\020\n\003k" +
-      "ey\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132\026.google.pr" +
-      "otobuf.ValueR\005value:\0028\001\"w\n\025JSONSchemaSim" +
-      "pleTypes\022\013\n\007UNKNOWN\020\000\022\t\n\005ARRAY\020\001\022\013\n\007BOOL" +
-      "EAN\020\002\022\013\n\007INTEGER\020\003\022\010\n\004NULL\020\004\022\n\n\006NUMBER\020\005" +
-      "\022\n\n\006OBJECT\020\006\022\n\n\006STRING\020\007J\004\010\001\020\002J\004\010\002\020\003J\004\010\004" +
-      "\020\005J\004\010\022\020\023J\004\010\023\020\024J\004\010\027\020\030J\004\010\033\020\034J\004\010\034\020\035J\004\010\035\020\036J\004" +
-      "\010\036\020\"J\004\010%\020*J\004\010*\020+J\004\010+\020.\"\224\001\n\003Tag\022 \n\013descri" +
-      "ption\030\002 \001(\tR\013description\022e\n\rexternal_doc" +
-      "s\030\003 \001(\0132@.grpc.gateway.protoc_gen_openap" +
-      "iv2.options.ExternalDocumentationR\014exter" +
-      "nalDocsJ\004\010\001\020\002\"\367\001\n\023SecurityDefinitions\022h\n" +
-      "\010security\030\001 \003(\0132L.grpc.gateway.protoc_ge" +
-      "n_openapiv2.options.SecurityDefinitions." +
-      "SecurityEntryR\010security\032v\n\rSecurityEntry" +
-      "\022\020\n\003key\030\001 \001(\tR\003key\022O\n\005value\030\002 \001(\01329.grpc" +
-      ".gateway.protoc_gen_openapiv2.options.Se" +
-      "curitySchemeR\005value:\0028\001\"\377\006\n\016SecuritySche" +
-      "me\022R\n\004type\030\001 \001(\0162>.grpc.gateway.protoc_g" +
-      "en_openapiv2.options.SecurityScheme.Type" +
-      "R\004type\022 \n\013description\030\002 \001(\tR\013description" +
-      "\022\022\n\004name\030\003 \001(\tR\004name\022L\n\002in\030\004 \001(\0162<.grpc." +
-      "gateway.protoc_gen_openapiv2.options.Sec" +
-      "urityScheme.InR\002in\022R\n\004flow\030\005 \001(\0162>.grpc." +
-      "gateway.protoc_gen_openapiv2.options.Sec" +
-      "urityScheme.FlowR\004flow\022+\n\021authorization_" +
-      "url\030\006 \001(\tR\020authorizationUrl\022\033\n\ttoken_url" +
-      "\030\007 \001(\tR\010tokenUrl\022I\n\006scopes\030\010 \001(\01321.grpc." +
-      "gateway.protoc_gen_openapiv2.options.Sco" +
-      "pesR\006scopes\022i\n\nextensions\030\t \003(\0132I.grpc.g" +
+      "ns.SecurityRequirementR\010security\022B\n\004tags" +
+      "\030\r \003(\0132..grpc.gateway.protoc_gen_openapi" +
+      "v2.options.TagR\004tags\022e\n\rexternal_docs\030\016 " +
+      "\001(\0132@.grpc.gateway.protoc_gen_openapiv2." +
+      "options.ExternalDocumentationR\014externalD" +
+      "ocs\022b\n\nextensions\030\017 \003(\0132B.grpc.gateway.p" +
+      "rotoc_gen_openapiv2.options.Swagger.Exte" +
+      "nsionsEntryR\nextensions\032q\n\016ResponsesEntr" +
+      "y\022\020\n\003key\030\001 \001(\tR\003key\022I\n\005value\030\002 \001(\01323.grp" +
+      "c.gateway.protoc_gen_openapiv2.options.R" +
+      "esponseR\005value:\0028\001\032U\n\017ExtensionsEntry\022\020\n" +
+      "\003key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132\026.google." +
+      "protobuf.ValueR\005value:\0028\001J\004\010\010\020\tJ\004\010\t\020\n\"\326\007" +
+      "\n\tOperation\022\022\n\004tags\030\001 \003(\tR\004tags\022\030\n\007summa" +
+      "ry\030\002 \001(\tR\007summary\022 \n\013description\030\003 \001(\tR\013" +
+      "description\022e\n\rexternal_docs\030\004 \001(\0132@.grp" +
+      "c.gateway.protoc_gen_openapiv2.options.E" +
+      "xternalDocumentationR\014externalDocs\022!\n\014op" +
+      "eration_id\030\005 \001(\tR\013operationId\022\032\n\010consume" +
+      "s\030\006 \003(\tR\010consumes\022\032\n\010produces\030\007 \003(\tR\010pro" +
+      "duces\022a\n\tresponses\030\t \003(\0132C.grpc.gateway." +
+      "protoc_gen_openapiv2.options.Operation.R" +
+      "esponsesEntryR\tresponses\022K\n\007schemes\030\n \003(" +
+      "\01621.grpc.gateway.protoc_gen_openapiv2.op" +
+      "tions.SchemeR\007schemes\022\036\n\ndeprecated\030\013 \001(" +
+      "\010R\ndeprecated\022Z\n\010security\030\014 \003(\0132>.grpc.g" +
       "ateway.protoc_gen_openapiv2.options.Secu" +
-      "rityScheme.ExtensionsEntryR\nextensions\032U" +
-      "\n\017ExtensionsEntry\022\020\n\003key\030\001 \001(\tR\003key\022,\n\005v" +
-      "alue\030\002 \001(\0132\026.google.protobuf.ValueR\005valu" +
-      "e:\0028\001\"K\n\004Type\022\020\n\014TYPE_INVALID\020\000\022\016\n\nTYPE_" +
-      "BASIC\020\001\022\020\n\014TYPE_API_KEY\020\002\022\017\n\013TYPE_OAUTH2" +
-      "\020\003\"1\n\002In\022\016\n\nIN_INVALID\020\000\022\014\n\010IN_QUERY\020\001\022\r" +
-      "\n\tIN_HEADER\020\002\"j\n\004Flow\022\020\n\014FLOW_INVALID\020\000\022" +
-      "\021\n\rFLOW_IMPLICIT\020\001\022\021\n\rFLOW_PASSWORD\020\002\022\024\n" +
-      "\020FLOW_APPLICATION\020\003\022\024\n\020FLOW_ACCESS_CODE\020" +
-      "\004\"\366\002\n\023SecurityRequirement\022\212\001\n\024security_r" +
-      "equirement\030\001 \003(\0132W.grpc.gateway.protoc_g" +
-      "en_openapiv2.options.SecurityRequirement" +
-      ".SecurityRequirementEntryR\023securityRequi" +
-      "rement\0320\n\030SecurityRequirementValue\022\024\n\005sc" +
-      "ope\030\001 \003(\tR\005scope\032\237\001\n\030SecurityRequirement" +
-      "Entry\022\020\n\003key\030\001 \001(\tR\003key\022m\n\005value\030\002 \001(\0132W" +
-      ".grpc.gateway.protoc_gen_openapiv2.optio" +
-      "ns.SecurityRequirement.SecurityRequireme" +
-      "ntValueR\005value:\0028\001\"\226\001\n\006Scopes\022R\n\005scope\030\001" +
-      " \003(\0132<.grpc.gateway.protoc_gen_openapiv2" +
-      ".options.Scopes.ScopeEntryR\005scope\0328\n\nSco" +
-      "peEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\t" +
-      "R\005value:\0028\001*;\n\006Scheme\022\013\n\007UNKNOWN\020\000\022\010\n\004HT" +
-      "TP\020\001\022\t\n\005HTTPS\020\002\022\006\n\002WS\020\003\022\007\n\003WSS\020\004BHZFgith" +
-      "ub.com/grpc-ecosystem/grpc-gateway/v2/pr" +
-      "otoc-gen-openapiv2/optionsb\006proto3"
+      "rityRequirementR\010security\022d\n\nextensions\030" +
+      "\r \003(\0132D.grpc.gateway.protoc_gen_openapiv" +
+      "2.options.Operation.ExtensionsEntryR\next" +
+      "ensions\022U\n\nparameters\030\016 \001(\01325.grpc.gatew" +
+      "ay.protoc_gen_openapiv2.options.Paramete" +
+      "rsR\nparameters\032q\n\016ResponsesEntry\022\020\n\003key\030" +
+      "\001 \001(\tR\003key\022I\n\005value\030\002 \001(\01323.grpc.gateway" +
+      ".protoc_gen_openapiv2.options.ResponseR\005" +
+      "value:\0028\001\032U\n\017ExtensionsEntry\022\020\n\003key\030\001 \001(" +
+      "\tR\003key\022,\n\005value\030\002 \001(\0132\026.google.protobuf." +
+      "ValueR\005value:\0028\001J\004\010\010\020\t\"b\n\nParameters\022T\n\007" +
+      "headers\030\001 \003(\0132:.grpc.gateway.protoc_gen_" +
+      "openapiv2.options.HeaderParameterR\007heade" +
+      "rs\"\243\002\n\017HeaderParameter\022\022\n\004name\030\001 \001(\tR\004na" +
+      "me\022 \n\013description\030\002 \001(\tR\013description\022S\n\004" +
+      "type\030\003 \001(\0162?.grpc.gateway.protoc_gen_ope" +
+      "napiv2.options.HeaderParameter.TypeR\004typ" +
+      "e\022\026\n\006format\030\004 \001(\tR\006format\022\032\n\010required\030\005 " +
+      "\001(\010R\010required\"E\n\004Type\022\013\n\007UNKNOWN\020\000\022\n\n\006ST" +
+      "RING\020\001\022\n\n\006NUMBER\020\002\022\013\n\007INTEGER\020\003\022\013\n\007BOOLE" +
+      "AN\020\004J\004\010\006\020\007J\004\010\007\020\010\"\330\001\n\006Header\022 \n\013descripti" +
+      "on\030\001 \001(\tR\013description\022\022\n\004type\030\002 \001(\tR\004typ" +
+      "e\022\026\n\006format\030\003 \001(\tR\006format\022\030\n\007default\030\006 \001" +
+      "(\tR\007default\022\030\n\007pattern\030\r \001(\tR\007patternJ\004\010" +
+      "\004\020\005J\004\010\005\020\006J\004\010\007\020\010J\004\010\010\020\tJ\004\010\t\020\nJ\004\010\n\020\013J\004\010\013\020\014J" +
+      "\004\010\014\020\rJ\004\010\016\020\017J\004\010\017\020\020J\004\010\020\020\021J\004\010\021\020\022J\004\010\022\020\023\"\232\005\n\010" +
+      "Response\022 \n\013description\030\001 \001(\tR\013descripti" +
+      "on\022I\n\006schema\030\002 \001(\01321.grpc.gateway.protoc" +
+      "_gen_openapiv2.options.SchemaR\006schema\022Z\n" +
+      "\007headers\030\003 \003(\0132@.grpc.gateway.protoc_gen" +
+      "_openapiv2.options.Response.HeadersEntry" +
+      "R\007headers\022]\n\010examples\030\004 \003(\0132A.grpc.gatew" +
+      "ay.protoc_gen_openapiv2.options.Response" +
+      ".ExamplesEntryR\010examples\022c\n\nextensions\030\005" +
+      " \003(\0132C.grpc.gateway.protoc_gen_openapiv2" +
+      ".options.Response.ExtensionsEntryR\nexten" +
+      "sions\032m\n\014HeadersEntry\022\020\n\003key\030\001 \001(\tR\003key\022" +
+      "G\n\005value\030\002 \001(\01321.grpc.gateway.protoc_gen" +
+      "_openapiv2.options.HeaderR\005value:\0028\001\032;\n\r" +
+      "ExamplesEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value" +
+      "\030\002 \001(\tR\005value:\0028\001\032U\n\017ExtensionsEntry\022\020\n\003" +
+      "key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132\026.google.p" +
+      "rotobuf.ValueR\005value:\0028\001\"\326\003\n\004Info\022\024\n\005tit" +
+      "le\030\001 \001(\tR\005title\022 \n\013description\030\002 \001(\tR\013de" +
+      "scription\022(\n\020terms_of_service\030\003 \001(\tR\016ter" +
+      "msOfService\022L\n\007contact\030\004 \001(\01322.grpc.gate" +
+      "way.protoc_gen_openapiv2.options.Contact" +
+      "R\007contact\022L\n\007license\030\005 \001(\01322.grpc.gatewa" +
+      "y.protoc_gen_openapiv2.options.LicenseR\007" +
+      "license\022\030\n\007version\030\006 \001(\tR\007version\022_\n\next" +
+      "ensions\030\007 \003(\0132?.grpc.gateway.protoc_gen_" +
+      "openapiv2.options.Info.ExtensionsEntryR\n" +
+      "extensions\032U\n\017ExtensionsEntry\022\020\n\003key\030\001 \001" +
+      "(\tR\003key\022,\n\005value\030\002 \001(\0132\026.google.protobuf" +
+      ".ValueR\005value:\0028\001\"E\n\007Contact\022\022\n\004name\030\001 \001" +
+      "(\tR\004name\022\020\n\003url\030\002 \001(\tR\003url\022\024\n\005email\030\003 \001(" +
+      "\tR\005email\"/\n\007License\022\022\n\004name\030\001 \001(\tR\004name\022" +
+      "\020\n\003url\030\002 \001(\tR\003url\"K\n\025ExternalDocumentati" +
+      "on\022 \n\013description\030\001 \001(\tR\013description\022\020\n\003" +
+      "url\030\002 \001(\tR\003url\"\252\002\n\006Schema\022V\n\013json_schema" +
+      "\030\001 \001(\01325.grpc.gateway.protoc_gen_openapi" +
+      "v2.options.JSONSchemaR\njsonSchema\022$\n\rdis" +
+      "criminator\030\002 \001(\tR\rdiscriminator\022\033\n\tread_" +
+      "only\030\003 \001(\010R\010readOnly\022e\n\rexternal_docs\030\005 " +
+      "\001(\0132@.grpc.gateway.protoc_gen_openapiv2." +
+      "options.ExternalDocumentationR\014externalD" +
+      "ocs\022\030\n\007example\030\006 \001(\tR\007exampleJ\004\010\004\020\005\"\327\n\n\n" +
+      "JSONSchema\022\020\n\003ref\030\003 \001(\tR\003ref\022\024\n\005title\030\005 " +
+      "\001(\tR\005title\022 \n\013description\030\006 \001(\tR\013descrip" +
+      "tion\022\030\n\007default\030\007 \001(\tR\007default\022\033\n\tread_o" +
+      "nly\030\010 \001(\010R\010readOnly\022\030\n\007example\030\t \001(\tR\007ex" +
+      "ample\022\037\n\013multiple_of\030\n \001(\001R\nmultipleOf\022\030" +
+      "\n\007maximum\030\013 \001(\001R\007maximum\022+\n\021exclusive_ma" +
+      "ximum\030\014 \001(\010R\020exclusiveMaximum\022\030\n\007minimum" +
+      "\030\r \001(\001R\007minimum\022+\n\021exclusive_minimum\030\016 \001" +
+      "(\010R\020exclusiveMinimum\022\035\n\nmax_length\030\017 \001(\004" +
+      "R\tmaxLength\022\035\n\nmin_length\030\020 \001(\004R\tminLeng" +
+      "th\022\030\n\007pattern\030\021 \001(\tR\007pattern\022\033\n\tmax_item" +
+      "s\030\024 \001(\004R\010maxItems\022\033\n\tmin_items\030\025 \001(\004R\010mi" +
+      "nItems\022!\n\014unique_items\030\026 \001(\010R\013uniqueItem" +
+      "s\022%\n\016max_properties\030\030 \001(\004R\rmaxProperties" +
+      "\022%\n\016min_properties\030\031 \001(\004R\rminProperties\022" +
+      "\032\n\010required\030\032 \003(\tR\010required\022\024\n\005array\030\" \003" +
+      "(\tR\005array\022_\n\004type\030# \003(\0162K.grpc.gateway.p" +
+      "rotoc_gen_openapiv2.options.JSONSchema.J" +
+      "SONSchemaSimpleTypesR\004type\022\026\n\006format\030$ \001" +
+      "(\tR\006format\022\022\n\004enum\030. \003(\tR\004enum\022z\n\023field_" +
+      "configuration\030\351\007 \001(\0132H.grpc.gateway.prot" +
+      "oc_gen_openapiv2.options.JSONSchema.Fiel" +
+      "dConfigurationR\022fieldConfiguration\022e\n\nex" +
+      "tensions\0300 \003(\0132E.grpc.gateway.protoc_gen" +
+      "_openapiv2.options.JSONSchema.Extensions" +
+      "EntryR\nextensions\032<\n\022FieldConfiguration\022" +
+      "&\n\017path_param_name\030/ \001(\tR\rpathParamName\032" +
+      "U\n\017ExtensionsEntry\022\020\n\003key\030\001 \001(\tR\003key\022,\n\005" +
+      "value\030\002 \001(\0132\026.google.protobuf.ValueR\005val" +
+      "ue:\0028\001\"w\n\025JSONSchemaSimpleTypes\022\013\n\007UNKNO" +
+      "WN\020\000\022\t\n\005ARRAY\020\001\022\013\n\007BOOLEAN\020\002\022\013\n\007INTEGER\020" +
+      "\003\022\010\n\004NULL\020\004\022\n\n\006NUMBER\020\005\022\n\n\006OBJECT\020\006\022\n\n\006S" +
+      "TRING\020\007J\004\010\001\020\002J\004\010\002\020\003J\004\010\004\020\005J\004\010\022\020\023J\004\010\023\020\024J\004\010" +
+      "\027\020\030J\004\010\033\020\034J\004\010\034\020\035J\004\010\035\020\036J\004\010\036\020\"J\004\010%\020*J\004\010*\020+J" +
+      "\004\010+\020.\"\331\002\n\003Tag\022\022\n\004name\030\001 \001(\tR\004name\022 \n\013des" +
+      "cription\030\002 \001(\tR\013description\022e\n\rexternal_" +
+      "docs\030\003 \001(\0132@.grpc.gateway.protoc_gen_ope" +
+      "napiv2.options.ExternalDocumentationR\014ex" +
+      "ternalDocs\022^\n\nextensions\030\004 \003(\0132>.grpc.ga" +
+      "teway.protoc_gen_openapiv2.options.Tag.E" +
+      "xtensionsEntryR\nextensions\032U\n\017Extensions" +
+      "Entry\022\020\n\003key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132\026" +
+      ".google.protobuf.ValueR\005value:\0028\001\"\367\001\n\023Se" +
+      "curityDefinitions\022h\n\010security\030\001 \003(\0132L.gr" +
+      "pc.gateway.protoc_gen_openapiv2.options." +
+      "SecurityDefinitions.SecurityEntryR\010secur" +
+      "ity\032v\n\rSecurityEntry\022\020\n\003key\030\001 \001(\tR\003key\022O" +
+      "\n\005value\030\002 \001(\01329.grpc.gateway.protoc_gen_" +
+      "openapiv2.options.SecuritySchemeR\005value:" +
+      "\0028\001\"\377\006\n\016SecurityScheme\022R\n\004type\030\001 \001(\0162>.g" +
+      "rpc.gateway.protoc_gen_openapiv2.options" +
+      ".SecurityScheme.TypeR\004type\022 \n\013descriptio" +
+      "n\030\002 \001(\tR\013description\022\022\n\004name\030\003 \001(\tR\004name" +
+      "\022L\n\002in\030\004 \001(\0162<.grpc.gateway.protoc_gen_o" +
+      "penapiv2.options.SecurityScheme.InR\002in\022R" +
+      "\n\004flow\030\005 \001(\0162>.grpc.gateway.protoc_gen_o" +
+      "penapiv2.options.SecurityScheme.FlowR\004fl" +
+      "ow\022+\n\021authorization_url\030\006 \001(\tR\020authoriza" +
+      "tionUrl\022\033\n\ttoken_url\030\007 \001(\tR\010tokenUrl\022I\n\006" +
+      "scopes\030\010 \001(\01321.grpc.gateway.protoc_gen_o" +
+      "penapiv2.options.ScopesR\006scopes\022i\n\nexten" +
+      "sions\030\t \003(\0132I.grpc.gateway.protoc_gen_op" +
+      "enapiv2.options.SecurityScheme.Extension" +
+      "sEntryR\nextensions\032U\n\017ExtensionsEntry\022\020\n" +
+      "\003key\030\001 \001(\tR\003key\022,\n\005value\030\002 \001(\0132\026.google." +
+      "protobuf.ValueR\005value:\0028\001\"K\n\004Type\022\020\n\014TYP" +
+      "E_INVALID\020\000\022\016\n\nTYPE_BASIC\020\001\022\020\n\014TYPE_API_" +
+      "KEY\020\002\022\017\n\013TYPE_OAUTH2\020\003\"1\n\002In\022\016\n\nIN_INVAL" +
+      "ID\020\000\022\014\n\010IN_QUERY\020\001\022\r\n\tIN_HEADER\020\002\"j\n\004Flo" +
+      "w\022\020\n\014FLOW_INVALID\020\000\022\021\n\rFLOW_IMPLICIT\020\001\022\021" +
+      "\n\rFLOW_PASSWORD\020\002\022\024\n\020FLOW_APPLICATION\020\003\022" +
+      "\024\n\020FLOW_ACCESS_CODE\020\004\"\366\002\n\023SecurityRequir" +
+      "ement\022\212\001\n\024security_requirement\030\001 \003(\0132W.g" +
+      "rpc.gateway.protoc_gen_openapiv2.options" +
+      ".SecurityRequirement.SecurityRequirement" +
+      "EntryR\023securityRequirement\0320\n\030SecurityRe" +
+      "quirementValue\022\024\n\005scope\030\001 \003(\tR\005scope\032\237\001\n" +
+      "\030SecurityRequirementEntry\022\020\n\003key\030\001 \001(\tR\003" +
+      "key\022m\n\005value\030\002 \001(\0132W.grpc.gateway.protoc" +
+      "_gen_openapiv2.options.SecurityRequireme" +
+      "nt.SecurityRequirementValueR\005value:\0028\001\"\226" +
+      "\001\n\006Scopes\022R\n\005scope\030\001 \003(\0132<.grpc.gateway." +
+      "protoc_gen_openapiv2.options.Scopes.Scop" +
+      "eEntryR\005scope\0328\n\nScopeEntry\022\020\n\003key\030\001 \001(\t" +
+      "R\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001*;\n\006Schem" +
+      "e\022\013\n\007UNKNOWN\020\000\022\010\n\004HTTP\020\001\022\t\n\005HTTPS\020\002\022\006\n\002W" +
+      "S\020\003\022\007\n\003WSS\020\004BHZFgithub.com/grpc-ecosyste" +
+      "m/grpc-gateway/v2/protoc-gen-openapiv2/o" +
+      "ptionsb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -30405,7 +34761,7 @@ public final class Openapiv2 {
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Swagger_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Swagger_descriptor,
-        new java.lang.String[] { "Swagger", "Info", "Host", "BasePath", "Schemes", "Consumes", "Produces", "Responses", "SecurityDefinitions", "Security", "ExternalDocs", "Extensions", });
+        new java.lang.String[] { "Swagger", "Info", "Host", "BasePath", "Schemes", "Consumes", "Produces", "Responses", "SecurityDefinitions", "Security", "Tags", "ExternalDocs", "Extensions", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Swagger_ResponsesEntry_descriptor =
       internal_static_grpc_gateway_protoc_gen_openapiv2_options_Swagger_descriptor.getNestedTypes().get(0);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Swagger_ResponsesEntry_fieldAccessorTable = new
@@ -30423,7 +34779,7 @@ public final class Openapiv2 {
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_descriptor,
-        new java.lang.String[] { "Tags", "Summary", "Description", "ExternalDocs", "OperationId", "Consumes", "Produces", "Responses", "Schemes", "Deprecated", "Security", "Extensions", });
+        new java.lang.String[] { "Tags", "Summary", "Description", "ExternalDocs", "OperationId", "Consumes", "Produces", "Responses", "Schemes", "Deprecated", "Security", "Extensions", "Parameters", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_ResponsesEntry_descriptor =
       internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_descriptor.getNestedTypes().get(0);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_ResponsesEntry_fieldAccessorTable = new
@@ -30436,14 +34792,26 @@ public final class Openapiv2 {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Operation_ExtensionsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
-    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Header_descriptor =
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_grpc_gateway_protoc_gen_openapiv2_options_Parameters_descriptor,
+        new java.lang.String[] { "Headers", });
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_grpc_gateway_protoc_gen_openapiv2_options_HeaderParameter_descriptor,
+        new java.lang.String[] { "Name", "Description", "Type", "Format", "Required", });
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Header_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Header_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Header_descriptor,
         new java.lang.String[] { "Description", "Type", "Format", "Default", "Pattern", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Response_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Response_descriptor,
@@ -30467,7 +34835,7 @@ public final class Openapiv2 {
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Response_ExtensionsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Info_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Info_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Info_descriptor,
@@ -30479,31 +34847,31 @@ public final class Openapiv2 {
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Info_ExtensionsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Contact_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Contact_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Contact_descriptor,
         new java.lang.String[] { "Name", "Url", "Email", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_License_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_License_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_License_descriptor,
         new java.lang.String[] { "Name", "Url", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_ExternalDocumentation_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_ExternalDocumentation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_ExternalDocumentation_descriptor,
         new java.lang.String[] { "Description", "Url", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Schema_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Schema_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Schema_descriptor,
         new java.lang.String[] { "JsonSchema", "Discriminator", "ReadOnly", "ExternalDocs", "Example", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_JSONSchema_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_JSONSchema_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_JSONSchema_descriptor,
@@ -30521,13 +34889,19 @@ public final class Openapiv2 {
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_JSONSchema_ExtensionsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_descriptor,
-        new java.lang.String[] { "Description", "ExternalDocs", });
+        new java.lang.String[] { "Name", "Description", "ExternalDocs", "Extensions", });
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_ExtensionsEntry_descriptor =
+      internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_descriptor.getNestedTypes().get(0);
+    internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_ExtensionsEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_grpc_gateway_protoc_gen_openapiv2_options_Tag_ExtensionsEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityDefinitions_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityDefinitions_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityDefinitions_descriptor,
@@ -30539,7 +34913,7 @@ public final class Openapiv2 {
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityDefinitions_SecurityEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityScheme_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityScheme_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityScheme_descriptor,
@@ -30551,7 +34925,7 @@ public final class Openapiv2 {
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityScheme_ExtensionsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityRequirement_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityRequirement_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityRequirement_descriptor,
@@ -30569,7 +34943,7 @@ public final class Openapiv2 {
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_SecurityRequirement_SecurityRequirementEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Scopes_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_grpc_gateway_protoc_gen_openapiv2_options_Scopes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpc_gateway_protoc_gen_openapiv2_options_Scopes_descriptor,

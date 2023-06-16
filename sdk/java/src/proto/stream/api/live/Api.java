@@ -69,6 +69,11 @@ public final class Api {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_live_v21_RtmpPullAddress_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_live_v21_SrtPullAddress_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_live_v21_SrtPullAddress_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_live_v21_SourceAddress_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -78,6 +83,11 @@ public final class Api {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_live_v21_DestinationRtmpPushAddress_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_live_v21_DestinationSrtPushAddress_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_live_v21_DestinationSrtPushAddress_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_live_v21_DestinationAgoraPushAddress_descriptor;
   static final 
@@ -697,13 +707,13 @@ public final class Api {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022live/v21/api.proto\022\010live.v21\032\034google/a" +
-      "pi/annotations.proto\032\037google/api/field_b" +
-      "ehavior.proto\032\037google/protobuf/timestamp" +
-      ".proto\032\034google/protobuf/struct.proto\032 go" +
-      "ogle/protobuf/field_mask.proto\032.protoc-g" +
-      "en-openapiv2/options/annotations.proto\032\024" +
-      "common/v21/ext.proto\"\375\002\n\016VideoRendering\022" +
+      "\n\022live/v21/api.proto\022\010live.v21\032\024common/v" +
+      "21/ext.proto\032\034google/api/annotations.pro" +
+      "to\032\037google/api/field_behavior.proto\032 goo" +
+      "gle/protobuf/field_mask.proto\032\034google/pr" +
+      "otobuf/struct.proto\032\037google/protobuf/tim" +
+      "estamp.proto\032.protoc-gen-openapiv2/optio" +
+      "ns/annotations.proto\"\375\002\n\016VideoRendering\022" +
       "<\n\006height\030\001 \001(\rB\037\222A\034:\003720J\003720Y\000\000\000\000\000\340\240@i" +
       "\000\000\000\000\000\000n@H\000R\006height\210\001\001\022<\n\005width\030\002 \001(\rB!\222A" +
       "\036:\0041280J\0041280Y\000\000\000\000\000\000\256@i\000\000\000\000\000\000t@H\001R\005width" +
@@ -776,904 +786,914 @@ public final class Api {
       "eUrl\210\001\001B\n\n\010_enabledB\014\n\n_stream_idB\006\n\004_ur" +
       "lB\013\n\t_base_url\"\\\n\017RtmpPullAddress\022I\n\003url" +
       "\030\001 \001(\tB7\222A0J.\"rtmp://ingest.fakecompany." +
-      "com/inbound/abc123\"\342A\001\002R\003url\"\310\001\n\rSourceA" +
-      "ddress\022>\n\trtmp_push\030\001 \001(\0132\037.live.v21.Sou" +
-      "rceRtmpPushAddressH\000R\010rtmpPush\0225\n\010srt_pu" +
-      "sh\030\002 \001(\0132\030.live.v21.SrtPushAddressH\000R\007sr" +
-      "tPush\0228\n\trtmp_pull\030\003 \001(\0132\031.live.v21.Rtmp" +
-      "PullAddressH\000R\010rtmpPullB\006\n\004type\"\267\001\n\032Dest" +
-      "inationRtmpPushAddress\022A\n\003key\030\001 \001(\tB*\222A\'" +
-      "J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"H" +
-      "\000R\003key\210\001\001\022N\n\003url\030\002 \001(\tB<\222A!J\037\"rtmp://ing" +
-      "est.fakecompany.com\"\342A\001\002\202\265\030\020Z\016\'rtmp\',\'rt" +
-      "mps\'R\003urlB\006\n\004_key\"~\n\033DestinationAgoraPus" +
-      "hAddress\022\033\n\006app_id\030\001 \001(\tB\004\342A\001\002R\005appId\022#\n" +
-      "\nchannel_id\030\002 \001(\tB\004\342A\001\002R\tchannelId\022\035\n\007us" +
-      "er_id\030\003 \001(\tB\004\342A\001\002R\006userId\"\256\001\n\020HlsLifecyc" +
-      "leLive\022>\n\016playlist_count\030\001 \001(\005B\022\222A\017:\0015J\001" +
-      "5i\000\000\000\000\000\000\000@H\000R\rplaylistCount\210\001\001\0228\n\nfile_c" +
-      "ount\030\002 \001(\005B\024\222A\021:\00210J\00210i\000\000\000\000\000\000\020@H\001R\tfile" +
-      "Count\210\001\001B\021\n\017_playlist_countB\r\n\013_file_cou" +
-      "nt\"U\n\017HlsLifecycleVod\0221\n\014max_duration\030\001 " +
-      "\001(\005B\t\222A\006:\0010J\0010H\000R\013maxDuration\210\001\001B\017\n\r_max" +
-      "_duration\"\200\001\n\014HlsLifecycle\0226\n\003vod\030\001 \001(\0132" +
-      "\031.live.v21.HlsLifecycleVodB\007\222A\004:\002{}H\000R\003v" +
-      "od\0220\n\004live\030\002 \001(\0132\032.live.v21.HlsLifecycle" +
-      "LiveH\000R\004liveB\006\n\004type\"\265\001\n\014HlsPackaging\022=\n" +
-      "\tlifecycle\030\001 \001(\0132\026.live.v21.HlsLifecycle" +
-      "B\007\222A\004:\002{}R\tlifecycle\022Q\n\020segment_duration" +
-      "\030\002 \001(\005B!\222A\036:\0042000J\0042000Y\000\000\000\000\000\224\321@i\000\000\000\000\000@\237" +
-      "@H\000R\017segmentDuration\210\001\001B\023\n\021_segment_dura" +
-      "tion\"U\n\026ObjectStoragePackaging\0223\n\003hls\030\001 " +
-      "\001(\0132\026.live.v21.HlsPackagingB\007\222A\004:\002{}H\000R\003" +
-      "hlsB\006\n\004type\"\253\004\n\020S3StorageAddress\022*\n\006regi" +
-      "on\030\001 \001(\tB\022\222A\013J\tus-west-1\342A\001\002R\006region\022(\n\006" +
-      "bucket\030\002 \001(\tB\020\222A\tJ\007company\342A\001\002R\006bucket\022%" +
-      "\n\006prefix\030\003 \001(\tB\010\222A\005J\003appH\000R\006prefix\210\001\001\022#\n" +
-      "\naccess_key\030\004 \001(\tB\004\342A\001\002R\taccessKey\022#\n\nse" +
-      "cret_key\030\005 \001(\tB\004\342A\001\002R\tsecretKey\022\031\n\005token" +
-      "\030\006 \001(\tH\001R\005token\210\001\001\022*\n\016token_duration\030\007 \001" +
-      "(\005H\002R\rtokenDuration\210\001\001\022@\n\003acl\030\010 \001(\0162\017.li" +
-      "ve.v21.S3ACLB\030\222A\025J\023\"S3ACL_PUBLIC_READ\"H\003" +
-      "R\003acl\210\001\001\022A\n\010endpoint\030\t \001(\tB \222A\035J\033fra1.di" +
-      "gitaloceanspaces.comH\004R\010endpoint\210\001\001\022G\n\tp" +
-      "ackaging\030\n \001(\0132 .live.v21.ObjectStorageP" +
-      "ackagingB\007\222A\004:\002{}R\tpackagingB\t\n\007_prefixB" +
-      "\010\n\006_tokenB\021\n\017_token_durationB\006\n\004_aclB\013\n\t" +
-      "_endpoint\"\335\001\n\022DestinationAddress\022C\n\trtmp" +
-      "_push\030\001 \001(\0132$.live.v21.DestinationRtmpPu" +
-      "shAddressH\000R\010rtmpPush\022=\n\005agora\030\002 \001(\0132%.l" +
-      "ive.v21.DestinationAgoraPushAddressH\000R\005a" +
-      "gora\022;\n\ns3_storage\030\003 \001(\0132\032.live.v21.S3St" +
-      "orageAddressH\000R\ts3StorageB\006\n\004type\"\337\002\n\rSo" +
-      "urceTrigger\022K\n\tsource_id\030\001 \001(\tB.\222A\'J%\"71" +
-      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010" +
-      "sourceId\022w\n\005start\030\002 \001(\0162\035.live.v21.Sourc" +
-      "eTriggerActionB=\222A::\034SOURCE_TRIGGER_ACTI" +
-      "ON_IGNOREJ\032\"SOURCE_TRIGGER_ACTION_OR\"H\000R" +
-      "\005start\210\001\001\022u\n\004stop\030\003 \001(\0162\035.live.v21.Sourc" +
-      "eTriggerActionB=\222A::\034SOURCE_TRIGGER_ACTI" +
-      "ON_IGNOREJ\032\"SOURCE_TRIGGER_ACTION_OR\"H\001R" +
-      "\004stop\210\001\001B\010\n\006_startB\007\n\005_stop\"\217\001\n\rWebRtcTr" +
-      "igger\022u\n\004stop\030\003 \001(\0162\035.live.v21.SourceTri" +
-      "ggerActionB=\222A::\034SOURCE_TRIGGER_ACTION_I" +
-      "GNOREJ\032\"SOURCE_TRIGGER_ACTION_OR\"H\000R\004sto" +
-      "p\210\001\001B\007\n\005_stop\"K\n\016ProjectTrigger\0221\n\006sourc" +
-      "e\030\001 \001(\0132\027.live.v21.SourceTriggerH\000R\006sour" +
-      "ceB\006\n\004type\"\347\001\n\025PreviewHlsPullAddress\0222\n\007" +
-      "enabled\030\001 \001(\010B\023\222A\014:\004trueJ\004true\342A\001\002H\000R\007en" +
-      "abled\210\001\001\022\205\001\n\003url\030\002 \001(\tBn\222AfJd\"https://de" +
-      "vstreaming-cdn.apple.com/videos/streamin" +
-      "g/examples/img_bipbop_adv_example_ts/mas" +
-      "ter.m3u8\"\342A\002\005\003H\001R\003url\210\001\001B\n\n\010_enabledB\006\n\004" +
-      "_url\"\223\002\n\024PreviewWebRtcAddress\0222\n\007enabled" +
-      "\030\001 \001(\010B\023\222A\014:\004trueJ\004true\342A\001\002H\000R\007enabled\210\001" +
-      "\001\022:\n\014display_name\030\002 \001(\tB\022\222A\013J\t\"Camera1\"\342" +
-      "A\001\002H\001R\013displayName\210\001\001\022[\n\016participant_id\030" +
-      "\003 \001(\tB/\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
-      "3269ce6f\"\342A\002\005\003H\002R\rparticipantId\210\001\001B\n\n\010_e" +
-      "nabledB\017\n\r_display_nameB\021\n\017_participant_" +
-      "id\"X\n\016PreviewAddress\022;\n\006webrtc\030\002 \001(\0132\036.l" +
-      "ive.v21.PreviewWebRtcAddressH\000R\006webrtc\210\001" +
-      "\001B\t\n\007_webrtc\"\363\001\n\024StudioSdkComposition\022\207\001" +
-      "\n\014renderer_url\030\001 \001(\tB_\222AHJF\"https:\\/\\/ra" +
-      "inmaker.gg\\/overlay\\/e67cfd6ad57560962fd" +
-      "dcf63611d2834\\/1\"\202\265\030\020Z\016\'http\',\'https\'H\000R" +
-      "\013rendererUrl\210\001\001\0224\n\007version\030\002 \001(\tB\025\222A\022:\006l" +
-      "atestJ\010\"latest\"H\001R\007version\210\001\001B\017\n\r_render" +
-      "er_urlB\n\n\010_version\"\330\002\n\020SceneComposition\022" +
-      "\207\001\n\014renderer_url\030\001 \001(\tB_\222AHJF\"https:\\/\\/" +
-      "rainmaker.gg\\/overlay\\/e67cfd6ad57560962" +
-      "fddcf63611d2834\\/1\"\202\265\030\020Z\016\'http\',\'https\'H" +
-      "\000R\013rendererUrl\210\001\001\022Z\n\022selected_layout_id\030" +
-      "\002 \001(\tB\'\222A$J\"\"e67cfd6ad57560962fddcf63611" +
-      "d2835\"H\001R\020selectedLayoutId\210\001\001\022,\n\005debug\030\003" +
-      " \001(\010B\021\222A\016:\005falseJ\005falseH\002R\005debug\210\001\001B\017\n\r_" +
-      "renderer_urlB\025\n\023_selected_layout_idB\010\n\006_" +
-      "debug\"\214\001\n\023ExternalComposition\022u\n\003url\030\001 \001" +
-      "(\tBc\222AHJF\"https:\\/\\/rainmaker.gg\\/overla" +
-      "y\\/e67cfd6ad57560962fddcf63611d2834\\/1\"\342" +
-      "A\001\002\202\265\030\020Z\016\'http\',\'https\'R\003url\"\320\001\n\013Composi" +
-      "tion\022;\n\010external\030\001 \001(\0132\035.live.v21.Extern" +
-      "alCompositionH\000R\010external\022?\n\nstudio_sdk\030" +
-      "\002 \001(\0132\036.live.v21.StudioSdkCompositionH\000R" +
-      "\tstudioSdk\022;\n\005scene\030\004 \001(\0132\032.live.v21.Sce" +
-      "neCompositionB\007\222A\004:\002{}H\000R\005sceneB\006\n\004type\"" +
-      "J\n\014HostedWebRtc\022.\n\007enabled\030\001 \001(\010B\017\222A\014:\004t" +
-      "rueJ\004trueH\000R\007enabled\210\001\001B\n\n\010_enabled\"B\n\006W" +
-      "ebRtc\0220\n\006hosted\030\001 \001(\0132\026.live.v21.HostedW" +
-      "ebRtcH\000R\006hostedB\006\n\004type\"\351\001\n\014WebRtcAccess" +
-      "\022i\n\014access_token\030\001 \001(\tBF\222ACJA\"eyJ0eXAiOi" +
-      "Jqd3QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkN3dX" +
-      "NNbmZFZl93Nk9\"R\013accessToken\022[\n\016participa" +
-      "nt_id\030\003 \001(\tB/\222A\'J%\"7132b004-61e8-49c1-8d" +
-      "c8-4bb3269ce6f\"\342A\002\005\003H\000R\rparticipantId\210\001\001" +
-      "B\021\n\017_participant_id\"C\n\007LatLong\022\032\n\010latitu" +
-      "de\030\001 \001(\001R\010latitude\022\034\n\tlongitude\030\002 \001(\001R\tl" +
-      "ongitude\"\202\006\n\026ProjectBroadcastStatus\022O\n\rc" +
-      "ollection_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-" +
-      "49c1-8dc8-4bb3269ce6f\"R\014collectionId\022I\n\n" +
-      "project_id\030\002 \001(\tB*\222A\'J%\"7132b004-61e8-49" +
-      "c1-8dc8-4bb3269ce6f\"R\tprojectId\022R\n\014broad" +
-      "cast_id\030\003 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-" +
-      "8dc8-4bb3269ce6f\"H\000R\013broadcastId\210\001\001\022,\n\010d" +
-      "uration\030\004 \001(\rB\013\222A\010J\006300000H\001R\010duration\210\001" +
-      "\001\022R\n\005start\030\005 \001(\0132\032.google.protobuf.Times" +
-      "tampB\033\222A\030J\026\"1981-08-01T00:01:00Z\"H\002R\005sta" +
-      "rt\210\001\001\022P\n\004stop\030\006 \001(\0132\032.google.protobuf.Ti" +
-      "mestampB\033\222A\030J\026\"1981-08-01T00:04:21Z\"H\003R\004" +
-      "stop\210\001\001\022a\n\005phase\030\007 \001(\0162\037.live.v21.Projec" +
-      "tBroadcastPhaseB*\222A\'J%\"PROJECT_BROADCAST" +
-      "_PHASE_UNSPECIFIED\"R\005phase\022D\n\006region\030\010 \001" +
-      "(\0162\020.live.v21.RegionB\025\222A\022J\020\"REGION_US_EA" +
-      "ST\"H\004R\006region\210\001\001\0220\n\ndatacenter\030\t \001(\tB\013\222A" +
-      "\010J\006\"nyc1\"H\005R\ndatacenter\210\001\001B\017\n\r_broadcast" +
-      "_idB\013\n\t_durationB\010\n\006_startB\007\n\005_stopB\t\n\007_" +
-      "regionB\r\n\013_datacenter\"\255\003\n\006Source\022c\n\rcoll" +
-      "ection_id\030\001 \001(\tB>\222A\'J%\"7132b004-61e8-49c" +
-      "1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\014*\nCollectionR" +
-      "\014collectionId\022Q\n\tsource_id\030\002 \001(\tB4\222A\'J%\"" +
-      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\005" +
-      "\202\265\030\002\020\001R\010sourceId\022\\\n\010metadata\030\003 \001(\0132\026.goo" +
-      "gle.protobuf.ValueB#\222A J\036{\"createdBy\": \"" +
-      "Eddie Current\"}H\000R\010metadata\210\001\001\0227\n\007previe" +
-      "w\030\004 \001(\0132\030.live.v21.PreviewAddressH\001R\007pre" +
-      "view\210\001\001\0221\n\007address\030\006 \001(\0132\027.live.v21.Sour" +
-      "ceAddressR\007address:\010\202\265\030\004\010\0018\001B\013\n\t_metadat" +
-      "aB\n\n\010_preview\"\316\004\n\013Destination\022c\n\rcollect" +
-      "ion_id\030\001 \001(\tB>\222A\'J%\"7132b004-61e8-49c1-8" +
-      "dc8-4bb3269ce6f\"\342A\001\005\202\265\030\014*\nCollectionR\014co" +
-      "llectionId\022Z\n\nproject_id\030\002 \001(\tB;\222A\'J%\"71" +
-      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265" +
-      "\030\t*\007ProjectR\tprojectId\022[\n\016destination_id" +
-      "\030\003 \001(\tB4\222A\'J%\"7132b004-61e8-49c1-8dc8-4b" +
-      "b3269ce6f\"\342A\001\005\202\265\030\002\020\001R\rdestinationId\022\\\n\010m" +
+      "com/inbound/abc123\"\342A\001\002R\003url\"K\n\016SrtPullA" +
+      "ddress\0229\n\003url\030\001 \001(\tB\'\222A J\036\"srt://ingest." +
+      "fakecompany.com\"\342A\001\002R\003url\"\377\001\n\rSourceAddr" +
+      "ess\022>\n\trtmp_push\030\001 \001(\0132\037.live.v21.Source" +
+      "RtmpPushAddressH\000R\010rtmpPush\0225\n\010srt_push\030" +
+      "\002 \001(\0132\030.live.v21.SrtPushAddressH\000R\007srtPu" +
+      "sh\0228\n\trtmp_pull\030\003 \001(\0132\031.live.v21.RtmpPul" +
+      "lAddressH\000R\010rtmpPull\0225\n\010srt_pull\030\004 \001(\0132\030" +
+      ".live.v21.SrtPullAddressH\000R\007srtPullB\006\n\004t" +
+      "ype\"\267\001\n\032DestinationRtmpPushAddress\022A\n\003ke" +
+      "y\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
+      "bb3269ce6f\"H\000R\003key\210\001\001\022N\n\003url\030\002 \001(\tB<\222A!J" +
+      "\037\"rtmp://ingest.fakecompany.com\"\342A\001\002\202\265\030\020" +
+      "Z\016\'rtmp\',\'rtmps\'R\003urlB\006\n\004_key\"a\n\031Destina" +
+      "tionSrtPushAddress\022D\n\003url\030\002 \001(\tB2\222A J\036\"s" +
+      "rt://ingest.fakecompany.com\"\342A\001\002\202\265\030\007Z\005\'s" +
+      "rt\'R\003url\"~\n\033DestinationAgoraPushAddress\022" +
+      "\033\n\006app_id\030\001 \001(\tB\004\342A\001\002R\005appId\022#\n\nchannel_" +
+      "id\030\002 \001(\tB\004\342A\001\002R\tchannelId\022\035\n\007user_id\030\003 \001" +
+      "(\tB\004\342A\001\002R\006userId\"\256\001\n\020HlsLifecycleLive\022>\n" +
+      "\016playlist_count\030\001 \001(\005B\022\222A\017:\0015J\0015i\000\000\000\000\000\000\000" +
+      "@H\000R\rplaylistCount\210\001\001\0228\n\nfile_count\030\002 \001(" +
+      "\005B\024\222A\021:\00210J\00210i\000\000\000\000\000\000\020@H\001R\tfileCount\210\001\001B" +
+      "\021\n\017_playlist_countB\r\n\013_file_count\"U\n\017Hls" +
+      "LifecycleVod\0221\n\014max_duration\030\001 \001(\005B\t\222A\006:" +
+      "\0010J\0010H\000R\013maxDuration\210\001\001B\017\n\r_max_duration" +
+      "\"\200\001\n\014HlsLifecycle\0226\n\003vod\030\001 \001(\0132\031.live.v2" +
+      "1.HlsLifecycleVodB\007\222A\004:\002{}H\000R\003vod\0220\n\004liv" +
+      "e\030\002 \001(\0132\032.live.v21.HlsLifecycleLiveH\000R\004l" +
+      "iveB\006\n\004type\"\265\001\n\014HlsPackaging\022=\n\tlifecycl" +
+      "e\030\001 \001(\0132\026.live.v21.HlsLifecycleB\007\222A\004:\002{}" +
+      "R\tlifecycle\022Q\n\020segment_duration\030\002 \001(\005B!\222" +
+      "A\036:\0042000J\0042000Y\000\000\000\000\000\224\321@i\000\000\000\000\000@\237@H\000R\017segm" +
+      "entDuration\210\001\001B\023\n\021_segment_duration\"U\n\026O" +
+      "bjectStoragePackaging\0223\n\003hls\030\001 \001(\0132\026.liv" +
+      "e.v21.HlsPackagingB\007\222A\004:\002{}H\000R\003hlsB\006\n\004ty" +
+      "pe\"\263\004\n\020S3StorageAddress\022,\n\006region\030\001 \001(\tB" +
+      "\024\222A\rJ\013\"us-west-1\"\342A\001\002R\006region\022*\n\006bucket\030" +
+      "\002 \001(\tB\022\222A\013J\t\"company\"\342A\001\002R\006bucket\022\'\n\006pre" +
+      "fix\030\003 \001(\tB\n\222A\007J\005\"app\"H\000R\006prefix\210\001\001\022#\n\nac" +
+      "cess_key\030\004 \001(\tB\004\342A\001\002R\taccessKey\022#\n\nsecre" +
+      "t_key\030\005 \001(\tB\004\342A\001\002R\tsecretKey\022\031\n\005token\030\006 " +
+      "\001(\tH\001R\005token\210\001\001\022*\n\016token_duration\030\007 \001(\005H" +
+      "\002R\rtokenDuration\210\001\001\022@\n\003acl\030\010 \001(\0162\017.live." +
+      "v21.S3ACLB\030\222A\025J\023\"S3ACL_PUBLIC_READ\"H\003R\003a" +
+      "cl\210\001\001\022C\n\010endpoint\030\t \001(\tB\"\222A\037J\035\"fra1.digi" +
+      "taloceanspaces.com\"H\004R\010endpoint\210\001\001\022G\n\tpa" +
+      "ckaging\030\n \001(\0132 .live.v21.ObjectStoragePa" +
+      "ckagingB\007\222A\004:\002{}R\tpackagingB\t\n\007_prefixB\010" +
+      "\n\006_tokenB\021\n\017_token_durationB\006\n\004_aclB\013\n\t_" +
+      "endpoint\"\237\002\n\022DestinationAddress\022C\n\trtmp_" +
+      "push\030\001 \001(\0132$.live.v21.DestinationRtmpPus" +
+      "hAddressH\000R\010rtmpPush\022=\n\005agora\030\002 \001(\0132%.li" +
+      "ve.v21.DestinationAgoraPushAddressH\000R\005ag" +
+      "ora\022;\n\ns3_storage\030\003 \001(\0132\032.live.v21.S3Sto" +
+      "rageAddressH\000R\ts3Storage\022@\n\010srt_push\030\004 \001" +
+      "(\0132#.live.v21.DestinationSrtPushAddressH" +
+      "\000R\007srtPushB\006\n\004type\"\337\002\n\rSourceTrigger\022K\n\t" +
+      "source_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c" +
+      "1-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId\022w\n\005sta" +
+      "rt\030\002 \001(\0162\035.live.v21.SourceTriggerActionB" +
+      "=\222A::\034SOURCE_TRIGGER_ACTION_IGNOREJ\032\"SOU" +
+      "RCE_TRIGGER_ACTION_OR\"H\000R\005start\210\001\001\022u\n\004st" +
+      "op\030\003 \001(\0162\035.live.v21.SourceTriggerActionB" +
+      "=\222A::\034SOURCE_TRIGGER_ACTION_IGNOREJ\032\"SOU" +
+      "RCE_TRIGGER_ACTION_OR\"H\001R\004stop\210\001\001B\010\n\006_st" +
+      "artB\007\n\005_stop\"\217\001\n\rWebRtcTrigger\022u\n\004stop\030\003" +
+      " \001(\0162\035.live.v21.SourceTriggerActionB=\222A:" +
+      ":\034SOURCE_TRIGGER_ACTION_IGNOREJ\032\"SOURCE_" +
+      "TRIGGER_ACTION_OR\"H\000R\004stop\210\001\001B\007\n\005_stop\"K" +
+      "\n\016ProjectTrigger\0221\n\006source\030\001 \001(\0132\027.live." +
+      "v21.SourceTriggerH\000R\006sourceB\006\n\004type\"\347\001\n\025" +
+      "PreviewHlsPullAddress\0222\n\007enabled\030\001 \001(\010B\023" +
+      "\222A\014:\004trueJ\004true\342A\001\002H\000R\007enabled\210\001\001\022\205\001\n\003ur" +
+      "l\030\002 \001(\tBn\222AfJd\"https://devstreaming-cdn." +
+      "apple.com/videos/streaming/examples/img_" +
+      "bipbop_adv_example_ts/master.m3u8\"\342A\002\005\003H" +
+      "\001R\003url\210\001\001B\n\n\010_enabledB\006\n\004_url\"\223\002\n\024Previe" +
+      "wWebRtcAddress\0222\n\007enabled\030\001 \001(\010B\023\222A\014:\004tr" +
+      "ueJ\004true\342A\001\002H\000R\007enabled\210\001\001\022:\n\014display_na" +
+      "me\030\002 \001(\tB\022\222A\013J\t\"Camera1\"\342A\001\002H\001R\013displayN" +
+      "ame\210\001\001\022[\n\016participant_id\030\003 \001(\tB/\222A\'J%\"71" +
+      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\002\005\003H" +
+      "\002R\rparticipantId\210\001\001B\n\n\010_enabledB\017\n\r_disp" +
+      "lay_nameB\021\n\017_participant_id\"X\n\016PreviewAd" +
+      "dress\022;\n\006webrtc\030\002 \001(\0132\036.live.v21.Preview" +
+      "WebRtcAddressH\000R\006webrtc\210\001\001B\t\n\007_webrtc\"\363\001" +
+      "\n\024StudioSdkComposition\022\207\001\n\014renderer_url\030" +
+      "\001 \001(\tB_\222AHJF\"https:\\/\\/rainmaker.gg\\/ove" +
+      "rlay\\/e67cfd6ad57560962fddcf63611d2834\\/" +
+      "1\"\202\265\030\020Z\016\'http\',\'https\'H\000R\013rendererUrl\210\001\001" +
+      "\0224\n\007version\030\002 \001(\tB\025\222A\022:\006latestJ\010\"latest\"" +
+      "H\001R\007version\210\001\001B\017\n\r_renderer_urlB\n\n\010_vers" +
+      "ion\"\330\002\n\020SceneComposition\022\207\001\n\014renderer_ur" +
+      "l\030\001 \001(\tB_\222AHJF\"https:\\/\\/rainmaker.gg\\/o" +
+      "verlay\\/e67cfd6ad57560962fddcf63611d2834" +
+      "\\/1\"\202\265\030\020Z\016\'http\',\'https\'H\000R\013rendererUrl\210" +
+      "\001\001\022Z\n\022selected_layout_id\030\002 \001(\tB\'\222A$J\"\"e6" +
+      "7cfd6ad57560962fddcf63611d2835\"H\001R\020selec" +
+      "tedLayoutId\210\001\001\022,\n\005debug\030\003 \001(\010B\021\222A\016:\005fals" +
+      "eJ\005falseH\002R\005debug\210\001\001B\017\n\r_renderer_urlB\025\n" +
+      "\023_selected_layout_idB\010\n\006_debug\"\214\001\n\023Exter" +
+      "nalComposition\022u\n\003url\030\001 \001(\tBc\222AHJF\"https" +
+      ":\\/\\/rainmaker.gg\\/overlay\\/e67cfd6ad575" +
+      "60962fddcf63611d2834\\/1\"\342A\001\002\202\265\030\020Z\016\'http\'" +
+      ",\'https\'R\003url\"\320\001\n\013Composition\022;\n\010externa" +
+      "l\030\001 \001(\0132\035.live.v21.ExternalCompositionH\000" +
+      "R\010external\022?\n\nstudio_sdk\030\002 \001(\0132\036.live.v2" +
+      "1.StudioSdkCompositionH\000R\tstudioSdk\022;\n\005s" +
+      "cene\030\004 \001(\0132\032.live.v21.SceneCompositionB\007" +
+      "\222A\004:\002{}H\000R\005sceneB\006\n\004type\"J\n\014HostedWebRtc" +
+      "\022.\n\007enabled\030\001 \001(\010B\017\222A\014:\004trueJ\004trueH\000R\007en" +
+      "abled\210\001\001B\n\n\010_enabled\"B\n\006WebRtc\0220\n\006hosted" +
+      "\030\001 \001(\0132\026.live.v21.HostedWebRtcH\000R\006hosted" +
+      "B\006\n\004type\"\351\001\n\014WebRtcAccess\022i\n\014access_toke" +
+      "n\030\001 \001(\tBF\222ACJA\"eyJ0eXAiOiJqd3QiLCJhbGciO" +
+      "iJSUzI1NiIsImtpZCI6IkN3dXNNbmZFZl93Nk9\"R" +
+      "\013accessToken\022[\n\016participant_id\030\003 \001(\tB/\222A" +
+      "\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"" +
+      "\342A\002\005\003H\000R\rparticipantId\210\001\001B\021\n\017_participan" +
+      "t_id\"C\n\007LatLong\022\032\n\010latitude\030\001 \001(\001R\010latit" +
+      "ude\022\034\n\tlongitude\030\002 \001(\001R\tlongitude\"\202\006\n\026Pr" +
+      "ojectBroadcastStatus\022O\n\rcollection_id\030\001 " +
+      "\001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb32" +
+      "69ce6f\"R\014collectionId\022I\n\nproject_id\030\002 \001(" +
+      "\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269" +
+      "ce6f\"R\tprojectId\022R\n\014broadcast_id\030\003 \001(\tB*" +
+      "\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6" +
+      "f\"H\000R\013broadcastId\210\001\001\022,\n\010duration\030\004 \001(\rB\013" +
+      "\222A\010J\006300000H\001R\010duration\210\001\001\022R\n\005start\030\005 \001(" +
+      "\0132\032.google.protobuf.TimestampB\033\222A\030J\026\"198" +
+      "1-08-01T00:01:00Z\"H\002R\005start\210\001\001\022P\n\004stop\030\006" +
+      " \001(\0132\032.google.protobuf.TimestampB\033\222A\030J\026\"" +
+      "1981-08-01T00:04:21Z\"H\003R\004stop\210\001\001\022a\n\005phas" +
+      "e\030\007 \001(\0162\037.live.v21.ProjectBroadcastPhase" +
+      "B*\222A\'J%\"PROJECT_BROADCAST_PHASE_UNSPECIF" +
+      "IED\"R\005phase\022D\n\006region\030\010 \001(\0162\020.live.v21.R" +
+      "egionB\025\222A\022J\020\"REGION_US_EAST\"H\004R\006region\210\001" +
+      "\001\0220\n\ndatacenter\030\t \001(\tB\013\222A\010J\006\"nyc1\"H\005R\nda" +
+      "tacenter\210\001\001B\017\n\r_broadcast_idB\013\n\t_duratio" +
+      "nB\010\n\006_startB\007\n\005_stopB\t\n\007_regionB\r\n\013_data" +
+      "center\"\255\003\n\006Source\022c\n\rcollection_id\030\001 \001(\t" +
+      "B>\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269c" +
+      "e6f\"\342A\001\005\202\265\030\014*\nCollectionR\014collectionId\022Q" +
+      "\n\tsource_id\030\002 \001(\tB4\222A\'J%\"7132b004-61e8-4" +
+      "9c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\002\020\001R\010sourceI" +
+      "d\022\\\n\010metadata\030\003 \001(\0132\026.google.protobuf.Va" +
+      "lueB#\222A J\036{\"createdBy\": \"Eddie Current\"}" +
+      "H\000R\010metadata\210\001\001\0227\n\007preview\030\004 \001(\0132\030.live." +
+      "v21.PreviewAddressH\001R\007preview\210\001\001\0221\n\007addr" +
+      "ess\030\006 \001(\0132\027.live.v21.SourceAddressR\007addr" +
+      "ess:\010\202\265\030\004\010\0018\001B\013\n\t_metadataB\n\n\010_preview\"\316" +
+      "\004\n\013Destination\022c\n\rcollection_id\030\001 \001(\tB>\222" +
+      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
+      "\"\342A\001\005\202\265\030\014*\nCollectionR\014collectionId\022Z\n\np" +
+      "roject_id\030\002 \001(\tB;\222A\'J%\"7132b004-61e8-49c" +
+      "1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\t*\007ProjectR\tpr" +
+      "ojectId\022[\n\016destination_id\030\003 \001(\tB4\222A\'J%\"7" +
+      "132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202" +
+      "\265\030\002\020\001R\rdestinationId\022\\\n\010metadata\030\004 \001(\0132\026" +
+      ".google.protobuf.ValueB#\222A J\036{\"createdBy" +
+      "\": \"Eddie Current\"}H\000R\010metadata\210\001\001\022.\n\007en" +
+      "abled\030\005 \001(\010B\017\222A\014:\004trueJ\004trueH\001R\007enabled\210" +
+      "\001\001\0226\n\007address\030\006 \001(\0132\034.live.v21.Destinati" +
+      "onAddressR\007address\022.\n\007timeout\030\007 \001(\rB\017\222A\014" +
+      ":\0045000J\0045000H\002R\007timeout\210\001\001:\006\202\265\030\002\010\001B\013\n\t_m" +
+      "etadataB\n\n\010_enabledB\n\n\010_timeout\"\266\007\n\007Proj" +
+      "ect\022c\n\rcollection_id\030\001 \001(\tB>\222A\'J%\"7132b0" +
+      "04-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\014*\n" +
+      "CollectionR\014collectionId\022S\n\nproject_id\030\002" +
+      " \001(\tB4\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3" +
+      "269ce6f\"\342A\001\005\202\265\030\002\020\001R\tprojectId\022\\\n\010metadat" +
+      "a\030\003 \001(\0132\026.google.protobuf.ValueB#\222A J\036{\"" +
+      "createdBy\": \"Eddie Current\"}H\000R\010metadata" +
+      "\210\001\001\022:\n\trendering\030\004 \001(\0132\023.live.v21.Render" +
+      "ingB\007\222A\004:\002{}R\trendering\0227\n\010encoding\030\005 \001(" +
+      "\0132\022.live.v21.EncodingB\007\222A\004:\002{}R\010encoding" +
+      "\0224\n\007sources\030\006 \003(\0132\020.live.v21.SourceB\010\202\265\030" +
+      "\0040\000@\001R\007sources\022A\n\014destinations\030\007 \003(\0132\025.l" +
+      "ive.v21.DestinationB\006\202\265\030\002\030\001R\014destination" +
+      "s\022@\n\013composition\030\010 \001(\0132\025.live.v21.Compos" +
+      "itionB\007\222A\004:\002{}R\013composition\022J\n\014max_durat" +
+      "ion\030\t \001(\rB\"\222A\037:\t172800000J\t172800000Y\000\000\000" +
+      "\000B\006\302AH\001R\013maxDuration\210\001\001\022-\n\006webrtc\030\n \001(\0132" +
+      "\020.live.v21.WebRtcH\002R\006webrtc\210\001\001\0224\n\010trigge" +
+      "rs\030\013 \003(\0132\030.live.v21.ProjectTriggerR\010trig" +
+      "gers\0222\n\010location\030\014 \001(\0132\021.live.v21.LatLon" +
+      "gH\003R\010location\210\001\001\022@\n\013guest_codes\030\r \003(\0132\023." +
+      "live.v21.GuestCodeB\n\342A\001\003\202\265\030\002\030\001R\nguestCod" +
+      "es:\006\202\265\030\002\010\001B\013\n\t_metadataB\017\n\r_max_duration" +
+      "B\t\n\007_webrtcB\013\n\t_location\"\305\002\n\nCollection\022" +
+      "Y\n\rcollection_id\030\001 \001(\tB4\222A\'J%\"7132b004-6" +
+      "1e8-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\002\020\001R\014co" +
+      "llectionId\022\\\n\010metadata\030\002 \001(\0132\026.google.pr" +
+      "otobuf.ValueB#\222A J\036{\"createdBy\": \"Eddie " +
+      "Current\"}H\000R\010metadata\210\001\001\0225\n\010projects\030\003 \003" +
+      "(\0132\021.live.v21.ProjectB\006\202\265\030\002\030\001R\010projects\022" +
+      "2\n\007sources\030\004 \003(\0132\020.live.v21.SourceB\006\202\265\030\002" +
+      "\030\001R\007sources:\006\202\265\030\002\010\001B\013\n\t_metadata\"\204\001\n\027Cre" +
+      "ateCollectionRequest\022\\\n\010metadata\030\001 \001(\0132\026" +
+      ".google.protobuf.ValueB#\222A J\036{\"createdBy" +
+      "\": \"Eddie Current\"}H\000R\010metadata\210\001\001B\013\n\t_m" +
+      "etadata\"P\n\030CreateCollectionResponse\0224\n\nc" +
+      "ollection\030\001 \001(\0132\024.live.v21.CollectionR\nc" +
+      "ollection\"\216\002\n\024GetCollectionRequest\022S\n\rco" +
+      "llection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-4" +
+      "9c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022" +
+      ";\n\021populate_projects\030\002 \001(\010B\t\222A\006:\004trueH\000R" +
+      "\020populateProjects\210\001\001\0229\n\020populate_sources" +
+      "\030\003 \001(\010B\t\222A\006:\004trueH\001R\017populateSources\210\001\001B" +
+      "\024\n\022_populate_projectsB\023\n\021_populate_sourc" +
+      "es\"M\n\025GetCollectionResponse\0224\n\ncollectio" +
+      "n\030\001 \001(\0132\024.live.v21.CollectionR\ncollectio" +
+      "n\"\253\002\n\027UpdateCollectionRequest\022S\n\rcollect" +
+      "ion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8" +
+      "dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022P\n\013up" +
+      "date_mask\030\002 \001(\0132\032.google.protobuf.FieldM" +
+      "askB\023\222A\014J\n\"metadata\"\342A\001\002R\nupdateMask\022\\\n\010" +
+      "metadata\030\003 \001(\0132\026.google.protobuf.ValueB#" +
+      "\222A J\036{\"createdBy\": \"Eddie Current\"}H\000R\010m" +
+      "etadata\210\001\001B\013\n\t_metadata\"P\n\030UpdateCollect" +
+      "ionResponse\0224\n\ncollection\030\001 \001(\0132\024.live.v" +
+      "21.CollectionR\ncollection\"\246\001\n\027DeleteColl" +
+      "ectionRequest\022S\n\rcollection_id\030\001 \001(\tB.\222A" +
+      "\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"" +
+      "\342A\001\002R\014collectionId\022,\n\005force\030\002 \001(\010B\021\222A\016:\005" +
+      "falseJ\005falseH\000R\005force\210\001\001B\010\n\006_force\"\334\001\n\030D" +
+      "eleteCollectionResponse\022/\n\017sources_delet" +
+      "ed\030\001 \001(\rB\006\222A\003J\0011R\016sourcesDeleted\0221\n\020proj" +
+      "ects_deleted\030\002 \001(\rB\006\222A\003J\0011R\017projectsDele" +
+      "ted\022\\\n\023project_ids_stopped\030\003 \003(\tB,\222A)J\'[" +
+      "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"]R\021" +
+      "projectIdsStopped\"\027\n\025GetCollectionsReque" +
+      "st\"P\n\026GetCollectionsResponse\0226\n\013collecti" +
+      "ons\030\001 \003(\0132\024.live.v21.CollectionR\013collect" +
+      "ions\"\207\005\n\024CreateProjectRequest\022S\n\rcollect" +
+      "ion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8" +
+      "dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022\\\n\010me" +
+      "tadata\030\002 \001(\0132\026.google.protobuf.ValueB#\222A" +
+      " J\036{\"createdBy\": \"Eddie Current\"}H\000R\010met" +
+      "adata\210\001\001\022?\n\trendering\030\003 \001(\0132\023.live.v21.R" +
+      "enderingB\007\222A\004:\002{}H\001R\trendering\210\001\001\022<\n\010enc" +
+      "oding\030\004 \001(\0132\022.live.v21.EncodingB\007\222A\004:\002{}" +
+      "H\002R\010encoding\210\001\001\022=\n\013composition\030\005 \001(\0132\025.l" +
+      "ive.v21.CompositionB\004\342A\001\002R\013composition\022J" +
+      "\n\014max_duration\030\006 \001(\rB\"\222A\037:\t172800000J\t17" +
+      "2800000Y\000\000\000\000B\006\302AH\003R\013maxDuration\210\001\001\022-\n\006we" +
+      "brtc\030\007 \001(\0132\020.live.v21.WebRtcH\004R\006webrtc\210\001" +
+      "\001\0222\n\010location\030\t \001(\0132\021.live.v21.LatLongH\005" +
+      "R\010location\210\001\001B\013\n\t_metadataB\014\n\n_rendering" +
+      "B\013\n\t_encodingB\017\n\r_max_durationB\t\n\007_webrt" +
+      "cB\013\n\t_location\"D\n\025CreateProjectResponse\022" +
+      "+\n\007project\030\001 \001(\0132\021.live.v21.ProjectR\007pro" +
+      "ject\"\302\006\n\024UpdateProjectRequest\022S\n\rcollect" +
+      "ion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8" +
+      "dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\npr" +
+      "oject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1" +
+      "-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022x\n\013upd" +
+      "ate_mask\030\003 \001(\0132\032.google.protobuf.FieldMa" +
+      "skB;\222A4J2\"metadata, maxDuration, renderi" +
+      "ng.video.frameRate\"\342A\001\002R\nupdateMask\022\\\n\010m" +
       "etadata\030\004 \001(\0132\026.google.protobuf.ValueB#\222" +
       "A J\036{\"createdBy\": \"Eddie Current\"}H\000R\010me" +
-      "tadata\210\001\001\022.\n\007enabled\030\005 \001(\010B\017\222A\014:\004trueJ\004t" +
-      "rueH\001R\007enabled\210\001\001\0226\n\007address\030\006 \001(\0132\034.liv" +
-      "e.v21.DestinationAddressR\007address\022.\n\007tim" +
-      "eout\030\007 \001(\rB\017\222A\014:\0045000J\0045000H\002R\007timeout\210\001" +
-      "\001:\006\202\265\030\002\010\001B\013\n\t_metadataB\n\n\010_enabledB\n\n\010_t" +
-      "imeout\"\266\007\n\007Project\022c\n\rcollection_id\030\001 \001(" +
-      "\tB>\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269" +
-      "ce6f\"\342A\001\005\202\265\030\014*\nCollectionR\014collectionId\022" +
-      "S\n\nproject_id\030\002 \001(\tB4\222A\'J%\"7132b004-61e8" +
-      "-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\002\020\001R\tproje" +
-      "ctId\022\\\n\010metadata\030\003 \001(\0132\026.google.protobuf" +
-      ".ValueB#\222A J\036{\"createdBy\": \"Eddie Curren" +
-      "t\"}H\000R\010metadata\210\001\001\022:\n\trendering\030\004 \001(\0132\023." +
-      "live.v21.RenderingB\007\222A\004:\002{}R\trendering\0227" +
-      "\n\010encoding\030\005 \001(\0132\022.live.v21.EncodingB\007\222A" +
-      "\004:\002{}R\010encoding\0224\n\007sources\030\006 \003(\0132\020.live." +
-      "v21.SourceB\010\202\265\030\0040\000@\001R\007sources\022A\n\014destina" +
-      "tions\030\007 \003(\0132\025.live.v21.DestinationB\006\202\265\030\002" +
-      "\030\001R\014destinations\022@\n\013composition\030\010 \001(\0132\025." +
-      "live.v21.CompositionB\007\222A\004:\002{}R\013compositi" +
-      "on\022J\n\014max_duration\030\t \001(\rB\"\222A\037:\t172800000" +
-      "J\t172800000Y\000\000\000\000B\006\302AH\001R\013maxDuration\210\001\001\022-" +
-      "\n\006webrtc\030\n \001(\0132\020.live.v21.WebRtcH\002R\006webr" +
-      "tc\210\001\001\0224\n\010triggers\030\013 \003(\0132\030.live.v21.Proje" +
-      "ctTriggerR\010triggers\0222\n\010location\030\014 \001(\0132\021." +
-      "live.v21.LatLongH\003R\010location\210\001\001\022@\n\013guest" +
-      "_codes\030\r \003(\0132\023.live.v21.GuestCodeB\n\342A\001\003\202" +
-      "\265\030\002\030\001R\nguestCodes:\006\202\265\030\002\010\001B\013\n\t_metadataB\017" +
-      "\n\r_max_durationB\t\n\007_webrtcB\013\n\t_location\"" +
-      "\305\002\n\nCollection\022Y\n\rcollection_id\030\001 \001(\tB4\222" +
-      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
-      "\"\342A\001\005\202\265\030\002\020\001R\014collectionId\022\\\n\010metadata\030\002 " +
-      "\001(\0132\026.google.protobuf.ValueB#\222A J\036{\"crea" +
-      "tedBy\": \"Eddie Current\"}H\000R\010metadata\210\001\001\022" +
-      "5\n\010projects\030\003 \003(\0132\021.live.v21.ProjectB\006\202\265" +
-      "\030\002\030\001R\010projects\0222\n\007sources\030\004 \003(\0132\020.live.v" +
-      "21.SourceB\006\202\265\030\002\030\001R\007sources:\006\202\265\030\002\010\001B\013\n\t_m" +
-      "etadata\"\204\001\n\027CreateCollectionRequest\022\\\n\010m" +
-      "etadata\030\001 \001(\0132\026.google.protobuf.ValueB#\222" +
-      "A J\036{\"createdBy\": \"Eddie Current\"}H\000R\010me" +
-      "tadata\210\001\001B\013\n\t_metadata\"P\n\030CreateCollecti" +
-      "onResponse\0224\n\ncollection\030\001 \001(\0132\024.live.v2" +
-      "1.CollectionR\ncollection\"\216\002\n\024GetCollecti" +
-      "onRequest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"" +
-      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
-      "R\014collectionId\022;\n\021populate_projects\030\002 \001(" +
-      "\010B\t\222A\006:\004trueH\000R\020populateProjects\210\001\001\0229\n\020p" +
-      "opulate_sources\030\003 \001(\010B\t\222A\006:\004trueH\001R\017popu" +
-      "lateSources\210\001\001B\024\n\022_populate_projectsB\023\n\021" +
-      "_populate_sources\"M\n\025GetCollectionRespon" +
-      "se\0224\n\ncollection\030\001 \001(\0132\024.live.v21.Collec" +
-      "tionR\ncollection\"\253\002\n\027UpdateCollectionReq" +
-      "uest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b" +
-      "004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014col" +
-      "lectionId\022P\n\013update_mask\030\002 \001(\0132\032.google." +
-      "protobuf.FieldMaskB\023\222A\014J\n\"metadata\"\342A\001\002R" +
-      "\nupdateMask\022\\\n\010metadata\030\003 \001(\0132\026.google.p" +
-      "rotobuf.ValueB#\222A J\036{\"createdBy\": \"Eddie" +
-      " Current\"}H\000R\010metadata\210\001\001B\013\n\t_metadata\"P" +
-      "\n\030UpdateCollectionResponse\0224\n\ncollection" +
-      "\030\001 \001(\0132\024.live.v21.CollectionR\ncollection" +
-      "\"\246\001\n\027DeleteCollectionRequest\022S\n\rcollecti" +
-      "on_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8d" +
-      "c8-4bb3269ce6f\"\342A\001\002R\014collectionId\022,\n\005for" +
-      "ce\030\002 \001(\010B\021\222A\016:\005falseJ\005falseH\000R\005force\210\001\001B" +
-      "\010\n\006_force\"\334\001\n\030DeleteCollectionResponse\022/" +
-      "\n\017sources_deleted\030\001 \001(\rB\006\222A\003J\0011R\016sources" +
-      "Deleted\0221\n\020projects_deleted\030\002 \001(\rB\006\222A\003J\001" +
-      "1R\017projectsDeleted\022\\\n\023project_ids_stoppe" +
-      "d\030\003 \003(\tB,\222A)J\'[\"7132b004-61e8-49c1-8dc8-" +
-      "4bb3269ce6f\"]R\021projectIdsStopped\"\027\n\025GetC" +
-      "ollectionsRequest\"P\n\026GetCollectionsRespo" +
-      "nse\0226\n\013collections\030\001 \003(\0132\024.live.v21.Coll" +
-      "ectionR\013collections\"\207\005\n\024CreateProjectReq" +
-      "uest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b" +
-      "004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014col" +
-      "lectionId\022\\\n\010metadata\030\002 \001(\0132\026.google.pro" +
-      "tobuf.ValueB#\222A J\036{\"createdBy\": \"Eddie C" +
-      "urrent\"}H\000R\010metadata\210\001\001\022?\n\trendering\030\003 \001" +
-      "(\0132\023.live.v21.RenderingB\007\222A\004:\002{}H\001R\trend" +
-      "ering\210\001\001\022<\n\010encoding\030\004 \001(\0132\022.live.v21.En" +
-      "codingB\007\222A\004:\002{}H\002R\010encoding\210\001\001\022=\n\013compos" +
-      "ition\030\005 \001(\0132\025.live.v21.CompositionB\004\342A\001\002" +
-      "R\013composition\022J\n\014max_duration\030\006 \001(\rB\"\222A\037" +
-      ":\t172800000J\t172800000Y\000\000\000\000B\006\302AH\003R\013maxDu" +
-      "ration\210\001\001\022-\n\006webrtc\030\007 \001(\0132\020.live.v21.Web" +
-      "RtcH\004R\006webrtc\210\001\001\0222\n\010location\030\t \001(\0132\021.liv" +
-      "e.v21.LatLongH\005R\010location\210\001\001B\013\n\t_metadat" +
-      "aB\014\n\n_renderingB\013\n\t_encodingB\017\n\r_max_dur" +
-      "ationB\t\n\007_webrtcB\013\n\t_location\"D\n\025CreateP" +
-      "rojectResponse\022+\n\007project\030\001 \001(\0132\021.live.v" +
-      "21.ProjectR\007project\"\302\006\n\024UpdateProjectReq" +
-      "uest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b" +
-      "004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014col" +
-      "lectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"713" +
-      "2b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tp" +
-      "rojectId\022x\n\013update_mask\030\003 \001(\0132\032.google.p" +
-      "rotobuf.FieldMaskB;\222A4J2\"metadata, maxDu" +
-      "ration, rendering.video.frameRate\"\342A\001\002R\n" +
-      "updateMask\022\\\n\010metadata\030\004 \001(\0132\026.google.pr" +
-      "otobuf.ValueB#\222A J\036{\"createdBy\": \"Eddie " +
-      "Current\"}H\000R\010metadata\210\001\001\0226\n\trendering\030\005 " +
-      "\001(\0132\023.live.v21.RenderingH\001R\trendering\210\001\001" +
-      "\0223\n\010encoding\030\006 \001(\0132\022.live.v21.EncodingH\002" +
-      "R\010encoding\210\001\001\022<\n\013composition\030\007 \001(\0132\025.liv" +
-      "e.v21.CompositionH\003R\013composition\210\001\001\022?\n\014m" +
-      "ax_duration\030\010 \001(\rB\027\222A\024J\t172800000Y\000\000\000\000B\006" +
-      "\302AH\004R\013maxDuration\210\001\001\022-\n\006webrtc\030\t \001(\0132\020.l" +
-      "ive.v21.WebRtcH\005R\006webrtc\210\001\001\0222\n\010location\030" +
-      "\n \001(\0132\021.live.v21.LatLongH\006R\010location\210\001\001B" +
-      "\013\n\t_metadataB\014\n\n_renderingB\013\n\t_encodingB" +
-      "\016\n\014_compositionB\017\n\r_max_durationB\t\n\007_web" +
-      "rtcB\013\n\t_location\"|\n\025UpdateProjectRespons" +
-      "e\022+\n\007project\030\001 \001(\0132\021.live.v21.ProjectR\007p" +
-      "roject\0226\n\021broadcast_updated\030\002 \001(\010B\t\222A\006J\004" +
-      "trueR\020broadcastUpdated\"\362\001\n\024DeleteProject" +
+      "tadata\210\001\001\0226\n\trendering\030\005 \001(\0132\023.live.v21." +
+      "RenderingH\001R\trendering\210\001\001\0223\n\010encoding\030\006 " +
+      "\001(\0132\022.live.v21.EncodingH\002R\010encoding\210\001\001\022<" +
+      "\n\013composition\030\007 \001(\0132\025.live.v21.Compositi" +
+      "onH\003R\013composition\210\001\001\022?\n\014max_duration\030\010 \001" +
+      "(\rB\027\222A\024J\t172800000Y\000\000\000\000B\006\302AH\004R\013maxDurati" +
+      "on\210\001\001\022-\n\006webrtc\030\t \001(\0132\020.live.v21.WebRtcH" +
+      "\005R\006webrtc\210\001\001\0222\n\010location\030\n \001(\0132\021.live.v2" +
+      "1.LatLongH\006R\010location\210\001\001B\013\n\t_metadataB\014\n" +
+      "\n_renderingB\013\n\t_encodingB\016\n\014_composition" +
+      "B\017\n\r_max_durationB\t\n\007_webrtcB\013\n\t_locatio" +
+      "n\"|\n\025UpdateProjectResponse\022+\n\007project\030\001 " +
+      "\001(\0132\021.live.v21.ProjectR\007project\0226\n\021broad" +
+      "cast_updated\030\002 \001(\010B\t\222A\006J\004trueR\020broadcast" +
+      "Updated\"\362\001\n\024DeleteProjectRequest\022S\n\rcoll" +
+      "ection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c" +
+      "1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n" +
+      "\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-4" +
+      "9c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022,\n\005" +
+      "force\030\003 \001(\010B\021\222A\016:\005falseJ\005falseH\000R\005force\210" +
+      "\001\001B\010\n\006_force\"x\n\025DeleteProjectResponse\0226\n" +
+      "\021broadcast_stopped\030\001 \001(\010B\t\222A\006J\004trueR\020bro" +
+      "adcastStopped\022\'\n\017layouts_deleted\030\002 \001(\rR\016" +
+      "layoutsDeleted\"\215\002\n\034StartProjectBroadcast" +
       "Request\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"71" +
       "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014" +
       "collectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"" +
       "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
-      "R\tprojectId\022,\n\005force\030\003 \001(\010B\021\222A\016:\005falseJ\005" +
-      "falseH\000R\005force\210\001\001B\010\n\006_force\"x\n\025DeletePro" +
-      "jectResponse\0226\n\021broadcast_stopped\030\001 \001(\010B" +
-      "\t\222A\006J\004trueR\020broadcastStopped\022\'\n\017layouts_" +
-      "deleted\030\002 \001(\rR\016layoutsDeleted\"\215\002\n\034StartP" +
-      "rojectBroadcastRequest\022S\n\rcollection_id\030" +
-      "\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
-      "3269ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_i" +
-      "d\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
-      "bb3269ce6f\"\342A\001\002R\tprojectId\0228\n\014webrtc_sta" +
-      "rt\030\003 \001(\010B\020\222A\r:\005falseJ\004trueH\000R\013webrtcStar" +
-      "t\210\001\001B\017\n\r_webrtc_start\"n\n\035StartProjectBro" +
-      "adcastResponse\022M\n\014broadcast_id\030\001 \001(\tB*\222A" +
-      "\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"" +
-      "R\013broadcastId\"\211\002\n\033StopProjectBroadcastRe" +
-      "quest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132" +
-      "b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014co" +
-      "llectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"71" +
-      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\t" +
-      "projectId\0226\n\013webrtc_stop\030\003 \001(\010B\020\222A\r:\005fal" +
-      "seJ\004trueH\000R\nwebrtcStop\210\001\001B\016\n\014_webrtc_sto" +
-      "p\"\036\n\034StopProjectBroadcastResponse\"\361\001\n\021Ge" +
-      "tProjectRequest\022S\n\rcollection_id\030\001 \001(\tB." +
-      "\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6" +
-      "f\"\342A\001\002R\014collectionId\022M\n\nproject_id\030\002 \001(\t" +
-      "B.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269c" +
-      "e6f\"\342A\001\002R\tprojectId\022-\n\006status\030\003 \001(\010B\020\222A\r" +
-      ":\005falseJ\004trueH\000R\006status\210\001\001B\t\n\007_status\"\213\001" +
-      "\n\022GetProjectResponse\022+\n\007project\030\001 \001(\0132\021." +
-      "live.v21.ProjectR\007project\022=\n\006status\030\002 \001(" +
-      "\0132 .live.v21.ProjectBroadcastStatusH\000R\006s" +
-      "tatus\210\001\001B\t\n\007_status\"\264\002\n\"GetProjectBroadc" +
-      "astSnapshotRequest\022S\n\rcollection_id\030\001 \001(" +
-      "\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269" +
-      "ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_id\030\002 " +
-      "\001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb32" +
-      "69ce6f\"\342A\001\002R\tprojectId\022_\n\006format\030\003 \001(\0162\025" +
-      ".live.v21.ImageFormatB+\222A(:\021IMAGE_FORMAT" +
-      "_JPEGJ\023\"IMAGE_FORMAT_JPEG\"H\000R\006format\210\001\001B" +
-      "\t\n\007_format\"\204\001\n#GetProjectBroadcastSnapsh" +
-      "otResponse\022G\n\006format\030\001 \001(\0162\025.live.v21.Im" +
-      "ageFormatB\030\222A\025J\023\"IMAGE_FORMAT_JPEG\"R\006for" +
-      "mat\022\024\n\005image\030\002 \001(\014R\005image\"\306\001\n GetProject" +
-      "BroadcastStatusRequest\022S\n\rcollection_id\030" +
-      "\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
-      "3269ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_i" +
-      "d\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4",
-      "bb3269ce6f\"\342A\001\002R\tprojectId\"]\n!GetProject" +
-      "BroadcastStatusResponse\0228\n\006status\030\001 \001(\0132" +
-      " .live.v21.ProjectBroadcastStatusR\006statu" +
-      "s\"\277\001\n\031StartProjectWebRtcRequest\022S\n\rcolle" +
-      "ction_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1" +
-      "-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\n" +
-      "project_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49" +
-      "c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\"\034\n\032S" +
-      "tartProjectWebRtcResponse\"\276\001\n\030StopProjec" +
-      "tWebRtcRequest\022S\n\rcollection_id\030\001 \001(\tB.\222" +
-      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
-      "\"\342A\001\002R\014collectionId\022M\n\nproject_id\030\002 \001(\tB" +
-      ".\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce" +
-      "6f\"\342A\001\002R\tprojectId\"\033\n\031StopProjectWebRtcR" +
-      "esponse\"\353\003\n\030CreateDestinationRequest\022S\n\r" +
-      "collection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8" +
-      "-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionI" +
-      "d\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61" +
-      "e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId" +
-      "\022\\\n\010metadata\030\003 \001(\0132\026.google.protobuf.Val" +
-      "ueB#\222A J\036{\"createdBy\": \"Eddie Current\"}H" +
-      "\000R\010metadata\210\001\001\0226\n\007address\030\005 \001(\0132\034.live.v" +
-      "21.DestinationAddressR\007address\022.\n\007enable" +
-      "d\030\006 \001(\010B\017\222A\014:\004trueJ\004trueH\001R\007enabled\210\001\001\022@" +
-      "\n\007timeout\030\007 \001(\rB!\222A\036:\0045000J\0045000Y\000\000\000\000\000L\335" +
-      "@i\000\000\000\000\000\000Y@H\002R\007timeout\210\001\001B\013\n\t_metadataB\n\n" +
-      "\010_enabledB\n\n\010_timeout\"T\n\031CreateDestinati" +
-      "onResponse\0227\n\013destination\030\001 \001(\0132\025.live.v" +
-      "21.DestinationR\013destination\"\222\002\n\025GetDesti" +
-      "nationRequest\022S\n\rcollection_id\030\001 \001(\tB.\222A" +
-      "\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"" +
-      "\342A\001\002R\014collectionId\022M\n\nproject_id\030\002 \001(\tB." +
-      "\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6" +
-      "f\"\342A\001\002R\tprojectId\022U\n\016destination_id\030\003 \001(" +
-      "\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269" +
-      "ce6f\"\342A\001\002R\rdestinationId\"Q\n\026GetDestinati" +
-      "onResponse\0227\n\013destination\030\001 \001(\0132\025.live.v" +
-      "21.DestinationR\013destination\"\315\002\n\030DeleteDe" +
-      "stinationRequest\022S\n\rcollection_id\030\001 \001(\tB" +
+      "R\tprojectId\0228\n\014webrtc_start\030\003 \001(\010B\020\222A\r:\005" +
+      "falseJ\004trueH\000R\013webrtcStart\210\001\001B\017\n\r_webrtc" +
+      "_start\"n\n\035StartProjectBroadcastResponse\022" +
+      "M\n\014broadcast_id\030\001 \001(\tB*\222A\'J%\"7132b004-61" +
+      "e8-49c1-8dc8-4bb3269ce6f\"R\013broadcastId\"\211" +
+      "\002\n\033StopProjectBroadcastRequest\022S\n\rcollec" +
+      "tion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-" +
+      "8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\np" +
+      "roject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c" +
+      "1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\0226\n\013we" +
+      "brtc_stop\030\003 \001(\010B\020\222A\r:\005falseJ\004trueH\000R\nweb" +
+      "rtcStop\210\001\001B\016\n\014_webrtc_stop\"\036\n\034StopProjec" +
+      "tBroadcastResponse\"\361\001\n\021GetProjectRequest" +
+      "\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-" +
+      "61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collect" +
+      "ionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b00" +
+      "4-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tproje" +
+      "ctId\022-\n\006status\030\003 \001(\010B\020\222A\r:\005falseJ\004trueH\000" +
+      "R\006status\210\001\001B\t\n\007_status\"\213\001\n\022GetProjectRes" +
+      "ponse\022+\n\007project\030\001 \001(\0132\021.live.v21.Projec" +
+      "tR\007project\022=\n\006status\030\002 \001(\0132 .live.v21.Pr" +
+      "ojectBroadcastStatusH\000R\006status\210\001\001B\t\n\007_st" +
+      "atus\"\264\002\n\"GetProjectBroadcastSnapshotRequ" +
+      "est\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b0" +
+      "04-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014coll" +
+      "ectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132" +
+      "b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tpr" +
+      "ojectId\022_\n\006format\030\003 \001(\0162\025.live.v21.Image" +
+      "FormatB+\222A(:\021IMAGE_FORMAT_JPEGJ\023\"IMAGE_F" +
+      "ORMAT_JPEG\"H\000R\006format\210\001\001B\t\n\007_format\"\204\001\n#",
+      "GetProjectBroadcastSnapshotResponse\022G\n\006f" +
+      "ormat\030\001 \001(\0162\025.live.v21.ImageFormatB\030\222A\025J" +
+      "\023\"IMAGE_FORMAT_JPEG\"R\006format\022\024\n\005image\030\002 " +
+      "\001(\014R\005image\"\306\001\n GetProjectBroadcastStatus" +
+      "Request\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"71" +
+      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014" +
+      "collectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"" +
+      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
+      "R\tprojectId\"]\n!GetProjectBroadcastStatus" +
+      "Response\0228\n\006status\030\001 \001(\0132 .live.v21.Proj" +
+      "ectBroadcastStatusR\006status\"\277\001\n\031StartProj" +
+      "ectWebRtcRequest\022S\n\rcollection_id\030\001 \001(\tB" +
       ".\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce" +
       "6f\"\342A\001\002R\014collectionId\022M\n\nproject_id\030\002 \001(" +
       "\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269" +
-      "ce6f\"\342A\001\002R\tprojectId\022U\n\016destination_id\030\003" +
-      " \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3" +
-      "269ce6f\"\342A\001\002R\rdestinationId\022,\n\005force\030\004 \001" +
-      "(\010B\021\222A\016:\005falseJ\005falseH\000R\005force\210\001\001B\010\n\006_fo" +
-      "rce\"S\n\031DeleteDestinationResponse\0226\n\021broa" +
-      "dcast_updated\030\001 \001(\010B\t\222A\006J\004trueR\020broadcas" +
-      "tUpdated\"\265\005\n\030UpdateDestinationRequest\022S\n" +
-      "\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e" +
-      "8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collection" +
-      "Id\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-6" +
-      "1e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectI" +
-      "d\022U\n\016destination_id\030\003 \001(\tB.\222A\'J%\"7132b00" +
-      "4-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\rdesti" +
-      "nationId\022f\n\013update_mask\030\004 \001(\0132\032.google.p" +
-      "rotobuf.FieldMaskB)\222A\"J \"metadata, addre" +
-      "ss.rtmpPush.url\"\342A\001\002R\nupdateMask\022\\\n\010meta" +
-      "data\030\005 \001(\0132\026.google.protobuf.ValueB#\222A J" +
-      "\036{\"createdBy\": \"Eddie Current\"}H\000R\010metad" +
-      "ata\210\001\001\022;\n\007address\030\006 \001(\0132\034.live.v21.Desti" +
-      "nationAddressH\001R\007address\210\001\001\022.\n\007enabled\030\007" +
-      " \001(\010B\017\222A\014:\004trueJ\004trueH\002R\007enabled\210\001\001\022:\n\007t" +
-      "imeout\030\010 \001(\rB\033\222A\030J\0045000Y\000\000\000\000\000L\335@i\000\000\000\000\000\000Y" +
-      "@H\003R\007timeout\210\001\001B\013\n\t_metadataB\n\n\010_address" +
-      "B\n\n\010_enabledB\n\n\010_timeout\"\214\001\n\031UpdateDesti" +
-      "nationResponse\0227\n\013destination\030\001 \001(\0132\025.li" +
-      "ve.v21.DestinationR\013destination\0226\n\021broad" +
-      "cast_updated\030\002 \001(\010B\t\222A\006J\004trueR\020broadcast" +
-      "Updated\"\323\002\n\023CreateSourceRequest\022S\n\rcolle" +
-      "ction_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1" +
-      "-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022\\\n\010" +
-      "metadata\030\002 \001(\0132\026.google.protobuf.ValueB#" +
-      "\222A J\036{\"createdBy\": \"Eddie Current\"}H\000R\010m" +
-      "etadata\210\001\001\0227\n\007address\030\003 \001(\0132\027.live.v21.S" +
-      "ourceAddressB\004\342A\001\002R\007address\0227\n\007preview\030\004" +
-      " \001(\0132\030.live.v21.PreviewAddressH\001R\007previe" +
-      "w\210\001\001B\013\n\t_metadataB\n\n\010_preview\"@\n\024CreateS" +
-      "ourceResponse\022(\n\006source\030\001 \001(\0132\020.live.v21" +
-      ".SourceR\006source\"\357\001\n\023DeleteSourceRequest\022" +
-      "S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-6" +
-      "1e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collecti" +
-      "onId\022K\n\tsource_id\030\002 \001(\tB.\222A\'J%\"7132b004-" +
-      "61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceI" +
-      "d\022,\n\005force\030\003 \001(\010B\021\222A\016:\005falseJ\005falseH\000R\005f" +
-      "orce\210\001\001B\010\n\006_force\"t\n\024DeleteSourceRespons" +
-      "e\022\\\n\023project_ids_updated\030\003 \003(\tB,\222A)J\'[\"7" +
-      "132b004-61e8-49c1-8dc8-4bb3269ce6f\"]R\021pr" +
-      "ojectIdsUpdated\"\320\002\n\031AddSourceToProjectRe" +
-      "quest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132" +
-      "b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014co" +
-      "llectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"71" +
-      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\t" +
-      "projectId\022K\n\tsource_id\030\003 \001(\tB.\222A\'J%\"7132" +
-      "b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010so" +
-      "urceId\0226\n\007trigger\030\004 \001(\0132\027.live.v21.Sourc" +
-      "eTriggerH\000R\007trigger\210\001\001B\n\n\010_trigger\"\201\001\n\032A" +
-      "ddSourceToProjectResponse\022+\n\007project\030\001 \001" +
-      "(\0132\021.live.v21.ProjectR\007project\0226\n\021broadc" +
-      "ast_updated\030\002 \001(\010B\t\222A\006J\004trueR\020broadcastU" +
-      "pdated\"\245\003\n\034UpdateSourceInProjectRequest\022" +
+      "ce6f\"\342A\001\002R\tprojectId\"\034\n\032StartProjectWebR" +
+      "tcResponse\"\276\001\n\030StopProjectWebRtcRequest\022" +
       "S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-6" +
       "1e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collecti" +
       "onId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004" +
       "-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojec" +
-      "tId\022K\n\tsource_id\030\003 \001(\tB.\222A\'J%\"7132b004-6" +
-      "1e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId" +
-      "\022P\n\013update_mask\030\004 \001(\0132\032.google.protobuf." +
-      "FieldMaskB\023\222A\014J\n\"metadata\"\342A\001\002R\nupdateMa" +
-      "sk\0226\n\007trigger\030\005 \001(\0132\027.live.v21.SourceTri" +
-      "ggerH\000R\007trigger\210\001\001B\n\n\010_trigger\"L\n\035Update" +
-      "SourceInProjectResponse\022+\n\007project\030\001 \001(\013" +
-      "2\021.live.v21.ProjectR\007project\"\264\001\n\020GetSour" +
-      "ceRequest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"" +
-      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
-      "R\014collectionId\022K\n\tsource_id\030\003 \001(\tB.\222A\'J%" +
-      "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001" +
-      "\002R\010sourceId\"=\n\021GetSourceResponse\022(\n\006sour" +
-      "ce\030\001 \001(\0132\020.live.v21.SourceR\006source\"h\n\021Ge" +
-      "tSourcesRequest\022S\n\rcollection_id\030\001 \001(\tB." +
-      "\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6" +
-      "f\"\342A\001\002R\014collectionId\"@\n\022GetSourcesRespon" +
-      "se\022*\n\007sources\030\001 \003(\0132\020.live.v21.SourceR\007s" +
-      "ources\"\375\003\n\023UpdateSourceRequest\022S\n\rcollec" +
-      "tion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-" +
-      "8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022K\n\ts" +
-      "ource_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-49c1" +
-      "-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId\022P\n\013upda" +
-      "te_mask\030\004 \001(\0132\032.google.protobuf.FieldMas" +
-      "kB\023\222A\014J\n\"metadata\"\342A\001\002R\nupdateMask\022\\\n\010me" +
-      "tadata\030\005 \001(\0132\026.google.protobuf.ValueB#\222A" +
-      " J\036{\"createdBy\": \"Eddie Current\"}H\000R\010met" +
-      "adata\210\001\001\0226\n\007address\030\006 \001(\0132\027.live.v21.Sou" +
-      "rceAddressH\001R\007address\210\001\001\0227\n\007preview\030\007 \001(" +
-      "\0132\030.live.v21.PreviewAddressH\002R\007preview\210\001" +
-      "\001B\013\n\t_metadataB\n\n\010_addressB\n\n\010_preview\"x" +
-      "\n\024UpdateSourceResponse\022(\n\006source\030\001 \001(\0132\020" +
-      ".live.v21.SourceR\006source\0226\n\021broadcast_up" +
-      "dated\030\002 \001(\010B\t\222A\006J\004trueR\020broadcastUpdated" +
-      "\"\311\002\n\036RemoveSourceFromProjectRequest\022S\n\rc" +
-      "ollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-" +
-      "49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId" +
-      "\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e" +
-      "8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022" +
-      "K\n\tsource_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-" +
-      "49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId\022,\n\005" +
-      "force\030\004 \001(\010B\021\222A\016:\005falseJ\005falseH\000R\005force\210" +
-      "\001\001B\010\n\006_force\"\206\001\n\037RemoveSourceFromProject" +
-      "Response\022+\n\007project\030\001 \001(\0132\021.live.v21.Pro" +
-      "jectR\007project\0226\n\021broadcast_updated\030\002 \001(\010" +
-      "B\t\222A\006J\004trueR\020broadcastUpdated\"\304\002\n\030Create" +
-      "AccessTokenRequest\022V\n\017service_user_id\030\001 " +
-      "\001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb32" +
-      "69ce6f\"\342A\001\002R\rserviceUserId\022&\n\014display_na" +
-      "me\030\004 \001(\tH\000R\013displayName\210\001\001\022:\n\004role\030\002 \001(\016" +
-      "2\016.live.v21.RoleB\021\222A\016J\014\"ROLE_OWNER\"H\001R\004r" +
-      "ole\210\001\001\022A\n\014max_duration\030\003 \001(\rB\031\222A\026:\t17280" +
-      "0000J\t172800000H\002R\013maxDuration\210\001\001B\017\n\r_di" +
-      "splay_nameB\007\n\005_roleB\017\n\r_max_duration\"j\n\031" +
-      "CreateAccessTokenResponse\022M\n\014access_toke" +
-      "n\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
-      "bb3269ce6f\"R\013accessToken\"\301\001\n\026GuestAccess" +
-      "TokenDirect\022:\n\014display_name\030\001 \001(\tB\027\222A\020J\016" +
-      "\"Eddy Current\"\342A\001\002R\013displayName\022W\n\017servi" +
-      "ce_user_id\030\002 \001(\tB*\222A\'J%\"7132b004-61e8-49" +
-      "c1-8dc8-4bb3269ce6f\"H\000R\rserviceUserId\210\001\001" +
-      "B\022\n\020_service_user_id\"h\n\030GuestAccessToken" +
-      "Exchange\022;\n\014max_duration\030\001 \001(\rB\023\222A\020:\006300" +
-      "000J\006300000H\000R\013maxDuration\210\001\001B\017\n\r_max_du" +
-      "ration\"\230\001\n\020GuestAccessToken\022:\n\006direct\030\001 " +
-      "\001(\0132 .live.v21.GuestAccessTokenDirectH\000R" +
-      "\006direct\022@\n\010exchange\030\002 \001(\0132\".live.v21.Gue" +
-      "stAccessTokenExchangeH\000R\010exchangeB\006\n\004typ" +
-      "e\"\212\004\n\035CreateGuestAccessTokenRequest\022S\n\rc" +
-      "ollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-" +
-      "49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId" +
-      "\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e" +
-      "8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022" +
-      "A\n\014max_duration\030\003 \001(\rB\031\222A\026:\t172800000J\t1" +
-      "72800000H\000R\013maxDuration\210\001\001\0229\n\004role\030\004 \001(\016" +
-      "2\016.live.v21.RoleB\025\222A\016J\014\"ROLE_GUEST\"\342A\001\002R" +
-      "\004role\0226\n\005token\030\005 \001(\0132\032.live.v21.GuestAcc" +
-      "essTokenB\004\342A\001\002R\005token\022v\n\003url\030\006 \001(\tB_\222AHJ" +
-      "F\"https:\\/\\/rainmaker.gg\\/overlay\\/e67cf" +
-      "d6ad57560962fddcf63611d2834\\/1\"\202\265\030\020Z\016\'ht" +
-      "tp\',\'https\'H\001R\003url\210\001\001B\017\n\r_max_durationB\006" +
-      "\n\004_url\"\216\001\n\036CreateGuestAccessTokenRespons" +
-      "e\022M\n\014access_token\030\001 \001(\tB*\222A\'J%\"7132b004-" +
-      "61e8-49c1-8dc8-4bb3269ce6f\"R\013accessToken" +
-      "\022\025\n\003url\030\002 \001(\tH\000R\003url\210\001\001B\006\n\004_url\"\200\002\n\036Crea" +
-      "teWebRtcAccessTokenRequest\022S\n\rcollection" +
-      "_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8" +
-      "-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\nproje" +
-      "ct_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8d" +
-      "c8-4bb3269ce6f\"\342A\001\002R\tprojectId\022:\n\014displa" +
-      "y_name\030\003 \001(\tB\027\222A\020J\016\"Eddy Current\"\342A\001\002R\013d" +
-      "isplayName\"^\n\037CreateWebRtcAccessTokenRes" +
-      "ponse\022;\n\rwebrtc_access\030\002 \001(\0132\026.live.v21." +
-      "WebRtcAccessR\014webrtcAccess\"\033\n\031RefreshAcc" +
-      "essTokenRequest\"\034\n\032RefreshAccessTokenRes" +
-      "ponse\"\315\002\n\tGuestCode\022c\n\rcollection_id\030\001 \001" +
-      "(\tB>\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb326" +
-      "9ce6f\"\342A\001\005\202\265\030\014*\nCollectionR\014collectionId" +
-      "\022Z\n\nproject_id\030\002 \001(\tB;\222A\'J%\"7132b004-61e" +
-      "8-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\t*\007Projec" +
-      "tR\tprojectId\022\036\n\004code\030\003 \001(\tB\n\342A\001\005\202\265\030\002\020\001R\004" +
-      "code\022\020\n\003url\030\004 \001(\tR\003url\022C\n\013auto_delete\030\005 " +
-      "\001(\0132\032.google.protobuf.TimestampB\006\202\265\030\002`\001R" +
-      "\nautoDelete:\010\202\265\030\004\010\0018\001\"M\n\030GuestCodeRedire" +
-      "ctRequest\022\035\n\nservice_id\030\001 \001(\tR\tserviceId" +
-      "\022\022\n\004code\030\002 \001(\tR\004code\"\033\n\031GuestCodeRedirec" +
-      "tResponse\"p\n\nJsonWebKey\022\020\n\003alg\030\001 \001(\tR\003al" +
-      "g\022\020\n\003kty\030\002 \001(\tR\003kty\022\020\n\003use\030\003 \001(\tR\003use\022\020\n" +
-      "\003kid\030\004 \001(\tR\003kid\022\014\n\001e\030\005 \001(\tR\001e\022\014\n\001n\030\006 \001(\t" +
-      "R\001n\"\031\n\027GetJsonWebKeySetRequest\"D\n\030GetJso" +
-      "nWebKeySetResponse\022(\n\004keys\030\001 \003(\0132\024.live." +
-      "v21.JsonWebKeyR\004keys\"\025\n\023GetTestTokenRequ" +
-      "est\"9\n\024GetTestTokenResponse\022!\n\014access_to" +
-      "ken\030\001 \001(\tR\013accessToken\"\314\002\n\026DestinationCr" +
-      "eateEvent\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"" +
-      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
-      "R\014collectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J" +
-      "%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A" +
-      "\001\002R\tprojectId\022U\n\016destination_id\030\003 \001(\tB.\222" +
-      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
-      "\"\342A\001\002R\rdestinationId\0227\n\013destination\030\004 \001(" +
-      "\0132\025.live.v21.DestinationR\013destination\"\223\002" +
-      "\n\026DestinationDeleteEvent\022S\n\rcollection_i" +
-      "d\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
-      "bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\nproject" +
-      "_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8" +
-      "-4bb3269ce6f\"\342A\001\002R\tprojectId\022U\n\016destinat" +
-      "ion_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8" +
-      "dc8-4bb3269ce6f\"\342A\001\002R\rdestinationId\"\355\002\n\026" +
-      "DestinationUpdateEvent\022S\n\rcollection_id\030" +
+      "tId\"\033\n\031StopProjectWebRtcResponse\"\353\003\n\030Cre" +
+      "ateDestinationRequest\022S\n\rcollection_id\030\001" +
+      " \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3" +
+      "269ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_id" +
+      "\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4b" +
+      "b3269ce6f\"\342A\001\002R\tprojectId\022\\\n\010metadata\030\003 " +
+      "\001(\0132\026.google.protobuf.ValueB#\222A J\036{\"crea" +
+      "tedBy\": \"Eddie Current\"}H\000R\010metadata\210\001\001\022" +
+      "6\n\007address\030\005 \001(\0132\034.live.v21.DestinationA" +
+      "ddressR\007address\022.\n\007enabled\030\006 \001(\010B\017\222A\014:\004t" +
+      "rueJ\004trueH\001R\007enabled\210\001\001\022@\n\007timeout\030\007 \001(\r" +
+      "B!\222A\036:\0045000J\0045000Y\000\000\000\000\000L\335@i\000\000\000\000\000\000Y@H\002R\007t" +
+      "imeout\210\001\001B\013\n\t_metadataB\n\n\010_enabledB\n\n\010_t" +
+      "imeout\"T\n\031CreateDestinationResponse\0227\n\013d" +
+      "estination\030\001 \001(\0132\025.live.v21.DestinationR" +
+      "\013destination\"\222\002\n\025GetDestinationRequest\022S" +
+      "\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61" +
+      "e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectio" +
+      "nId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-" +
+      "61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tproject" +
+      "Id\022U\n\016destination_id\030\003 \001(\tB.\222A\'J%\"7132b0" +
+      "04-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\rdest" +
+      "inationId\"Q\n\026GetDestinationResponse\0227\n\013d" +
+      "estination\030\001 \001(\0132\025.live.v21.DestinationR" +
+      "\013destination\"\315\002\n\030DeleteDestinationReques" +
+      "t\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004" +
+      "-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collec" +
+      "tionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b0" +
+      "04-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tproj" +
+      "ectId\022U\n\016destination_id\030\003 \001(\tB.\222A\'J%\"713" +
+      "2b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\rd" +
+      "estinationId\022,\n\005force\030\004 \001(\010B\021\222A\016:\005falseJ" +
+      "\005falseH\000R\005force\210\001\001B\010\n\006_force\"S\n\031DeleteDe" +
+      "stinationResponse\0226\n\021broadcast_updated\030\001" +
+      " \001(\010B\t\222A\006J\004trueR\020broadcastUpdated\"\265\005\n\030Up" +
+      "dateDestinationRequest\022S\n\rcollection_id\030" +
       "\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
       "3269ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_i" +
       "d\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
       "bb3269ce6f\"\342A\001\002R\tprojectId\022U\n\016destinatio" +
       "n_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc" +
-      "8-4bb3269ce6f\"\342A\001\002R\rdestinationId\022\037\n\013upd" +
-      "ate_mask\030\004 \003(\tR\nupdateMask\0227\n\013destinatio" +
-      "n\030\005 \001(\0132\025.live.v21.DestinationR\013destinat" +
-      "ion\"\316\002\n\025DestinationStateEvent\022S\n\rcollect" +
-      "ion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8" +
-      "dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\npr" +
-      "oject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1" +
-      "-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022U\n\016des" +
-      "tination_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-4" +
-      "9c1-8dc8-4bb3269ce6f\"\342A\001\002R\rdestinationId" +
-      "\0222\n\007connect\030\004 \001(\0162\026.live.v21.ConnectStat" +
-      "eH\000R\007connectB\006\n\004type\"\335\001\n\022ProjectCreateEv" +
-      "ent\022O\n\rcollection_id\030\001 \001(\tB*\222A\'J%\"7132b0" +
-      "04-61e8-49c1-8dc8-4bb3269ce6f\"R\014collecti" +
-      "onId\022I\n\nproject_id\030\002 \001(\tB*\222A\'J%\"7132b004" +
-      "-61e8-49c1-8dc8-4bb3269ce6f\"R\tprojectId\022" +
-      "+\n\007project\030\003 \001(\0132\021.live.v21.ProjectR\007pro" +
-      "ject\"\260\001\n\022ProjectDeleteEvent\022O\n\rcollectio" +
-      "n_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc" +
-      "8-4bb3269ce6f\"R\014collectionId\022I\n\nproject_" +
-      "id\030\002 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-" +
-      "4bb3269ce6f\"R\tprojectId\"\376\001\n\022ProjectUpdat" +
-      "eEvent\022O\n\rcollection_id\030\001 \001(\tB*\222A\'J%\"713" +
-      "2b004-61e8-49c1-8dc8-4bb3269ce6f\"R\014colle" +
-      "ctionId\022I\n\nproject_id\030\002 \001(\tB*\222A\'J%\"7132b" +
-      "004-61e8-49c1-8dc8-4bb3269ce6f\"R\tproject" +
-      "Id\022\037\n\013update_mask\030\003 \003(\tR\nupdateMask\022+\n\007p" +
-      "roject\030\004 \001(\0132\021.live.v21.ProjectR\007project" +
-      "\"\325\002\n\032ProjectBroadcastStateEvent\022O\n\rcolle" +
+      "8-4bb3269ce6f\"\342A\001\002R\rdestinationId\022f\n\013upd" +
+      "ate_mask\030\004 \001(\0132\032.google.protobuf.FieldMa" +
+      "skB)\222A\"J \"metadata, address.rtmpPush.url" +
+      "\"\342A\001\002R\nupdateMask\022\\\n\010metadata\030\005 \001(\0132\026.go" +
+      "ogle.protobuf.ValueB#\222A J\036{\"createdBy\": " +
+      "\"Eddie Current\"}H\000R\010metadata\210\001\001\022;\n\007addre" +
+      "ss\030\006 \001(\0132\034.live.v21.DestinationAddressH\001" +
+      "R\007address\210\001\001\022.\n\007enabled\030\007 \001(\010B\017\222A\014:\004true" +
+      "J\004trueH\002R\007enabled\210\001\001\022:\n\007timeout\030\010 \001(\rB\033\222" +
+      "A\030J\0045000Y\000\000\000\000\000L\335@i\000\000\000\000\000\000Y@H\003R\007timeout\210\001\001" +
+      "B\013\n\t_metadataB\n\n\010_addressB\n\n\010_enabledB\n\n" +
+      "\010_timeout\"\214\001\n\031UpdateDestinationResponse\022" +
+      "7\n\013destination\030\001 \001(\0132\025.live.v21.Destinat" +
+      "ionR\013destination\0226\n\021broadcast_updated\030\002 " +
+      "\001(\010B\t\222A\006J\004trueR\020broadcastUpdated\"\323\002\n\023Cre" +
+      "ateSourceRequest\022S\n\rcollection_id\030\001 \001(\tB" +
+      ".\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce" +
+      "6f\"\342A\001\002R\014collectionId\022\\\n\010metadata\030\002 \001(\0132" +
+      "\026.google.protobuf.ValueB#\222A J\036{\"createdB" +
+      "y\": \"Eddie Current\"}H\000R\010metadata\210\001\001\0227\n\007a" +
+      "ddress\030\003 \001(\0132\027.live.v21.SourceAddressB\004\342" +
+      "A\001\002R\007address\0227\n\007preview\030\004 \001(\0132\030.live.v21" +
+      ".PreviewAddressH\001R\007preview\210\001\001B\013\n\t_metada" +
+      "taB\n\n\010_preview\"@\n\024CreateSourceResponse\022(" +
+      "\n\006source\030\001 \001(\0132\020.live.v21.SourceR\006source" +
+      "\"\357\001\n\023DeleteSourceRequest\022S\n\rcollection_i" +
+      "d\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
+      "bb3269ce6f\"\342A\001\002R\014collectionId\022K\n\tsource_" +
+      "id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-" +
+      "4bb3269ce6f\"\342A\001\002R\010sourceId\022,\n\005force\030\003 \001(" +
+      "\010B\021\222A\016:\005falseJ\005falseH\000R\005force\210\001\001B\010\n\006_for" +
+      "ce\"t\n\024DeleteSourceResponse\022\\\n\023project_id" +
+      "s_updated\030\003 \003(\tB,\222A)J\'[\"7132b004-61e8-49" +
+      "c1-8dc8-4bb3269ce6f\"]R\021projectIdsUpdated" +
+      "\"\320\002\n\031AddSourceToProjectRequest\022S\n\rcollec" +
+      "tion_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-" +
+      "8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\np" +
+      "roject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c" +
+      "1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022K\n\tso" +
+      "urce_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-" +
+      "8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId\0226\n\007trigg" +
+      "er\030\004 \001(\0132\027.live.v21.SourceTriggerH\000R\007tri" +
+      "gger\210\001\001B\n\n\010_trigger\"\201\001\n\032AddSourceToProje" +
+      "ctResponse\022+\n\007project\030\001 \001(\0132\021.live.v21.P" +
+      "rojectR\007project\0226\n\021broadcast_updated\030\002 \001" +
+      "(\010B\t\222A\006J\004trueR\020broadcastUpdated\"\245\003\n\034Upda" +
+      "teSourceInProjectRequest\022S\n\rcollection_i" +
+      "d\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
+      "bb3269ce6f\"\342A\001\002R\014collectionId\022M\n\nproject" +
+      "_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8" +
+      "-4bb3269ce6f\"\342A\001\002R\tprojectId\022K\n\tsource_i" +
+      "d\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
+      "bb3269ce6f\"\342A\001\002R\010sourceId\022P\n\013update_mask" +
+      "\030\004 \001(\0132\032.google.protobuf.FieldMaskB\023\222A\014J" +
+      "\n\"metadata\"\342A\001\002R\nupdateMask\0226\n\007trigger\030\005" +
+      " \001(\0132\027.live.v21.SourceTriggerH\000R\007trigger" +
+      "\210\001\001B\n\n\010_trigger\"L\n\035UpdateSourceInProject" +
+      "Response\022+\n\007project\030\001 \001(\0132\021.live.v21.Pro" +
+      "jectR\007project\"\264\001\n\020GetSourceRequest\022S\n\rco" +
+      "llection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-4" +
+      "9c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022" +
+      "K\n\tsource_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-" +
+      "49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId\"=\n\021" +
+      "GetSourceResponse\022(\n\006source\030\001 \001(\0132\020.live" +
+      ".v21.SourceR\006source\"h\n\021GetSourcesRequest" +
+      "\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-" +
+      "61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collect" +
+      "ionId\"@\n\022GetSourcesResponse\022*\n\007sources\030\001" +
+      " \003(\0132\020.live.v21.SourceR\007sources\"\375\003\n\023Upda" +
+      "teSourceRequest\022S\n\rcollection_id\030\001 \001(\tB." +
+      "\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6" +
+      "f\"\342A\001\002R\014collectionId\022K\n\tsource_id\030\003 \001(\tB" +
+      ".\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce" +
+      "6f\"\342A\001\002R\010sourceId\022P\n\013update_mask\030\004 \001(\0132\032" +
+      ".google.protobuf.FieldMaskB\023\222A\014J\n\"metada" +
+      "ta\"\342A\001\002R\nupdateMask\022\\\n\010metadata\030\005 \001(\0132\026." +
+      "google.protobuf.ValueB#\222A J\036{\"createdBy\"" +
+      ": \"Eddie Current\"}H\000R\010metadata\210\001\001\0226\n\007add" +
+      "ress\030\006 \001(\0132\027.live.v21.SourceAddressH\001R\007a" +
+      "ddress\210\001\001\0227\n\007preview\030\007 \001(\0132\030.live.v21.Pr" +
+      "eviewAddressH\002R\007preview\210\001\001B\013\n\t_metadataB" +
+      "\n\n\010_addressB\n\n\010_preview\"x\n\024UpdateSourceR" +
+      "esponse\022(\n\006source\030\001 \001(\0132\020.live.v21.Sourc" +
+      "eR\006source\0226\n\021broadcast_updated\030\002 \001(\010B\t\222A" +
+      "\006J\004trueR\020broadcastUpdated\"\311\002\n\036RemoveSour" +
+      "ceFromProjectRequest\022S\n\rcollection_id\030\001 " +
+      "\001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb32" +
+      "69ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_id\030" +
+      "\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
+      "3269ce6f\"\342A\001\002R\tprojectId\022K\n\tsource_id\030\003 " +
+      "\001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb32" +
+      "69ce6f\"\342A\001\002R\010sourceId\022,\n\005force\030\004 \001(\010B\021\222A" +
+      "\016:\005falseJ\005falseH\000R\005force\210\001\001B\010\n\006_force\"\206\001" +
+      "\n\037RemoveSourceFromProjectResponse\022+\n\007pro" +
+      "ject\030\001 \001(\0132\021.live.v21.ProjectR\007project\0226" +
+      "\n\021broadcast_updated\030\002 \001(\010B\t\222A\006J\004trueR\020br" +
+      "oadcastUpdated\"\304\002\n\030CreateAccessTokenRequ" +
+      "est\022V\n\017service_user_id\030\001 \001(\tB.\222A\'J%\"7132" +
+      "b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\rse" +
+      "rviceUserId\022&\n\014display_name\030\004 \001(\tH\000R\013dis" +
+      "playName\210\001\001\022:\n\004role\030\002 \001(\0162\016.live.v21.Rol" +
+      "eB\021\222A\016J\014\"ROLE_OWNER\"H\001R\004role\210\001\001\022A\n\014max_d" +
+      "uration\030\003 \001(\rB\031\222A\026:\t172800000J\t172800000" +
+      "H\002R\013maxDuration\210\001\001B\017\n\r_display_nameB\007\n\005_" +
+      "roleB\017\n\r_max_duration\"j\n\031CreateAccessTok" +
+      "enResponse\022M\n\014access_token\030\001 \001(\tB*\222A\'J%\"" +
+      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R\013ac" +
+      "cessToken\"\301\001\n\026GuestAccessTokenDirect\022:\n\014" +
+      "display_name\030\001 \001(\tB\027\222A\020J\016\"Eddy Current\"\342" +
+      "A\001\002R\013displayName\022W\n\017service_user_id\030\002 \001(" +
+      "\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269" +
+      "ce6f\"H\000R\rserviceUserId\210\001\001B\022\n\020_service_us" +
+      "er_id\"h\n\030GuestAccessTokenExchange\022;\n\014max" +
+      "_duration\030\001 \001(\rB\023\222A\020:\006300000J\006300000H\000R\013" +
+      "maxDuration\210\001\001B\017\n\r_max_duration\"\230\001\n\020Gues" +
+      "tAccessToken\022:\n\006direct\030\001 \001(\0132 .live.v21." +
+      "GuestAccessTokenDirectH\000R\006direct\022@\n\010exch" +
+      "ange\030\002 \001(\0132\".live.v21.GuestAccessTokenEx" +
+      "changeH\000R\010exchangeB\006\n\004type\"\212\004\n\035CreateGue" +
+      "stAccessTokenRequest\022S\n\rcollection_id\030\001 " +
+      "\001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb32" +
+      "69ce6f\"\342A\001\002R\014collectionId\022M\n\nproject_id\030" +
+      "\002 \001(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
+      "3269ce6f\"\342A\001\002R\tprojectId\022A\n\014max_duration" +
+      "\030\003 \001(\rB\031\222A\026:\t172800000J\t172800000H\000R\013max" +
+      "Duration\210\001\001\0229\n\004role\030\004 \001(\0162\016.live.v21.Rol" +
+      "eB\025\222A\016J\014\"ROLE_GUEST\"\342A\001\002R\004role\0226\n\005token\030" +
+      "\005 \001(\0132\032.live.v21.GuestAccessTokenB\004\342A\001\002R" +
+      "\005token\022v\n\003url\030\006 \001(\tB_\222AHJF\"https:\\/\\/rai" +
+      "nmaker.gg\\/overlay\\/e67cfd6ad57560962fdd" +
+      "cf63611d2834\\/1\"\202\265\030\020Z\016\'http\',\'https\'H\001R\003" +
+      "url\210\001\001B\017\n\r_max_durationB\006\n\004_url\"\216\001\n\036Crea" +
+      "teGuestAccessTokenResponse\022M\n\014access_tok" +
+      "en\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-" +
+      "4bb3269ce6f\"R\013accessToken\022\025\n\003url\030\002 \001(\tH\000" +
+      "R\003url\210\001\001B\006\n\004_url\"\200\002\n\036CreateWebRtcAccessT" +
+      "okenRequest\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J" +
+      "%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A" +
+      "\001\002R\014collectionId\022M\n\nproject_id\030\002 \001(\tB.\222A" +
+      "\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"" +
+      "\342A\001\002R\tprojectId\022:\n\014display_name\030\003 \001(\tB\027\222" +
+      "A\020J\016\"Eddy Current\"\342A\001\002R\013displayName\"^\n\037C" +
+      "reateWebRtcAccessTokenResponse\022;\n\rwebrtc" +
+      "_access\030\002 \001(\0132\026.live.v21.WebRtcAccessR\014w" +
+      "ebrtcAccess\"\033\n\031RefreshAccessTokenRequest" +
+      "\"\034\n\032RefreshAccessTokenResponse\"\315\002\n\tGuest" +
+      "Code\022c\n\rcollection_id\030\001 \001(\tB>\222A\'J%\"7132b" +
+      "004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\005\202\265\030\014*" +
+      "\nCollectionR\014collectionId\022Z\n\nproject_id\030" +
+      "\002 \001(\tB;\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
+      "3269ce6f\"\342A\001\005\202\265\030\t*\007ProjectR\tprojectId\022\036\n" +
+      "\004code\030\003 \001(\tB\n\342A\001\005\202\265\030\002\020\001R\004code\022\020\n\003url\030\004 \001" +
+      "(\tR\003url\022C\n\013auto_delete\030\005 \001(\0132\032.google.pr" +
+      "otobuf.TimestampB\006\202\265\030\002`\001R\nautoDelete:\010\202\265" +
+      "\030\004\010\0018\001\"M\n\030GuestCodeRedirectRequest\022\035\n\nse" +
+      "rvice_id\030\001 \001(\tR\tserviceId\022\022\n\004code\030\002 \001(\tR" +
+      "\004code\"\033\n\031GuestCodeRedirectResponse\"p\n\nJs" +
+      "onWebKey\022\020\n\003alg\030\001 \001(\tR\003alg\022\020\n\003kty\030\002 \001(\tR" +
+      "\003kty\022\020\n\003use\030\003 \001(\tR\003use\022\020\n\003kid\030\004 \001(\tR\003kid" +
+      "\022\014\n\001e\030\005 \001(\tR\001e\022\014\n\001n\030\006 \001(\tR\001n\"\031\n\027GetJsonW" +
+      "ebKeySetRequest\"D\n\030GetJsonWebKeySetRespo" +
+      "nse\022(\n\004keys\030\001 \003(\0132\024.live.v21.JsonWebKeyR" +
+      "\004keys\"\025\n\023GetTestTokenRequest\"9\n\024GetTestT" +
+      "okenResponse\022!\n\014access_token\030\001 \001(\tR\013acce" +
+      "ssToken\"\314\002\n\026DestinationCreateEvent\022S\n\rco" +
+      "llection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-4" +
+      "9c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId\022" +
+      "M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"7132b004-61e8" +
+      "-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\tprojectId\022U" +
+      "\n\016destination_id\030\003 \001(\tB.\222A\'J%\"7132b004-6" +
+      "1e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\rdestinat" +
+      "ionId\0227\n\013destination\030\004 \001(\0132\025.live.v21.De" +
+      "stinationR\013destination\"\223\002\n\026DestinationDe" +
+      "leteEvent\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"" +
+      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
+      "R\014collectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J" +
+      "%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A" +
+      "\001\002R\tprojectId\022U\n\016destination_id\030\003 \001(\tB.\222" +
+      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
+      "\"\342A\001\002R\rdestinationId\"\355\002\n\026DestinationUpda" +
+      "teEvent\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%\"71" +
+      "32b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014" +
+      "collectionId\022M\n\nproject_id\030\002 \001(\tB.\222A\'J%\"" +
+      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002" +
+      "R\tprojectId\022U\n\016destination_id\030\003 \001(\tB.\222A\'" +
+      "J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342" +
+      "A\001\002R\rdestinationId\022\037\n\013update_mask\030\004 \003(\tR" +
+      "\nupdateMask\0227\n\013destination\030\005 \001(\0132\025.live." +
+      "v21.DestinationR\013destination\"\316\002\n\025Destina" +
+      "tionStateEvent\022S\n\rcollection_id\030\001 \001(\tB.\222" +
+      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
+      "\"\342A\001\002R\014collectionId\022M\n\nproject_id\030\002 \001(\tB" +
+      ".\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce" +
+      "6f\"\342A\001\002R\tprojectId\022U\n\016destination_id\030\003 \001" +
+      "(\tB.\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb326" +
+      "9ce6f\"\342A\001\002R\rdestinationId\0222\n\007connect\030\004 \001" +
+      "(\0162\026.live.v21.ConnectStateH\000R\007connectB\006\n" +
+      "\004type\"\335\001\n\022ProjectCreateEvent\022O\n\rcollecti" +
+      "on_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8d" +
+      "c8-4bb3269ce6f\"R\014collectionId\022I\n\nproject" +
+      "_id\030\002 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8" +
+      "-4bb3269ce6f\"R\tprojectId\022+\n\007project\030\003 \001(" +
+      "\0132\021.live.v21.ProjectR\007project\"\260\001\n\022Projec" +
+      "tDeleteEvent\022O\n\rcollection_id\030\001 \001(\tB*\222A\'" +
+      "J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R" +
+      "\014collectionId\022I\n\nproject_id\030\002 \001(\tB*\222A\'J%" +
+      "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R\tp" +
+      "rojectId\"\376\001\n\022ProjectUpdateEvent\022O\n\rcolle" +
       "ction_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1" +
       "-8dc8-4bb3269ce6f\"R\014collectionId\022I\n\nproj" +
       "ect_id\030\002 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8" +
-      "dc8-4bb3269ce6f\"R\tprojectId\022!\n\014broadcast" +
-      "_id\030\003 \001(\tR\013broadcastId\0227\n\005phase\030\004 \001(\0162\037." +
-      "live.v21.ProjectBroadcastPhaseH\000R\005phase\022" +
-      "7\n\005error\030\005 \001(\0162\037.live.v21.ProjectBroadca" +
-      "stErrorH\000R\005errorB\006\n\004type\"\236\001\n\025CollectionC" +
-      "reateEvent\022O\n\rcollection_id\030\001 \001(\tB*\222A\'J%" +
-      "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R\014c" +
-      "ollectionId\0224\n\ncollection\030\002 \001(\0132\024.live.v" +
-      "21.CollectionR\ncollection\"h\n\025CollectionD" +
-      "eleteEvent\022O\n\rcollection_id\030\001 \001(\tB*\222A\'J%" +
-      "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R\014c" +
-      "ollectionId\"\277\001\n\025CollectionUpdateEvent\022O\n" +
-      "\rcollection_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e" +
-      "8-49c1-8dc8-4bb3269ce6f\"R\014collectionId\022\037" +
-      "\n\013update_mask\030\002 \003(\tR\nupdateMask\0224\n\ncolle" +
-      "ction\030\003 \001(\0132\024.live.v21.CollectionR\ncolle" +
-      "ction\"\327\001\n\021SourceCreateEvent\022O\n\rcollectio" +
-      "n_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc" +
-      "8-4bb3269ce6f\"R\014collectionId\022G\n\tsource_i" +
-      "d\030\002 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4" +
-      "bb3269ce6f\"R\010sourceId\022(\n\006source\030\003 \001(\0132\020." +
-      "live.v21.SourceR\006source\"U\n\021SourceDeleteE" +
-      "vent\022#\n\rcollection_id\030\001 \001(\tR\014collectionI" +
-      "d\022\033\n\tsource_id\030\002 \001(\tR\010sourceId\"\240\001\n\021Sourc" +
-      "eUpdateEvent\022#\n\rcollection_id\030\001 \001(\tR\014col" +
-      "lectionId\022\033\n\tsource_id\030\002 \001(\tR\010sourceId\022\037" +
-      "\n\013update_mask\030\003 \003(\tR\nupdateMask\022(\n\006sourc" +
-      "e\030\004 \001(\0132\020.live.v21.SourceR\006source\"\233\001\n\016So" +
-      "urceAddEvent\022#\n\rcollection_id\030\001 \001(\tR\014col" +
-      "lectionId\022\033\n\tsource_id\030\002 \001(\tR\010sourceId\022\035" +
-      "\n\nproject_id\030\003 \001(\tR\tprojectId\022(\n\006source\030" +
-      "\004 \001(\0132\020.live.v21.SourceR\006source\"t\n\021Sourc" +
-      "eRemoveEvent\022#\n\rcollection_id\030\001 \001(\tR\014col" +
-      "lectionId\022\033\n\tsource_id\030\002 \001(\tR\010sourceId\022\035" +
-      "\n\nproject_id\030\003 \001(\tR\tprojectId\"\273\002\n\020Source" +
-      "StateEvent\022S\n\rcollection_id\030\001 \001(\tB.\222A\'J%" +
-      "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001" +
-      "\002R\014collectionId\022I\n\nproject_id\030\002 \001(\tB*\222A\'" +
+      "dc8-4bb3269ce6f\"R\tprojectId\022\037\n\013update_ma" +
+      "sk\030\003 \003(\tR\nupdateMask\022+\n\007project\030\004 \001(\0132\021." +
+      "live.v21.ProjectR\007project\"\325\002\n\032ProjectBro" +
+      "adcastStateEvent\022O\n\rcollection_id\030\001 \001(\tB" +
+      "*\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce" +
+      "6f\"R\014collectionId\022I\n\nproject_id\030\002 \001(\tB*\222" +
+      "A\'J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f" +
+      "\"R\tprojectId\022!\n\014broadcast_id\030\003 \001(\tR\013broa" +
+      "dcastId\0227\n\005phase\030\004 \001(\0162\037.live.v21.Projec" +
+      "tBroadcastPhaseH\000R\005phase\0227\n\005error\030\005 \001(\0162" +
+      "\037.live.v21.ProjectBroadcastErrorH\000R\005erro" +
+      "rB\006\n\004type\"\236\001\n\025CollectionCreateEvent\022O\n\rc" +
+      "ollection_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-" +
+      "49c1-8dc8-4bb3269ce6f\"R\014collectionId\0224\n\n" +
+      "collection\030\002 \001(\0132\024.live.v21.CollectionR\n" +
+      "collection\"h\n\025CollectionDeleteEvent\022O\n\rc" +
+      "ollection_id\030\001 \001(\tB*\222A\'J%\"7132b004-61e8-" +
+      "49c1-8dc8-4bb3269ce6f\"R\014collectionId\"\277\001\n" +
+      "\025CollectionUpdateEvent\022O\n\rcollection_id\030" +
+      "\001 \001(\tB*\222A\'J%\"7132b004-61e8-49c1-8dc8-4bb" +
+      "3269ce6f\"R\014collectionId\022\037\n\013update_mask\030\002" +
+      " \003(\tR\nupdateMask\0224\n\ncollection\030\003 \001(\0132\024.l" +
+      "ive.v21.CollectionR\ncollection\"\327\001\n\021Sourc" +
+      "eCreateEvent\022O\n\rcollection_id\030\001 \001(\tB*\222A\'" +
       "J%\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R" +
-      "\tprojectId\022K\n\tsource_id\030\003 \001(\tB.\222A\'J%\"713" +
-      "2b004-61e8-49c1-8dc8-4bb3269ce6f\"\342A\001\002R\010s" +
-      "ourceId\0222\n\007connect\030\004 \001(\0162\026.live.v21.Conn" +
-      "ectStateH\000R\007connectB\006\n\004type\"\312\001\n\017Collecti" +
-      "onEvent\0229\n\006create\030\001 \001(\0132\037.live.v21.Colle" +
-      "ctionCreateEventH\000R\006create\0229\n\006update\030\002 \001" +
-      "(\0132\037.live.v21.CollectionUpdateEventH\000R\006u" +
-      "pdate\0229\n\006delete\030\003 \001(\0132\037.live.v21.Collect" +
-      "ionDeleteEventH\000R\006deleteB\006\n\004type\"\207\002\n\020Des" +
-      "tinationEvent\022:\n\006create\030\001 \001(\0132 .live.v21" +
-      ".DestinationCreateEventH\000R\006create\022:\n\006upd" +
-      "ate\030\002 \001(\0132 .live.v21.DestinationUpdateEv" +
-      "entH\000R\006update\022:\n\006delete\030\003 \001(\0132 .live.v21" +
-      ".DestinationDeleteEventH\000R\006delete\0227\n\005sta" +
-      "te\030\004 \001(\0132\037.live.v21.DestinationStateEven" +
-      "tH\000R\005stateB\006\n\004type\"\374\001\n\014ProjectEvent\0226\n\006c" +
-      "reate\030\001 \001(\0132\034.live.v21.ProjectCreateEven" +
-      "tH\000R\006create\0226\n\006update\030\002 \001(\0132\034.live.v21.P" +
-      "rojectUpdateEventH\000R\006update\0226\n\006delete\030\003 " +
-      "\001(\0132\034.live.v21.ProjectDeleteEventH\000R\006del" +
-      "ete\022<\n\005state\030\004 \001(\0132$.live.v21.ProjectBro" +
-      "adcastStateEventH\000R\005stateB\006\n\004type\"\323\002\n\013So" +
-      "urceEvent\0225\n\006create\030\001 \001(\0132\033.live.v21.Sou" +
-      "rceCreateEventH\000R\006create\0225\n\006update\030\002 \001(\013" +
-      "2\033.live.v21.SourceUpdateEventH\000R\006update\022" +
-      "5\n\006delete\030\003 \001(\0132\033.live.v21.SourceDeleteE" +
-      "ventH\000R\006delete\022,\n\003add\030\004 \001(\0132\030.live.v21.S" +
-      "ourceAddEventH\000R\003add\0225\n\006remove\030\005 \001(\0132\033.l" +
-      "ive.v21.SourceDeleteEventH\000R\006remove\0222\n\005s" +
-      "tate\030\006 \001(\0132\032.live.v21.SourceStateEventH\000" +
-      "R\005stateB\006\n\004type\"\265\002\n\tLiveEvent\022;\n\ncollect" +
-      "ion\030\001 \001(\0132\031.live.v21.CollectionEventH\000R\n" +
-      "collection\022>\n\013destination\030\002 \001(\0132\032.live.v" +
-      "21.DestinationEventH\000R\013destination\0222\n\007pr" +
-      "oject\030\003 \001(\0132\026.live.v21.ProjectEventH\000R\007p" +
-      "roject\022/\n\006source\030\004 \001(\0132\025.live.v21.Source" +
-      "EventH\000R\006source\022>\n\013unspecified\030\005 \001(\0162\032.g" +
-      "oogle.protobuf.NullValueH\000R\013unspecifiedB" +
-      "\006\n\004type*B\n\013ImageFormat\022\034\n\030IMAGE_FORMAT_U" +
-      "NSPECIFIED\020\000\022\025\n\021IMAGE_FORMAT_JPEG\020\001*R\n\017V" +
-      "ideoColorSpace\022!\n\035VIDEO_COLOR_SPACE_UNSP" +
-      "ECIFIED\020\000\022\034\n\030VIDEO_COLOR_SPACE_YUV420\020\001*" +
-      "[\n\022AudioChannelLayout\022$\n AUDIO_CHANNEL_L" +
-      "AYOUT_UNSPECIFIED\020\000\022\037\n\033AUDIO_CHANNEL_LAY" +
-      "OUT_STEREO\020\001*q\n\020RenderingQuality\022!\n\035REND" +
-      "ERING_QUALITY_UNSPECIFIED\020\000\022\036\n\032RENDERING" +
-      "_QUALITY_STANDARD\020\001\022\032\n\026RENDERING_QUALITY" +
-      "_HIGH\020\002*?\n\nVideoCodec\022\033\n\027VIDEO_CODEC_UNS" +
-      "PECIFIED\020\000\022\024\n\020VIDEO_CODEC_H264\020\001*\234\001\n\021Vid" +
-      "eoCodecProfile\022#\n\037VIDEO_CODEC_PROFILE_UN" +
-      "SPECIFIED\020\000\022 \n\034VIDEO_CODEC_PROFILE_BASEL" +
-      "INE\020\002\022\034\n\030VIDEO_CODEC_PROFILE_MAIN\020\003\022\034\n\030V" +
-      "IDEO_CODEC_PROFILE_HIGH\020\004\"\004\010\001\020\001*>\n\nAudio" +
-      "Codec\022\033\n\027AUDIO_CODEC_UNSPECIFIED\020\000\022\023\n\017AU" +
-      "DIO_CODEC_AAC\020\001*q\n\031VideoCodecRateControl" +
-      "Mode\022-\n)VIDEO_CODEC_RATE_CONTROL_MODE_UN" +
-      "SPECIFIED\020\000\022%\n!VIDEO_CODEC_RATE_CONTROL_" +
-      "MODE_CBR\020\001*\312\002\n\025ProjectBroadcastPhase\022\'\n#" +
-      "PROJECT_BROADCAST_PHASE_UNSPECIFIED\020\000\022\'\n" +
-      "#PROJECT_BROADCAST_PHASE_NOT_RUNNING\020\001\022#" +
-      "\n\037PROJECT_BROADCAST_PHASE_WAITING\020\002\022$\n P" +
-      "ROJECT_BROADCAST_PHASE_STARTING\020\003\022#\n\037PRO" +
-      "JECT_BROADCAST_PHASE_RUNNING\020\004\022$\n PROJEC" +
-      "T_BROADCAST_PHASE_STOPPING\020\005\022#\n\037PROJECT_" +
-      "BROADCAST_PHASE_STOPPED\020\006\022$\n PROJECT_BRO" +
-      "ADCAST_PHASE_ARCHIVED\020\007*\305\001\n\005S3ACL\022\025\n\021S3A" +
-      "CL_UNSPECIFIED\020\000\022\021\n\rS3ACL_PRIVATE\020\001\022\025\n\021S" +
-      "3ACL_PUBLIC_READ\020\002\022\033\n\027S3ACL_PUBLIC_READ_" +
-      "WRITE\020\003\022\034\n\030S3ACL_AUTHENTICATED_READ\020\004\022\033\n" +
-      "\027S3ACL_BUCKET_OWNER_READ\020\005\022#\n\037S3ACL_BUCK" +
-      "ET_OWNER_FULL_CONTROL\020\006*|\n\023SourceTrigger" +
-      "Action\022%\n!SOURCE_TRIGGER_ACTION_UNSPECIF" +
-      "IED\020\000\022 \n\034SOURCE_TRIGGER_ACTION_IGNORE\020\001\022" +
-      "\034\n\030SOURCE_TRIGGER_ACTION_OR\020\003*\361\001\n\006Region" +
-      "\022\026\n\022REGION_UNSPECIFIED\020\000\022\024\n\020REGION_US_EA" +
-      "ST_1\020\001\022\024\n\020REGION_US_EAST_2\020\002\022\024\n\020REGION_U" +
-      "S_WEST_1\020\003\022\024\n\020REGION_US_WEST_2\020\004\022\027\n\023REGI" +
-      "ON_US_CENTRAL_1\020\005\022\031\n\025REGION_AP_SOUTHEAST" +
-      "_1\020\n\022\024\n\020REGION_CA_EAST_1\020\024\022\027\n\023REGION_EU_" +
-      "CENTRAL_1\020\036\022\024\n\020REGION_EU_WEST_1\020\037*\231\001\n\004Ro" +
-      "le\022\024\n\020ROLE_UNSPECIFIED\020\000\022\r\n\tROLE_HOST\020\001\022" +
-      "\017\n\013ROLE_COHOST\020\002\022\024\n\020ROLE_CONTRIBUTOR\020\003\022\016" +
-      "\n\nROLE_GUEST\020\004\022\017\n\013ROLE_VIEWER\020\005\022\021\n\rROLE_" +
-      "RENDERER\020\006\022\021\n\rROLE_PLATFORM\020\007*\225\001\n\025Projec" +
-      "tBroadcastError\022\'\n#PROJECT_BROADCAST_ERR" +
-      "OR_UNSPECIFIED\020\000\022$\n PROJECT_BROADCAST_ER" +
-      "ROR_INTERNAL\020\001\022-\n)PROJECT_BROADCAST_ERRO" +
-      "R_DURATION_EXCEEDED\020\002*j\n\014ConnectState\022\035\n" +
-      "\031CONNECT_STATE_UNSPECIFIED\020\000\022\033\n\027CONNECT_",
-      "STATE_CONNECTED\020\001\022\036\n\032CONNECT_STATE_DISCO" +
-      "NNECTED\020\002*\314\001\n\014EventSubType\022\036\n\032EVENT_SUB_" +
-      "TYPE_UNSPECIFIED\020\000\022\031\n\025EVENT_SUB_TYPE_CRE" +
-      "ATE\020\001\022\031\n\025EVENT_SUB_TYPE_UPDATE\020\002\022\031\n\025EVEN" +
-      "T_SUB_TYPE_DELETE\020\003\022\026\n\022EVENT_SUB_TYPE_AD" +
-      "D\020\004\022\031\n\025EVENT_SUB_TYPE_REMOVE\020\005\022\030\n\024EVENT_" +
-      "SUB_TYPE_STATE\020\006*\215\001\n\tEventType\022\032\n\026EVENT_" +
-      "TYPE_UNSPECIFIED\020\000\022\031\n\025EVENT_TYPE_COLLECT" +
-      "ION\020\001\022\026\n\022EVENT_TYPE_PROJECT\020\002\022\025\n\021EVENT_T" +
-      "YPE_SOURCE\020\004\022\032\n\026EVENT_TYPE_DESTINATION\020\005" +
-      "2\353\004\n\021CollectionService\022q\n\020CreateCollecti" +
-      "on\022!.live.v21.CreateCollectionRequest\032\"." +
-      "live.v21.CreateCollectionResponse\"\026\202\323\344\223\002" +
-      "\020\"\013/collection:\001*\022u\n\rGetCollection\022\036.liv" +
-      "e.v21.GetCollectionRequest\032\037.live.v21.Ge" +
-      "tCollectionResponse\"#\202\323\344\223\002\035\022\033/collection" +
-      "/{collection_id}\022h\n\016GetCollections\022\037.liv" +
-      "e.v21.GetCollectionsRequest\032 .live.v21.G" +
-      "etCollectionsResponse\"\023\202\323\344\223\002\r\022\013/collecti" +
-      "on\022\201\001\n\020UpdateCollection\022!.live.v21.Updat" +
-      "eCollectionRequest\032\".live.v21.UpdateColl" +
-      "ectionResponse\"&\202\323\344\223\002 2\033/collection/{col" +
-      "lection_id}:\001*\022~\n\020DeleteCollection\022!.liv" +
-      "e.v21.DeleteCollectionRequest\032\".live.v21" +
-      ".DeleteCollectionResponse\"#\202\323\344\223\002\035*\033/coll" +
-      "ection/{collection_id}2\203\r\n\016ProjectServic" +
-      "e\022\200\001\n\rCreateProject\022\036.live.v21.CreatePro" +
-      "jectRequest\032\037.live.v21.CreateProjectResp" +
-      "onse\".\202\323\344\223\002(\"#/collection/{collection_id" +
-      "}/project:\001*\022\201\001\n\nGetProject\022\033.live.v21.G" +
-      "etProjectRequest\032\034.live.v21.GetProjectRe" +
-      "sponse\"8\202\323\344\223\0022\0220/collection/{collection_" +
-      "id}/project/{project_id}\022\212\001\n\rDeleteProje" +
-      "ct\022\036.live.v21.DeleteProjectRequest\032\037.liv" +
-      "e.v21.DeleteProjectResponse\"8\202\323\344\223\0022*0/co" +
-      "llection/{collection_id}/project/{projec" +
-      "t_id}\022\215\001\n\rUpdateProject\022\036.live.v21.Updat" +
-      "eProjectRequest\032\037.live.v21.UpdateProject" +
-      "Response\";\202\323\344\223\002520/collection/{collectio" +
-      "n_id}/project/{project_id}:\001*\022\262\001\n\025StartP" +
-      "rojectBroadcast\022&.live.v21.StartProjectB" +
-      "roadcastRequest\032\'.live.v21.StartProjectB" +
-      "roadcastResponse\"H\202\323\344\223\002B\032@/collection/{c" +
-      "ollection_id}/project/{project_id}/broad" +
-      "cast/start\022\256\001\n\024StopProjectBroadcast\022%.li" +
-      "ve.v21.StopProjectBroadcastRequest\032&.liv" +
-      "e.v21.StopProjectBroadcastResponse\"G\202\323\344\223" +
-      "\002A\032?/collection/{collection_id}/project/" +
-      "{project_id}/broadcast/stop\022\246\001\n\022StartPro" +
-      "jectWebRtc\022#.live.v21.StartProjectWebRtc" +
-      "Request\032$.live.v21.StartProjectWebRtcRes" +
-      "ponse\"E\202\323\344\223\002?\032=/collection/{collection_i" +
-      "d}/project/{project_id}/webrtc/start\022\242\001\n" +
-      "\021StopProjectWebRtc\022\".live.v21.StopProjec" +
-      "tWebRtcRequest\032#.live.v21.StopProjectWeb" +
-      "RtcResponse\"D\202\323\344\223\002>\032</collection/{collec" +
-      "tion_id}/project/{project_id}/webrtc/sto" +
-      "p\022\326\001\n\033GetProjectBroadcastSnapshot\022,.live" +
-      ".v21.GetProjectBroadcastSnapshotRequest\032" +
-      "-.live.v21.GetProjectBroadcastSnapshotRe" +
-      "sponse\"Z\222A\014:\nimage/jpeg\202\323\344\223\002E\022C/collecti" +
-      "on/{collection_id}/project/{project_id}/" +
-      "broadcast/snapshot\022\277\001\n\031GetProjectBroadca" +
-      "stStatus\022*.live.v21.GetProjectBroadcastS" +
-      "tatusRequest\032+.live.v21.GetProjectBroadc" +
-      "astStatusResponse\"I\202\323\344\223\002C\022A/collection/{" +
-      "collection_id}/project/{project_id}/broa" +
-      "dcast/status2\330\005\n\022DestinationService\022\245\001\n\021" +
-      "CreateDestination\022\".live.v21.CreateDesti" +
-      "nationRequest\032#.live.v21.CreateDestinati" +
-      "onResponse\"G\202\323\344\223\002A\"</collection/{collect" +
-      "ion_id}/project/{project_id}/destination" +
-      ":\001*\022\252\001\n\016GetDestination\022\037.live.v21.GetDes" +
-      "tinationRequest\032 .live.v21.GetDestinatio" +
-      "nResponse\"U\202\323\344\223\002O\022M/collection/{collecti" +
-      "on_id}/project/{project_id}/destination/" +
-      "{destination_id}\022\266\001\n\021UpdateDestination\022\"" +
-      ".live.v21.UpdateDestinationRequest\032#.liv" +
-      "e.v21.UpdateDestinationResponse\"X\202\323\344\223\002R2" +
-      "M/collection/{collection_id}/project/{pr" +
-      "oject_id}/destination/{destination_id}:\001" +
-      "*\022\263\001\n\021DeleteDestination\022\".live.v21.Delet" +
-      "eDestinationRequest\032#.live.v21.DeleteDes" +
-      "tinationResponse\"U\202\323\344\223\002O*M/collection/{c" +
-      "ollection_id}/project/{project_id}/desti" +
-      "nation/{destination_id}2\276\t\n\rSourceServic" +
-      "e\022|\n\014CreateSource\022\035.live.v21.CreateSourc" +
-      "eRequest\032\036.live.v21.CreateSourceResponse" +
-      "\"-\202\323\344\223\002\'\"\"/collection/{collection_id}/so" +
-      "urce:\001*\022\205\001\n\014DeleteSource\022\035.live.v21.Dele" +
-      "teSourceRequest\032\036.live.v21.DeleteSourceR" +
-      "esponse\"6\202\323\344\223\0020*./collection/{collection" +
-      "_id}/source/{source_id}\022\210\001\n\014UpdateSource" +
-      "\022\035.live.v21.UpdateSourceRequest\032\036.live.v" +
-      "21.UpdateSourceResponse\"9\202\323\344\223\00232./collec" +
-      "tion/{collection_id}/source/{source_id}:" +
-      "\001*\022\270\001\n\025UpdateSourceInProject\022&.live.v21." +
-      "UpdateSourceInProjectRequest\032\'.live.v21." +
-      "UpdateSourceInProjectResponse\"N\202\323\344\223\002H2C/" +
-      "collection/{collection_id}/project/{proj" +
-      "ect_id}/source/{source_id}:\001*\022|\n\tGetSour" +
-      "ce\022\032.live.v21.GetSourceRequest\032\033.live.v2" +
-      "1.GetSourceResponse\"6\202\323\344\223\0020\022./collection" +
-      "/{collection_id}/source/{source_id}\022s\n\nG" +
-      "etSources\022\033.live.v21.GetSourcesRequest\032\034" +
-      ".live.v21.GetSourcesResponse\"*\202\323\344\223\002$\022\"/c" +
-      "ollection/{collection_id}/source\022\257\001\n\022Add" +
-      "SourceToProject\022#.live.v21.AddSourceToPr" +
-      "ojectRequest\032$.live.v21.AddSourceToProje" +
-      "ctResponse\"N\202\323\344\223\002H\032C/collection/{collect" +
-      "ion_id}/project/{project_id}/source/{sou" +
-      "rce_id}:\001*\022\273\001\n\027RemoveSourceFromProject\022(" +
-      ".live.v21.RemoveSourceFromProjectRequest" +
-      "\032).live.v21.RemoveSourceFromProjectRespo" +
-      "nse\"K\202\323\344\223\002E*C/collection/{collection_id}" +
-      "/project/{project_id}/source/{source_id}" +
-      "2\260\001\n\034BackendAuthenticationService\022\217\001\n\021Cr" +
-      "eateAccessToken\022\".live.v21.CreateAccessT" +
-      "okenRequest\032#.live.v21.CreateAccessToken" +
-      "Response\"1\222A\016b\014\n\n\n\006ApiKey\022\000\202\323\344\223\002\032\"\025/auth" +
-      "entication/token:\001*2\243\003\n\025AuthenticationSe" +
-      "rvice\022\223\001\n\026CreateGuestAccessToken\022\'.live." +
-      "v21.CreateGuestAccessTokenRequest\032(.live" +
-      ".v21.CreateGuestAccessTokenResponse\"&\202\323\344" +
-      "\223\002 \"\033/authentication/token/guest:\001*\022\201\001\n\022" +
-      "RefreshAccessToken\022#.live.v21.RefreshAcc" +
-      "essTokenRequest\032$.live.v21.RefreshAccess" +
-      "TokenResponse\" \202\323\344\223\002\032\032\025/authentication/t" +
-      "oken:\001*\022p\n\027CreateWebRtcAccessToken\022(.liv" +
-      "e.v21.CreateWebRtcAccessTokenRequest\032).l" +
-      "ive.v21.CreateWebRtcAccessTokenResponse\"" +
-      "\0002\224\002\n\033PublicAuthenticationService\022w\n\020Get" +
-      "JsonWebKeySet\022!.live.v21.GetJsonWebKeySe" +
-      "tRequest\032\".live.v21.GetJsonWebKeySetResp" +
-      "onse\"\034\202\323\344\223\002\026\022\024/authentication/jwks\022|\n\021Gu" +
-      "estCodeRedirect\022\".live.v21.GuestCodeRedi" +
-      "rectRequest\032#.live.v21.GuestCodeRedirect" +
-      "Response\"\036\202\323\344\223\002\030\022\026/r/{service_id}/{code}" +
-      "B\317\010\n\017stream.api.liveP\001Z\021apistream/livev2" +
-      "1\222A\245\010\022\0052\0032.1\032\017live.api.stream\"\010/live/v2*" +
-      "\001\0022\020application/json:\020application/jsonR/" +
-      "\n\003401\022(\n&The access token provided is no" +
-      "t validRM\n\003403\022F\nDThe access token provi" +
-      "ded does not have access to specified re" +
-      "sourceR-\n\003404\022&\n$The specified resource " +
-      "was not foundRa\n\003429\022Z\nXThe specified se" +
-      "rvice is busy; please use an exponential" +
-      " backoff on subsequent requests.RE\n\003500\022" +
-      ">\n<The specified service is unavailable;" +
-      " please try again laterZ\210\003\n\330\001\n\013AccessTok" +
-      "en\022\310\001\010\002\022\252\001Assert your access token into " +
-      "a HTTP Header named \'Authorization: Bear" +
-      "er\'<br><pre>curl -H \'Authorization: Bear" +
-      "er bar\' https://live.api.stream/live/v2/" +
-      "collection/foo</pre>\032\025Authorization: Bea" +
-      "rer \002\n\252\001\n\006ApiKey\022\237\001\010\002\022\215\001Assert your api " +
-      "key into a HTTP Header named \'X-API-Key\'" +
-      "<br><pre>curl -H \'X-API-Key:bar\' https:/" +
-      "/live.api.stream/live/v2/collection/foo<" +
-      "/pre>\032\tX-API-Key \002b\021\n\017\n\013AccessToken\022\000z\342\001" +
-      "\n\013x-tagGroups\022\322\0012\317\001\n\314\001*\311\001\n\022\n\004name\022\n\032\010Ser" +
-      "vices\n\262\001\n\004tags\022\251\0012\246\001\n\023\032\021CollectionServic" +
-      "e\n\020\032\016ProjectService\n\017\032\rSourceService\n\024\032\022" +
-      "DestinationService\n\027\032\025AuthenticationServ" +
-      "ice\n\036\032\034BackendAuthenticationService\n\035\032\033P" +
-      "ublicAuthenticationServiceb\006proto3"
+      "\014collectionId\022G\n\tsource_id\030\002 \001(\tB*\222A\'J%\"" +
+      "7132b004-61e8-49c1-8dc8-4bb3269ce6f\"R\010so" +
+      "urceId\022(\n\006source\030\003 \001(\0132\020.live.v21.Source" +
+      "R\006source\"U\n\021SourceDeleteEvent\022#\n\rcollect" +
+      "ion_id\030\001 \001(\tR\014collectionId\022\033\n\tsource_id\030" +
+      "\002 \001(\tR\010sourceId\"\240\001\n\021SourceUpdateEvent\022#\n" +
+      "\rcollection_id\030\001 \001(\tR\014collectionId\022\033\n\tso" +
+      "urce_id\030\002 \001(\tR\010sourceId\022\037\n\013update_mask\030\003" +
+      " \003(\tR\nupdateMask\022(\n\006source\030\004 \001(\0132\020.live." +
+      "v21.SourceR\006source\"\233\001\n\016SourceAddEvent\022#\n" +
+      "\rcollection_id\030\001 \001(\tR\014collectionId\022\033\n\tso" +
+      "urce_id\030\002 \001(\tR\010sourceId\022\035\n\nproject_id\030\003 " +
+      "\001(\tR\tprojectId\022(\n\006source\030\004 \001(\0132\020.live.v2" +
+      "1.SourceR\006source\"t\n\021SourceRemoveEvent\022#\n" +
+      "\rcollection_id\030\001 \001(\tR\014collectionId\022\033\n\tso" +
+      "urce_id\030\002 \001(\tR\010sourceId\022\035\n\nproject_id\030\003 " +
+      "\001(\tR\tprojectId\"\273\002\n\020SourceStateEvent\022S\n\rc" +
+      "ollection_id\030\001 \001(\tB.\222A\'J%\"7132b004-61e8-" +
+      "49c1-8dc8-4bb3269ce6f\"\342A\001\002R\014collectionId" +
+      "\022I\n\nproject_id\030\002 \001(\tB*\222A\'J%\"7132b004-61e" +
+      "8-49c1-8dc8-4bb3269ce6f\"R\tprojectId\022K\n\ts" +
+      "ource_id\030\003 \001(\tB.\222A\'J%\"7132b004-61e8-49c1" +
+      "-8dc8-4bb3269ce6f\"\342A\001\002R\010sourceId\0222\n\007conn" +
+      "ect\030\004 \001(\0162\026.live.v21.ConnectStateH\000R\007con" +
+      "nectB\006\n\004type\"\312\001\n\017CollectionEvent\0229\n\006crea" +
+      "te\030\001 \001(\0132\037.live.v21.CollectionCreateEven" +
+      "tH\000R\006create\0229\n\006update\030\002 \001(\0132\037.live.v21.C" +
+      "ollectionUpdateEventH\000R\006update\0229\n\006delete" +
+      "\030\003 \001(\0132\037.live.v21.CollectionDeleteEventH" +
+      "\000R\006deleteB\006\n\004type\"\207\002\n\020DestinationEvent\022:" +
+      "\n\006create\030\001 \001(\0132 .live.v21.DestinationCre" +
+      "ateEventH\000R\006create\022:\n\006update\030\002 \001(\0132 .liv" +
+      "e.v21.DestinationUpdateEventH\000R\006update\022:" +
+      "\n\006delete\030\003 \001(\0132 .live.v21.DestinationDel" +
+      "eteEventH\000R\006delete\0227\n\005state\030\004 \001(\0132\037.live" +
+      ".v21.DestinationStateEventH\000R\005stateB\006\n\004t" +
+      "ype\"\374\001\n\014ProjectEvent\0226\n\006create\030\001 \001(\0132\034.l" +
+      "ive.v21.ProjectCreateEventH\000R\006create\0226\n\006" +
+      "update\030\002 \001(\0132\034.live.v21.ProjectUpdateEve" +
+      "ntH\000R\006update\0226\n\006delete\030\003 \001(\0132\034.live.v21." +
+      "ProjectDeleteEventH\000R\006delete\022<\n\005state\030\004 " +
+      "\001(\0132$.live.v21.ProjectBroadcastStateEven" +
+      "tH\000R\005stateB\006\n\004type\"\323\002\n\013SourceEvent\0225\n\006cr" +
+      "eate\030\001 \001(\0132\033.live.v21.SourceCreateEventH" +
+      "\000R\006create\0225\n\006update\030\002 \001(\0132\033.live.v21.Sou" +
+      "rceUpdateEventH\000R\006update\0225\n\006delete\030\003 \001(\013" +
+      "2\033.live.v21.SourceDeleteEventH\000R\006delete\022" +
+      ",\n\003add\030\004 \001(\0132\030.live.v21.SourceAddEventH\000" +
+      "R\003add\0225\n\006remove\030\005 \001(\0132\033.live.v21.SourceD" +
+      "eleteEventH\000R\006remove\0222\n\005state\030\006 \001(\0132\032.li" +
+      "ve.v21.SourceStateEventH\000R\005stateB\006\n\004type" +
+      "\"\265\002\n\tLiveEvent\022;\n\ncollection\030\001 \001(\0132\031.liv" +
+      "e.v21.CollectionEventH\000R\ncollection\022>\n\013d" +
+      "estination\030\002 \001(\0132\032.live.v21.DestinationE" +
+      "ventH\000R\013destination\0222\n\007project\030\003 \001(\0132\026.l" +
+      "ive.v21.ProjectEventH\000R\007project\022/\n\006sourc" +
+      "e\030\004 \001(\0132\025.live.v21.SourceEventH\000R\006source" +
+      "\022>\n\013unspecified\030\005 \001(\0162\032.google.protobuf." +
+      "NullValueH\000R\013unspecifiedB\006\n\004type*B\n\013Imag" +
+      "eFormat\022\034\n\030IMAGE_FORMAT_UNSPECIFIED\020\000\022\025\n" +
+      "\021IMAGE_FORMAT_JPEG\020\001*R\n\017VideoColorSpace\022" +
+      "!\n\035VIDEO_COLOR_SPACE_UNSPECIFIED\020\000\022\034\n\030VI" +
+      "DEO_COLOR_SPACE_YUV420\020\001*[\n\022AudioChannel" +
+      "Layout\022$\n AUDIO_CHANNEL_LAYOUT_UNSPECIFI" +
+      "ED\020\000\022\037\n\033AUDIO_CHANNEL_LAYOUT_STEREO\020\001*q\n" +
+      "\020RenderingQuality\022!\n\035RENDERING_QUALITY_U" +
+      "NSPECIFIED\020\000\022\036\n\032RENDERING_QUALITY_STANDA" +
+      "RD\020\001\022\032\n\026RENDERING_QUALITY_HIGH\020\002*?\n\nVide" +
+      "oCodec\022\033\n\027VIDEO_CODEC_UNSPECIFIED\020\000\022\024\n\020V" +
+      "IDEO_CODEC_H264\020\001*\234\001\n\021VideoCodecProfile\022" +
+      "#\n\037VIDEO_CODEC_PROFILE_UNSPECIFIED\020\000\022 \n\034" +
+      "VIDEO_CODEC_PROFILE_BASELINE\020\002\022\034\n\030VIDEO_" +
+      "CODEC_PROFILE_MAIN\020\003\022\034\n\030VIDEO_CODEC_PROF" +
+      "ILE_HIGH\020\004\"\004\010\001\020\001*>\n\nAudioCodec\022\033\n\027AUDIO_" +
+      "CODEC_UNSPECIFIED\020\000\022\023\n\017AUDIO_CODEC_AAC\020\001" +
+      "*q\n\031VideoCodecRateControlMode\022-\n)VIDEO_C" +
+      "ODEC_RATE_CONTROL_MODE_UNSPECIFIED\020\000\022%\n!" +
+      "VIDEO_CODEC_RATE_CONTROL_MODE_CBR\020\001*\312\002\n\025" +
+      "ProjectBroadcastPhase\022\'\n#PROJECT_BROADCA" +
+      "ST_PHASE_UNSPECIFIED\020\000\022\'\n#PROJECT_BROADC" +
+      "AST_PHASE_NOT_RUNNING\020\001\022#\n\037PROJECT_BROAD" +
+      "CAST_PHASE_WAITING\020\002\022$\n PROJECT_BROADCAS" +
+      "T_PHASE_STARTING\020\003\022#\n\037PROJECT_BROADCAST_" +
+      "PHASE_RUNNING\020\004\022$\n PROJECT_BROADCAST_PHA" +
+      "SE_STOPPING\020\005\022#\n\037PROJECT_BROADCAST_PHASE" +
+      "_STOPPED\020\006\022$\n PROJECT_BROADCAST_PHASE_AR" +
+      "CHIVED\020\007*\305\001\n\005S3ACL\022\025\n\021S3ACL_UNSPECIFIED\020" +
+      "\000\022\021\n\rS3ACL_PRIVATE\020\001\022\025\n\021S3ACL_PUBLIC_REA" +
+      "D\020\002\022\033\n\027S3ACL_PUBLIC_READ_WRITE\020\003\022\034\n\030S3AC" +
+      "L_AUTHENTICATED_READ\020\004\022\033\n\027S3ACL_BUCKET_O" +
+      "WNER_READ\020\005\022#\n\037S3ACL_BUCKET_OWNER_FULL_C" +
+      "ONTROL\020\006*|\n\023SourceTriggerAction\022%\n!SOURC" +
+      "E_TRIGGER_ACTION_UNSPECIFIED\020\000\022 \n\034SOURCE" +
+      "_TRIGGER_ACTION_IGNORE\020\001\022\034\n\030SOURCE_TRIGG" +
+      "ER_ACTION_OR\020\003*\243\002\n\006Region\022\026\n\022REGION_UNSP" +
+      "ECIFIED\020\000\022\024\n\020REGION_US_EAST_1\020\001\022\024\n\020REGIO" +
+      "N_US_EAST_2\020\002\022\024\n\020REGION_US_WEST_1\020\003\022\024\n\020R" +
+      "EGION_US_WEST_2\020\004\022\027\n\023REGION_US_CENTRAL_1" +
+      "\020\005\022\031\n\025REGION_AP_SOUTHEAST_1\020\n\022\031\n\025REGION_" +
+      "AP_SOUTHEAST_2\020\013\022\025\n\021REGION_AP_SOUTH_1\020\017\022" +
+      "\024\n\020REGION_CA_EAST_1\020\024\022\027\n\023REGION_EU_CENTR" +
+      "AL_1\020\036\022\024\n\020REGION_EU_WEST_1\020\037*\257\001\n\004Role\022\024\n",
+      "\020ROLE_UNSPECIFIED\020\000\022\r\n\tROLE_HOST\020\001\022\017\n\013RO" +
+      "LE_COHOST\020\002\022\024\n\020ROLE_CONTRIBUTOR\020\003\022\016\n\nROL" +
+      "E_GUEST\020\004\022\017\n\013ROLE_VIEWER\020\005\022\021\n\rROLE_RENDE" +
+      "RER\020\006\022\021\n\rROLE_PLATFORM\020\007\022\024\n\020ROLE_IMPERSO" +
+      "NATE\020\010*\225\001\n\025ProjectBroadcastError\022\'\n#PROJ" +
+      "ECT_BROADCAST_ERROR_UNSPECIFIED\020\000\022$\n PRO" +
+      "JECT_BROADCAST_ERROR_INTERNAL\020\001\022-\n)PROJE" +
+      "CT_BROADCAST_ERROR_DURATION_EXCEEDED\020\002*j" +
+      "\n\014ConnectState\022\035\n\031CONNECT_STATE_UNSPECIF" +
+      "IED\020\000\022\033\n\027CONNECT_STATE_CONNECTED\020\001\022\036\n\032CO" +
+      "NNECT_STATE_DISCONNECTED\020\002*\314\001\n\014EventSubT" +
+      "ype\022\036\n\032EVENT_SUB_TYPE_UNSPECIFIED\020\000\022\031\n\025E" +
+      "VENT_SUB_TYPE_CREATE\020\001\022\031\n\025EVENT_SUB_TYPE" +
+      "_UPDATE\020\002\022\031\n\025EVENT_SUB_TYPE_DELETE\020\003\022\026\n\022" +
+      "EVENT_SUB_TYPE_ADD\020\004\022\031\n\025EVENT_SUB_TYPE_R" +
+      "EMOVE\020\005\022\030\n\024EVENT_SUB_TYPE_STATE\020\006*\215\001\n\tEv" +
+      "entType\022\032\n\026EVENT_TYPE_UNSPECIFIED\020\000\022\031\n\025E" +
+      "VENT_TYPE_COLLECTION\020\001\022\026\n\022EVENT_TYPE_PRO" +
+      "JECT\020\002\022\025\n\021EVENT_TYPE_SOURCE\020\004\022\032\n\026EVENT_T" +
+      "YPE_DESTINATION\020\0052\353\004\n\021CollectionService\022" +
+      "q\n\020CreateCollection\022!.live.v21.CreateCol" +
+      "lectionRequest\032\".live.v21.CreateCollecti" +
+      "onResponse\"\026\202\323\344\223\002\020:\001*\"\013/collection\022u\n\rGe" +
+      "tCollection\022\036.live.v21.GetCollectionRequ" +
+      "est\032\037.live.v21.GetCollectionResponse\"#\202\323" +
+      "\344\223\002\035\022\033/collection/{collection_id}\022h\n\016Get" +
+      "Collections\022\037.live.v21.GetCollectionsReq" +
+      "uest\032 .live.v21.GetCollectionsResponse\"\023" +
+      "\202\323\344\223\002\r\022\013/collection\022\201\001\n\020UpdateCollection" +
+      "\022!.live.v21.UpdateCollectionRequest\032\".li" +
+      "ve.v21.UpdateCollectionResponse\"&\202\323\344\223\002 :" +
+      "\001*2\033/collection/{collection_id}\022~\n\020Delet" +
+      "eCollection\022!.live.v21.DeleteCollectionR" +
+      "equest\032\".live.v21.DeleteCollectionRespon" +
+      "se\"#\202\323\344\223\002\035*\033/collection/{collection_id}2" +
+      "\203\r\n\016ProjectService\022\200\001\n\rCreateProject\022\036.l" +
+      "ive.v21.CreateProjectRequest\032\037.live.v21." +
+      "CreateProjectResponse\".\202\323\344\223\002(:\001*\"#/colle" +
+      "ction/{collection_id}/project\022\201\001\n\nGetPro" +
+      "ject\022\033.live.v21.GetProjectRequest\032\034.live" +
+      ".v21.GetProjectResponse\"8\202\323\344\223\0022\0220/collec" +
+      "tion/{collection_id}/project/{project_id" +
+      "}\022\212\001\n\rDeleteProject\022\036.live.v21.DeletePro" +
+      "jectRequest\032\037.live.v21.DeleteProjectResp" +
+      "onse\"8\202\323\344\223\0022*0/collection/{collection_id" +
+      "}/project/{project_id}\022\215\001\n\rUpdateProject" +
+      "\022\036.live.v21.UpdateProjectRequest\032\037.live." +
+      "v21.UpdateProjectResponse\";\202\323\344\223\0025:\001*20/c" +
+      "ollection/{collection_id}/project/{proje" +
+      "ct_id}\022\262\001\n\025StartProjectBroadcast\022&.live." +
+      "v21.StartProjectBroadcastRequest\032\'.live." +
+      "v21.StartProjectBroadcastResponse\"H\202\323\344\223\002" +
+      "B\032@/collection/{collection_id}/project/{" +
+      "project_id}/broadcast/start\022\256\001\n\024StopProj" +
+      "ectBroadcast\022%.live.v21.StopProjectBroad" +
+      "castRequest\032&.live.v21.StopProjectBroadc" +
+      "astResponse\"G\202\323\344\223\002A\032?/collection/{collec" +
+      "tion_id}/project/{project_id}/broadcast/" +
+      "stop\022\246\001\n\022StartProjectWebRtc\022#.live.v21.S" +
+      "tartProjectWebRtcRequest\032$.live.v21.Star" +
+      "tProjectWebRtcResponse\"E\202\323\344\223\002?\032=/collect" +
+      "ion/{collection_id}/project/{project_id}" +
+      "/webrtc/start\022\242\001\n\021StopProjectWebRtc\022\".li" +
+      "ve.v21.StopProjectWebRtcRequest\032#.live.v" +
+      "21.StopProjectWebRtcResponse\"D\202\323\344\223\002>\032</c" +
+      "ollection/{collection_id}/project/{proje" +
+      "ct_id}/webrtc/stop\022\326\001\n\033GetProjectBroadca" +
+      "stSnapshot\022,.live.v21.GetProjectBroadcas" +
+      "tSnapshotRequest\032-.live.v21.GetProjectBr" +
+      "oadcastSnapshotResponse\"Z\222A\014:\nimage/jpeg" +
+      "\202\323\344\223\002E\022C/collection/{collection_id}/proj" +
+      "ect/{project_id}/broadcast/snapshot\022\277\001\n\031" +
+      "GetProjectBroadcastStatus\022*.live.v21.Get" +
+      "ProjectBroadcastStatusRequest\032+.live.v21" +
+      ".GetProjectBroadcastStatusResponse\"I\202\323\344\223" +
+      "\002C\022A/collection/{collection_id}/project/" +
+      "{project_id}/broadcast/status2\330\005\n\022Destin" +
+      "ationService\022\245\001\n\021CreateDestination\022\".liv" +
+      "e.v21.CreateDestinationRequest\032#.live.v2" +
+      "1.CreateDestinationResponse\"G\202\323\344\223\002A:\001*\"<" +
+      "/collection/{collection_id}/project/{pro" +
+      "ject_id}/destination\022\252\001\n\016GetDestination\022" +
+      "\037.live.v21.GetDestinationRequest\032 .live." +
+      "v21.GetDestinationResponse\"U\202\323\344\223\002O\022M/col" +
+      "lection/{collection_id}/project/{project" +
+      "_id}/destination/{destination_id}\022\266\001\n\021Up" +
+      "dateDestination\022\".live.v21.UpdateDestina" +
+      "tionRequest\032#.live.v21.UpdateDestination" +
+      "Response\"X\202\323\344\223\002R:\001*2M/collection/{collec" +
+      "tion_id}/project/{project_id}/destinatio" +
+      "n/{destination_id}\022\263\001\n\021DeleteDestination" +
+      "\022\".live.v21.DeleteDestinationRequest\032#.l" +
+      "ive.v21.DeleteDestinationResponse\"U\202\323\344\223\002" +
+      "O*M/collection/{collection_id}/project/{" +
+      "project_id}/destination/{destination_id}" +
+      "2\276\t\n\rSourceService\022|\n\014CreateSource\022\035.liv" +
+      "e.v21.CreateSourceRequest\032\036.live.v21.Cre" +
+      "ateSourceResponse\"-\202\323\344\223\002\':\001*\"\"/collectio" +
+      "n/{collection_id}/source\022\205\001\n\014DeleteSourc" +
+      "e\022\035.live.v21.DeleteSourceRequest\032\036.live." +
+      "v21.DeleteSourceResponse\"6\202\323\344\223\0020*./colle" +
+      "ction/{collection_id}/source/{source_id}" +
+      "\022\210\001\n\014UpdateSource\022\035.live.v21.UpdateSourc" +
+      "eRequest\032\036.live.v21.UpdateSourceResponse" +
+      "\"9\202\323\344\223\0023:\001*2./collection/{collection_id}" +
+      "/source/{source_id}\022\270\001\n\025UpdateSourceInPr" +
+      "oject\022&.live.v21.UpdateSourceInProjectRe" +
+      "quest\032\'.live.v21.UpdateSourceInProjectRe" +
+      "sponse\"N\202\323\344\223\002H:\001*2C/collection/{collecti" +
+      "on_id}/project/{project_id}/source/{sour" +
+      "ce_id}\022|\n\tGetSource\022\032.live.v21.GetSource" +
+      "Request\032\033.live.v21.GetSourceResponse\"6\202\323" +
+      "\344\223\0020\022./collection/{collection_id}/source" +
+      "/{source_id}\022s\n\nGetSources\022\033.live.v21.Ge" +
+      "tSourcesRequest\032\034.live.v21.GetSourcesRes" +
+      "ponse\"*\202\323\344\223\002$\022\"/collection/{collection_i" +
+      "d}/source\022\257\001\n\022AddSourceToProject\022#.live." +
+      "v21.AddSourceToProjectRequest\032$.live.v21" +
+      ".AddSourceToProjectResponse\"N\202\323\344\223\002H:\001*\032C" +
+      "/collection/{collection_id}/project/{pro" +
+      "ject_id}/source/{source_id}\022\273\001\n\027RemoveSo" +
+      "urceFromProject\022(.live.v21.RemoveSourceF" +
+      "romProjectRequest\032).live.v21.RemoveSourc" +
+      "eFromProjectResponse\"K\202\323\344\223\002E*C/collectio" +
+      "n/{collection_id}/project/{project_id}/s" +
+      "ource/{source_id}2\260\001\n\034BackendAuthenticat" +
+      "ionService\022\217\001\n\021CreateAccessToken\022\".live." +
+      "v21.CreateAccessTokenRequest\032#.live.v21." +
+      "CreateAccessTokenResponse\"1\222A\016b\014\n\n\n\006ApiK" +
+      "ey\022\000\202\323\344\223\002\032:\001*\"\025/authentication/token2\243\003\n" +
+      "\025AuthenticationService\022\223\001\n\026CreateGuestAc" +
+      "cessToken\022\'.live.v21.CreateGuestAccessTo" +
+      "kenRequest\032(.live.v21.CreateGuestAccessT" +
+      "okenResponse\"&\202\323\344\223\002 :\001*\"\033/authentication" +
+      "/token/guest\022\201\001\n\022RefreshAccessToken\022#.li" +
+      "ve.v21.RefreshAccessTokenRequest\032$.live." +
+      "v21.RefreshAccessTokenResponse\" \202\323\344\223\002\032:\001" +
+      "*\032\025/authentication/token\022p\n\027CreateWebRtc" +
+      "AccessToken\022(.live.v21.CreateWebRtcAcces" +
+      "sTokenRequest\032).live.v21.CreateWebRtcAcc" +
+      "essTokenResponse\"\0002\224\002\n\033PublicAuthenticat" +
+      "ionService\022w\n\020GetJsonWebKeySet\022!.live.v2" +
+      "1.GetJsonWebKeySetRequest\032\".live.v21.Get" +
+      "JsonWebKeySetResponse\"\034\202\323\344\223\002\026\022\024/authenti" +
+      "cation/jwks\022|\n\021GuestCodeRedirect\022\".live." +
+      "v21.GuestCodeRedirectRequest\032#.live.v21." +
+      "GuestCodeRedirectResponse\"\036\202\323\344\223\002\030\022\026/r/{s" +
+      "ervice_id}/{code}B\317\010\n\017stream.api.liveP\001Z" +
+      "\021apistream/livev21\222A\245\010\022\0052\0032.1\032\017live.api." +
+      "stream\"\010/live/v2*\001\0022\020application/json:\020a" +
+      "pplication/jsonR/\n\003401\022(\n&The access tok" +
+      "en provided is not validRM\n\003403\022F\nDThe a" +
+      "ccess token provided does not have acces" +
+      "s to specified resourceR-\n\003404\022&\n$The sp" +
+      "ecified resource was not foundRa\n\003429\022Z\n" +
+      "XThe specified service is busy; please u" +
+      "se an exponential backoff on subsequent " +
+      "requests.RE\n\003500\022>\n<The specified servic" +
+      "e is unavailable; please try again later" +
+      "Z\210\003\n\330\001\n\013AccessToken\022\310\001\010\002\022\252\001Assert your a" +
+      "ccess token into a HTTP Header named \'Au" +
+      "thorization: Bearer\'<br><pre>curl -H \'Au" +
+      "thorization: Bearer bar\' https://live.ap" +
+      "i.stream/live/v2/collection/foo</pre>\032\025A" +
+      "uthorization: Bearer \002\n\252\001\n\006ApiKey\022\237\001\010\002\022\215" +
+      "\001Assert your api key into a HTTP Header " +
+      "named \'X-API-Key\'<br><pre>curl -H \'X-API" +
+      "-Key:bar\' https://live.api.stream/live/v" +
+      "2/collection/foo</pre>\032\tX-API-Key \002b\021\n\017\n" +
+      "\013AccessToken\022\000z\342\001\n\013x-tagGroups\022\322\0012\317\001\n\314\001*" +
+      "\311\001\n\022\n\004name\022\n\032\010Services\n\262\001\n\004tags\022\251\0012\246\001\n\023\032" +
+      "\021CollectionService\n\020\032\016ProjectService\n\017\032\r" +
+      "SourceService\n\024\032\022DestinationService\n\027\032\025A" +
+      "uthenticationService\n\036\032\034BackendAuthentic" +
+      "ationService\n\035\032\033PublicAuthenticationServ" +
+      "iceb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          common.v21.Ext.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.api.FieldBehaviorProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
-          com.google.protobuf.StructProto.getDescriptor(),
           com.google.protobuf.FieldMaskProto.getDescriptor(),
+          com.google.protobuf.StructProto.getDescriptor(),
+          com.google.protobuf.TimestampProto.getDescriptor(),
           grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor(),
-          common.v21.Ext.getDescriptor(),
         });
     internal_static_live_v21_VideoRendering_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1735,746 +1755,758 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_RtmpPullAddress_descriptor,
         new java.lang.String[] { "Url", });
-    internal_static_live_v21_SourceAddress_descriptor =
+    internal_static_live_v21_SrtPullAddress_descriptor =
       getDescriptor().getMessageTypes().get(10);
+    internal_static_live_v21_SrtPullAddress_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_live_v21_SrtPullAddress_descriptor,
+        new java.lang.String[] { "Url", });
+    internal_static_live_v21_SourceAddress_descriptor =
+      getDescriptor().getMessageTypes().get(11);
     internal_static_live_v21_SourceAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceAddress_descriptor,
-        new java.lang.String[] { "RtmpPush", "SrtPush", "RtmpPull", "Type", });
+        new java.lang.String[] { "RtmpPush", "SrtPush", "RtmpPull", "SrtPull", "Type", });
     internal_static_live_v21_DestinationRtmpPushAddress_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_live_v21_DestinationRtmpPushAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationRtmpPushAddress_descriptor,
         new java.lang.String[] { "Key", "Url", "Key", });
+    internal_static_live_v21_DestinationSrtPushAddress_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_live_v21_DestinationSrtPushAddress_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_live_v21_DestinationSrtPushAddress_descriptor,
+        new java.lang.String[] { "Url", });
     internal_static_live_v21_DestinationAgoraPushAddress_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_live_v21_DestinationAgoraPushAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationAgoraPushAddress_descriptor,
         new java.lang.String[] { "AppId", "ChannelId", "UserId", });
     internal_static_live_v21_HlsLifecycleLive_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_live_v21_HlsLifecycleLive_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_HlsLifecycleLive_descriptor,
         new java.lang.String[] { "PlaylistCount", "FileCount", "PlaylistCount", "FileCount", });
     internal_static_live_v21_HlsLifecycleVod_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_live_v21_HlsLifecycleVod_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_HlsLifecycleVod_descriptor,
         new java.lang.String[] { "MaxDuration", "MaxDuration", });
     internal_static_live_v21_HlsLifecycle_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_live_v21_HlsLifecycle_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_HlsLifecycle_descriptor,
         new java.lang.String[] { "Vod", "Live", "Type", });
     internal_static_live_v21_HlsPackaging_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_live_v21_HlsPackaging_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_HlsPackaging_descriptor,
         new java.lang.String[] { "Lifecycle", "SegmentDuration", "SegmentDuration", });
     internal_static_live_v21_ObjectStoragePackaging_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_live_v21_ObjectStoragePackaging_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ObjectStoragePackaging_descriptor,
         new java.lang.String[] { "Hls", "Type", });
     internal_static_live_v21_S3StorageAddress_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_live_v21_S3StorageAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_S3StorageAddress_descriptor,
         new java.lang.String[] { "Region", "Bucket", "Prefix", "AccessKey", "SecretKey", "Token", "TokenDuration", "Acl", "Endpoint", "Packaging", "Prefix", "Token", "TokenDuration", "Acl", "Endpoint", });
     internal_static_live_v21_DestinationAddress_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_live_v21_DestinationAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationAddress_descriptor,
-        new java.lang.String[] { "RtmpPush", "Agora", "S3Storage", "Type", });
+        new java.lang.String[] { "RtmpPush", "Agora", "S3Storage", "SrtPush", "Type", });
     internal_static_live_v21_SourceTrigger_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_live_v21_SourceTrigger_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceTrigger_descriptor,
         new java.lang.String[] { "SourceId", "Start", "Stop", "Start", "Stop", });
     internal_static_live_v21_WebRtcTrigger_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_live_v21_WebRtcTrigger_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_WebRtcTrigger_descriptor,
         new java.lang.String[] { "Stop", "Stop", });
     internal_static_live_v21_ProjectTrigger_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_live_v21_ProjectTrigger_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectTrigger_descriptor,
         new java.lang.String[] { "Source", "Type", });
     internal_static_live_v21_PreviewHlsPullAddress_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_live_v21_PreviewHlsPullAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_PreviewHlsPullAddress_descriptor,
         new java.lang.String[] { "Enabled", "Url", "Enabled", "Url", });
     internal_static_live_v21_PreviewWebRtcAddress_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_live_v21_PreviewWebRtcAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_PreviewWebRtcAddress_descriptor,
         new java.lang.String[] { "Enabled", "DisplayName", "ParticipantId", "Enabled", "DisplayName", "ParticipantId", });
     internal_static_live_v21_PreviewAddress_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_live_v21_PreviewAddress_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_PreviewAddress_descriptor,
         new java.lang.String[] { "Webrtc", "Webrtc", });
     internal_static_live_v21_StudioSdkComposition_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_live_v21_StudioSdkComposition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StudioSdkComposition_descriptor,
         new java.lang.String[] { "RendererUrl", "Version", "RendererUrl", "Version", });
     internal_static_live_v21_SceneComposition_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_live_v21_SceneComposition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SceneComposition_descriptor,
         new java.lang.String[] { "RendererUrl", "SelectedLayoutId", "Debug", "RendererUrl", "SelectedLayoutId", "Debug", });
     internal_static_live_v21_ExternalComposition_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_live_v21_ExternalComposition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ExternalComposition_descriptor,
         new java.lang.String[] { "Url", });
     internal_static_live_v21_Composition_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_live_v21_Composition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_Composition_descriptor,
         new java.lang.String[] { "External", "StudioSdk", "Scene", "Type", });
     internal_static_live_v21_HostedWebRtc_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_live_v21_HostedWebRtc_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_HostedWebRtc_descriptor,
         new java.lang.String[] { "Enabled", "Enabled", });
     internal_static_live_v21_WebRtc_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_live_v21_WebRtc_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_WebRtc_descriptor,
         new java.lang.String[] { "Hosted", "Type", });
     internal_static_live_v21_WebRtcAccess_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_live_v21_WebRtcAccess_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_WebRtcAccess_descriptor,
         new java.lang.String[] { "AccessToken", "ParticipantId", "ParticipantId", });
     internal_static_live_v21_LatLong_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_live_v21_LatLong_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_LatLong_descriptor,
         new java.lang.String[] { "Latitude", "Longitude", });
     internal_static_live_v21_ProjectBroadcastStatus_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_live_v21_ProjectBroadcastStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectBroadcastStatus_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "BroadcastId", "Duration", "Start", "Stop", "Phase", "Region", "Datacenter", "BroadcastId", "Duration", "Start", "Stop", "Region", "Datacenter", });
     internal_static_live_v21_Source_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_live_v21_Source_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_Source_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "Metadata", "Preview", "Address", "Metadata", "Preview", });
     internal_static_live_v21_Destination_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_live_v21_Destination_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_Destination_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", "Metadata", "Enabled", "Address", "Timeout", "Metadata", "Enabled", "Timeout", });
     internal_static_live_v21_Project_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_live_v21_Project_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_Project_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Metadata", "Rendering", "Encoding", "Sources", "Destinations", "Composition", "MaxDuration", "Webrtc", "Triggers", "Location", "GuestCodes", "Metadata", "MaxDuration", "Webrtc", "Location", });
     internal_static_live_v21_Collection_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_live_v21_Collection_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_Collection_descriptor,
         new java.lang.String[] { "CollectionId", "Metadata", "Projects", "Sources", "Metadata", });
     internal_static_live_v21_CreateCollectionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_live_v21_CreateCollectionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateCollectionRequest_descriptor,
         new java.lang.String[] { "Metadata", "Metadata", });
     internal_static_live_v21_CreateCollectionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_live_v21_CreateCollectionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateCollectionResponse_descriptor,
         new java.lang.String[] { "Collection", });
     internal_static_live_v21_GetCollectionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_live_v21_GetCollectionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetCollectionRequest_descriptor,
         new java.lang.String[] { "CollectionId", "PopulateProjects", "PopulateSources", "PopulateProjects", "PopulateSources", });
     internal_static_live_v21_GetCollectionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_live_v21_GetCollectionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetCollectionResponse_descriptor,
         new java.lang.String[] { "Collection", });
     internal_static_live_v21_UpdateCollectionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_live_v21_UpdateCollectionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateCollectionRequest_descriptor,
         new java.lang.String[] { "CollectionId", "UpdateMask", "Metadata", "Metadata", });
     internal_static_live_v21_UpdateCollectionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_live_v21_UpdateCollectionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateCollectionResponse_descriptor,
         new java.lang.String[] { "Collection", });
     internal_static_live_v21_DeleteCollectionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_live_v21_DeleteCollectionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteCollectionRequest_descriptor,
         new java.lang.String[] { "CollectionId", "Force", "Force", });
     internal_static_live_v21_DeleteCollectionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_live_v21_DeleteCollectionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteCollectionResponse_descriptor,
         new java.lang.String[] { "SourcesDeleted", "ProjectsDeleted", "ProjectIdsStopped", });
     internal_static_live_v21_GetCollectionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_live_v21_GetCollectionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetCollectionsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_GetCollectionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_live_v21_GetCollectionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetCollectionsResponse_descriptor,
         new java.lang.String[] { "Collections", });
     internal_static_live_v21_CreateProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_live_v21_CreateProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "Metadata", "Rendering", "Encoding", "Composition", "MaxDuration", "Webrtc", "Location", "Metadata", "Rendering", "Encoding", "MaxDuration", "Webrtc", "Location", });
     internal_static_live_v21_CreateProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_live_v21_CreateProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateProjectResponse_descriptor,
         new java.lang.String[] { "Project", });
     internal_static_live_v21_UpdateProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_live_v21_UpdateProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "UpdateMask", "Metadata", "Rendering", "Encoding", "Composition", "MaxDuration", "Webrtc", "Location", "Metadata", "Rendering", "Encoding", "Composition", "MaxDuration", "Webrtc", "Location", });
     internal_static_live_v21_UpdateProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_live_v21_UpdateProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateProjectResponse_descriptor,
         new java.lang.String[] { "Project", "BroadcastUpdated", });
     internal_static_live_v21_DeleteProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_live_v21_DeleteProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Force", "Force", });
     internal_static_live_v21_DeleteProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_live_v21_DeleteProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteProjectResponse_descriptor,
         new java.lang.String[] { "BroadcastStopped", "LayoutsDeleted", });
     internal_static_live_v21_StartProjectBroadcastRequest_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_live_v21_StartProjectBroadcastRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StartProjectBroadcastRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "WebrtcStart", "WebrtcStart", });
     internal_static_live_v21_StartProjectBroadcastResponse_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_live_v21_StartProjectBroadcastResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StartProjectBroadcastResponse_descriptor,
         new java.lang.String[] { "BroadcastId", });
     internal_static_live_v21_StopProjectBroadcastRequest_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_live_v21_StopProjectBroadcastRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StopProjectBroadcastRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "WebrtcStop", "WebrtcStop", });
     internal_static_live_v21_StopProjectBroadcastResponse_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_live_v21_StopProjectBroadcastResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StopProjectBroadcastResponse_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_GetProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(59);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_live_v21_GetProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Status", "Status", });
     internal_static_live_v21_GetProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(60);
+      getDescriptor().getMessageTypes().get(62);
     internal_static_live_v21_GetProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetProjectResponse_descriptor,
         new java.lang.String[] { "Project", "Status", "Status", });
     internal_static_live_v21_GetProjectBroadcastSnapshotRequest_descriptor =
-      getDescriptor().getMessageTypes().get(61);
+      getDescriptor().getMessageTypes().get(63);
     internal_static_live_v21_GetProjectBroadcastSnapshotRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetProjectBroadcastSnapshotRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Format", "Format", });
     internal_static_live_v21_GetProjectBroadcastSnapshotResponse_descriptor =
-      getDescriptor().getMessageTypes().get(62);
+      getDescriptor().getMessageTypes().get(64);
     internal_static_live_v21_GetProjectBroadcastSnapshotResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetProjectBroadcastSnapshotResponse_descriptor,
         new java.lang.String[] { "Format", "Image", });
     internal_static_live_v21_GetProjectBroadcastStatusRequest_descriptor =
-      getDescriptor().getMessageTypes().get(63);
+      getDescriptor().getMessageTypes().get(65);
     internal_static_live_v21_GetProjectBroadcastStatusRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetProjectBroadcastStatusRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", });
     internal_static_live_v21_GetProjectBroadcastStatusResponse_descriptor =
-      getDescriptor().getMessageTypes().get(64);
+      getDescriptor().getMessageTypes().get(66);
     internal_static_live_v21_GetProjectBroadcastStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetProjectBroadcastStatusResponse_descriptor,
         new java.lang.String[] { "Status", });
     internal_static_live_v21_StartProjectWebRtcRequest_descriptor =
-      getDescriptor().getMessageTypes().get(65);
+      getDescriptor().getMessageTypes().get(67);
     internal_static_live_v21_StartProjectWebRtcRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StartProjectWebRtcRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", });
     internal_static_live_v21_StartProjectWebRtcResponse_descriptor =
-      getDescriptor().getMessageTypes().get(66);
+      getDescriptor().getMessageTypes().get(68);
     internal_static_live_v21_StartProjectWebRtcResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StartProjectWebRtcResponse_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_StopProjectWebRtcRequest_descriptor =
-      getDescriptor().getMessageTypes().get(67);
+      getDescriptor().getMessageTypes().get(69);
     internal_static_live_v21_StopProjectWebRtcRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StopProjectWebRtcRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", });
     internal_static_live_v21_StopProjectWebRtcResponse_descriptor =
-      getDescriptor().getMessageTypes().get(68);
+      getDescriptor().getMessageTypes().get(70);
     internal_static_live_v21_StopProjectWebRtcResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_StopProjectWebRtcResponse_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_CreateDestinationRequest_descriptor =
-      getDescriptor().getMessageTypes().get(69);
+      getDescriptor().getMessageTypes().get(71);
     internal_static_live_v21_CreateDestinationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateDestinationRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Metadata", "Address", "Enabled", "Timeout", "Metadata", "Enabled", "Timeout", });
     internal_static_live_v21_CreateDestinationResponse_descriptor =
-      getDescriptor().getMessageTypes().get(70);
+      getDescriptor().getMessageTypes().get(72);
     internal_static_live_v21_CreateDestinationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateDestinationResponse_descriptor,
         new java.lang.String[] { "Destination", });
     internal_static_live_v21_GetDestinationRequest_descriptor =
-      getDescriptor().getMessageTypes().get(71);
+      getDescriptor().getMessageTypes().get(73);
     internal_static_live_v21_GetDestinationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetDestinationRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", });
     internal_static_live_v21_GetDestinationResponse_descriptor =
-      getDescriptor().getMessageTypes().get(72);
+      getDescriptor().getMessageTypes().get(74);
     internal_static_live_v21_GetDestinationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetDestinationResponse_descriptor,
         new java.lang.String[] { "Destination", });
     internal_static_live_v21_DeleteDestinationRequest_descriptor =
-      getDescriptor().getMessageTypes().get(73);
+      getDescriptor().getMessageTypes().get(75);
     internal_static_live_v21_DeleteDestinationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteDestinationRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", "Force", "Force", });
     internal_static_live_v21_DeleteDestinationResponse_descriptor =
-      getDescriptor().getMessageTypes().get(74);
+      getDescriptor().getMessageTypes().get(76);
     internal_static_live_v21_DeleteDestinationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteDestinationResponse_descriptor,
         new java.lang.String[] { "BroadcastUpdated", });
     internal_static_live_v21_UpdateDestinationRequest_descriptor =
-      getDescriptor().getMessageTypes().get(75);
+      getDescriptor().getMessageTypes().get(77);
     internal_static_live_v21_UpdateDestinationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateDestinationRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", "UpdateMask", "Metadata", "Address", "Enabled", "Timeout", "Metadata", "Address", "Enabled", "Timeout", });
     internal_static_live_v21_UpdateDestinationResponse_descriptor =
-      getDescriptor().getMessageTypes().get(76);
+      getDescriptor().getMessageTypes().get(78);
     internal_static_live_v21_UpdateDestinationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateDestinationResponse_descriptor,
         new java.lang.String[] { "Destination", "BroadcastUpdated", });
     internal_static_live_v21_CreateSourceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(77);
+      getDescriptor().getMessageTypes().get(79);
     internal_static_live_v21_CreateSourceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateSourceRequest_descriptor,
         new java.lang.String[] { "CollectionId", "Metadata", "Address", "Preview", "Metadata", "Preview", });
     internal_static_live_v21_CreateSourceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(78);
+      getDescriptor().getMessageTypes().get(80);
     internal_static_live_v21_CreateSourceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateSourceResponse_descriptor,
         new java.lang.String[] { "Source", });
     internal_static_live_v21_DeleteSourceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(79);
+      getDescriptor().getMessageTypes().get(81);
     internal_static_live_v21_DeleteSourceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteSourceRequest_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "Force", "Force", });
     internal_static_live_v21_DeleteSourceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(80);
+      getDescriptor().getMessageTypes().get(82);
     internal_static_live_v21_DeleteSourceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DeleteSourceResponse_descriptor,
         new java.lang.String[] { "ProjectIdsUpdated", });
     internal_static_live_v21_AddSourceToProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(81);
+      getDescriptor().getMessageTypes().get(83);
     internal_static_live_v21_AddSourceToProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_AddSourceToProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "SourceId", "Trigger", "Trigger", });
     internal_static_live_v21_AddSourceToProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(82);
+      getDescriptor().getMessageTypes().get(84);
     internal_static_live_v21_AddSourceToProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_AddSourceToProjectResponse_descriptor,
         new java.lang.String[] { "Project", "BroadcastUpdated", });
     internal_static_live_v21_UpdateSourceInProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(83);
+      getDescriptor().getMessageTypes().get(85);
     internal_static_live_v21_UpdateSourceInProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateSourceInProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "SourceId", "UpdateMask", "Trigger", "Trigger", });
     internal_static_live_v21_UpdateSourceInProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(84);
+      getDescriptor().getMessageTypes().get(86);
     internal_static_live_v21_UpdateSourceInProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateSourceInProjectResponse_descriptor,
         new java.lang.String[] { "Project", });
     internal_static_live_v21_GetSourceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(85);
+      getDescriptor().getMessageTypes().get(87);
     internal_static_live_v21_GetSourceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetSourceRequest_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", });
     internal_static_live_v21_GetSourceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(86);
+      getDescriptor().getMessageTypes().get(88);
     internal_static_live_v21_GetSourceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetSourceResponse_descriptor,
         new java.lang.String[] { "Source", });
     internal_static_live_v21_GetSourcesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(87);
+      getDescriptor().getMessageTypes().get(89);
     internal_static_live_v21_GetSourcesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetSourcesRequest_descriptor,
         new java.lang.String[] { "CollectionId", });
     internal_static_live_v21_GetSourcesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(88);
+      getDescriptor().getMessageTypes().get(90);
     internal_static_live_v21_GetSourcesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetSourcesResponse_descriptor,
         new java.lang.String[] { "Sources", });
     internal_static_live_v21_UpdateSourceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(89);
+      getDescriptor().getMessageTypes().get(91);
     internal_static_live_v21_UpdateSourceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateSourceRequest_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "UpdateMask", "Metadata", "Address", "Preview", "Metadata", "Address", "Preview", });
     internal_static_live_v21_UpdateSourceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(90);
+      getDescriptor().getMessageTypes().get(92);
     internal_static_live_v21_UpdateSourceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_UpdateSourceResponse_descriptor,
         new java.lang.String[] { "Source", "BroadcastUpdated", });
     internal_static_live_v21_RemoveSourceFromProjectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(91);
+      getDescriptor().getMessageTypes().get(93);
     internal_static_live_v21_RemoveSourceFromProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_RemoveSourceFromProjectRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "SourceId", "Force", "Force", });
     internal_static_live_v21_RemoveSourceFromProjectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(92);
+      getDescriptor().getMessageTypes().get(94);
     internal_static_live_v21_RemoveSourceFromProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_RemoveSourceFromProjectResponse_descriptor,
         new java.lang.String[] { "Project", "BroadcastUpdated", });
     internal_static_live_v21_CreateAccessTokenRequest_descriptor =
-      getDescriptor().getMessageTypes().get(93);
+      getDescriptor().getMessageTypes().get(95);
     internal_static_live_v21_CreateAccessTokenRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateAccessTokenRequest_descriptor,
         new java.lang.String[] { "ServiceUserId", "DisplayName", "Role", "MaxDuration", "DisplayName", "Role", "MaxDuration", });
     internal_static_live_v21_CreateAccessTokenResponse_descriptor =
-      getDescriptor().getMessageTypes().get(94);
+      getDescriptor().getMessageTypes().get(96);
     internal_static_live_v21_CreateAccessTokenResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateAccessTokenResponse_descriptor,
         new java.lang.String[] { "AccessToken", });
     internal_static_live_v21_GuestAccessTokenDirect_descriptor =
-      getDescriptor().getMessageTypes().get(95);
+      getDescriptor().getMessageTypes().get(97);
     internal_static_live_v21_GuestAccessTokenDirect_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GuestAccessTokenDirect_descriptor,
         new java.lang.String[] { "DisplayName", "ServiceUserId", "ServiceUserId", });
     internal_static_live_v21_GuestAccessTokenExchange_descriptor =
-      getDescriptor().getMessageTypes().get(96);
+      getDescriptor().getMessageTypes().get(98);
     internal_static_live_v21_GuestAccessTokenExchange_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GuestAccessTokenExchange_descriptor,
         new java.lang.String[] { "MaxDuration", "MaxDuration", });
     internal_static_live_v21_GuestAccessToken_descriptor =
-      getDescriptor().getMessageTypes().get(97);
+      getDescriptor().getMessageTypes().get(99);
     internal_static_live_v21_GuestAccessToken_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GuestAccessToken_descriptor,
         new java.lang.String[] { "Direct", "Exchange", "Type", });
     internal_static_live_v21_CreateGuestAccessTokenRequest_descriptor =
-      getDescriptor().getMessageTypes().get(98);
+      getDescriptor().getMessageTypes().get(100);
     internal_static_live_v21_CreateGuestAccessTokenRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateGuestAccessTokenRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "MaxDuration", "Role", "Token", "Url", "MaxDuration", "Url", });
     internal_static_live_v21_CreateGuestAccessTokenResponse_descriptor =
-      getDescriptor().getMessageTypes().get(99);
+      getDescriptor().getMessageTypes().get(101);
     internal_static_live_v21_CreateGuestAccessTokenResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateGuestAccessTokenResponse_descriptor,
         new java.lang.String[] { "AccessToken", "Url", "Url", });
     internal_static_live_v21_CreateWebRtcAccessTokenRequest_descriptor =
-      getDescriptor().getMessageTypes().get(100);
+      getDescriptor().getMessageTypes().get(102);
     internal_static_live_v21_CreateWebRtcAccessTokenRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateWebRtcAccessTokenRequest_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DisplayName", });
     internal_static_live_v21_CreateWebRtcAccessTokenResponse_descriptor =
-      getDescriptor().getMessageTypes().get(101);
+      getDescriptor().getMessageTypes().get(103);
     internal_static_live_v21_CreateWebRtcAccessTokenResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CreateWebRtcAccessTokenResponse_descriptor,
         new java.lang.String[] { "WebrtcAccess", });
     internal_static_live_v21_RefreshAccessTokenRequest_descriptor =
-      getDescriptor().getMessageTypes().get(102);
+      getDescriptor().getMessageTypes().get(104);
     internal_static_live_v21_RefreshAccessTokenRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_RefreshAccessTokenRequest_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_RefreshAccessTokenResponse_descriptor =
-      getDescriptor().getMessageTypes().get(103);
+      getDescriptor().getMessageTypes().get(105);
     internal_static_live_v21_RefreshAccessTokenResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_RefreshAccessTokenResponse_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_GuestCode_descriptor =
-      getDescriptor().getMessageTypes().get(104);
+      getDescriptor().getMessageTypes().get(106);
     internal_static_live_v21_GuestCode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GuestCode_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Code", "Url", "AutoDelete", });
     internal_static_live_v21_GuestCodeRedirectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(105);
+      getDescriptor().getMessageTypes().get(107);
     internal_static_live_v21_GuestCodeRedirectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GuestCodeRedirectRequest_descriptor,
         new java.lang.String[] { "ServiceId", "Code", });
     internal_static_live_v21_GuestCodeRedirectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(106);
+      getDescriptor().getMessageTypes().get(108);
     internal_static_live_v21_GuestCodeRedirectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GuestCodeRedirectResponse_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_JsonWebKey_descriptor =
-      getDescriptor().getMessageTypes().get(107);
+      getDescriptor().getMessageTypes().get(109);
     internal_static_live_v21_JsonWebKey_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_JsonWebKey_descriptor,
         new java.lang.String[] { "Alg", "Kty", "Use", "Kid", "E", "N", });
     internal_static_live_v21_GetJsonWebKeySetRequest_descriptor =
-      getDescriptor().getMessageTypes().get(108);
+      getDescriptor().getMessageTypes().get(110);
     internal_static_live_v21_GetJsonWebKeySetRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetJsonWebKeySetRequest_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_GetJsonWebKeySetResponse_descriptor =
-      getDescriptor().getMessageTypes().get(109);
+      getDescriptor().getMessageTypes().get(111);
     internal_static_live_v21_GetJsonWebKeySetResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetJsonWebKeySetResponse_descriptor,
         new java.lang.String[] { "Keys", });
     internal_static_live_v21_GetTestTokenRequest_descriptor =
-      getDescriptor().getMessageTypes().get(110);
+      getDescriptor().getMessageTypes().get(112);
     internal_static_live_v21_GetTestTokenRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetTestTokenRequest_descriptor,
         new java.lang.String[] { });
     internal_static_live_v21_GetTestTokenResponse_descriptor =
-      getDescriptor().getMessageTypes().get(111);
+      getDescriptor().getMessageTypes().get(113);
     internal_static_live_v21_GetTestTokenResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_GetTestTokenResponse_descriptor,
         new java.lang.String[] { "AccessToken", });
     internal_static_live_v21_DestinationCreateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(112);
+      getDescriptor().getMessageTypes().get(114);
     internal_static_live_v21_DestinationCreateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationCreateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", "Destination", });
     internal_static_live_v21_DestinationDeleteEvent_descriptor =
-      getDescriptor().getMessageTypes().get(113);
+      getDescriptor().getMessageTypes().get(115);
     internal_static_live_v21_DestinationDeleteEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationDeleteEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", });
     internal_static_live_v21_DestinationUpdateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(114);
+      getDescriptor().getMessageTypes().get(116);
     internal_static_live_v21_DestinationUpdateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationUpdateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", "UpdateMask", "Destination", });
     internal_static_live_v21_DestinationStateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(115);
+      getDescriptor().getMessageTypes().get(117);
     internal_static_live_v21_DestinationStateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationStateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "DestinationId", "Connect", "Type", });
     internal_static_live_v21_ProjectCreateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(116);
+      getDescriptor().getMessageTypes().get(118);
     internal_static_live_v21_ProjectCreateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectCreateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "Project", });
     internal_static_live_v21_ProjectDeleteEvent_descriptor =
-      getDescriptor().getMessageTypes().get(117);
+      getDescriptor().getMessageTypes().get(119);
     internal_static_live_v21_ProjectDeleteEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectDeleteEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", });
     internal_static_live_v21_ProjectUpdateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(118);
+      getDescriptor().getMessageTypes().get(120);
     internal_static_live_v21_ProjectUpdateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectUpdateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "UpdateMask", "Project", });
     internal_static_live_v21_ProjectBroadcastStateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(119);
+      getDescriptor().getMessageTypes().get(121);
     internal_static_live_v21_ProjectBroadcastStateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectBroadcastStateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "BroadcastId", "Phase", "Error", "Type", });
     internal_static_live_v21_CollectionCreateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(120);
+      getDescriptor().getMessageTypes().get(122);
     internal_static_live_v21_CollectionCreateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CollectionCreateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "Collection", });
     internal_static_live_v21_CollectionDeleteEvent_descriptor =
-      getDescriptor().getMessageTypes().get(121);
+      getDescriptor().getMessageTypes().get(123);
     internal_static_live_v21_CollectionDeleteEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CollectionDeleteEvent_descriptor,
         new java.lang.String[] { "CollectionId", });
     internal_static_live_v21_CollectionUpdateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(122);
+      getDescriptor().getMessageTypes().get(124);
     internal_static_live_v21_CollectionUpdateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CollectionUpdateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "UpdateMask", "Collection", });
     internal_static_live_v21_SourceCreateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(123);
+      getDescriptor().getMessageTypes().get(125);
     internal_static_live_v21_SourceCreateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceCreateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "Source", });
     internal_static_live_v21_SourceDeleteEvent_descriptor =
-      getDescriptor().getMessageTypes().get(124);
+      getDescriptor().getMessageTypes().get(126);
     internal_static_live_v21_SourceDeleteEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceDeleteEvent_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", });
     internal_static_live_v21_SourceUpdateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(125);
+      getDescriptor().getMessageTypes().get(127);
     internal_static_live_v21_SourceUpdateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceUpdateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "UpdateMask", "Source", });
     internal_static_live_v21_SourceAddEvent_descriptor =
-      getDescriptor().getMessageTypes().get(126);
+      getDescriptor().getMessageTypes().get(128);
     internal_static_live_v21_SourceAddEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceAddEvent_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "ProjectId", "Source", });
     internal_static_live_v21_SourceRemoveEvent_descriptor =
-      getDescriptor().getMessageTypes().get(127);
+      getDescriptor().getMessageTypes().get(129);
     internal_static_live_v21_SourceRemoveEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceRemoveEvent_descriptor,
         new java.lang.String[] { "CollectionId", "SourceId", "ProjectId", });
     internal_static_live_v21_SourceStateEvent_descriptor =
-      getDescriptor().getMessageTypes().get(128);
+      getDescriptor().getMessageTypes().get(130);
     internal_static_live_v21_SourceStateEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceStateEvent_descriptor,
         new java.lang.String[] { "CollectionId", "ProjectId", "SourceId", "Connect", "Type", });
     internal_static_live_v21_CollectionEvent_descriptor =
-      getDescriptor().getMessageTypes().get(129);
+      getDescriptor().getMessageTypes().get(131);
     internal_static_live_v21_CollectionEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_CollectionEvent_descriptor,
         new java.lang.String[] { "Create", "Update", "Delete", "Type", });
     internal_static_live_v21_DestinationEvent_descriptor =
-      getDescriptor().getMessageTypes().get(130);
+      getDescriptor().getMessageTypes().get(132);
     internal_static_live_v21_DestinationEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_DestinationEvent_descriptor,
         new java.lang.String[] { "Create", "Update", "Delete", "State", "Type", });
     internal_static_live_v21_ProjectEvent_descriptor =
-      getDescriptor().getMessageTypes().get(131);
+      getDescriptor().getMessageTypes().get(133);
     internal_static_live_v21_ProjectEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_ProjectEvent_descriptor,
         new java.lang.String[] { "Create", "Update", "Delete", "State", "Type", });
     internal_static_live_v21_SourceEvent_descriptor =
-      getDescriptor().getMessageTypes().get(132);
+      getDescriptor().getMessageTypes().get(134);
     internal_static_live_v21_SourceEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_SourceEvent_descriptor,
         new java.lang.String[] { "Create", "Update", "Delete", "Add", "Remove", "State", "Type", });
     internal_static_live_v21_LiveEvent_descriptor =
-      getDescriptor().getMessageTypes().get(133);
+      getDescriptor().getMessageTypes().get(135);
     internal_static_live_v21_LiveEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_live_v21_LiveEvent_descriptor,
@@ -2490,13 +2522,13 @@ public final class Api {
     registry.add(grpc.gateway.protoc_gen_openapiv2.options.Annotations.openapiv2Swagger);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
+    common.v21.Ext.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     com.google.api.FieldBehaviorProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
-    com.google.protobuf.StructProto.getDescriptor();
     com.google.protobuf.FieldMaskProto.getDescriptor();
+    com.google.protobuf.StructProto.getDescriptor();
+    com.google.protobuf.TimestampProto.getDescriptor();
     grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor();
-    common.v21.Ext.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

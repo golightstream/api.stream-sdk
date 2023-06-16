@@ -108,7 +108,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object rendererUrl_;
   /**
    * <pre>
-   * the url to pass to the studiosdk
+   * the page to render studio kit with. If set, this takes priority over `version`
    * </pre>
    *
    * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -120,7 +120,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * the url to pass to the studiosdk
+   * the page to render studio kit with. If set, this takes priority over `version`
    * </pre>
    *
    * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -141,7 +141,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * the url to pass to the studiosdk
+   * the page to render studio kit with. If set, this takes priority over `version`
    * </pre>
    *
    * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -165,6 +165,10 @@ private static final long serialVersionUID = 0L;
   public static final int VERSION_FIELD_NUMBER = 2;
   private volatile java.lang.Object version_;
   /**
+   * <pre>
+   * the version of the studio kit renderer to use. Ignored if renderer_url is set
+   * </pre>
+   *
    * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
    * @return Whether the version field is set.
    */
@@ -173,6 +177,10 @@ private static final long serialVersionUID = 0L;
     return ((bitField0_ & 0x00000002) != 0);
   }
   /**
+   * <pre>
+   * the version of the studio kit renderer to use. Ignored if renderer_url is set
+   * </pre>
+   *
    * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
    * @return The version.
    */
@@ -190,6 +198,10 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
+   * <pre>
+   * the version of the studio kit renderer to use. Ignored if renderer_url is set
+   * </pre>
+   *
    * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
    * @return The bytes for version.
    */
@@ -556,7 +568,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object rendererUrl_ = "";
     /**
      * <pre>
-     * the url to pass to the studiosdk
+     * the page to render studio kit with. If set, this takes priority over `version`
      * </pre>
      *
      * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -567,7 +579,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the url to pass to the studiosdk
+     * the page to render studio kit with. If set, this takes priority over `version`
      * </pre>
      *
      * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -587,7 +599,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the url to pass to the studiosdk
+     * the page to render studio kit with. If set, this takes priority over `version`
      * </pre>
      *
      * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -608,7 +620,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the url to pass to the studiosdk
+     * the page to render studio kit with. If set, this takes priority over `version`
      * </pre>
      *
      * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -627,7 +639,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the url to pass to the studiosdk
+     * the page to render studio kit with. If set, this takes priority over `version`
      * </pre>
      *
      * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -641,7 +653,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * the url to pass to the studiosdk
+     * the page to render studio kit with. If set, this takes priority over `version`
      * </pre>
      *
      * <code>optional string renderer_url = 1 [json_name = "rendererUrl", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
@@ -662,6 +674,10 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object version_ = "";
     /**
+     * <pre>
+     * the version of the studio kit renderer to use. Ignored if renderer_url is set
+     * </pre>
+     *
      * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the version field is set.
      */
@@ -669,6 +685,10 @@ private static final long serialVersionUID = 0L;
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
+     * <pre>
+     * the version of the studio kit renderer to use. Ignored if renderer_url is set
+     * </pre>
+     *
      * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The version.
      */
@@ -685,6 +705,10 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
+     * <pre>
+     * the version of the studio kit renderer to use. Ignored if renderer_url is set
+     * </pre>
+     *
      * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for version.
      */
@@ -702,6 +726,10 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
+     * <pre>
+     * the version of the studio kit renderer to use. Ignored if renderer_url is set
+     * </pre>
+     *
      * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @param value The version to set.
      * @return This builder for chaining.
@@ -717,6 +745,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
+     * <pre>
+     * the version of the studio kit renderer to use. Ignored if renderer_url is set
+     * </pre>
+     *
      * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return This builder for chaining.
      */
@@ -727,6 +759,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
+     * <pre>
+     * the version of the studio kit renderer to use. Ignored if renderer_url is set
+     * </pre>
+     *
      * <code>optional string version = 2 [json_name = "version", (.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @param value The bytes for version to set.
      * @return This builder for chaining.

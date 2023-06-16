@@ -92,5 +92,32 @@ public interface DestinationAddressOrBuilder extends
    */
   stream.api.live.S3StorageAddressOrBuilder getS3StorageOrBuilder();
 
+  /**
+   * <pre>
+   * srt push addressing
+   * </pre>
+   *
+   * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+   * @return Whether the srtPush field is set.
+   */
+  boolean hasSrtPush();
+  /**
+   * <pre>
+   * srt push addressing
+   * </pre>
+   *
+   * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+   * @return The srtPush.
+   */
+  stream.api.live.DestinationSrtPushAddress getSrtPush();
+  /**
+   * <pre>
+   * srt push addressing
+   * </pre>
+   *
+   * <code>.live.v21.DestinationSrtPushAddress srt_push = 4 [json_name = "srtPush"];</code>
+   */
+  stream.api.live.DestinationSrtPushAddressOrBuilder getSrtPushOrBuilder();
+
   public stream.api.live.DestinationAddress.TypeCase getTypeCase();
 }

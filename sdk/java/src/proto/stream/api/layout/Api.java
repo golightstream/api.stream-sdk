@@ -527,50 +527,51 @@ public final class Api {
       "T_TYPE_LAYER\020\0022\342\007\n\014LayerService\022\236\001\n\nList" +
       "Layers\022!.apis.layout.v2.ListLayersReques" +
       "t\032\".apis.layout.v2.ListLayersResponse\"I\222" +
-      "A\033J\031\n\003404\022\022\n\020Layout not found\202\323\344\223\002%\022\033/la" +
-      "youts/{layout_id}/layersb\006layers\022\222\001\n\013Cre" +
+      "A\033J\031\n\003404\022\022\n\020Layout not found\202\323\344\223\002%b\006lay" +
+      "ers\022\033/layouts/{layout_id}/layers\022\222\001\n\013Cre" +
       "ateLayer\022\".apis.layout.v2.CreateLayerReq" +
       "uest\032\025.apis.layout.v2.Layer\"H\222A\033J\031\n\003404\022" +
-      "\022\n\020Layout not found\202\323\344\223\002$\"\033/layouts/{lay" +
-      "out_id}/layers:\005layer\022\231\001\n\010GetLayer\022\037.api" +
+      "\022\n\020Layout not found\202\323\344\223\002$:\005layer\"\033/layou" +
+      "ts/{layout_id}/layers\022\231\001\n\010GetLayer\022\037.api" +
       "s.layout.v2.GetLayerRequest\032\025.apis.layou" +
       "t.v2.Layer\"U\222A$J\"\n\003404\022\033\n\031Layer or Layou" +
       "t not found\202\323\344\223\002(\022&/layouts/{layout_id}/" +
       "layers/{layer_id}\022\246\001\n\013UpdateLayer\022\".apis" +
       ".layout.v2.UpdateLayerRequest\032\025.apis.lay" +
       "out.v2.Layer\"\\\222A$J\"\n\003404\022\033\n\031Layer or Lay" +
-      "out not found\202\323\344\223\002/2&/layouts/{layout_id" +
-      "}/layers/{layer_id}:\005layer\022\266\001\n\013DeleteLay" +
+      "out not found\202\323\344\223\002/:\005layer2&/layouts/{la" +
+      "yout_id}/layers/{layer_id}\022\266\001\n\013DeleteLay" +
       "er\022\".apis.layout.v2.DeleteLayerRequest\032#" +
       ".apis.layout.v2.DeleteLayerResponse\"^\222A$" +
       "J\"\n\003404\022\033\n\031Layer or Layout not found\202\323\344\223" +
-      "\0021*&/layouts/{layout_id}/layers/{layer_i" +
-      "d}:\007payload\022\235\001\n\005Batch\022!.apis.layout.v2.B" +
+      "\0021:\007payload*&/layouts/{layout_id}/layers" +
+      "/{layer_id}\022\235\001\n\005Batch\022!.apis.layout.v2.B" +
       "atchLayerRequest\032\".apis.layout.v2.BatchL" +
       "ayerResponse\"M\222A\033J\031\n\003404\022\022\n\020Layout not f" +
-      "ound\202\323\344\223\002)\"!/layouts/{layout_id}/layers/" +
-      "batch:\001*b\001*2\227\005\n\rLayoutService\022q\n\013ListLay" +
+      "ound\202\323\344\223\002):\001*b\001*\"!/layouts/{layout_id}/l" +
+      "ayers/batch2\227\005\n\rLayoutService\022q\n\013ListLay" +
       "outs\022\".apis.layout.v2.ListLayoutsRequest" +
       "\032#.apis.layout.v2.ListLayoutsResponse\"\031\202" +
-      "\323\344\223\002\023\022\010/layoutsb\007layouts\022e\n\014CreateLayout" +
+      "\323\344\223\002\023b\007layouts\022\010/layouts\022e\n\014CreateLayout" +
       "\022#.apis.layout.v2.CreateLayoutRequest\032\026." +
-      "apis.layout.v2.Layout\"\030\202\323\344\223\002\022\"\010/layouts:" +
-      "\006layout\022\201\001\n\tGetLayout\022 .apis.layout.v2.G" +
+      "apis.layout.v2.Layout\"\030\202\323\344\223\002\022:\006layout\"\010/" +
+      "layouts\022\201\001\n\tGetLayout\022 .apis.layout.v2.G" +
       "etLayoutRequest\032\026.apis.layout.v2.Layout\"" +
       ":\222A\033J\031\n\003404\022\022\n\020Layout not found\202\323\344\223\002\026\022\024/" +
       "layouts/{layout_id}\022\217\001\n\014UpdateLayout\022#.a" +
       "pis.layout.v2.UpdateLayoutRequest\032\026.apis" +
       ".layout.v2.Layout\"B\222A\033J\031\n\003404\022\022\n\020Layout " +
-      "not found\202\323\344\223\002\0362\024/layouts/{layout_id}:\006l" +
-      "ayout\022\225\001\n\014DeleteLayout\022#.apis.layout.v2." +
+      "not found\202\323\344\223\002\036:\006layout2\024/layouts/{layou" +
+      "t_id}\022\225\001\n\014DeleteLayout\022#.apis.layout.v2." +
       "DeleteLayoutRequest\032$.apis.layout.v2.Del" +
       "eteLayoutResponse\":\222A\033J\031\n\003404\022\022\n\020Layout " +
-      "not found\202\323\344\223\002\026*\024/layouts/{layout_id}B\263\001" +
-      "\n\021stream.api.layoutP\001ZBgithub.com/stream" +
-      "jar/services/libraries/go/protocol/apis/" +
-      "layout/v1\222AW\022\021\n\nLayout API2\0032.0\032\017live.ap" +
-      "i.stream\"\n/layout/v2*\001\0022\020application/jso" +
-      "n:\020application/jsonb\006proto3"
+      "not found\202\323\344\223\002\026*\024/layouts/{layout_id}B\310\001" +
+      "\n\021stream.api.layoutP\001ZWgithub.com/goligh" +
+      "tstream/apistream-layout-services/librar" +
+      "ies/go/protocol/apis/layout/v1\222AW\022\021\n\nLay" +
+      "out API2\0032.0\032\017live.api.stream\"\n/layout/v" +
+      "2*\001\0022\020application/json:\020application/json" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

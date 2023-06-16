@@ -98,6 +98,20 @@ private static final long serialVersionUID = 0L;
             typeCase_ = 3;
             break;
           }
+          case 34: {
+            stream.api.live.SrtPullAddress.Builder subBuilder = null;
+            if (typeCase_ == 4) {
+              subBuilder = ((stream.api.live.SrtPullAddress) type_).toBuilder();
+            }
+            type_ =
+                input.readMessage(stream.api.live.SrtPullAddress.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((stream.api.live.SrtPullAddress) type_);
+              type_ = subBuilder.buildPartial();
+            }
+            typeCase_ = 4;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -138,6 +152,7 @@ private static final long serialVersionUID = 0L;
     RTMP_PUSH(1),
     SRT_PUSH(2),
     RTMP_PULL(3),
+    SRT_PULL(4),
     TYPE_NOT_SET(0);
     private final int value;
     private TypeCase(int value) {
@@ -158,6 +173,7 @@ private static final long serialVersionUID = 0L;
         case 1: return RTMP_PUSH;
         case 2: return SRT_PUSH;
         case 3: return RTMP_PULL;
+        case 4: return SRT_PULL;
         case 0: return TYPE_NOT_SET;
         default: return null;
       }
@@ -302,6 +318,49 @@ private static final long serialVersionUID = 0L;
     return stream.api.live.RtmpPullAddress.getDefaultInstance();
   }
 
+  public static final int SRT_PULL_FIELD_NUMBER = 4;
+  /**
+   * <pre>
+   * the srt address to pull from
+   * </pre>
+   *
+   * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+   * @return Whether the srtPull field is set.
+   */
+  @java.lang.Override
+  public boolean hasSrtPull() {
+    return typeCase_ == 4;
+  }
+  /**
+   * <pre>
+   * the srt address to pull from
+   * </pre>
+   *
+   * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+   * @return The srtPull.
+   */
+  @java.lang.Override
+  public stream.api.live.SrtPullAddress getSrtPull() {
+    if (typeCase_ == 4) {
+       return (stream.api.live.SrtPullAddress) type_;
+    }
+    return stream.api.live.SrtPullAddress.getDefaultInstance();
+  }
+  /**
+   * <pre>
+   * the srt address to pull from
+   * </pre>
+   *
+   * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+   */
+  @java.lang.Override
+  public stream.api.live.SrtPullAddressOrBuilder getSrtPullOrBuilder() {
+    if (typeCase_ == 4) {
+       return (stream.api.live.SrtPullAddress) type_;
+    }
+    return stream.api.live.SrtPullAddress.getDefaultInstance();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -325,6 +384,9 @@ private static final long serialVersionUID = 0L;
     if (typeCase_ == 3) {
       output.writeMessage(3, (stream.api.live.RtmpPullAddress) type_);
     }
+    if (typeCase_ == 4) {
+      output.writeMessage(4, (stream.api.live.SrtPullAddress) type_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -345,6 +407,10 @@ private static final long serialVersionUID = 0L;
     if (typeCase_ == 3) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, (stream.api.live.RtmpPullAddress) type_);
+    }
+    if (typeCase_ == 4) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, (stream.api.live.SrtPullAddress) type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -375,6 +441,10 @@ private static final long serialVersionUID = 0L;
         if (!getRtmpPull()
             .equals(other.getRtmpPull())) return false;
         break;
+      case 4:
+        if (!getSrtPull()
+            .equals(other.getSrtPull())) return false;
+        break;
       case 0:
       default:
     }
@@ -401,6 +471,10 @@ private static final long serialVersionUID = 0L;
       case 3:
         hash = (37 * hash) + RTMP_PULL_FIELD_NUMBER;
         hash = (53 * hash) + getRtmpPull().hashCode();
+        break;
+      case 4:
+        hash = (37 * hash) + SRT_PULL_FIELD_NUMBER;
+        hash = (53 * hash) + getSrtPull().hashCode();
         break;
       case 0:
       default:
@@ -591,6 +665,13 @@ private static final long serialVersionUID = 0L;
           result.type_ = rtmpPullBuilder_.build();
         }
       }
+      if (typeCase_ == 4) {
+        if (srtPullBuilder_ == null) {
+          result.type_ = type_;
+        } else {
+          result.type_ = srtPullBuilder_.build();
+        }
+      }
       result.typeCase_ = typeCase_;
       onBuilt();
       return result;
@@ -651,6 +732,10 @@ private static final long serialVersionUID = 0L;
         }
         case RTMP_PULL: {
           mergeRtmpPull(other.getRtmpPull());
+          break;
+        }
+        case SRT_PULL: {
+          mergeSrtPull(other.getSrtPull());
           break;
         }
         case TYPE_NOT_SET: {
@@ -1230,6 +1315,183 @@ private static final long serialVersionUID = 0L;
       typeCase_ = 3;
       onChanged();;
       return rtmpPullBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        stream.api.live.SrtPullAddress, stream.api.live.SrtPullAddress.Builder, stream.api.live.SrtPullAddressOrBuilder> srtPullBuilder_;
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     * @return Whether the srtPull field is set.
+     */
+    @java.lang.Override
+    public boolean hasSrtPull() {
+      return typeCase_ == 4;
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     * @return The srtPull.
+     */
+    @java.lang.Override
+    public stream.api.live.SrtPullAddress getSrtPull() {
+      if (srtPullBuilder_ == null) {
+        if (typeCase_ == 4) {
+          return (stream.api.live.SrtPullAddress) type_;
+        }
+        return stream.api.live.SrtPullAddress.getDefaultInstance();
+      } else {
+        if (typeCase_ == 4) {
+          return srtPullBuilder_.getMessage();
+        }
+        return stream.api.live.SrtPullAddress.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    public Builder setSrtPull(stream.api.live.SrtPullAddress value) {
+      if (srtPullBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        type_ = value;
+        onChanged();
+      } else {
+        srtPullBuilder_.setMessage(value);
+      }
+      typeCase_ = 4;
+      return this;
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    public Builder setSrtPull(
+        stream.api.live.SrtPullAddress.Builder builderForValue) {
+      if (srtPullBuilder_ == null) {
+        type_ = builderForValue.build();
+        onChanged();
+      } else {
+        srtPullBuilder_.setMessage(builderForValue.build());
+      }
+      typeCase_ = 4;
+      return this;
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    public Builder mergeSrtPull(stream.api.live.SrtPullAddress value) {
+      if (srtPullBuilder_ == null) {
+        if (typeCase_ == 4 &&
+            type_ != stream.api.live.SrtPullAddress.getDefaultInstance()) {
+          type_ = stream.api.live.SrtPullAddress.newBuilder((stream.api.live.SrtPullAddress) type_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          type_ = value;
+        }
+        onChanged();
+      } else {
+        if (typeCase_ == 4) {
+          srtPullBuilder_.mergeFrom(value);
+        }
+        srtPullBuilder_.setMessage(value);
+      }
+      typeCase_ = 4;
+      return this;
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    public Builder clearSrtPull() {
+      if (srtPullBuilder_ == null) {
+        if (typeCase_ == 4) {
+          typeCase_ = 0;
+          type_ = null;
+          onChanged();
+        }
+      } else {
+        if (typeCase_ == 4) {
+          typeCase_ = 0;
+          type_ = null;
+        }
+        srtPullBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    public stream.api.live.SrtPullAddress.Builder getSrtPullBuilder() {
+      return getSrtPullFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    @java.lang.Override
+    public stream.api.live.SrtPullAddressOrBuilder getSrtPullOrBuilder() {
+      if ((typeCase_ == 4) && (srtPullBuilder_ != null)) {
+        return srtPullBuilder_.getMessageOrBuilder();
+      } else {
+        if (typeCase_ == 4) {
+          return (stream.api.live.SrtPullAddress) type_;
+        }
+        return stream.api.live.SrtPullAddress.getDefaultInstance();
+      }
+    }
+    /**
+     * <pre>
+     * the srt address to pull from
+     * </pre>
+     *
+     * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        stream.api.live.SrtPullAddress, stream.api.live.SrtPullAddress.Builder, stream.api.live.SrtPullAddressOrBuilder> 
+        getSrtPullFieldBuilder() {
+      if (srtPullBuilder_ == null) {
+        if (!(typeCase_ == 4)) {
+          type_ = stream.api.live.SrtPullAddress.getDefaultInstance();
+        }
+        srtPullBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            stream.api.live.SrtPullAddress, stream.api.live.SrtPullAddress.Builder, stream.api.live.SrtPullAddressOrBuilder>(
+                (stream.api.live.SrtPullAddress) type_,
+                getParentForChildren(),
+                isClean());
+        type_ = null;
+      }
+      typeCase_ = 4;
+      onChanged();;
+      return srtPullBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

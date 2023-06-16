@@ -61,6 +61,18 @@ public enum Region
    */
   REGION_AP_SOUTHEAST_1(10),
   /**
+   * <code>REGION_AP_SOUTHEAST_2 = 11;</code>
+   */
+  REGION_AP_SOUTHEAST_2(11),
+  /**
+   * <pre>
+   * Asia Pacific South
+   * </pre>
+   *
+   * <code>REGION_AP_SOUTH_1 = 15;</code>
+   */
+  REGION_AP_SOUTH_1(15),
+  /**
    * <pre>
    * Canada East
    * </pre>
@@ -132,6 +144,18 @@ public enum Region
    */
   public static final int REGION_AP_SOUTHEAST_1_VALUE = 10;
   /**
+   * <code>REGION_AP_SOUTHEAST_2 = 11;</code>
+   */
+  public static final int REGION_AP_SOUTHEAST_2_VALUE = 11;
+  /**
+   * <pre>
+   * Asia Pacific South
+   * </pre>
+   *
+   * <code>REGION_AP_SOUTH_1 = 15;</code>
+   */
+  public static final int REGION_AP_SOUTH_1_VALUE = 15;
+  /**
    * <pre>
    * Canada East
    * </pre>
@@ -188,6 +212,8 @@ public enum Region
       case 4: return REGION_US_WEST_2;
       case 5: return REGION_US_CENTRAL_1;
       case 10: return REGION_AP_SOUTHEAST_1;
+      case 11: return REGION_AP_SOUTHEAST_2;
+      case 15: return REGION_AP_SOUTH_1;
       case 20: return REGION_CA_EAST_1;
       case 30: return REGION_EU_CENTRAL_1;
       case 31: return REGION_EU_WEST_1;

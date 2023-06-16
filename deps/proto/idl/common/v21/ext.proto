@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package common.v21;
+option go_package = "lightstream/commonv21";
+
+import "google/protobuf/descriptor.proto";
+
+message FieldOptions {
+  // indcates that this field is planned for a future release of this api
+  optional bool future = 1;
+  optional bool database_id = 2;
+  optional bool database_reference_from = 3;
+  optional string database_reference = 4;
+  optional string database_owner_reference = 5;
+  optional bool database_reference_deep = 6;
+  optional bool database_reference_from_array = 7;
+  optional bool database_reference_to = 8;
+  optional bool database_ignore = 9;
+  optional bool database_optimize_search = 10;
+  optional string url_protocols = 11;
+  optional bool database_auto_delete = 12;
+}
+
+message MessageOptions {
+  // indcates that this field is planned for a future release of this api
+  optional bool database_model = 1;
+  optional bool database_custom_id = 7;
+}
+
+extend google.protobuf.FieldOptions {
+  optional FieldOptions field_options = 50000;
+}
+
+extend google.protobuf.MessageOptions {
+  optional MessageOptions message_options = 50000;
+}

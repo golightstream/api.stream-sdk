@@ -92,5 +92,32 @@ public interface SourceAddressOrBuilder extends
    */
   stream.api.live.RtmpPullAddressOrBuilder getRtmpPullOrBuilder();
 
+  /**
+   * <pre>
+   * the srt address to pull from
+   * </pre>
+   *
+   * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+   * @return Whether the srtPull field is set.
+   */
+  boolean hasSrtPull();
+  /**
+   * <pre>
+   * the srt address to pull from
+   * </pre>
+   *
+   * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+   * @return The srtPull.
+   */
+  stream.api.live.SrtPullAddress getSrtPull();
+  /**
+   * <pre>
+   * the srt address to pull from
+   * </pre>
+   *
+   * <code>.live.v21.SrtPullAddress srt_pull = 4 [json_name = "srtPull"];</code>
+   */
+  stream.api.live.SrtPullAddressOrBuilder getSrtPullOrBuilder();
+
   public stream.api.live.SourceAddress.TypeCase getTypeCase();
 }
