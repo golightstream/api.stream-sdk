@@ -421,7 +421,7 @@ export class EventApi extends ApiClient {
     for ( const handler of ( this.eventHandlers[ name as string ] ?? [] ) ) {
       if ( name === 'event' && payload.event ) {
         if ( payload.sessionId === this.sessionId && handler.ignoreSessionEvents && !handler.allowedSessionEvents.includes( payload.event.name ) ) {
-          this.log.trace( "ignorning user event from self: " + payload.event.name + ", payload.sessionId=" + payload.sessionId + ", this.sessionId" );
+          this.log.trace( "ignoring user event from self: " + payload.event.name + ", payload.sessionId=" + payload.sessionId + ", this.sessionId" );
           continue;
         }
 
@@ -448,7 +448,7 @@ export class EventApi extends ApiClient {
 
       } else {
         if ( payload.sessionId === this.sessionId && handler.ignoreSessionEvents ) {
-          this.log.trace( "ignorning event from self: " + payload.event.name + ", payload.sessionId=" + payload.sessionId + ", this.sessionId" );
+          this.log.trace( "ignoring event from self: " + payload.event.name + ", payload.sessionId=" + payload.sessionId + ", this.sessionId" );
           continue;
         }
       }
