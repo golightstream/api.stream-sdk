@@ -4,6 +4,7 @@
  * -------------------------------------------------------------------------------------------- */
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
+import { HttpBody } from "../../google/api/httpbody";
 import { FieldMask } from "../../google/protobuf/field_mask";
 import { NullValue, nullValueFromJSON, nullValueToJSON, nullValueToNumber, Value } from "../../google/protobuf/struct";
 import { Timestamp } from "../../google/protobuf/timestamp";
@@ -1155,7 +1156,23 @@ export interface SourceRtmpPushAddress {
     | string
     | undefined;
   /** base_url without stream key */
-  baseUrl?: string | undefined;
+  baseUrl?:
+    | string
+    | undefined;
+  /** fully formed url for previewing the rtmp stream */
+  previewUrl?:
+    | string
+    | undefined;
+  /** unique identifier for this ingest */
+  ingestId?:
+    | string
+    | undefined;
+  /** enable rtmps support */
+  secure?:
+    | boolean
+    | undefined;
+  /** the type of ingest we provisioned */
+  ingestType?: string | undefined;
 }
 
 /** srt push addressing */
@@ -1173,7 +1190,19 @@ export interface SrtPushAddress {
     | string
     | undefined;
   /** base_url without streamid */
-  baseUrl?: string | undefined;
+  baseUrl?:
+    | string
+    | undefined;
+  /** fully formed url for previewing the srt stream */
+  previewUrl?:
+    | string
+    | undefined;
+  /** unique identifier for this ingest */
+  ingestId?:
+    | string
+    | undefined;
+  /** the type of ingest we provisioned */
+  ingestType?: string | undefined;
 }
 
 /** rtmp pull addressing */
@@ -2068,6 +2097,22 @@ export interface RemoveSourceFromProjectResponse {
   broadcastUpdated: boolean;
 }
 
+export interface GetSourcePlaylistRequest {
+  /** collection which owns the project which owns the source */
+  collectionId: string;
+  /** source id */
+  sourceId: string;
+  /**
+   * If you are calling this from a client, this enables you to pass access_token as a query parameter.
+   * Otherwise, you should use the standard Authorization header.
+   */
+  accessToken?: string | undefined;
+}
+
+export interface GetSourcePlaylistResponse {
+  manifest: string;
+}
+
 export interface CreateAccessTokenRequest {
   /**
    * service-specific user id
@@ -2392,7 +2437,7 @@ export interface SourceEvent {
   update: SourceUpdateEvent | undefined;
   delete: SourceDeleteEvent | undefined;
   add: SourceAddEvent | undefined;
-  remove: SourceDeleteEvent | undefined;
+  remove: SourceRemoveEvent | undefined;
   state: SourceStateEvent | undefined;
 }
 
@@ -2873,7 +2918,16 @@ export const Encoding = {
 };
 
 function createBaseSourceRtmpPushAddress(): SourceRtmpPushAddress {
-  return { enabled: undefined, key: undefined, url: undefined, baseUrl: undefined };
+  return {
+    enabled: undefined,
+    key: undefined,
+    url: undefined,
+    baseUrl: undefined,
+    previewUrl: undefined,
+    ingestId: undefined,
+    secure: undefined,
+    ingestType: undefined,
+  };
 }
 
 export const SourceRtmpPushAddress = {
@@ -2889,6 +2943,18 @@ export const SourceRtmpPushAddress = {
     }
     if (message.baseUrl !== undefined) {
       writer.uint32(34).string(message.baseUrl);
+    }
+    if (message.previewUrl !== undefined) {
+      writer.uint32(42).string(message.previewUrl);
+    }
+    if (message.ingestId !== undefined) {
+      writer.uint32(50).string(message.ingestId);
+    }
+    if (message.secure !== undefined) {
+      writer.uint32(56).bool(message.secure);
+    }
+    if (message.ingestType !== undefined) {
+      writer.uint32(66).string(message.ingestType);
     }
     return writer;
   },
@@ -2912,6 +2978,18 @@ export const SourceRtmpPushAddress = {
         case 4:
           message.baseUrl = reader.string();
           break;
+        case 5:
+          message.previewUrl = reader.string();
+          break;
+        case 6:
+          message.ingestId = reader.string();
+          break;
+        case 7:
+          message.secure = reader.bool();
+          break;
+        case 8:
+          message.ingestType = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2926,6 +3004,10 @@ export const SourceRtmpPushAddress = {
       key: isSet(object.key) ? String(object.key) : undefined,
       url: isSet(object.url) ? String(object.url) : undefined,
       baseUrl: isSet(object.baseUrl) ? String(object.baseUrl) : undefined,
+      previewUrl: isSet(object.previewUrl) ? String(object.previewUrl) : undefined,
+      ingestId: isSet(object.ingestId) ? String(object.ingestId) : undefined,
+      secure: isSet(object.secure) ? Boolean(object.secure) : undefined,
+      ingestType: isSet(object.ingestType) ? String(object.ingestType) : undefined,
     };
   },
 
@@ -2935,6 +3017,10 @@ export const SourceRtmpPushAddress = {
     message.key !== undefined && (obj.key = message.key);
     message.url !== undefined && (obj.url = message.url);
     message.baseUrl !== undefined && (obj.baseUrl = message.baseUrl);
+    message.previewUrl !== undefined && (obj.previewUrl = message.previewUrl);
+    message.ingestId !== undefined && (obj.ingestId = message.ingestId);
+    message.secure !== undefined && (obj.secure = message.secure);
+    message.ingestType !== undefined && (obj.ingestType = message.ingestType);
     return obj;
   },
 
@@ -2944,12 +3030,24 @@ export const SourceRtmpPushAddress = {
     message.key = object.key ?? undefined;
     message.url = object.url ?? undefined;
     message.baseUrl = object.baseUrl ?? undefined;
+    message.previewUrl = object.previewUrl ?? undefined;
+    message.ingestId = object.ingestId ?? undefined;
+    message.secure = object.secure ?? undefined;
+    message.ingestType = object.ingestType ?? undefined;
     return message;
   },
 };
 
 function createBaseSrtPushAddress(): SrtPushAddress {
-  return { enabled: undefined, streamId: undefined, url: undefined, baseUrl: undefined };
+  return {
+    enabled: undefined,
+    streamId: undefined,
+    url: undefined,
+    baseUrl: undefined,
+    previewUrl: undefined,
+    ingestId: undefined,
+    ingestType: undefined,
+  };
 }
 
 export const SrtPushAddress = {
@@ -2965,6 +3063,15 @@ export const SrtPushAddress = {
     }
     if (message.baseUrl !== undefined) {
       writer.uint32(34).string(message.baseUrl);
+    }
+    if (message.previewUrl !== undefined) {
+      writer.uint32(42).string(message.previewUrl);
+    }
+    if (message.ingestId !== undefined) {
+      writer.uint32(50).string(message.ingestId);
+    }
+    if (message.ingestType !== undefined) {
+      writer.uint32(58).string(message.ingestType);
     }
     return writer;
   },
@@ -2988,6 +3095,15 @@ export const SrtPushAddress = {
         case 4:
           message.baseUrl = reader.string();
           break;
+        case 5:
+          message.previewUrl = reader.string();
+          break;
+        case 6:
+          message.ingestId = reader.string();
+          break;
+        case 7:
+          message.ingestType = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3002,6 +3118,9 @@ export const SrtPushAddress = {
       streamId: isSet(object.streamId) ? String(object.streamId) : undefined,
       url: isSet(object.url) ? String(object.url) : undefined,
       baseUrl: isSet(object.baseUrl) ? String(object.baseUrl) : undefined,
+      previewUrl: isSet(object.previewUrl) ? String(object.previewUrl) : undefined,
+      ingestId: isSet(object.ingestId) ? String(object.ingestId) : undefined,
+      ingestType: isSet(object.ingestType) ? String(object.ingestType) : undefined,
     };
   },
 
@@ -3011,6 +3130,9 @@ export const SrtPushAddress = {
     message.streamId !== undefined && (obj.streamId = message.streamId);
     message.url !== undefined && (obj.url = message.url);
     message.baseUrl !== undefined && (obj.baseUrl = message.baseUrl);
+    message.previewUrl !== undefined && (obj.previewUrl = message.previewUrl);
+    message.ingestId !== undefined && (obj.ingestId = message.ingestId);
+    message.ingestType !== undefined && (obj.ingestType = message.ingestType);
     return obj;
   },
 
@@ -3020,6 +3142,9 @@ export const SrtPushAddress = {
     message.streamId = object.streamId ?? undefined;
     message.url = object.url ?? undefined;
     message.baseUrl = object.baseUrl ?? undefined;
+    message.previewUrl = object.previewUrl ?? undefined;
+    message.ingestId = object.ingestId ?? undefined;
+    message.ingestType = object.ingestType ?? undefined;
     return message;
   },
 };
@@ -8778,6 +8903,120 @@ export const RemoveSourceFromProjectResponse = {
   },
 };
 
+function createBaseGetSourcePlaylistRequest(): GetSourcePlaylistRequest {
+  return { collectionId: "", sourceId: "", accessToken: undefined };
+}
+
+export const GetSourcePlaylistRequest = {
+  encode(message: GetSourcePlaylistRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.collectionId !== "") {
+      writer.uint32(10).string(message.collectionId);
+    }
+    if (message.sourceId !== "") {
+      writer.uint32(26).string(message.sourceId);
+    }
+    if (message.accessToken !== undefined) {
+      writer.uint32(34).string(message.accessToken);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetSourcePlaylistRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetSourcePlaylistRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collectionId = reader.string();
+          break;
+        case 3:
+          message.sourceId = reader.string();
+          break;
+        case 4:
+          message.accessToken = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetSourcePlaylistRequest {
+    return {
+      collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
+      sourceId: isSet(object.sourceId) ? String(object.sourceId) : "",
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : undefined,
+    };
+  },
+
+  toJSON(message: GetSourcePlaylistRequest): unknown {
+    const obj: any = {};
+    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
+    message.sourceId !== undefined && (obj.sourceId = message.sourceId);
+    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetSourcePlaylistRequest>): GetSourcePlaylistRequest {
+    const message = createBaseGetSourcePlaylistRequest();
+    message.collectionId = object.collectionId ?? "";
+    message.sourceId = object.sourceId ?? "";
+    message.accessToken = object.accessToken ?? undefined;
+    return message;
+  },
+};
+
+function createBaseGetSourcePlaylistResponse(): GetSourcePlaylistResponse {
+  return { manifest: "" };
+}
+
+export const GetSourcePlaylistResponse = {
+  encode(message: GetSourcePlaylistResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.manifest !== "") {
+      writer.uint32(10).string(message.manifest);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetSourcePlaylistResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetSourcePlaylistResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.manifest = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetSourcePlaylistResponse {
+    return { manifest: isSet(object.manifest) ? String(object.manifest) : "" };
+  },
+
+  toJSON(message: GetSourcePlaylistResponse): unknown {
+    const obj: any = {};
+    message.manifest !== undefined && (obj.manifest = message.manifest);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetSourcePlaylistResponse>): GetSourcePlaylistResponse {
+    const message = createBaseGetSourcePlaylistResponse();
+    message.manifest = object.manifest ?? "";
+    return message;
+  },
+};
+
 function createBaseCreateAccessTokenRequest(): CreateAccessTokenRequest {
   return { serviceUserId: "", displayName: undefined, role: undefined, maxDuration: undefined };
 }
@@ -11380,7 +11619,7 @@ export const SourceEvent = {
       SourceAddEvent.encode(message.add, writer.uint32(34).fork()).ldelim();
     }
     if (message.remove !== undefined) {
-      SourceDeleteEvent.encode(message.remove, writer.uint32(42).fork()).ldelim();
+      SourceRemoveEvent.encode(message.remove, writer.uint32(42).fork()).ldelim();
     }
     if (message.state !== undefined) {
       SourceStateEvent.encode(message.state, writer.uint32(50).fork()).ldelim();
@@ -11408,7 +11647,7 @@ export const SourceEvent = {
           message.add = SourceAddEvent.decode(reader, reader.uint32());
           break;
         case 5:
-          message.remove = SourceDeleteEvent.decode(reader, reader.uint32());
+          message.remove = SourceRemoveEvent.decode(reader, reader.uint32());
           break;
         case 6:
           message.state = SourceStateEvent.decode(reader, reader.uint32());
@@ -11427,7 +11666,7 @@ export const SourceEvent = {
       update: isSet(object.update) ? SourceUpdateEvent.fromJSON(object.update) : undefined,
       delete: isSet(object.delete) ? SourceDeleteEvent.fromJSON(object.delete) : undefined,
       add: isSet(object.add) ? SourceAddEvent.fromJSON(object.add) : undefined,
-      remove: isSet(object.remove) ? SourceDeleteEvent.fromJSON(object.remove) : undefined,
+      remove: isSet(object.remove) ? SourceRemoveEvent.fromJSON(object.remove) : undefined,
       state: isSet(object.state) ? SourceStateEvent.fromJSON(object.state) : undefined,
     };
   },
@@ -11442,7 +11681,7 @@ export const SourceEvent = {
       (obj.delete = message.delete ? SourceDeleteEvent.toJSON(message.delete) : undefined);
     message.add !== undefined && (obj.add = message.add ? SourceAddEvent.toJSON(message.add) : undefined);
     message.remove !== undefined &&
-      (obj.remove = message.remove ? SourceDeleteEvent.toJSON(message.remove) : undefined);
+      (obj.remove = message.remove ? SourceRemoveEvent.toJSON(message.remove) : undefined);
     message.state !== undefined && (obj.state = message.state ? SourceStateEvent.toJSON(message.state) : undefined);
     return obj;
   },
@@ -11462,7 +11701,7 @@ export const SourceEvent = {
       ? SourceAddEvent.fromPartial(object.add)
       : undefined;
     message.remove = (object.remove !== undefined && object.remove !== null)
-      ? SourceDeleteEvent.fromPartial(object.remove)
+      ? SourceRemoveEvent.fromPartial(object.remove)
       : undefined;
     message.state = (object.state !== undefined && object.state !== null)
       ? SourceStateEvent.fromPartial(object.state)
@@ -12202,6 +12441,11 @@ export interface SourceService {
    * Removes a source from a project.
    */
   RemoveSourceFromProject(request: RemoveSourceFromProjectRequest): Promise<RemoveSourceFromProjectResponse>;
+  /**
+   * Get the HLS playlist for a source.
+   * buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+   */
+  GetSourcePlaylist(request: GetSourcePlaylistRequest): Promise<HttpBody>;
 }
 
 export class SourceServiceClientImpl implements SourceService {
@@ -12218,6 +12462,7 @@ export class SourceServiceClientImpl implements SourceService {
     this.GetSources = this.GetSources.bind(this);
     this.AddSourceToProject = this.AddSourceToProject.bind(this);
     this.RemoveSourceFromProject = this.RemoveSourceFromProject.bind(this);
+    this.GetSourcePlaylist = this.GetSourcePlaylist.bind(this);
   }
   CreateSource(request: CreateSourceRequest): Promise<CreateSourceResponse> {
     const data = CreateSourceRequest.encode(request).finish();
@@ -12265,6 +12510,12 @@ export class SourceServiceClientImpl implements SourceService {
     const data = RemoveSourceFromProjectRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "RemoveSourceFromProject", data);
     return promise.then((data) => RemoveSourceFromProjectResponse.decode(new _m0.Reader(data)));
+  }
+
+  GetSourcePlaylist(request: GetSourcePlaylistRequest): Promise<HttpBody> {
+    const data = GetSourcePlaylistRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetSourcePlaylist", data);
+    return promise.then((data) => HttpBody.decode(new _m0.Reader(data)));
   }
 }
 
@@ -12377,6 +12628,18 @@ export const SourceServiceDefinition = {
       requestType: RemoveSourceFromProjectRequest,
       requestStream: false,
       responseType: RemoveSourceFromProjectResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * Get the HLS playlist for a source.
+     * buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+     */
+    getSourcePlaylist: {
+      name: "GetSourcePlaylist",
+      requestType: GetSourcePlaylistRequest,
+      requestStream: false,
+      responseType: HttpBody,
       responseStream: false,
       options: {},
     },
