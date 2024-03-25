@@ -1217,6 +1217,41 @@ export interface SrtPullAddress {
   url: string;
 }
 
+/** Dynamic addresses are sources that get setup at runtime. */
+export interface DynamicAddress {
+  /** used for static mapping with StartProjectBroadcast() */
+  id?: string | undefined;
+}
+
+export interface DirectRTMPAddress {
+  /** enable source srt push address */
+  enabled?: boolean | undefined;
+  secure: boolean;
+}
+
+export interface DirectSrtAddress {
+  enabled?: boolean | undefined;
+  secure: boolean;
+}
+
+/** Runtime sources are configured only when the broadcast is launched. */
+export interface RuntimeSourceAddress {
+  /** the rtmp address to pull from */
+  rtmpPull:
+    | RtmpPullAddress
+    | undefined;
+  /** the srt address to pull from */
+  srtPull:
+    | SrtPullAddress
+    | undefined;
+  /** the rtmp address to push to */
+  directRtmpPush:
+    | DirectRTMPAddress
+    | undefined;
+  /** the srt address to push to */
+  directSrtPush: DirectSrtAddress | undefined;
+}
+
 /** live source address (select one) */
 export interface SourceAddress {
   /** rtmp push addressing */
@@ -1232,7 +1267,11 @@ export interface SourceAddress {
     | RtmpPullAddress
     | undefined;
   /** the srt address to pull from */
-  srtPull: SrtPullAddress | undefined;
+  srtPull:
+    | SrtPullAddress
+    | undefined;
+  /** configuration is provided when launching a broadcast. */
+  dynamic: DynamicAddress | undefined;
 }
 
 /** rtmp push destination address */
@@ -1478,6 +1517,20 @@ export interface LatLong {
   longitude: number;
 }
 
+export interface DirectIngestUrl {
+  /** If this is part of a dynamic source, this is the id of the source */
+  dynamicId?: string | undefined;
+  sourceId?:
+    | string
+    | undefined;
+  /** rtmp push addressing */
+  rtmpPush:
+    | SourceRtmpPushAddress
+    | undefined;
+  /** the srt address to publish to */
+  srtPush: SrtPushAddress | undefined;
+}
+
 /** broadcast status */
 export interface ProjectBroadcastStatus {
   /** collection which owns the project which owns the broadcast */
@@ -1506,7 +1559,11 @@ export interface ProjectBroadcastStatus {
     | Region
     | undefined;
   /** datacenter broadcast is located */
-  datacenter?: string | undefined;
+  datacenter?:
+    | string
+    | undefined;
+  /** the direct ingests you can send video. ID is the source id */
+  directIngests: DirectIngestUrl[];
 }
 
 /** collection live source */
@@ -1776,7 +1833,20 @@ export interface StartProjectBroadcastRequest {
   /** project id */
   projectId: string;
   /** also start webrtc room */
-  webrtcStart?: boolean | undefined;
+  webrtcStart?:
+    | boolean
+    | undefined;
+  /** whether to wait for the broadcast to be ready */
+  async?:
+    | boolean
+    | undefined;
+  /** dynamic sources to start the broadcast with. */
+  dynamicSources: { [key: string]: RuntimeSourceAddress };
+}
+
+export interface StartProjectBroadcastRequest_DynamicSourcesEntry {
+  key: string;
+  value: RuntimeSourceAddress | undefined;
 }
 
 export interface StartProjectBroadcastResponse {
@@ -3243,8 +3313,259 @@ export const SrtPullAddress = {
   },
 };
 
+function createBaseDynamicAddress(): DynamicAddress {
+  return { id: undefined };
+}
+
+export const DynamicAddress = {
+  encode(message: DynamicAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== undefined) {
+      writer.uint32(10).string(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DynamicAddress {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDynamicAddress();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DynamicAddress {
+    return { id: isSet(object.id) ? String(object.id) : undefined };
+  },
+
+  toJSON(message: DynamicAddress): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DynamicAddress>): DynamicAddress {
+    const message = createBaseDynamicAddress();
+    message.id = object.id ?? undefined;
+    return message;
+  },
+};
+
+function createBaseDirectRTMPAddress(): DirectRTMPAddress {
+  return { enabled: undefined, secure: false };
+}
+
+export const DirectRTMPAddress = {
+  encode(message: DirectRTMPAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.enabled !== undefined) {
+      writer.uint32(8).bool(message.enabled);
+    }
+    if (message.secure === true) {
+      writer.uint32(16).bool(message.secure);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DirectRTMPAddress {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDirectRTMPAddress();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.enabled = reader.bool();
+          break;
+        case 2:
+          message.secure = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DirectRTMPAddress {
+    return {
+      enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
+      secure: isSet(object.secure) ? Boolean(object.secure) : false,
+    };
+  },
+
+  toJSON(message: DirectRTMPAddress): unknown {
+    const obj: any = {};
+    message.enabled !== undefined && (obj.enabled = message.enabled);
+    message.secure !== undefined && (obj.secure = message.secure);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DirectRTMPAddress>): DirectRTMPAddress {
+    const message = createBaseDirectRTMPAddress();
+    message.enabled = object.enabled ?? undefined;
+    message.secure = object.secure ?? false;
+    return message;
+  },
+};
+
+function createBaseDirectSrtAddress(): DirectSrtAddress {
+  return { enabled: undefined, secure: false };
+}
+
+export const DirectSrtAddress = {
+  encode(message: DirectSrtAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.enabled !== undefined) {
+      writer.uint32(8).bool(message.enabled);
+    }
+    if (message.secure === true) {
+      writer.uint32(16).bool(message.secure);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DirectSrtAddress {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDirectSrtAddress();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.enabled = reader.bool();
+          break;
+        case 2:
+          message.secure = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DirectSrtAddress {
+    return {
+      enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
+      secure: isSet(object.secure) ? Boolean(object.secure) : false,
+    };
+  },
+
+  toJSON(message: DirectSrtAddress): unknown {
+    const obj: any = {};
+    message.enabled !== undefined && (obj.enabled = message.enabled);
+    message.secure !== undefined && (obj.secure = message.secure);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DirectSrtAddress>): DirectSrtAddress {
+    const message = createBaseDirectSrtAddress();
+    message.enabled = object.enabled ?? undefined;
+    message.secure = object.secure ?? false;
+    return message;
+  },
+};
+
+function createBaseRuntimeSourceAddress(): RuntimeSourceAddress {
+  return { rtmpPull: undefined, srtPull: undefined, directRtmpPush: undefined, directSrtPush: undefined };
+}
+
+export const RuntimeSourceAddress = {
+  encode(message: RuntimeSourceAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.rtmpPull !== undefined) {
+      RtmpPullAddress.encode(message.rtmpPull, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.srtPull !== undefined) {
+      SrtPullAddress.encode(message.srtPull, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.directRtmpPush !== undefined) {
+      DirectRTMPAddress.encode(message.directRtmpPush, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.directSrtPush !== undefined) {
+      DirectSrtAddress.encode(message.directSrtPush, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): RuntimeSourceAddress {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRuntimeSourceAddress();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.rtmpPull = RtmpPullAddress.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.srtPull = SrtPullAddress.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.directRtmpPush = DirectRTMPAddress.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.directSrtPush = DirectSrtAddress.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RuntimeSourceAddress {
+    return {
+      rtmpPull: isSet(object.rtmpPull) ? RtmpPullAddress.fromJSON(object.rtmpPull) : undefined,
+      srtPull: isSet(object.srtPull) ? SrtPullAddress.fromJSON(object.srtPull) : undefined,
+      directRtmpPush: isSet(object.directRtmpPush) ? DirectRTMPAddress.fromJSON(object.directRtmpPush) : undefined,
+      directSrtPush: isSet(object.directSrtPush) ? DirectSrtAddress.fromJSON(object.directSrtPush) : undefined,
+    };
+  },
+
+  toJSON(message: RuntimeSourceAddress): unknown {
+    const obj: any = {};
+    message.rtmpPull !== undefined &&
+      (obj.rtmpPull = message.rtmpPull ? RtmpPullAddress.toJSON(message.rtmpPull) : undefined);
+    message.srtPull !== undefined &&
+      (obj.srtPull = message.srtPull ? SrtPullAddress.toJSON(message.srtPull) : undefined);
+    message.directRtmpPush !== undefined &&
+      (obj.directRtmpPush = message.directRtmpPush ? DirectRTMPAddress.toJSON(message.directRtmpPush) : undefined);
+    message.directSrtPush !== undefined &&
+      (obj.directSrtPush = message.directSrtPush ? DirectSrtAddress.toJSON(message.directSrtPush) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<RuntimeSourceAddress>): RuntimeSourceAddress {
+    const message = createBaseRuntimeSourceAddress();
+    message.rtmpPull = (object.rtmpPull !== undefined && object.rtmpPull !== null)
+      ? RtmpPullAddress.fromPartial(object.rtmpPull)
+      : undefined;
+    message.srtPull = (object.srtPull !== undefined && object.srtPull !== null)
+      ? SrtPullAddress.fromPartial(object.srtPull)
+      : undefined;
+    message.directRtmpPush = (object.directRtmpPush !== undefined && object.directRtmpPush !== null)
+      ? DirectRTMPAddress.fromPartial(object.directRtmpPush)
+      : undefined;
+    message.directSrtPush = (object.directSrtPush !== undefined && object.directSrtPush !== null)
+      ? DirectSrtAddress.fromPartial(object.directSrtPush)
+      : undefined;
+    return message;
+  },
+};
+
 function createBaseSourceAddress(): SourceAddress {
-  return { rtmpPush: undefined, srtPush: undefined, rtmpPull: undefined, srtPull: undefined };
+  return { rtmpPush: undefined, srtPush: undefined, rtmpPull: undefined, srtPull: undefined, dynamic: undefined };
 }
 
 export const SourceAddress = {
@@ -3260,6 +3581,9 @@ export const SourceAddress = {
     }
     if (message.srtPull !== undefined) {
       SrtPullAddress.encode(message.srtPull, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.dynamic !== undefined) {
+      DynamicAddress.encode(message.dynamic, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -3283,6 +3607,9 @@ export const SourceAddress = {
         case 4:
           message.srtPull = SrtPullAddress.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.dynamic = DynamicAddress.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3297,6 +3624,7 @@ export const SourceAddress = {
       srtPush: isSet(object.srtPush) ? SrtPushAddress.fromJSON(object.srtPush) : undefined,
       rtmpPull: isSet(object.rtmpPull) ? RtmpPullAddress.fromJSON(object.rtmpPull) : undefined,
       srtPull: isSet(object.srtPull) ? SrtPullAddress.fromJSON(object.srtPull) : undefined,
+      dynamic: isSet(object.dynamic) ? DynamicAddress.fromJSON(object.dynamic) : undefined,
     };
   },
 
@@ -3310,6 +3638,8 @@ export const SourceAddress = {
       (obj.rtmpPull = message.rtmpPull ? RtmpPullAddress.toJSON(message.rtmpPull) : undefined);
     message.srtPull !== undefined &&
       (obj.srtPull = message.srtPull ? SrtPullAddress.toJSON(message.srtPull) : undefined);
+    message.dynamic !== undefined &&
+      (obj.dynamic = message.dynamic ? DynamicAddress.toJSON(message.dynamic) : undefined);
     return obj;
   },
 
@@ -3326,6 +3656,9 @@ export const SourceAddress = {
       : undefined;
     message.srtPull = (object.srtPull !== undefined && object.srtPull !== null)
       ? SrtPullAddress.fromPartial(object.srtPull)
+      : undefined;
+    message.dynamic = (object.dynamic !== undefined && object.dynamic !== null)
+      ? DynamicAddress.fromPartial(object.dynamic)
       : undefined;
     return message;
   },
@@ -4810,6 +5143,88 @@ export const LatLong = {
   },
 };
 
+function createBaseDirectIngestUrl(): DirectIngestUrl {
+  return { dynamicId: undefined, sourceId: undefined, rtmpPush: undefined, srtPush: undefined };
+}
+
+export const DirectIngestUrl = {
+  encode(message: DirectIngestUrl, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.dynamicId !== undefined) {
+      writer.uint32(10).string(message.dynamicId);
+    }
+    if (message.sourceId !== undefined) {
+      writer.uint32(18).string(message.sourceId);
+    }
+    if (message.rtmpPush !== undefined) {
+      SourceRtmpPushAddress.encode(message.rtmpPush, writer.uint32(82).fork()).ldelim();
+    }
+    if (message.srtPush !== undefined) {
+      SrtPushAddress.encode(message.srtPush, writer.uint32(90).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DirectIngestUrl {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDirectIngestUrl();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.dynamicId = reader.string();
+          break;
+        case 2:
+          message.sourceId = reader.string();
+          break;
+        case 10:
+          message.rtmpPush = SourceRtmpPushAddress.decode(reader, reader.uint32());
+          break;
+        case 11:
+          message.srtPush = SrtPushAddress.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DirectIngestUrl {
+    return {
+      dynamicId: isSet(object.dynamicId) ? String(object.dynamicId) : undefined,
+      sourceId: isSet(object.sourceId) ? String(object.sourceId) : undefined,
+      rtmpPush: isSet(object.rtmpPush) ? SourceRtmpPushAddress.fromJSON(object.rtmpPush) : undefined,
+      srtPush: isSet(object.srtPush) ? SrtPushAddress.fromJSON(object.srtPush) : undefined,
+    };
+  },
+
+  toJSON(message: DirectIngestUrl): unknown {
+    const obj: any = {};
+    message.dynamicId !== undefined && (obj.dynamicId = message.dynamicId);
+    message.sourceId !== undefined && (obj.sourceId = message.sourceId);
+    message.rtmpPush !== undefined &&
+      (obj.rtmpPush = message.rtmpPush ? SourceRtmpPushAddress.toJSON(message.rtmpPush) : undefined);
+    message.srtPush !== undefined &&
+      (obj.srtPush = message.srtPush ? SrtPushAddress.toJSON(message.srtPush) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DirectIngestUrl>): DirectIngestUrl {
+    const message = createBaseDirectIngestUrl();
+    message.dynamicId = object.dynamicId ?? undefined;
+    message.sourceId = object.sourceId ?? undefined;
+    message.rtmpPush = (object.rtmpPush !== undefined && object.rtmpPush !== null)
+      ? SourceRtmpPushAddress.fromPartial(object.rtmpPush)
+      : undefined;
+    message.srtPush = (object.srtPush !== undefined && object.srtPush !== null)
+      ? SrtPushAddress.fromPartial(object.srtPush)
+      : undefined;
+    return message;
+  },
+};
+
 function createBaseProjectBroadcastStatus(): ProjectBroadcastStatus {
   return {
     collectionId: "",
@@ -4821,6 +5236,7 @@ function createBaseProjectBroadcastStatus(): ProjectBroadcastStatus {
     phase: ProjectBroadcastPhase.PROJECT_BROADCAST_PHASE_UNSPECIFIED,
     region: undefined,
     datacenter: undefined,
+    directIngests: [],
   };
 }
 
@@ -4852,6 +5268,9 @@ export const ProjectBroadcastStatus = {
     }
     if (message.datacenter !== undefined) {
       writer.uint32(74).string(message.datacenter);
+    }
+    for (const v of message.directIngests) {
+      DirectIngestUrl.encode(v!, writer.uint32(82).fork()).ldelim();
     }
     return writer;
   },
@@ -4890,6 +5309,9 @@ export const ProjectBroadcastStatus = {
         case 9:
           message.datacenter = reader.string();
           break;
+        case 10:
+          message.directIngests.push(DirectIngestUrl.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -4911,6 +5333,9 @@ export const ProjectBroadcastStatus = {
         : ProjectBroadcastPhase.PROJECT_BROADCAST_PHASE_UNSPECIFIED,
       region: isSet(object.region) ? regionFromJSON(object.region) : undefined,
       datacenter: isSet(object.datacenter) ? String(object.datacenter) : undefined,
+      directIngests: Array.isArray(object?.directIngests)
+        ? object.directIngests.map((e: any) => DirectIngestUrl.fromJSON(e))
+        : [],
     };
   },
 
@@ -4926,6 +5351,11 @@ export const ProjectBroadcastStatus = {
     message.region !== undefined &&
       (obj.region = message.region !== undefined ? regionToJSON(message.region) : undefined);
     message.datacenter !== undefined && (obj.datacenter = message.datacenter);
+    if (message.directIngests) {
+      obj.directIngests = message.directIngests.map((e) => e ? DirectIngestUrl.toJSON(e) : undefined);
+    } else {
+      obj.directIngests = [];
+    }
     return obj;
   },
 
@@ -4940,6 +5370,7 @@ export const ProjectBroadcastStatus = {
     message.phase = object.phase ?? ProjectBroadcastPhase.PROJECT_BROADCAST_PHASE_UNSPECIFIED;
     message.region = object.region ?? undefined;
     message.datacenter = object.datacenter ?? undefined;
+    message.directIngests = object.directIngests?.map((e) => DirectIngestUrl.fromPartial(e)) || [];
     return message;
   },
 };
@@ -6509,7 +6940,7 @@ export const DeleteProjectResponse = {
 };
 
 function createBaseStartProjectBroadcastRequest(): StartProjectBroadcastRequest {
-  return { collectionId: "", projectId: "", webrtcStart: undefined };
+  return { collectionId: "", projectId: "", webrtcStart: undefined, async: undefined, dynamicSources: {} };
 }
 
 export const StartProjectBroadcastRequest = {
@@ -6523,6 +6954,13 @@ export const StartProjectBroadcastRequest = {
     if (message.webrtcStart !== undefined) {
       writer.uint32(24).bool(message.webrtcStart);
     }
+    if (message.async !== undefined) {
+      writer.uint32(32).bool(message.async);
+    }
+    Object.entries(message.dynamicSources).forEach(([key, value]) => {
+      StartProjectBroadcastRequest_DynamicSourcesEntry.encode({ key: key as any, value }, writer.uint32(42).fork())
+        .ldelim();
+    });
     return writer;
   },
 
@@ -6542,6 +6980,15 @@ export const StartProjectBroadcastRequest = {
         case 3:
           message.webrtcStart = reader.bool();
           break;
+        case 4:
+          message.async = reader.bool();
+          break;
+        case 5:
+          const entry5 = StartProjectBroadcastRequest_DynamicSourcesEntry.decode(reader, reader.uint32());
+          if (entry5.value !== undefined) {
+            message.dynamicSources[entry5.key] = entry5.value;
+          }
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -6555,6 +7002,13 @@ export const StartProjectBroadcastRequest = {
       collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
       projectId: isSet(object.projectId) ? String(object.projectId) : "",
       webrtcStart: isSet(object.webrtcStart) ? Boolean(object.webrtcStart) : undefined,
+      async: isSet(object.async) ? Boolean(object.async) : undefined,
+      dynamicSources: isObject(object.dynamicSources)
+        ? Object.entries(object.dynamicSources).reduce<{ [key: string]: RuntimeSourceAddress }>((acc, [key, value]) => {
+          acc[key] = RuntimeSourceAddress.fromJSON(value);
+          return acc;
+        }, {})
+        : {},
     };
   },
 
@@ -6563,6 +7017,13 @@ export const StartProjectBroadcastRequest = {
     message.collectionId !== undefined && (obj.collectionId = message.collectionId);
     message.projectId !== undefined && (obj.projectId = message.projectId);
     message.webrtcStart !== undefined && (obj.webrtcStart = message.webrtcStart);
+    message.async !== undefined && (obj.async = message.async);
+    obj.dynamicSources = {};
+    if (message.dynamicSources) {
+      Object.entries(message.dynamicSources).forEach(([k, v]) => {
+        obj.dynamicSources[k] = RuntimeSourceAddress.toJSON(v);
+      });
+    }
     return obj;
   },
 
@@ -6571,6 +7032,80 @@ export const StartProjectBroadcastRequest = {
     message.collectionId = object.collectionId ?? "";
     message.projectId = object.projectId ?? "";
     message.webrtcStart = object.webrtcStart ?? undefined;
+    message.async = object.async ?? undefined;
+    message.dynamicSources = Object.entries(object.dynamicSources ?? {}).reduce<
+      { [key: string]: RuntimeSourceAddress }
+    >((acc, [key, value]) => {
+      if (value !== undefined) {
+        acc[key] = RuntimeSourceAddress.fromPartial(value);
+      }
+      return acc;
+    }, {});
+    return message;
+  },
+};
+
+function createBaseStartProjectBroadcastRequest_DynamicSourcesEntry(): StartProjectBroadcastRequest_DynamicSourcesEntry {
+  return { key: "", value: undefined };
+}
+
+export const StartProjectBroadcastRequest_DynamicSourcesEntry = {
+  encode(
+    message: StartProjectBroadcastRequest_DynamicSourcesEntry,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.key !== "") {
+      writer.uint32(10).string(message.key);
+    }
+    if (message.value !== undefined) {
+      RuntimeSourceAddress.encode(message.value, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): StartProjectBroadcastRequest_DynamicSourcesEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseStartProjectBroadcastRequest_DynamicSourcesEntry();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = reader.string();
+          break;
+        case 2:
+          message.value = RuntimeSourceAddress.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): StartProjectBroadcastRequest_DynamicSourcesEntry {
+    return {
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? RuntimeSourceAddress.fromJSON(object.value) : undefined,
+    };
+  },
+
+  toJSON(message: StartProjectBroadcastRequest_DynamicSourcesEntry): unknown {
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined && (obj.value = message.value ? RuntimeSourceAddress.toJSON(message.value) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<StartProjectBroadcastRequest_DynamicSourcesEntry>,
+  ): StartProjectBroadcastRequest_DynamicSourcesEntry {
+    const message = createBaseStartProjectBroadcastRequest_DynamicSourcesEntry();
+    message.key = object.key ?? "";
+    message.value = (object.value !== undefined && object.value !== null)
+      ? RuntimeSourceAddress.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
@@ -12937,6 +13472,10 @@ function fromTimestamp(t: Timestamp): string {
   let millis = t.seconds * 1_000;
   millis += t.nanos / 1_000_000;
   return new Date(millis).toISOString();
+}
+
+function isObject(value: any): boolean {
+  return typeof value === "object" && value !== null;
 }
 
 function isSet(value: any): boolean {

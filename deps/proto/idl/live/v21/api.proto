@@ -8,6 +8,7 @@ package live.v21;
 import "common/v21/ext.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/api/httpbody.proto";
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
@@ -344,6 +345,31 @@ message SourceRtmpPushAddress {
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
+
+  // fully formed url for previewing the rtmp stream
+  optional string preview_url = 5 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"rtmp://ingest.golightstream.com/api2\""},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // unique identifier for this ingest
+  optional string ingest_id = 6 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // enable rtmps support
+  optional bool secure = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "false"
+    default: "false"
+  }];
+
+  // the type of ingest we provisioned
+  optional string ingest_type = 8 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
 }
 
 // srt push addressing
@@ -379,6 +405,28 @@ message SrtPushAddress {
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
+
+  // fully formed url for previewing the srt stream
+  optional string preview_url = 5 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example:
+        "\"srt://ingest.api.stream"
+        "?streamid=7132b004-61e8-49c1-8dc8-4bb3269ce6f/"
+        "7132b004-61e8-49c1-8dc8-4bb3269ce6f\""
+},
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // unique identifier for this ingest
+  optional string ingest_id = 6 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+  // the type of ingest we provisioned
+  optional string ingest_type = 7 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
 }
 
 // rtmp pull addressing
@@ -399,6 +447,45 @@ message SrtPullAddress {
   ];
 }
 
+// Dynamic addresses are sources that get setup at runtime.
+message DynamicAddress {
+  // used for static mapping with StartProjectBroadcast()
+  optional string id = 1;
+}
+
+message DirectRTMPAddress {
+  // enable source srt push address
+  optional bool enabled = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "true"
+  }];
+
+  bool secure = 2;
+}
+
+message DirectSrtAddress {
+  optional bool enabled = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "true"
+  }];
+
+  bool secure = 2;
+}
+
+// Runtime sources are configured only when the broadcast is launched.
+message RuntimeSourceAddress {
+  oneof type {
+    // the rtmp address to pull from
+    RtmpPullAddress rtmp_pull = 1;
+    // the srt address to pull from
+    SrtPullAddress srt_pull = 2;
+    // the rtmp address to push to
+    DirectRTMPAddress direct_rtmp_push = 3;
+    // the srt address to push to
+    DirectSrtAddress direct_srt_push = 4;
+  }
+}
+
 // live source address (select one)
 message SourceAddress {
   oneof type {
@@ -410,6 +497,9 @@ message SourceAddress {
     RtmpPullAddress rtmp_pull = 3;
     // the srt address to pull from
     SrtPullAddress srt_pull = 4;
+
+    // configuration is provided when launching a broadcast.
+    DynamicAddress dynamic = 5;
   }
 }
 
@@ -824,6 +914,19 @@ message LatLong {
 
 // ------------ HIGH-LEVEL CONTAINERS
 
+message DirectIngestUrl {
+  // If this is part of a dynamic source, this is the id of the source
+  optional string dynamic_id = 1;
+  optional string source_id = 2;
+
+  oneof type {
+    // rtmp push addressing
+    SourceRtmpPushAddress rtmp_push = 10;
+    // the srt address to publish to
+    SrtPushAddress srt_push = 11;
+  }
+}
+
 // broadcast status
 message ProjectBroadcastStatus {
   // collection which owns the project which owns the broadcast
@@ -851,6 +954,9 @@ message ProjectBroadcastStatus {
 
   // datacenter broadcast is located
   optional string datacenter = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"nyc1\""}];
+
+  // the direct ingests you can send video. ID is the source id
+  repeated DirectIngestUrl direct_ingests = 10;
 }
 
 // collection live source
@@ -1278,6 +1384,15 @@ message StartProjectBroadcastRequest {
     example: "true"
     default: "false"
   }];
+
+  // whether to wait for the broadcast to be ready
+  optional bool async = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "true"
+    default: "false"
+  }];
+
+  // dynamic sources to start the broadcast with.
+  map<string, RuntimeSourceAddress> dynamic_sources = 5;
 }
 
 message StartProjectBroadcastResponse {
@@ -1906,6 +2021,28 @@ message RemoveSourceFromProjectResponse {
   bool broadcast_updated = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "true"}];
 }
 
+message GetSourcePlaylistRequest {
+  // collection which owns the project which owns the source
+  string collection_id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // source id
+  string source_id = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"7132b004-61e8-49c1-8dc8-4bb3269ce6f\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // If you are calling this from a client, this enables you to pass access_token as a query parameter.
+  // Otherwise, you should use the standard Authorization header.
+  optional string access_token = 4;
+}
+
+message GetSourcePlaylistResponse {
+  string manifest = 1;
+}
+
 // The Source Service operates on Collection Live Sources and Project Sources.
 service SourceService {
   // Create Collection Live Source
@@ -1983,6 +2120,12 @@ service SourceService {
         "/collection/{collection_id}/project/{project_id}/source/"
         "{source_id}"
 };
+  }
+
+  // Get the HLS playlist for a source.
+  // buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+  rpc GetSourcePlaylist(GetSourcePlaylistRequest) returns (google.api.HttpBody) {
+    option (google.api.http) = {get: "/collection/{collection_id}/source/{source_id}/manifest.m3u8"};
   }
 }
 
@@ -2569,7 +2712,7 @@ message SourceEvent {
     SourceUpdateEvent update = 2;
     SourceDeleteEvent delete = 3;
     SourceAddEvent add = 4;
-    SourceDeleteEvent remove = 5;
+    SourceRemoveEvent remove = 5;
 
     SourceStateEvent state = 6;
   }
