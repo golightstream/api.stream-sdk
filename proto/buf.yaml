@@ -1,0 +1,17 @@
+/*
+---------------------------------------------------------------------------------------------
+Copyright (c) Infiniscene, Inc. All rights reserved.
+Licensed under the MIT License. See License.txt in the project root for license information.
+---------------------------------------------------------------------------------------------
+*/
+version: v1
+deps:
+  - buf.build/grpc-ecosystem/grpc-gateway
+  - buf.build/googleapis/googleapis
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - DEFAULT
+  allow_comment_ignores: true
