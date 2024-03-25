@@ -11,7 +11,7 @@ export const protobufPackage = "google.protobuf";
  * `NullValue` is a singleton enumeration to represent the null value for the
  * `Value` type union.
  *
- *  The JSON representation for `NullValue` is JSON `null`.
+ * The JSON representation for `NullValue` is JSON `null`.
  */
 export enum NullValue {
   /** NULL_VALUE - Null value. */
@@ -24,7 +24,7 @@ export function nullValueFromJSON(object: any): NullValue {
     case "NULL_VALUE":
       return NullValue.NULL_VALUE;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum NullValue");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum NullValue");
   }
 }
 
@@ -33,7 +33,7 @@ export function nullValueToJSON(object: NullValue): string {
     case NullValue.NULL_VALUE:
       return "NULL_VALUE";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum NullValue");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum NullValue");
   }
 }
 
@@ -42,7 +42,7 @@ export function nullValueToNumber(object: NullValue): number {
     case NullValue.NULL_VALUE:
       return 0;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum NullValue");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum NullValue");
   }
 }
 
@@ -76,27 +76,27 @@ export interface Struct_FieldsEntry {
  */
 export interface Value {
   /** Represents a null value. */
-  nullValue:
+  nullValue?:
     | NullValue
     | undefined;
   /** Represents a double value. */
-  numberValue:
+  numberValue?:
     | number
     | undefined;
   /** Represents a string value. */
-  stringValue:
+  stringValue?:
     | string
     | undefined;
   /** Represents a boolean value. */
-  boolValue:
+  boolValue?:
     | boolean
     | undefined;
   /** Represents a structured value. */
-  structValue:
+  structValue?:
     | { [key: string]: any }
     | undefined;
   /** Represents a repeated `Value`. */
-  listValue: Array<any> | undefined;
+  listValue?: Array<any> | undefined;
 }
 
 /**
@@ -461,7 +461,7 @@ export const ListValue = {
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
-var globalThis: any = (() => {
+var tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }

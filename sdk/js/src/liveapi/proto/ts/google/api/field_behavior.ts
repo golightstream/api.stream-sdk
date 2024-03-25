@@ -62,6 +62,21 @@ export enum FieldBehavior {
    * non-empty value to expect.
    */
   NON_EMPTY_DEFAULT = "NON_EMPTY_DEFAULT",
+  /**
+   * IDENTIFIER - Denotes that the field in a resource (a message annotated with
+   * google.api.resource) is used in the resource name to uniquely identify the
+   * resource. For AIP-compliant APIs, this should only be applied to the
+   * `name` field on the resource.
+   *
+   * This behavior should not be applied to references to other resources within
+   * the message.
+   *
+   * The identifier field of resources often have different field behavior
+   * depending on the request it is embedded in (e.g. for Create methods name
+   * is optional and unused, while for Update methods it is required). Instead
+   * of method-specific annotations, only `IDENTIFIER` is required.
+   */
+  IDENTIFIER = "IDENTIFIER",
 }
 
 export function fieldBehaviorFromJSON(object: any): FieldBehavior {
@@ -90,8 +105,11 @@ export function fieldBehaviorFromJSON(object: any): FieldBehavior {
     case 7:
     case "NON_EMPTY_DEFAULT":
       return FieldBehavior.NON_EMPTY_DEFAULT;
+    case 8:
+    case "IDENTIFIER":
+      return FieldBehavior.IDENTIFIER;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldBehavior");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldBehavior");
   }
 }
 
@@ -113,8 +131,10 @@ export function fieldBehaviorToJSON(object: FieldBehavior): string {
       return "UNORDERED_LIST";
     case FieldBehavior.NON_EMPTY_DEFAULT:
       return "NON_EMPTY_DEFAULT";
+    case FieldBehavior.IDENTIFIER:
+      return "IDENTIFIER";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldBehavior");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldBehavior");
   }
 }
 
@@ -136,15 +156,17 @@ export function fieldBehaviorToNumber(object: FieldBehavior): number {
       return 6;
     case FieldBehavior.NON_EMPTY_DEFAULT:
       return 7;
+    case FieldBehavior.IDENTIFIER:
+      return 8;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldBehavior");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldBehavior");
   }
 }
 
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
-var globalThis: any = (() => {
+var tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }

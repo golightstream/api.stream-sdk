@@ -8,6 +8,119 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "google.protobuf";
 
+/** The full set of known editions. */
+export enum Edition {
+  /** EDITION_UNKNOWN - A placeholder for an unknown edition value. */
+  EDITION_UNKNOWN = "EDITION_UNKNOWN",
+  /**
+   * EDITION_PROTO2 - Legacy syntax "editions".  These pre-date editions, but behave much like
+   * distinct editions.  These can't be used to specify the edition of proto
+   * files, but feature definitions must supply proto2/proto3 defaults for
+   * backwards compatibility.
+   */
+  EDITION_PROTO2 = "EDITION_PROTO2",
+  EDITION_PROTO3 = "EDITION_PROTO3",
+  /**
+   * EDITION_2023 - Editions that have been released.  The specific values are arbitrary and
+   * should not be depended on, but they will always be time-ordered for easy
+   * comparison.
+   */
+  EDITION_2023 = "EDITION_2023",
+  /**
+   * EDITION_1_TEST_ONLY - Placeholder editions for testing feature resolution.  These should not be
+   * used or relyed on outside of tests.
+   */
+  EDITION_1_TEST_ONLY = "EDITION_1_TEST_ONLY",
+  EDITION_2_TEST_ONLY = "EDITION_2_TEST_ONLY",
+  EDITION_99997_TEST_ONLY = "EDITION_99997_TEST_ONLY",
+  EDITION_99998_TEST_ONLY = "EDITION_99998_TEST_ONLY",
+  EDITION_99999_TEST_ONLY = "EDITION_99999_TEST_ONLY",
+}
+
+export function editionFromJSON(object: any): Edition {
+  switch (object) {
+    case 0:
+    case "EDITION_UNKNOWN":
+      return Edition.EDITION_UNKNOWN;
+    case 998:
+    case "EDITION_PROTO2":
+      return Edition.EDITION_PROTO2;
+    case 999:
+    case "EDITION_PROTO3":
+      return Edition.EDITION_PROTO3;
+    case 1000:
+    case "EDITION_2023":
+      return Edition.EDITION_2023;
+    case 1:
+    case "EDITION_1_TEST_ONLY":
+      return Edition.EDITION_1_TEST_ONLY;
+    case 2:
+    case "EDITION_2_TEST_ONLY":
+      return Edition.EDITION_2_TEST_ONLY;
+    case 99997:
+    case "EDITION_99997_TEST_ONLY":
+      return Edition.EDITION_99997_TEST_ONLY;
+    case 99998:
+    case "EDITION_99998_TEST_ONLY":
+      return Edition.EDITION_99998_TEST_ONLY;
+    case 99999:
+    case "EDITION_99999_TEST_ONLY":
+      return Edition.EDITION_99999_TEST_ONLY;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Edition");
+  }
+}
+
+export function editionToJSON(object: Edition): string {
+  switch (object) {
+    case Edition.EDITION_UNKNOWN:
+      return "EDITION_UNKNOWN";
+    case Edition.EDITION_PROTO2:
+      return "EDITION_PROTO2";
+    case Edition.EDITION_PROTO3:
+      return "EDITION_PROTO3";
+    case Edition.EDITION_2023:
+      return "EDITION_2023";
+    case Edition.EDITION_1_TEST_ONLY:
+      return "EDITION_1_TEST_ONLY";
+    case Edition.EDITION_2_TEST_ONLY:
+      return "EDITION_2_TEST_ONLY";
+    case Edition.EDITION_99997_TEST_ONLY:
+      return "EDITION_99997_TEST_ONLY";
+    case Edition.EDITION_99998_TEST_ONLY:
+      return "EDITION_99998_TEST_ONLY";
+    case Edition.EDITION_99999_TEST_ONLY:
+      return "EDITION_99999_TEST_ONLY";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Edition");
+  }
+}
+
+export function editionToNumber(object: Edition): number {
+  switch (object) {
+    case Edition.EDITION_UNKNOWN:
+      return 0;
+    case Edition.EDITION_PROTO2:
+      return 998;
+    case Edition.EDITION_PROTO3:
+      return 999;
+    case Edition.EDITION_2023:
+      return 1000;
+    case Edition.EDITION_1_TEST_ONLY:
+      return 1;
+    case Edition.EDITION_2_TEST_ONLY:
+      return 2;
+    case Edition.EDITION_99997_TEST_ONLY:
+      return 99997;
+    case Edition.EDITION_99998_TEST_ONLY:
+      return 99998;
+    case Edition.EDITION_99999_TEST_ONLY:
+      return 99999;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Edition");
+  }
+}
+
 /**
  * The protocol compiler can output a FileDescriptorSet containing the .proto
  * files it parses.
@@ -50,9 +163,13 @@ export interface FileDescriptorProto {
     | undefined;
   /**
    * The syntax of the proto file.
-   * The supported values are "proto2" and "proto3".
+   * The supported values are "proto2", "proto3", and "editions".
+   *
+   * If `edition` is present, this value must be "editions".
    */
   syntax: string;
+  /** The edition of the proto file. */
+  edition: Edition;
 }
 
 /** Describes a message type. */
@@ -96,6 +213,99 @@ export interface DescriptorProto_ReservedRange {
 export interface ExtensionRangeOptions {
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
+  /**
+   * For external users: DO NOT USE. We are in the process of open sourcing
+   * extension declaration and executing internal cleanups before it can be
+   * used externally.
+   */
+  declaration: ExtensionRangeOptions_Declaration[];
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
+  /**
+   * The verification state of the range.
+   * TODO: flip the default to DECLARATION once all empty ranges
+   * are marked as UNVERIFIED.
+   */
+  verification: ExtensionRangeOptions_VerificationState;
+}
+
+/** The verification state of the extension range. */
+export enum ExtensionRangeOptions_VerificationState {
+  /** DECLARATION - All the extensions of the range must be declared. */
+  DECLARATION = "DECLARATION",
+  UNVERIFIED = "UNVERIFIED",
+}
+
+export function extensionRangeOptions_VerificationStateFromJSON(object: any): ExtensionRangeOptions_VerificationState {
+  switch (object) {
+    case 0:
+    case "DECLARATION":
+      return ExtensionRangeOptions_VerificationState.DECLARATION;
+    case 1:
+    case "UNVERIFIED":
+      return ExtensionRangeOptions_VerificationState.UNVERIFIED;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum ExtensionRangeOptions_VerificationState",
+      );
+  }
+}
+
+export function extensionRangeOptions_VerificationStateToJSON(object: ExtensionRangeOptions_VerificationState): string {
+  switch (object) {
+    case ExtensionRangeOptions_VerificationState.DECLARATION:
+      return "DECLARATION";
+    case ExtensionRangeOptions_VerificationState.UNVERIFIED:
+      return "UNVERIFIED";
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum ExtensionRangeOptions_VerificationState",
+      );
+  }
+}
+
+export function extensionRangeOptions_VerificationStateToNumber(
+  object: ExtensionRangeOptions_VerificationState,
+): number {
+  switch (object) {
+    case ExtensionRangeOptions_VerificationState.DECLARATION:
+      return 0;
+    case ExtensionRangeOptions_VerificationState.UNVERIFIED:
+      return 1;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum ExtensionRangeOptions_VerificationState",
+      );
+  }
+}
+
+export interface ExtensionRangeOptions_Declaration {
+  /** The extension number declared within the extension range. */
+  number: number;
+  /**
+   * The fully-qualified name of the extension field. There must be a leading
+   * dot in front of the full name.
+   */
+  fullName: string;
+  /**
+   * The fully-qualified type name of the extension field. Unlike
+   * Metadata.type, Declaration.type must have a leading dot for messages
+   * and enums.
+   */
+  type: string;
+  /**
+   * If true, indicates that the number is reserved in the extension range,
+   * and any extension field with the number will fail to compile. Set this
+   * when a declared extension field is deleted.
+   */
+  reserved: boolean;
+  /**
+   * If true, indicates that the extension must be defined as repeated.
+   * Otherwise the extension must be defined as optional.
+   */
+  repeated: boolean;
 }
 
 /** Describes a field within a message. */
@@ -193,9 +403,10 @@ export enum FieldDescriptorProto_Type {
   TYPE_STRING = "TYPE_STRING",
   /**
    * TYPE_GROUP - Tag-delimited aggregate.
-   * Group type is deprecated and not supported in proto3. However, Proto3
+   * Group type is deprecated and not supported after google.protobuf. However, Proto3
    * implementations should still be able to parse the group wire format and
-   * treat group fields as unknown fields.
+   * treat group fields as unknown fields.  In Editions, the group wire format
+   * can be enabled via the `message_encoding` feature.
    */
   TYPE_GROUP = "TYPE_GROUP",
   /** TYPE_MESSAGE - Length-delimited aggregate. */
@@ -269,7 +480,7 @@ export function fieldDescriptorProto_TypeFromJSON(object: any): FieldDescriptorP
     case "TYPE_SINT64":
       return FieldDescriptorProto_Type.TYPE_SINT64;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Type");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Type");
   }
 }
 
@@ -312,7 +523,7 @@ export function fieldDescriptorProto_TypeToJSON(object: FieldDescriptorProto_Typ
     case FieldDescriptorProto_Type.TYPE_SINT64:
       return "TYPE_SINT64";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Type");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Type");
   }
 }
 
@@ -355,15 +566,20 @@ export function fieldDescriptorProto_TypeToNumber(object: FieldDescriptorProto_T
     case FieldDescriptorProto_Type.TYPE_SINT64:
       return 18;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Type");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Type");
   }
 }
 
 export enum FieldDescriptorProto_Label {
   /** LABEL_OPTIONAL - 0 is reserved for errors */
   LABEL_OPTIONAL = "LABEL_OPTIONAL",
-  LABEL_REQUIRED = "LABEL_REQUIRED",
   LABEL_REPEATED = "LABEL_REPEATED",
+  /**
+   * LABEL_REQUIRED - The required label is only allowed in google.protobuf.  In proto3 and Editions
+   * it's explicitly prohibited.  In Editions, the `field_presence` feature
+   * can be used to get this behavior.
+   */
+  LABEL_REQUIRED = "LABEL_REQUIRED",
 }
 
 export function fieldDescriptorProto_LabelFromJSON(object: any): FieldDescriptorProto_Label {
@@ -371,14 +587,14 @@ export function fieldDescriptorProto_LabelFromJSON(object: any): FieldDescriptor
     case 1:
     case "LABEL_OPTIONAL":
       return FieldDescriptorProto_Label.LABEL_OPTIONAL;
-    case 2:
-    case "LABEL_REQUIRED":
-      return FieldDescriptorProto_Label.LABEL_REQUIRED;
     case 3:
     case "LABEL_REPEATED":
       return FieldDescriptorProto_Label.LABEL_REPEATED;
+    case 2:
+    case "LABEL_REQUIRED":
+      return FieldDescriptorProto_Label.LABEL_REQUIRED;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Label");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Label");
   }
 }
 
@@ -386,12 +602,12 @@ export function fieldDescriptorProto_LabelToJSON(object: FieldDescriptorProto_La
   switch (object) {
     case FieldDescriptorProto_Label.LABEL_OPTIONAL:
       return "LABEL_OPTIONAL";
-    case FieldDescriptorProto_Label.LABEL_REQUIRED:
-      return "LABEL_REQUIRED";
     case FieldDescriptorProto_Label.LABEL_REPEATED:
       return "LABEL_REPEATED";
+    case FieldDescriptorProto_Label.LABEL_REQUIRED:
+      return "LABEL_REQUIRED";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Label");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Label");
   }
 }
 
@@ -399,12 +615,12 @@ export function fieldDescriptorProto_LabelToNumber(object: FieldDescriptorProto_
   switch (object) {
     case FieldDescriptorProto_Label.LABEL_OPTIONAL:
       return 1;
-    case FieldDescriptorProto_Label.LABEL_REQUIRED:
-      return 2;
     case FieldDescriptorProto_Label.LABEL_REPEATED:
       return 3;
+    case FieldDescriptorProto_Label.LABEL_REQUIRED:
+      return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Label");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldDescriptorProto_Label");
   }
 }
 
@@ -595,6 +811,10 @@ export interface FileOptions {
    * determining the ruby package.
    */
   rubyPackage: string;
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /**
    * The parser stores options it doesn't recognize here.
    * See the documentation for the "Options" section above.
@@ -624,7 +844,7 @@ export function fileOptions_OptimizeModeFromJSON(object: any): FileOptions_Optim
     case "LITE_RUNTIME":
       return FileOptions_OptimizeMode.LITE_RUNTIME;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FileOptions_OptimizeMode");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FileOptions_OptimizeMode");
   }
 }
 
@@ -637,7 +857,7 @@ export function fileOptions_OptimizeModeToJSON(object: FileOptions_OptimizeMode)
     case FileOptions_OptimizeMode.LITE_RUNTIME:
       return "LITE_RUNTIME";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FileOptions_OptimizeMode");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FileOptions_OptimizeMode");
   }
 }
 
@@ -650,7 +870,7 @@ export function fileOptions_OptimizeModeToNumber(object: FileOptions_OptimizeMod
     case FileOptions_OptimizeMode.LITE_RUNTIME:
       return 3;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FileOptions_OptimizeMode");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FileOptions_OptimizeMode");
   }
 }
 
@@ -690,6 +910,10 @@ export interface MessageOptions {
    */
   deprecated: boolean;
   /**
+   * NOTE: Do not set the option in .proto files. Always use the maps syntax
+   * instead. The option should only be implicitly set by the proto compiler
+   * parser.
+   *
    * Whether the message is an automatically generated map entry type for the
    * maps field.
    *
@@ -707,12 +931,27 @@ export interface MessageOptions {
    * use a native map in the target language to hold the keys and values.
    * The reflection APIs in such implementations still need to work as
    * if the field is a repeated message field.
-   *
-   * NOTE: Do not set the option in .proto files. Always use the maps syntax
-   * instead. The option should only be implicitly set by the proto compiler
-   * parser.
    */
   mapEntry: boolean;
+  /**
+   * Enable the legacy handling of JSON field name conflicts.  This lowercases
+   * and strips underscored from the fields before comparison in proto3 only.
+   * The new behavior takes `json_name` into account and applies to proto2 as
+   * well.
+   *
+   * This should only be used as a temporary measure against broken builds due
+   * to the change in behavior for JSON field name conflicts.
+   *
+   * TODO This is legacy behavior we plan to remove once downstream
+   * teams have had time to migrate.
+   *
+   * @deprecated
+   */
+  deprecatedLegacyJsonFieldConflicts: boolean;
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
@@ -721,8 +960,10 @@ export interface FieldOptions {
   /**
    * The ctype option instructs the C++ code generator to use a different
    * representation of the field than it normally would.  See the specific
-   * options below.  This option is not yet implemented in the open source
-   * release -- sorry, we'll try to include it in a future version!
+   * options below.  This option is only implemented to support use of
+   * [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of
+   * type "bytes" in the open source release -- sorry, we'll try to include
+   * other types in a future version!
    */
   ctype: FieldOptions_CType;
   /**
@@ -730,7 +971,9 @@ export interface FieldOptions {
    * a more efficient representation on the wire. Rather than repeatedly
    * writing the tag and type for each element, the entire array is encoded as
    * a single length-delimited blob. In proto3, only explicit setting it to
-   * false will avoid using packed encoding.
+   * false will avoid using packed encoding.  This option is prohibited in
+   * Editions, but the `repeated_field_encoding` feature can be used to control
+   * the behavior.
    */
   packed: boolean;
   /**
@@ -776,11 +1019,8 @@ export interface FieldOptions {
    * check its required fields, regardless of whether or not the message has
    * been parsed.
    *
-   * As of 2021, lazy does no correctness checks on the byte stream during
-   * parsing.  This may lead to crashes if and when an invalid byte stream is
-   * finally parsed upon access.
-   *
-   * TODO(b/211906113):  Enable validation on lazy fields.
+   * As of May 2022, lazy verifies the contents of the byte stream during
+   * parsing.  An invalid byte stream will cause the overall parsing to fail.
    */
   lazy: boolean;
   /**
@@ -798,6 +1038,18 @@ export interface FieldOptions {
   deprecated: boolean;
   /** For Google-internal migration only. Do not use. */
   weak: boolean;
+  /**
+   * Indicate that the field value should not be printed out when using debug
+   * formats, e.g. when the field contains sensitive credentials.
+   */
+  debugRedact: boolean;
+  retention: FieldOptions_OptionRetention;
+  targets: FieldOptions_OptionTargetType[];
+  editionDefaults: FieldOptions_EditionDefault[];
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
@@ -805,6 +1057,14 @@ export interface FieldOptions {
 export enum FieldOptions_CType {
   /** STRING - Default mode. */
   STRING = "STRING",
+  /**
+   * CORD - The option [ctype=CORD] may be applied to a non-repeated field of type
+   * "bytes". It indicates that in C++, the data should be stored in a Cord
+   * instead of a string.  For very large strings, this may reduce memory
+   * fragmentation. It may also allow better performance when parsing from a
+   * Cord, or when parsing with aliasing enabled, as the parsed Cord may then
+   * alias the original buffer.
+   */
   CORD = "CORD",
   STRING_PIECE = "STRING_PIECE",
 }
@@ -821,7 +1081,7 @@ export function fieldOptions_CTypeFromJSON(object: any): FieldOptions_CType {
     case "STRING_PIECE":
       return FieldOptions_CType.STRING_PIECE;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_CType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_CType");
   }
 }
 
@@ -834,7 +1094,7 @@ export function fieldOptions_CTypeToJSON(object: FieldOptions_CType): string {
     case FieldOptions_CType.STRING_PIECE:
       return "STRING_PIECE";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_CType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_CType");
   }
 }
 
@@ -847,7 +1107,7 @@ export function fieldOptions_CTypeToNumber(object: FieldOptions_CType): number {
     case FieldOptions_CType.STRING_PIECE:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_CType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_CType");
   }
 }
 
@@ -872,7 +1132,7 @@ export function fieldOptions_JSTypeFromJSON(object: any): FieldOptions_JSType {
     case "JS_NUMBER":
       return FieldOptions_JSType.JS_NUMBER;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_JSType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_JSType");
   }
 }
 
@@ -885,7 +1145,7 @@ export function fieldOptions_JSTypeToJSON(object: FieldOptions_JSType): string {
     case FieldOptions_JSType.JS_NUMBER:
       return "JS_NUMBER";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_JSType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_JSType");
   }
 }
 
@@ -898,11 +1158,190 @@ export function fieldOptions_JSTypeToNumber(object: FieldOptions_JSType): number
     case FieldOptions_JSType.JS_NUMBER:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_JSType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_JSType");
   }
 }
 
+/**
+ * If set to RETENTION_SOURCE, the option will be omitted from the binary.
+ * Note: as of January 2023, support for this is in progress and does not yet
+ * have an effect (b/264593489).
+ */
+export enum FieldOptions_OptionRetention {
+  RETENTION_UNKNOWN = "RETENTION_UNKNOWN",
+  RETENTION_RUNTIME = "RETENTION_RUNTIME",
+  RETENTION_SOURCE = "RETENTION_SOURCE",
+}
+
+export function fieldOptions_OptionRetentionFromJSON(object: any): FieldOptions_OptionRetention {
+  switch (object) {
+    case 0:
+    case "RETENTION_UNKNOWN":
+      return FieldOptions_OptionRetention.RETENTION_UNKNOWN;
+    case 1:
+    case "RETENTION_RUNTIME":
+      return FieldOptions_OptionRetention.RETENTION_RUNTIME;
+    case 2:
+    case "RETENTION_SOURCE":
+      return FieldOptions_OptionRetention.RETENTION_SOURCE;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_OptionRetention");
+  }
+}
+
+export function fieldOptions_OptionRetentionToJSON(object: FieldOptions_OptionRetention): string {
+  switch (object) {
+    case FieldOptions_OptionRetention.RETENTION_UNKNOWN:
+      return "RETENTION_UNKNOWN";
+    case FieldOptions_OptionRetention.RETENTION_RUNTIME:
+      return "RETENTION_RUNTIME";
+    case FieldOptions_OptionRetention.RETENTION_SOURCE:
+      return "RETENTION_SOURCE";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_OptionRetention");
+  }
+}
+
+export function fieldOptions_OptionRetentionToNumber(object: FieldOptions_OptionRetention): number {
+  switch (object) {
+    case FieldOptions_OptionRetention.RETENTION_UNKNOWN:
+      return 0;
+    case FieldOptions_OptionRetention.RETENTION_RUNTIME:
+      return 1;
+    case FieldOptions_OptionRetention.RETENTION_SOURCE:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FieldOptions_OptionRetention");
+  }
+}
+
+/**
+ * This indicates the types of entities that the field may apply to when used
+ * as an option. If it is unset, then the field may be freely used as an
+ * option on any kind of entity. Note: as of January 2023, support for this is
+ * in progress and does not yet have an effect (b/264593489).
+ */
+export enum FieldOptions_OptionTargetType {
+  TARGET_TYPE_UNKNOWN = "TARGET_TYPE_UNKNOWN",
+  TARGET_TYPE_FILE = "TARGET_TYPE_FILE",
+  TARGET_TYPE_EXTENSION_RANGE = "TARGET_TYPE_EXTENSION_RANGE",
+  TARGET_TYPE_MESSAGE = "TARGET_TYPE_MESSAGE",
+  TARGET_TYPE_FIELD = "TARGET_TYPE_FIELD",
+  TARGET_TYPE_ONEOF = "TARGET_TYPE_ONEOF",
+  TARGET_TYPE_ENUM = "TARGET_TYPE_ENUM",
+  TARGET_TYPE_ENUM_ENTRY = "TARGET_TYPE_ENUM_ENTRY",
+  TARGET_TYPE_SERVICE = "TARGET_TYPE_SERVICE",
+  TARGET_TYPE_METHOD = "TARGET_TYPE_METHOD",
+}
+
+export function fieldOptions_OptionTargetTypeFromJSON(object: any): FieldOptions_OptionTargetType {
+  switch (object) {
+    case 0:
+    case "TARGET_TYPE_UNKNOWN":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN;
+    case 1:
+    case "TARGET_TYPE_FILE":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_FILE;
+    case 2:
+    case "TARGET_TYPE_EXTENSION_RANGE":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE;
+    case 3:
+    case "TARGET_TYPE_MESSAGE":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE;
+    case 4:
+    case "TARGET_TYPE_FIELD":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_FIELD;
+    case 5:
+    case "TARGET_TYPE_ONEOF":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF;
+    case 6:
+    case "TARGET_TYPE_ENUM":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_ENUM;
+    case 7:
+    case "TARGET_TYPE_ENUM_ENTRY":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY;
+    case 8:
+    case "TARGET_TYPE_SERVICE":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE;
+    case 9:
+    case "TARGET_TYPE_METHOD":
+      return FieldOptions_OptionTargetType.TARGET_TYPE_METHOD;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum FieldOptions_OptionTargetType",
+      );
+  }
+}
+
+export function fieldOptions_OptionTargetTypeToJSON(object: FieldOptions_OptionTargetType): string {
+  switch (object) {
+    case FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN:
+      return "TARGET_TYPE_UNKNOWN";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_FILE:
+      return "TARGET_TYPE_FILE";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE:
+      return "TARGET_TYPE_EXTENSION_RANGE";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE:
+      return "TARGET_TYPE_MESSAGE";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_FIELD:
+      return "TARGET_TYPE_FIELD";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF:
+      return "TARGET_TYPE_ONEOF";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM:
+      return "TARGET_TYPE_ENUM";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY:
+      return "TARGET_TYPE_ENUM_ENTRY";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE:
+      return "TARGET_TYPE_SERVICE";
+    case FieldOptions_OptionTargetType.TARGET_TYPE_METHOD:
+      return "TARGET_TYPE_METHOD";
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum FieldOptions_OptionTargetType",
+      );
+  }
+}
+
+export function fieldOptions_OptionTargetTypeToNumber(object: FieldOptions_OptionTargetType): number {
+  switch (object) {
+    case FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN:
+      return 0;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_FILE:
+      return 1;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE:
+      return 2;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE:
+      return 3;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_FIELD:
+      return 4;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF:
+      return 5;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM:
+      return 6;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY:
+      return 7;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE:
+      return 8;
+    case FieldOptions_OptionTargetType.TARGET_TYPE_METHOD:
+      return 9;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum FieldOptions_OptionTargetType",
+      );
+  }
+}
+
+export interface FieldOptions_EditionDefault {
+  edition: Edition;
+  /** Textproto value. */
+  value: string;
+}
+
 export interface OneofOptions {
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
@@ -920,6 +1359,21 @@ export interface EnumOptions {
    * is a formalization for deprecating enums.
    */
   deprecated: boolean;
+  /**
+   * Enable the legacy handling of JSON field name conflicts.  This lowercases
+   * and strips underscored from the fields before comparison in proto3 only.
+   * The new behavior takes `json_name` into account and applies to proto2 as
+   * well.
+   * TODO Remove this legacy behavior once downstream teams have
+   * had time to migrate.
+   *
+   * @deprecated
+   */
+  deprecatedLegacyJsonFieldConflicts: boolean;
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
@@ -932,11 +1386,25 @@ export interface EnumValueOptions {
    * this is a formalization for deprecating enum values.
    */
   deprecated: boolean;
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
+  /**
+   * Indicate that fields annotated with this enum value should not be printed
+   * out when using debug formats, e.g. when the field contains sensitive
+   * credentials.
+   */
+  debugRedact: boolean;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
 
 export interface ServiceOptions {
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /**
    * Is this service deprecated?
    * Depending on the target platform, this can emit Deprecated annotations
@@ -957,6 +1425,10 @@ export interface MethodOptions {
    */
   deprecated: boolean;
   idempotencyLevel: MethodOptions_IdempotencyLevel;
+  /** Any features defined in the specific edition. */
+  features:
+    | FeatureSet
+    | undefined;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
@@ -986,7 +1458,9 @@ export function methodOptions_IdempotencyLevelFromJSON(object: any): MethodOptio
     case "IDEMPOTENT":
       return MethodOptions_IdempotencyLevel.IDEMPOTENT;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum MethodOptions_IdempotencyLevel");
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum MethodOptions_IdempotencyLevel",
+      );
   }
 }
 
@@ -999,7 +1473,9 @@ export function methodOptions_IdempotencyLevelToJSON(object: MethodOptions_Idemp
     case MethodOptions_IdempotencyLevel.IDEMPOTENT:
       return "IDEMPOTENT";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum MethodOptions_IdempotencyLevel");
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum MethodOptions_IdempotencyLevel",
+      );
   }
 }
 
@@ -1012,7 +1488,9 @@ export function methodOptions_IdempotencyLevelToNumber(object: MethodOptions_Ide
     case MethodOptions_IdempotencyLevel.IDEMPOTENT:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum MethodOptions_IdempotencyLevel");
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum MethodOptions_IdempotencyLevel",
+      );
   }
 }
 
@@ -1048,6 +1526,356 @@ export interface UninterpretedOption {
 export interface UninterpretedOption_NamePart {
   namePart: string;
   isExtension: boolean;
+}
+
+/**
+ * TODO Enums in C++ gencode (and potentially other languages) are
+ * not well scoped.  This means that each of the feature enums below can clash
+ * with each other.  The short names we've chosen maximize call-site
+ * readability, but leave us very open to this scenario.  A future feature will
+ * be designed and implemented to handle this, hopefully before we ever hit a
+ * conflict here.
+ */
+export interface FeatureSet {
+  fieldPresence: FeatureSet_FieldPresence;
+  enumType: FeatureSet_EnumType;
+  repeatedFieldEncoding: FeatureSet_RepeatedFieldEncoding;
+  utf8Validation: FeatureSet_Utf8Validation;
+  messageEncoding: FeatureSet_MessageEncoding;
+  jsonFormat: FeatureSet_JsonFormat;
+}
+
+export enum FeatureSet_FieldPresence {
+  FIELD_PRESENCE_UNKNOWN = "FIELD_PRESENCE_UNKNOWN",
+  EXPLICIT = "EXPLICIT",
+  IMPLICIT = "IMPLICIT",
+  LEGACY_REQUIRED = "LEGACY_REQUIRED",
+}
+
+export function featureSet_FieldPresenceFromJSON(object: any): FeatureSet_FieldPresence {
+  switch (object) {
+    case 0:
+    case "FIELD_PRESENCE_UNKNOWN":
+      return FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN;
+    case 1:
+    case "EXPLICIT":
+      return FeatureSet_FieldPresence.EXPLICIT;
+    case 2:
+    case "IMPLICIT":
+      return FeatureSet_FieldPresence.IMPLICIT;
+    case 3:
+    case "LEGACY_REQUIRED":
+      return FeatureSet_FieldPresence.LEGACY_REQUIRED;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_FieldPresence");
+  }
+}
+
+export function featureSet_FieldPresenceToJSON(object: FeatureSet_FieldPresence): string {
+  switch (object) {
+    case FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN:
+      return "FIELD_PRESENCE_UNKNOWN";
+    case FeatureSet_FieldPresence.EXPLICIT:
+      return "EXPLICIT";
+    case FeatureSet_FieldPresence.IMPLICIT:
+      return "IMPLICIT";
+    case FeatureSet_FieldPresence.LEGACY_REQUIRED:
+      return "LEGACY_REQUIRED";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_FieldPresence");
+  }
+}
+
+export function featureSet_FieldPresenceToNumber(object: FeatureSet_FieldPresence): number {
+  switch (object) {
+    case FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN:
+      return 0;
+    case FeatureSet_FieldPresence.EXPLICIT:
+      return 1;
+    case FeatureSet_FieldPresence.IMPLICIT:
+      return 2;
+    case FeatureSet_FieldPresence.LEGACY_REQUIRED:
+      return 3;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_FieldPresence");
+  }
+}
+
+export enum FeatureSet_EnumType {
+  ENUM_TYPE_UNKNOWN = "ENUM_TYPE_UNKNOWN",
+  OPEN = "OPEN",
+  CLOSED = "CLOSED",
+}
+
+export function featureSet_EnumTypeFromJSON(object: any): FeatureSet_EnumType {
+  switch (object) {
+    case 0:
+    case "ENUM_TYPE_UNKNOWN":
+      return FeatureSet_EnumType.ENUM_TYPE_UNKNOWN;
+    case 1:
+    case "OPEN":
+      return FeatureSet_EnumType.OPEN;
+    case 2:
+    case "CLOSED":
+      return FeatureSet_EnumType.CLOSED;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_EnumType");
+  }
+}
+
+export function featureSet_EnumTypeToJSON(object: FeatureSet_EnumType): string {
+  switch (object) {
+    case FeatureSet_EnumType.ENUM_TYPE_UNKNOWN:
+      return "ENUM_TYPE_UNKNOWN";
+    case FeatureSet_EnumType.OPEN:
+      return "OPEN";
+    case FeatureSet_EnumType.CLOSED:
+      return "CLOSED";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_EnumType");
+  }
+}
+
+export function featureSet_EnumTypeToNumber(object: FeatureSet_EnumType): number {
+  switch (object) {
+    case FeatureSet_EnumType.ENUM_TYPE_UNKNOWN:
+      return 0;
+    case FeatureSet_EnumType.OPEN:
+      return 1;
+    case FeatureSet_EnumType.CLOSED:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_EnumType");
+  }
+}
+
+export enum FeatureSet_RepeatedFieldEncoding {
+  REPEATED_FIELD_ENCODING_UNKNOWN = "REPEATED_FIELD_ENCODING_UNKNOWN",
+  PACKED = "PACKED",
+  EXPANDED = "EXPANDED",
+}
+
+export function featureSet_RepeatedFieldEncodingFromJSON(object: any): FeatureSet_RepeatedFieldEncoding {
+  switch (object) {
+    case 0:
+    case "REPEATED_FIELD_ENCODING_UNKNOWN":
+      return FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN;
+    case 1:
+    case "PACKED":
+      return FeatureSet_RepeatedFieldEncoding.PACKED;
+    case 2:
+    case "EXPANDED":
+      return FeatureSet_RepeatedFieldEncoding.EXPANDED;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum FeatureSet_RepeatedFieldEncoding",
+      );
+  }
+}
+
+export function featureSet_RepeatedFieldEncodingToJSON(object: FeatureSet_RepeatedFieldEncoding): string {
+  switch (object) {
+    case FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN:
+      return "REPEATED_FIELD_ENCODING_UNKNOWN";
+    case FeatureSet_RepeatedFieldEncoding.PACKED:
+      return "PACKED";
+    case FeatureSet_RepeatedFieldEncoding.EXPANDED:
+      return "EXPANDED";
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum FeatureSet_RepeatedFieldEncoding",
+      );
+  }
+}
+
+export function featureSet_RepeatedFieldEncodingToNumber(object: FeatureSet_RepeatedFieldEncoding): number {
+  switch (object) {
+    case FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN:
+      return 0;
+    case FeatureSet_RepeatedFieldEncoding.PACKED:
+      return 1;
+    case FeatureSet_RepeatedFieldEncoding.EXPANDED:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum FeatureSet_RepeatedFieldEncoding",
+      );
+  }
+}
+
+export enum FeatureSet_Utf8Validation {
+  UTF8_VALIDATION_UNKNOWN = "UTF8_VALIDATION_UNKNOWN",
+  NONE = "NONE",
+  VERIFY = "VERIFY",
+}
+
+export function featureSet_Utf8ValidationFromJSON(object: any): FeatureSet_Utf8Validation {
+  switch (object) {
+    case 0:
+    case "UTF8_VALIDATION_UNKNOWN":
+      return FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN;
+    case 1:
+    case "NONE":
+      return FeatureSet_Utf8Validation.NONE;
+    case 2:
+    case "VERIFY":
+      return FeatureSet_Utf8Validation.VERIFY;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_Utf8Validation");
+  }
+}
+
+export function featureSet_Utf8ValidationToJSON(object: FeatureSet_Utf8Validation): string {
+  switch (object) {
+    case FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN:
+      return "UTF8_VALIDATION_UNKNOWN";
+    case FeatureSet_Utf8Validation.NONE:
+      return "NONE";
+    case FeatureSet_Utf8Validation.VERIFY:
+      return "VERIFY";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_Utf8Validation");
+  }
+}
+
+export function featureSet_Utf8ValidationToNumber(object: FeatureSet_Utf8Validation): number {
+  switch (object) {
+    case FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN:
+      return 0;
+    case FeatureSet_Utf8Validation.NONE:
+      return 1;
+    case FeatureSet_Utf8Validation.VERIFY:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_Utf8Validation");
+  }
+}
+
+export enum FeatureSet_MessageEncoding {
+  MESSAGE_ENCODING_UNKNOWN = "MESSAGE_ENCODING_UNKNOWN",
+  LENGTH_PREFIXED = "LENGTH_PREFIXED",
+  DELIMITED = "DELIMITED",
+}
+
+export function featureSet_MessageEncodingFromJSON(object: any): FeatureSet_MessageEncoding {
+  switch (object) {
+    case 0:
+    case "MESSAGE_ENCODING_UNKNOWN":
+      return FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN;
+    case 1:
+    case "LENGTH_PREFIXED":
+      return FeatureSet_MessageEncoding.LENGTH_PREFIXED;
+    case 2:
+    case "DELIMITED":
+      return FeatureSet_MessageEncoding.DELIMITED;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_MessageEncoding");
+  }
+}
+
+export function featureSet_MessageEncodingToJSON(object: FeatureSet_MessageEncoding): string {
+  switch (object) {
+    case FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN:
+      return "MESSAGE_ENCODING_UNKNOWN";
+    case FeatureSet_MessageEncoding.LENGTH_PREFIXED:
+      return "LENGTH_PREFIXED";
+    case FeatureSet_MessageEncoding.DELIMITED:
+      return "DELIMITED";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_MessageEncoding");
+  }
+}
+
+export function featureSet_MessageEncodingToNumber(object: FeatureSet_MessageEncoding): number {
+  switch (object) {
+    case FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN:
+      return 0;
+    case FeatureSet_MessageEncoding.LENGTH_PREFIXED:
+      return 1;
+    case FeatureSet_MessageEncoding.DELIMITED:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_MessageEncoding");
+  }
+}
+
+export enum FeatureSet_JsonFormat {
+  JSON_FORMAT_UNKNOWN = "JSON_FORMAT_UNKNOWN",
+  ALLOW = "ALLOW",
+  LEGACY_BEST_EFFORT = "LEGACY_BEST_EFFORT",
+}
+
+export function featureSet_JsonFormatFromJSON(object: any): FeatureSet_JsonFormat {
+  switch (object) {
+    case 0:
+    case "JSON_FORMAT_UNKNOWN":
+      return FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN;
+    case 1:
+    case "ALLOW":
+      return FeatureSet_JsonFormat.ALLOW;
+    case 2:
+    case "LEGACY_BEST_EFFORT":
+      return FeatureSet_JsonFormat.LEGACY_BEST_EFFORT;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_JsonFormat");
+  }
+}
+
+export function featureSet_JsonFormatToJSON(object: FeatureSet_JsonFormat): string {
+  switch (object) {
+    case FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN:
+      return "JSON_FORMAT_UNKNOWN";
+    case FeatureSet_JsonFormat.ALLOW:
+      return "ALLOW";
+    case FeatureSet_JsonFormat.LEGACY_BEST_EFFORT:
+      return "LEGACY_BEST_EFFORT";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_JsonFormat");
+  }
+}
+
+export function featureSet_JsonFormatToNumber(object: FeatureSet_JsonFormat): number {
+  switch (object) {
+    case FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN:
+      return 0;
+    case FeatureSet_JsonFormat.ALLOW:
+      return 1;
+    case FeatureSet_JsonFormat.LEGACY_BEST_EFFORT:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum FeatureSet_JsonFormat");
+  }
+}
+
+/**
+ * A compiled specification for the defaults of a set of features.  These
+ * messages are generated from FeatureSet extensions and can be used to seed
+ * feature resolution. The resolution with this object becomes a simple search
+ * for the closest matching edition, followed by proto merges.
+ */
+export interface FeatureSetDefaults {
+  defaults: FeatureSetDefaults_FeatureSetEditionDefault[];
+  /**
+   * The minimum supported edition (inclusive) when this was constructed.
+   * Editions before this will not have defaults.
+   */
+  minimumEdition: Edition;
+  /**
+   * The maximum known edition (inclusive) when this was constructed. Editions
+   * after this will not have reliable defaults.
+   */
+  maximumEdition: Edition;
+}
+
+/**
+ * A map from every known edition with a unique set of defaults to its
+ * defaults. Not all editions may be contained here.  For a given edition,
+ * the defaults at the closest matching edition ordered at or before it should
+ * be used.  This field must be in strict ascending order by edition.
+ */
+export interface FeatureSetDefaults_FeatureSetEditionDefault {
+  edition: Edition;
+  features: FeatureSet | undefined;
 }
 
 /**
@@ -1220,10 +2048,72 @@ export interface GeneratedCodeInfo_Annotation {
   begin: number;
   /**
    * Identifies the ending offset in bytes in the generated code that
-   * relates to the identified offset. The end offset should be one past
+   * relates to the identified object. The end offset should be one past
    * the last relevant byte (so the length of the text = end - begin).
    */
   end: number;
+  semantic: GeneratedCodeInfo_Annotation_Semantic;
+}
+
+/**
+ * Represents the identified object's effect on the element in the original
+ * .proto file.
+ */
+export enum GeneratedCodeInfo_Annotation_Semantic {
+  /** NONE - There is no effect or the effect is indescribable. */
+  NONE = "NONE",
+  /** SET - The element is set or otherwise mutated. */
+  SET = "SET",
+  /** ALIAS - An alias to the element is returned. */
+  ALIAS = "ALIAS",
+}
+
+export function generatedCodeInfo_Annotation_SemanticFromJSON(object: any): GeneratedCodeInfo_Annotation_Semantic {
+  switch (object) {
+    case 0:
+    case "NONE":
+      return GeneratedCodeInfo_Annotation_Semantic.NONE;
+    case 1:
+    case "SET":
+      return GeneratedCodeInfo_Annotation_Semantic.SET;
+    case 2:
+    case "ALIAS":
+      return GeneratedCodeInfo_Annotation_Semantic.ALIAS;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum GeneratedCodeInfo_Annotation_Semantic",
+      );
+  }
+}
+
+export function generatedCodeInfo_Annotation_SemanticToJSON(object: GeneratedCodeInfo_Annotation_Semantic): string {
+  switch (object) {
+    case GeneratedCodeInfo_Annotation_Semantic.NONE:
+      return "NONE";
+    case GeneratedCodeInfo_Annotation_Semantic.SET:
+      return "SET";
+    case GeneratedCodeInfo_Annotation_Semantic.ALIAS:
+      return "ALIAS";
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum GeneratedCodeInfo_Annotation_Semantic",
+      );
+  }
+}
+
+export function generatedCodeInfo_Annotation_SemanticToNumber(object: GeneratedCodeInfo_Annotation_Semantic): number {
+  switch (object) {
+    case GeneratedCodeInfo_Annotation_Semantic.NONE:
+      return 0;
+    case GeneratedCodeInfo_Annotation_Semantic.SET:
+      return 1;
+    case GeneratedCodeInfo_Annotation_Semantic.ALIAS:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum GeneratedCodeInfo_Annotation_Semantic",
+      );
+  }
 }
 
 function createBaseFileDescriptorSet(): FileDescriptorSet {
@@ -1291,6 +2181,7 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
     options: undefined,
     sourceCodeInfo: undefined,
     syntax: "",
+    edition: Edition.EDITION_UNKNOWN,
   };
 }
 
@@ -1335,6 +2226,9 @@ export const FileDescriptorProto = {
     }
     if (message.syntax !== "") {
       writer.uint32(98).string(message.syntax);
+    }
+    if (message.edition !== Edition.EDITION_UNKNOWN) {
+      writer.uint32(112).int32(editionToNumber(message.edition));
     }
     return writer;
   },
@@ -1396,6 +2290,9 @@ export const FileDescriptorProto = {
         case 12:
           message.syntax = reader.string();
           break;
+        case 14:
+          message.edition = editionFromJSON(reader.int32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1424,6 +2321,7 @@ export const FileDescriptorProto = {
       options: isSet(object.options) ? FileOptions.fromJSON(object.options) : undefined,
       sourceCodeInfo: isSet(object.sourceCodeInfo) ? SourceCodeInfo.fromJSON(object.sourceCodeInfo) : undefined,
       syntax: isSet(object.syntax) ? String(object.syntax) : "",
+      edition: isSet(object.edition) ? editionFromJSON(object.edition) : Edition.EDITION_UNKNOWN,
     };
   },
 
@@ -1470,6 +2368,7 @@ export const FileDescriptorProto = {
     message.sourceCodeInfo !== undefined &&
       (obj.sourceCodeInfo = message.sourceCodeInfo ? SourceCodeInfo.toJSON(message.sourceCodeInfo) : undefined);
     message.syntax !== undefined && (obj.syntax = message.syntax);
+    message.edition !== undefined && (obj.edition = editionToJSON(message.edition));
     return obj;
   },
 
@@ -1491,6 +2390,7 @@ export const FileDescriptorProto = {
       ? SourceCodeInfo.fromPartial(object.sourceCodeInfo)
       : undefined;
     message.syntax = object.syntax ?? "";
+    message.edition = object.edition ?? Edition.EDITION_UNKNOWN;
     return message;
   },
 };
@@ -1807,13 +2707,27 @@ export const DescriptorProto_ReservedRange = {
 };
 
 function createBaseExtensionRangeOptions(): ExtensionRangeOptions {
-  return { uninterpretedOption: [] };
+  return {
+    uninterpretedOption: [],
+    declaration: [],
+    features: undefined,
+    verification: ExtensionRangeOptions_VerificationState.DECLARATION,
+  };
 }
 
 export const ExtensionRangeOptions = {
   encode(message: ExtensionRangeOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
+    }
+    for (const v of message.declaration) {
+      ExtensionRangeOptions_Declaration.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(402).fork()).ldelim();
+    }
+    if (message.verification !== ExtensionRangeOptions_VerificationState.DECLARATION) {
+      writer.uint32(24).int32(extensionRangeOptions_VerificationStateToNumber(message.verification));
     }
     return writer;
   },
@@ -1828,6 +2742,15 @@ export const ExtensionRangeOptions = {
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.declaration.push(ExtensionRangeOptions_Declaration.decode(reader, reader.uint32()));
+          break;
+        case 50:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.verification = extensionRangeOptions_VerificationStateFromJSON(reader.int32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1841,6 +2764,13 @@ export const ExtensionRangeOptions = {
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
+      declaration: Array.isArray(object?.declaration)
+        ? object.declaration.map((e: any) => ExtensionRangeOptions_Declaration.fromJSON(e))
+        : [],
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
+      verification: isSet(object.verification)
+        ? extensionRangeOptions_VerificationStateFromJSON(object.verification)
+        : ExtensionRangeOptions_VerificationState.DECLARATION,
     };
   },
 
@@ -1851,12 +2781,111 @@ export const ExtensionRangeOptions = {
     } else {
       obj.uninterpretedOption = [];
     }
+    if (message.declaration) {
+      obj.declaration = message.declaration.map((e) => e ? ExtensionRangeOptions_Declaration.toJSON(e) : undefined);
+    } else {
+      obj.declaration = [];
+    }
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
+    message.verification !== undefined &&
+      (obj.verification = extensionRangeOptions_VerificationStateToJSON(message.verification));
     return obj;
   },
 
   fromPartial(object: DeepPartial<ExtensionRangeOptions>): ExtensionRangeOptions {
     const message = createBaseExtensionRangeOptions();
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
+    message.declaration = object.declaration?.map((e) => ExtensionRangeOptions_Declaration.fromPartial(e)) || [];
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
+    message.verification = object.verification ?? ExtensionRangeOptions_VerificationState.DECLARATION;
+    return message;
+  },
+};
+
+function createBaseExtensionRangeOptions_Declaration(): ExtensionRangeOptions_Declaration {
+  return { number: 0, fullName: "", type: "", reserved: false, repeated: false };
+}
+
+export const ExtensionRangeOptions_Declaration = {
+  encode(message: ExtensionRangeOptions_Declaration, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.number !== 0) {
+      writer.uint32(8).int32(message.number);
+    }
+    if (message.fullName !== "") {
+      writer.uint32(18).string(message.fullName);
+    }
+    if (message.type !== "") {
+      writer.uint32(26).string(message.type);
+    }
+    if (message.reserved === true) {
+      writer.uint32(40).bool(message.reserved);
+    }
+    if (message.repeated === true) {
+      writer.uint32(48).bool(message.repeated);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExtensionRangeOptions_Declaration {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExtensionRangeOptions_Declaration();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.number = reader.int32();
+          break;
+        case 2:
+          message.fullName = reader.string();
+          break;
+        case 3:
+          message.type = reader.string();
+          break;
+        case 5:
+          message.reserved = reader.bool();
+          break;
+        case 6:
+          message.repeated = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ExtensionRangeOptions_Declaration {
+    return {
+      number: isSet(object.number) ? Number(object.number) : 0,
+      fullName: isSet(object.fullName) ? String(object.fullName) : "",
+      type: isSet(object.type) ? String(object.type) : "",
+      reserved: isSet(object.reserved) ? Boolean(object.reserved) : false,
+      repeated: isSet(object.repeated) ? Boolean(object.repeated) : false,
+    };
+  },
+
+  toJSON(message: ExtensionRangeOptions_Declaration): unknown {
+    const obj: any = {};
+    message.number !== undefined && (obj.number = Math.round(message.number));
+    message.fullName !== undefined && (obj.fullName = message.fullName);
+    message.type !== undefined && (obj.type = message.type);
+    message.reserved !== undefined && (obj.reserved = message.reserved);
+    message.repeated !== undefined && (obj.repeated = message.repeated);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ExtensionRangeOptions_Declaration>): ExtensionRangeOptions_Declaration {
+    const message = createBaseExtensionRangeOptions_Declaration();
+    message.number = object.number ?? 0;
+    message.fullName = object.fullName ?? "";
+    message.type = object.type ?? "";
+    message.reserved = object.reserved ?? false;
+    message.repeated = object.repeated ?? false;
     return message;
   },
 };
@@ -2505,6 +3534,7 @@ function createBaseFileOptions(): FileOptions {
     phpNamespace: "",
     phpMetadataNamespace: "",
     rubyPackage: "",
+    features: undefined,
     uninterpretedOption: [],
   };
 }
@@ -2570,6 +3600,9 @@ export const FileOptions = {
     }
     if (message.rubyPackage !== "") {
       writer.uint32(362).string(message.rubyPackage);
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(402).fork()).ldelim();
     }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
@@ -2644,6 +3677,9 @@ export const FileOptions = {
         case 45:
           message.rubyPackage = reader.string();
           break;
+        case 50:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -2681,6 +3717,7 @@ export const FileOptions = {
       phpNamespace: isSet(object.phpNamespace) ? String(object.phpNamespace) : "",
       phpMetadataNamespace: isSet(object.phpMetadataNamespace) ? String(object.phpMetadataNamespace) : "",
       rubyPackage: isSet(object.rubyPackage) ? String(object.rubyPackage) : "",
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -2710,6 +3747,8 @@ export const FileOptions = {
     message.phpNamespace !== undefined && (obj.phpNamespace = message.phpNamespace);
     message.phpMetadataNamespace !== undefined && (obj.phpMetadataNamespace = message.phpMetadataNamespace);
     message.rubyPackage !== undefined && (obj.rubyPackage = message.rubyPackage);
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -2740,6 +3779,9 @@ export const FileOptions = {
     message.phpNamespace = object.phpNamespace ?? "";
     message.phpMetadataNamespace = object.phpMetadataNamespace ?? "";
     message.rubyPackage = object.rubyPackage ?? "";
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
@@ -2751,6 +3793,8 @@ function createBaseMessageOptions(): MessageOptions {
     noStandardDescriptorAccessor: false,
     deprecated: false,
     mapEntry: false,
+    deprecatedLegacyJsonFieldConflicts: false,
+    features: undefined,
     uninterpretedOption: [],
   };
 }
@@ -2768,6 +3812,12 @@ export const MessageOptions = {
     }
     if (message.mapEntry === true) {
       writer.uint32(56).bool(message.mapEntry);
+    }
+    if (message.deprecatedLegacyJsonFieldConflicts === true) {
+      writer.uint32(88).bool(message.deprecatedLegacyJsonFieldConflicts);
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(98).fork()).ldelim();
     }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
@@ -2794,6 +3844,12 @@ export const MessageOptions = {
         case 7:
           message.mapEntry = reader.bool();
           break;
+        case 11:
+          message.deprecatedLegacyJsonFieldConflicts = reader.bool();
+          break;
+        case 12:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -2813,6 +3869,10 @@ export const MessageOptions = {
         : false,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       mapEntry: isSet(object.mapEntry) ? Boolean(object.mapEntry) : false,
+      deprecatedLegacyJsonFieldConflicts: isSet(object.deprecatedLegacyJsonFieldConflicts)
+        ? Boolean(object.deprecatedLegacyJsonFieldConflicts)
+        : false,
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -2826,6 +3886,10 @@ export const MessageOptions = {
       (obj.noStandardDescriptorAccessor = message.noStandardDescriptorAccessor);
     message.deprecated !== undefined && (obj.deprecated = message.deprecated);
     message.mapEntry !== undefined && (obj.mapEntry = message.mapEntry);
+    message.deprecatedLegacyJsonFieldConflicts !== undefined &&
+      (obj.deprecatedLegacyJsonFieldConflicts = message.deprecatedLegacyJsonFieldConflicts);
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -2840,6 +3904,10 @@ export const MessageOptions = {
     message.noStandardDescriptorAccessor = object.noStandardDescriptorAccessor ?? false;
     message.deprecated = object.deprecated ?? false;
     message.mapEntry = object.mapEntry ?? false;
+    message.deprecatedLegacyJsonFieldConflicts = object.deprecatedLegacyJsonFieldConflicts ?? false;
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
@@ -2854,6 +3922,11 @@ function createBaseFieldOptions(): FieldOptions {
     unverifiedLazy: false,
     deprecated: false,
     weak: false,
+    debugRedact: false,
+    retention: FieldOptions_OptionRetention.RETENTION_UNKNOWN,
+    targets: [],
+    editionDefaults: [],
+    features: undefined,
     uninterpretedOption: [],
   };
 }
@@ -2880,6 +3953,23 @@ export const FieldOptions = {
     }
     if (message.weak === true) {
       writer.uint32(80).bool(message.weak);
+    }
+    if (message.debugRedact === true) {
+      writer.uint32(128).bool(message.debugRedact);
+    }
+    if (message.retention !== FieldOptions_OptionRetention.RETENTION_UNKNOWN) {
+      writer.uint32(136).int32(fieldOptions_OptionRetentionToNumber(message.retention));
+    }
+    writer.uint32(154).fork();
+    for (const v of message.targets) {
+      writer.int32(fieldOptions_OptionTargetTypeToNumber(v));
+    }
+    writer.ldelim();
+    for (const v of message.editionDefaults) {
+      FieldOptions_EditionDefault.encode(v!, writer.uint32(162).fork()).ldelim();
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(170).fork()).ldelim();
     }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
@@ -2915,6 +4005,28 @@ export const FieldOptions = {
         case 10:
           message.weak = reader.bool();
           break;
+        case 16:
+          message.debugRedact = reader.bool();
+          break;
+        case 17:
+          message.retention = fieldOptions_OptionRetentionFromJSON(reader.int32());
+          break;
+        case 19:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.targets.push(fieldOptions_OptionTargetTypeFromJSON(reader.int32()));
+            }
+          } else {
+            message.targets.push(fieldOptions_OptionTargetTypeFromJSON(reader.int32()));
+          }
+          break;
+        case 20:
+          message.editionDefaults.push(FieldOptions_EditionDefault.decode(reader, reader.uint32()));
+          break;
+        case 21:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -2935,6 +4047,17 @@ export const FieldOptions = {
       unverifiedLazy: isSet(object.unverifiedLazy) ? Boolean(object.unverifiedLazy) : false,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       weak: isSet(object.weak) ? Boolean(object.weak) : false,
+      debugRedact: isSet(object.debugRedact) ? Boolean(object.debugRedact) : false,
+      retention: isSet(object.retention)
+        ? fieldOptions_OptionRetentionFromJSON(object.retention)
+        : FieldOptions_OptionRetention.RETENTION_UNKNOWN,
+      targets: Array.isArray(object?.targets)
+        ? object.targets.map((e: any) => fieldOptions_OptionTargetTypeFromJSON(e))
+        : [],
+      editionDefaults: Array.isArray(object?.editionDefaults)
+        ? object.editionDefaults.map((e: any) => FieldOptions_EditionDefault.fromJSON(e))
+        : [],
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -2950,6 +4073,20 @@ export const FieldOptions = {
     message.unverifiedLazy !== undefined && (obj.unverifiedLazy = message.unverifiedLazy);
     message.deprecated !== undefined && (obj.deprecated = message.deprecated);
     message.weak !== undefined && (obj.weak = message.weak);
+    message.debugRedact !== undefined && (obj.debugRedact = message.debugRedact);
+    message.retention !== undefined && (obj.retention = fieldOptions_OptionRetentionToJSON(message.retention));
+    if (message.targets) {
+      obj.targets = message.targets.map((e) => fieldOptions_OptionTargetTypeToJSON(e));
+    } else {
+      obj.targets = [];
+    }
+    if (message.editionDefaults) {
+      obj.editionDefaults = message.editionDefaults.map((e) => e ? FieldOptions_EditionDefault.toJSON(e) : undefined);
+    } else {
+      obj.editionDefaults = [];
+    }
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -2967,17 +4104,85 @@ export const FieldOptions = {
     message.unverifiedLazy = object.unverifiedLazy ?? false;
     message.deprecated = object.deprecated ?? false;
     message.weak = object.weak ?? false;
+    message.debugRedact = object.debugRedact ?? false;
+    message.retention = object.retention ?? FieldOptions_OptionRetention.RETENTION_UNKNOWN;
+    message.targets = object.targets?.map((e) => e) || [];
+    message.editionDefaults = object.editionDefaults?.map((e) => FieldOptions_EditionDefault.fromPartial(e)) || [];
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
 };
 
+function createBaseFieldOptions_EditionDefault(): FieldOptions_EditionDefault {
+  return { edition: Edition.EDITION_UNKNOWN, value: "" };
+}
+
+export const FieldOptions_EditionDefault = {
+  encode(message: FieldOptions_EditionDefault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.edition !== Edition.EDITION_UNKNOWN) {
+      writer.uint32(24).int32(editionToNumber(message.edition));
+    }
+    if (message.value !== "") {
+      writer.uint32(18).string(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FieldOptions_EditionDefault {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFieldOptions_EditionDefault();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 3:
+          message.edition = editionFromJSON(reader.int32());
+          break;
+        case 2:
+          message.value = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FieldOptions_EditionDefault {
+    return {
+      edition: isSet(object.edition) ? editionFromJSON(object.edition) : Edition.EDITION_UNKNOWN,
+      value: isSet(object.value) ? String(object.value) : "",
+    };
+  },
+
+  toJSON(message: FieldOptions_EditionDefault): unknown {
+    const obj: any = {};
+    message.edition !== undefined && (obj.edition = editionToJSON(message.edition));
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<FieldOptions_EditionDefault>): FieldOptions_EditionDefault {
+    const message = createBaseFieldOptions_EditionDefault();
+    message.edition = object.edition ?? Edition.EDITION_UNKNOWN;
+    message.value = object.value ?? "";
+    return message;
+  },
+};
+
 function createBaseOneofOptions(): OneofOptions {
-  return { uninterpretedOption: [] };
+  return { features: undefined, uninterpretedOption: [] };
 }
 
 export const OneofOptions = {
   encode(message: OneofOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(10).fork()).ldelim();
+    }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
     }
@@ -2991,6 +4196,9 @@ export const OneofOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -3004,6 +4212,7 @@ export const OneofOptions = {
 
   fromJSON(object: any): OneofOptions {
     return {
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -3012,6 +4221,8 @@ export const OneofOptions = {
 
   toJSON(message: OneofOptions): unknown {
     const obj: any = {};
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -3022,13 +4233,22 @@ export const OneofOptions = {
 
   fromPartial(object: DeepPartial<OneofOptions>): OneofOptions {
     const message = createBaseOneofOptions();
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseEnumOptions(): EnumOptions {
-  return { allowAlias: false, deprecated: false, uninterpretedOption: [] };
+  return {
+    allowAlias: false,
+    deprecated: false,
+    deprecatedLegacyJsonFieldConflicts: false,
+    features: undefined,
+    uninterpretedOption: [],
+  };
 }
 
 export const EnumOptions = {
@@ -3038,6 +4258,12 @@ export const EnumOptions = {
     }
     if (message.deprecated === true) {
       writer.uint32(24).bool(message.deprecated);
+    }
+    if (message.deprecatedLegacyJsonFieldConflicts === true) {
+      writer.uint32(48).bool(message.deprecatedLegacyJsonFieldConflicts);
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(58).fork()).ldelim();
     }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
@@ -3058,6 +4284,12 @@ export const EnumOptions = {
         case 3:
           message.deprecated = reader.bool();
           break;
+        case 6:
+          message.deprecatedLegacyJsonFieldConflicts = reader.bool();
+          break;
+        case 7:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -3073,6 +4305,10 @@ export const EnumOptions = {
     return {
       allowAlias: isSet(object.allowAlias) ? Boolean(object.allowAlias) : false,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
+      deprecatedLegacyJsonFieldConflicts: isSet(object.deprecatedLegacyJsonFieldConflicts)
+        ? Boolean(object.deprecatedLegacyJsonFieldConflicts)
+        : false,
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -3083,6 +4319,10 @@ export const EnumOptions = {
     const obj: any = {};
     message.allowAlias !== undefined && (obj.allowAlias = message.allowAlias);
     message.deprecated !== undefined && (obj.deprecated = message.deprecated);
+    message.deprecatedLegacyJsonFieldConflicts !== undefined &&
+      (obj.deprecatedLegacyJsonFieldConflicts = message.deprecatedLegacyJsonFieldConflicts);
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -3095,19 +4335,29 @@ export const EnumOptions = {
     const message = createBaseEnumOptions();
     message.allowAlias = object.allowAlias ?? false;
     message.deprecated = object.deprecated ?? false;
+    message.deprecatedLegacyJsonFieldConflicts = object.deprecatedLegacyJsonFieldConflicts ?? false;
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseEnumValueOptions(): EnumValueOptions {
-  return { deprecated: false, uninterpretedOption: [] };
+  return { deprecated: false, features: undefined, debugRedact: false, uninterpretedOption: [] };
 }
 
 export const EnumValueOptions = {
   encode(message: EnumValueOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.deprecated === true) {
       writer.uint32(8).bool(message.deprecated);
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.debugRedact === true) {
+      writer.uint32(24).bool(message.debugRedact);
     }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
@@ -3125,6 +4375,12 @@ export const EnumValueOptions = {
         case 1:
           message.deprecated = reader.bool();
           break;
+        case 2:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.debugRedact = reader.bool();
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -3139,6 +4395,8 @@ export const EnumValueOptions = {
   fromJSON(object: any): EnumValueOptions {
     return {
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
+      debugRedact: isSet(object.debugRedact) ? Boolean(object.debugRedact) : false,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -3148,6 +4406,9 @@ export const EnumValueOptions = {
   toJSON(message: EnumValueOptions): unknown {
     const obj: any = {};
     message.deprecated !== undefined && (obj.deprecated = message.deprecated);
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
+    message.debugRedact !== undefined && (obj.debugRedact = message.debugRedact);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -3159,17 +4420,24 @@ export const EnumValueOptions = {
   fromPartial(object: DeepPartial<EnumValueOptions>): EnumValueOptions {
     const message = createBaseEnumValueOptions();
     message.deprecated = object.deprecated ?? false;
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
+    message.debugRedact = object.debugRedact ?? false;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseServiceOptions(): ServiceOptions {
-  return { deprecated: false, uninterpretedOption: [] };
+  return { features: undefined, deprecated: false, uninterpretedOption: [] };
 }
 
 export const ServiceOptions = {
   encode(message: ServiceOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(274).fork()).ldelim();
+    }
     if (message.deprecated === true) {
       writer.uint32(264).bool(message.deprecated);
     }
@@ -3186,6 +4454,9 @@ export const ServiceOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 34:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 33:
           message.deprecated = reader.bool();
           break;
@@ -3202,6 +4473,7 @@ export const ServiceOptions = {
 
   fromJSON(object: any): ServiceOptions {
     return {
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
@@ -3211,6 +4483,8 @@ export const ServiceOptions = {
 
   toJSON(message: ServiceOptions): unknown {
     const obj: any = {};
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     message.deprecated !== undefined && (obj.deprecated = message.deprecated);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
@@ -3222,6 +4496,9 @@ export const ServiceOptions = {
 
   fromPartial(object: DeepPartial<ServiceOptions>): ServiceOptions {
     const message = createBaseServiceOptions();
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.deprecated = object.deprecated ?? false;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
@@ -3232,6 +4509,7 @@ function createBaseMethodOptions(): MethodOptions {
   return {
     deprecated: false,
     idempotencyLevel: MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN,
+    features: undefined,
     uninterpretedOption: [],
   };
 }
@@ -3243,6 +4521,9 @@ export const MethodOptions = {
     }
     if (message.idempotencyLevel !== MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN) {
       writer.uint32(272).int32(methodOptions_IdempotencyLevelToNumber(message.idempotencyLevel));
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(282).fork()).ldelim();
     }
     for (const v of message.uninterpretedOption) {
       UninterpretedOption.encode(v!, writer.uint32(7994).fork()).ldelim();
@@ -3263,6 +4544,9 @@ export const MethodOptions = {
         case 34:
           message.idempotencyLevel = methodOptions_IdempotencyLevelFromJSON(reader.int32());
           break;
+        case 35:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
         case 999:
           message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
           break;
@@ -3280,6 +4564,7 @@ export const MethodOptions = {
       idempotencyLevel: isSet(object.idempotencyLevel)
         ? methodOptions_IdempotencyLevelFromJSON(object.idempotencyLevel)
         : MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN,
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
@@ -3291,6 +4576,8 @@ export const MethodOptions = {
     message.deprecated !== undefined && (obj.deprecated = message.deprecated);
     message.idempotencyLevel !== undefined &&
       (obj.idempotencyLevel = methodOptions_IdempotencyLevelToJSON(message.idempotencyLevel));
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
     if (message.uninterpretedOption) {
       obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
     } else {
@@ -3303,6 +4590,9 @@ export const MethodOptions = {
     const message = createBaseMethodOptions();
     message.deprecated = object.deprecated ?? false;
     message.idempotencyLevel = object.idempotencyLevel ?? MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN;
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     message.uninterpretedOption = object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
@@ -3478,6 +4768,259 @@ export const UninterpretedOption_NamePart = {
     const message = createBaseUninterpretedOption_NamePart();
     message.namePart = object.namePart ?? "";
     message.isExtension = object.isExtension ?? false;
+    return message;
+  },
+};
+
+function createBaseFeatureSet(): FeatureSet {
+  return {
+    fieldPresence: FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN,
+    enumType: FeatureSet_EnumType.ENUM_TYPE_UNKNOWN,
+    repeatedFieldEncoding: FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN,
+    utf8Validation: FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN,
+    messageEncoding: FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN,
+    jsonFormat: FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN,
+  };
+}
+
+export const FeatureSet = {
+  encode(message: FeatureSet, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.fieldPresence !== FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN) {
+      writer.uint32(8).int32(featureSet_FieldPresenceToNumber(message.fieldPresence));
+    }
+    if (message.enumType !== FeatureSet_EnumType.ENUM_TYPE_UNKNOWN) {
+      writer.uint32(16).int32(featureSet_EnumTypeToNumber(message.enumType));
+    }
+    if (message.repeatedFieldEncoding !== FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN) {
+      writer.uint32(24).int32(featureSet_RepeatedFieldEncodingToNumber(message.repeatedFieldEncoding));
+    }
+    if (message.utf8Validation !== FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN) {
+      writer.uint32(32).int32(featureSet_Utf8ValidationToNumber(message.utf8Validation));
+    }
+    if (message.messageEncoding !== FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN) {
+      writer.uint32(40).int32(featureSet_MessageEncodingToNumber(message.messageEncoding));
+    }
+    if (message.jsonFormat !== FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN) {
+      writer.uint32(48).int32(featureSet_JsonFormatToNumber(message.jsonFormat));
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FeatureSet {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFeatureSet();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fieldPresence = featureSet_FieldPresenceFromJSON(reader.int32());
+          break;
+        case 2:
+          message.enumType = featureSet_EnumTypeFromJSON(reader.int32());
+          break;
+        case 3:
+          message.repeatedFieldEncoding = featureSet_RepeatedFieldEncodingFromJSON(reader.int32());
+          break;
+        case 4:
+          message.utf8Validation = featureSet_Utf8ValidationFromJSON(reader.int32());
+          break;
+        case 5:
+          message.messageEncoding = featureSet_MessageEncodingFromJSON(reader.int32());
+          break;
+        case 6:
+          message.jsonFormat = featureSet_JsonFormatFromJSON(reader.int32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FeatureSet {
+    return {
+      fieldPresence: isSet(object.fieldPresence)
+        ? featureSet_FieldPresenceFromJSON(object.fieldPresence)
+        : FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN,
+      enumType: isSet(object.enumType)
+        ? featureSet_EnumTypeFromJSON(object.enumType)
+        : FeatureSet_EnumType.ENUM_TYPE_UNKNOWN,
+      repeatedFieldEncoding: isSet(object.repeatedFieldEncoding)
+        ? featureSet_RepeatedFieldEncodingFromJSON(object.repeatedFieldEncoding)
+        : FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN,
+      utf8Validation: isSet(object.utf8Validation)
+        ? featureSet_Utf8ValidationFromJSON(object.utf8Validation)
+        : FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN,
+      messageEncoding: isSet(object.messageEncoding)
+        ? featureSet_MessageEncodingFromJSON(object.messageEncoding)
+        : FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN,
+      jsonFormat: isSet(object.jsonFormat)
+        ? featureSet_JsonFormatFromJSON(object.jsonFormat)
+        : FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN,
+    };
+  },
+
+  toJSON(message: FeatureSet): unknown {
+    const obj: any = {};
+    message.fieldPresence !== undefined && (obj.fieldPresence = featureSet_FieldPresenceToJSON(message.fieldPresence));
+    message.enumType !== undefined && (obj.enumType = featureSet_EnumTypeToJSON(message.enumType));
+    message.repeatedFieldEncoding !== undefined &&
+      (obj.repeatedFieldEncoding = featureSet_RepeatedFieldEncodingToJSON(message.repeatedFieldEncoding));
+    message.utf8Validation !== undefined &&
+      (obj.utf8Validation = featureSet_Utf8ValidationToJSON(message.utf8Validation));
+    message.messageEncoding !== undefined &&
+      (obj.messageEncoding = featureSet_MessageEncodingToJSON(message.messageEncoding));
+    message.jsonFormat !== undefined && (obj.jsonFormat = featureSet_JsonFormatToJSON(message.jsonFormat));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<FeatureSet>): FeatureSet {
+    const message = createBaseFeatureSet();
+    message.fieldPresence = object.fieldPresence ?? FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN;
+    message.enumType = object.enumType ?? FeatureSet_EnumType.ENUM_TYPE_UNKNOWN;
+    message.repeatedFieldEncoding = object.repeatedFieldEncoding ??
+      FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN;
+    message.utf8Validation = object.utf8Validation ?? FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN;
+    message.messageEncoding = object.messageEncoding ?? FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN;
+    message.jsonFormat = object.jsonFormat ?? FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN;
+    return message;
+  },
+};
+
+function createBaseFeatureSetDefaults(): FeatureSetDefaults {
+  return { defaults: [], minimumEdition: Edition.EDITION_UNKNOWN, maximumEdition: Edition.EDITION_UNKNOWN };
+}
+
+export const FeatureSetDefaults = {
+  encode(message: FeatureSetDefaults, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.defaults) {
+      FeatureSetDefaults_FeatureSetEditionDefault.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.minimumEdition !== Edition.EDITION_UNKNOWN) {
+      writer.uint32(32).int32(editionToNumber(message.minimumEdition));
+    }
+    if (message.maximumEdition !== Edition.EDITION_UNKNOWN) {
+      writer.uint32(40).int32(editionToNumber(message.maximumEdition));
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FeatureSetDefaults {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFeatureSetDefaults();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.defaults.push(FeatureSetDefaults_FeatureSetEditionDefault.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.minimumEdition = editionFromJSON(reader.int32());
+          break;
+        case 5:
+          message.maximumEdition = editionFromJSON(reader.int32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FeatureSetDefaults {
+    return {
+      defaults: Array.isArray(object?.defaults)
+        ? object.defaults.map((e: any) => FeatureSetDefaults_FeatureSetEditionDefault.fromJSON(e))
+        : [],
+      minimumEdition: isSet(object.minimumEdition) ? editionFromJSON(object.minimumEdition) : Edition.EDITION_UNKNOWN,
+      maximumEdition: isSet(object.maximumEdition) ? editionFromJSON(object.maximumEdition) : Edition.EDITION_UNKNOWN,
+    };
+  },
+
+  toJSON(message: FeatureSetDefaults): unknown {
+    const obj: any = {};
+    if (message.defaults) {
+      obj.defaults = message.defaults.map((e) => e ? FeatureSetDefaults_FeatureSetEditionDefault.toJSON(e) : undefined);
+    } else {
+      obj.defaults = [];
+    }
+    message.minimumEdition !== undefined && (obj.minimumEdition = editionToJSON(message.minimumEdition));
+    message.maximumEdition !== undefined && (obj.maximumEdition = editionToJSON(message.maximumEdition));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<FeatureSetDefaults>): FeatureSetDefaults {
+    const message = createBaseFeatureSetDefaults();
+    message.defaults = object.defaults?.map((e) => FeatureSetDefaults_FeatureSetEditionDefault.fromPartial(e)) || [];
+    message.minimumEdition = object.minimumEdition ?? Edition.EDITION_UNKNOWN;
+    message.maximumEdition = object.maximumEdition ?? Edition.EDITION_UNKNOWN;
+    return message;
+  },
+};
+
+function createBaseFeatureSetDefaults_FeatureSetEditionDefault(): FeatureSetDefaults_FeatureSetEditionDefault {
+  return { edition: Edition.EDITION_UNKNOWN, features: undefined };
+}
+
+export const FeatureSetDefaults_FeatureSetEditionDefault = {
+  encode(message: FeatureSetDefaults_FeatureSetEditionDefault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.edition !== Edition.EDITION_UNKNOWN) {
+      writer.uint32(24).int32(editionToNumber(message.edition));
+    }
+    if (message.features !== undefined) {
+      FeatureSet.encode(message.features, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FeatureSetDefaults_FeatureSetEditionDefault {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFeatureSetDefaults_FeatureSetEditionDefault();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 3:
+          message.edition = editionFromJSON(reader.int32());
+          break;
+        case 2:
+          message.features = FeatureSet.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FeatureSetDefaults_FeatureSetEditionDefault {
+    return {
+      edition: isSet(object.edition) ? editionFromJSON(object.edition) : Edition.EDITION_UNKNOWN,
+      features: isSet(object.features) ? FeatureSet.fromJSON(object.features) : undefined,
+    };
+  },
+
+  toJSON(message: FeatureSetDefaults_FeatureSetEditionDefault): unknown {
+    const obj: any = {};
+    message.edition !== undefined && (obj.edition = editionToJSON(message.edition));
+    message.features !== undefined &&
+      (obj.features = message.features ? FeatureSet.toJSON(message.features) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<FeatureSetDefaults_FeatureSetEditionDefault>,
+  ): FeatureSetDefaults_FeatureSetEditionDefault {
+    const message = createBaseFeatureSetDefaults_FeatureSetEditionDefault();
+    message.edition = object.edition ?? Edition.EDITION_UNKNOWN;
+    message.features = (object.features !== undefined && object.features !== null)
+      ? FeatureSet.fromPartial(object.features)
+      : undefined;
     return message;
   },
 };
@@ -3710,7 +5253,7 @@ export const GeneratedCodeInfo = {
 };
 
 function createBaseGeneratedCodeInfo_Annotation(): GeneratedCodeInfo_Annotation {
-  return { path: [], sourceFile: "", begin: 0, end: 0 };
+  return { path: [], sourceFile: "", begin: 0, end: 0, semantic: GeneratedCodeInfo_Annotation_Semantic.NONE };
 }
 
 export const GeneratedCodeInfo_Annotation = {
@@ -3728,6 +5271,9 @@ export const GeneratedCodeInfo_Annotation = {
     }
     if (message.end !== 0) {
       writer.uint32(32).int32(message.end);
+    }
+    if (message.semantic !== GeneratedCodeInfo_Annotation_Semantic.NONE) {
+      writer.uint32(40).int32(generatedCodeInfo_Annotation_SemanticToNumber(message.semantic));
     }
     return writer;
   },
@@ -3758,6 +5304,9 @@ export const GeneratedCodeInfo_Annotation = {
         case 4:
           message.end = reader.int32();
           break;
+        case 5:
+          message.semantic = generatedCodeInfo_Annotation_SemanticFromJSON(reader.int32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3772,6 +5321,9 @@ export const GeneratedCodeInfo_Annotation = {
       sourceFile: isSet(object.sourceFile) ? String(object.sourceFile) : "",
       begin: isSet(object.begin) ? Number(object.begin) : 0,
       end: isSet(object.end) ? Number(object.end) : 0,
+      semantic: isSet(object.semantic)
+        ? generatedCodeInfo_Annotation_SemanticFromJSON(object.semantic)
+        : GeneratedCodeInfo_Annotation_Semantic.NONE,
     };
   },
 
@@ -3785,6 +5337,7 @@ export const GeneratedCodeInfo_Annotation = {
     message.sourceFile !== undefined && (obj.sourceFile = message.sourceFile);
     message.begin !== undefined && (obj.begin = Math.round(message.begin));
     message.end !== undefined && (obj.end = Math.round(message.end));
+    message.semantic !== undefined && (obj.semantic = generatedCodeInfo_Annotation_SemanticToJSON(message.semantic));
     return obj;
   },
 
@@ -3794,6 +5347,7 @@ export const GeneratedCodeInfo_Annotation = {
     message.sourceFile = object.sourceFile ?? "";
     message.begin = object.begin ?? 0;
     message.end = object.end ?? 0;
+    message.semantic = object.semantic ?? GeneratedCodeInfo_Annotation_Semantic.NONE;
     return message;
   },
 };
@@ -3801,7 +5355,7 @@ export const GeneratedCodeInfo_Annotation = {
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
-var globalThis: any = (() => {
+var tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }
@@ -3818,10 +5372,10 @@ var globalThis: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  if (tsProtoGlobalThis.Buffer) {
+    return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
   } else {
-    const bin = globalThis.atob(b64);
+    const bin = tsProtoGlobalThis.atob(b64);
     const arr = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; ++i) {
       arr[i] = bin.charCodeAt(i);
@@ -3831,14 +5385,14 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
+  if (tsProtoGlobalThis.Buffer) {
+    return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
   } else {
     const bin: string[] = [];
     arr.forEach((byte) => {
       bin.push(String.fromCharCode(byte));
     });
-    return globalThis.btoa(bin.join(""));
+    return tsProtoGlobalThis.btoa(bin.join(""));
   }
 }
 
@@ -3851,7 +5405,7 @@ export type DeepPartial<T> = T extends Builtin ? T
 
 function longToNumber(long: Long): number {
   if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
   }
   return long.toNumber();
 }

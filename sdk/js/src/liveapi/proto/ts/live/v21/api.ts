@@ -186,7 +186,7 @@ export function imageFormatFromJSON(object: any): ImageFormat {
     case "IMAGE_FORMAT_JPEG":
       return ImageFormat.IMAGE_FORMAT_JPEG;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ImageFormat");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ImageFormat");
   }
 }
 
@@ -197,7 +197,7 @@ export function imageFormatToJSON(object: ImageFormat): string {
     case ImageFormat.IMAGE_FORMAT_JPEG:
       return "IMAGE_FORMAT_JPEG";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ImageFormat");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ImageFormat");
   }
 }
 
@@ -208,7 +208,7 @@ export function imageFormatToNumber(object: ImageFormat): number {
     case ImageFormat.IMAGE_FORMAT_JPEG:
       return 1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ImageFormat");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ImageFormat");
   }
 }
 
@@ -227,7 +227,7 @@ export function videoColorSpaceFromJSON(object: any): VideoColorSpace {
     case "VIDEO_COLOR_SPACE_YUV420":
       return VideoColorSpace.VIDEO_COLOR_SPACE_YUV420;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoColorSpace");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoColorSpace");
   }
 }
 
@@ -238,7 +238,7 @@ export function videoColorSpaceToJSON(object: VideoColorSpace): string {
     case VideoColorSpace.VIDEO_COLOR_SPACE_YUV420:
       return "VIDEO_COLOR_SPACE_YUV420";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoColorSpace");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoColorSpace");
   }
 }
 
@@ -249,7 +249,7 @@ export function videoColorSpaceToNumber(object: VideoColorSpace): number {
     case VideoColorSpace.VIDEO_COLOR_SPACE_YUV420:
       return 1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoColorSpace");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoColorSpace");
   }
 }
 
@@ -268,7 +268,7 @@ export function audioChannelLayoutFromJSON(object: any): AudioChannelLayout {
     case "AUDIO_CHANNEL_LAYOUT_STEREO":
       return AudioChannelLayout.AUDIO_CHANNEL_LAYOUT_STEREO;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum AudioChannelLayout");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum AudioChannelLayout");
   }
 }
 
@@ -279,7 +279,7 @@ export function audioChannelLayoutToJSON(object: AudioChannelLayout): string {
     case AudioChannelLayout.AUDIO_CHANNEL_LAYOUT_STEREO:
       return "AUDIO_CHANNEL_LAYOUT_STEREO";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum AudioChannelLayout");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum AudioChannelLayout");
   }
 }
 
@@ -290,7 +290,7 @@ export function audioChannelLayoutToNumber(object: AudioChannelLayout): number {
     case AudioChannelLayout.AUDIO_CHANNEL_LAYOUT_STEREO:
       return 1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum AudioChannelLayout");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum AudioChannelLayout");
   }
 }
 
@@ -313,7 +313,7 @@ export function renderingQualityFromJSON(object: any): RenderingQuality {
     case "RENDERING_QUALITY_HIGH":
       return RenderingQuality.RENDERING_QUALITY_HIGH;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum RenderingQuality");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RenderingQuality");
   }
 }
 
@@ -326,7 +326,7 @@ export function renderingQualityToJSON(object: RenderingQuality): string {
     case RenderingQuality.RENDERING_QUALITY_HIGH:
       return "RENDERING_QUALITY_HIGH";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum RenderingQuality");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RenderingQuality");
   }
 }
 
@@ -339,7 +339,7 @@ export function renderingQualityToNumber(object: RenderingQuality): number {
     case RenderingQuality.RENDERING_QUALITY_HIGH:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum RenderingQuality");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RenderingQuality");
   }
 }
 
@@ -358,7 +358,7 @@ export function videoCodecFromJSON(object: any): VideoCodec {
     case "VIDEO_CODEC_H264":
       return VideoCodec.VIDEO_CODEC_H264;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodec");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodec");
   }
 }
 
@@ -369,7 +369,7 @@ export function videoCodecToJSON(object: VideoCodec): string {
     case VideoCodec.VIDEO_CODEC_H264:
       return "VIDEO_CODEC_H264";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodec");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodec");
   }
 }
 
@@ -380,7 +380,7 @@ export function videoCodecToNumber(object: VideoCodec): number {
     case VideoCodec.VIDEO_CODEC_H264:
       return 1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodec");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodec");
   }
 }
 
@@ -407,7 +407,7 @@ export function videoCodecProfileFromJSON(object: any): VideoCodecProfile {
     case "VIDEO_CODEC_PROFILE_HIGH":
       return VideoCodecProfile.VIDEO_CODEC_PROFILE_HIGH;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecProfile");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecProfile");
   }
 }
 
@@ -422,7 +422,7 @@ export function videoCodecProfileToJSON(object: VideoCodecProfile): string {
     case VideoCodecProfile.VIDEO_CODEC_PROFILE_HIGH:
       return "VIDEO_CODEC_PROFILE_HIGH";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecProfile");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecProfile");
   }
 }
 
@@ -437,7 +437,7 @@ export function videoCodecProfileToNumber(object: VideoCodecProfile): number {
     case VideoCodecProfile.VIDEO_CODEC_PROFILE_HIGH:
       return 4;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecProfile");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecProfile");
   }
 }
 
@@ -456,7 +456,7 @@ export function audioCodecFromJSON(object: any): AudioCodec {
     case "AUDIO_CODEC_AAC":
       return AudioCodec.AUDIO_CODEC_AAC;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum AudioCodec");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum AudioCodec");
   }
 }
 
@@ -467,7 +467,7 @@ export function audioCodecToJSON(object: AudioCodec): string {
     case AudioCodec.AUDIO_CODEC_AAC:
       return "AUDIO_CODEC_AAC";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum AudioCodec");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum AudioCodec");
   }
 }
 
@@ -478,7 +478,7 @@ export function audioCodecToNumber(object: AudioCodec): number {
     case AudioCodec.AUDIO_CODEC_AAC:
       return 1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum AudioCodec");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum AudioCodec");
   }
 }
 
@@ -498,7 +498,7 @@ export function videoCodecRateControlModeFromJSON(object: any): VideoCodecRateCo
     case "VIDEO_CODEC_RATE_CONTROL_MODE_CBR":
       return VideoCodecRateControlMode.VIDEO_CODEC_RATE_CONTROL_MODE_CBR;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecRateControlMode");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecRateControlMode");
   }
 }
 
@@ -509,7 +509,7 @@ export function videoCodecRateControlModeToJSON(object: VideoCodecRateControlMod
     case VideoCodecRateControlMode.VIDEO_CODEC_RATE_CONTROL_MODE_CBR:
       return "VIDEO_CODEC_RATE_CONTROL_MODE_CBR";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecRateControlMode");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecRateControlMode");
   }
 }
 
@@ -520,7 +520,7 @@ export function videoCodecRateControlModeToNumber(object: VideoCodecRateControlM
     case VideoCodecRateControlMode.VIDEO_CODEC_RATE_CONTROL_MODE_CBR:
       return 1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecRateControlMode");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum VideoCodecRateControlMode");
   }
 }
 
@@ -564,7 +564,7 @@ export function projectBroadcastPhaseFromJSON(object: any): ProjectBroadcastPhas
     case "PROJECT_BROADCAST_PHASE_ARCHIVED":
       return ProjectBroadcastPhase.PROJECT_BROADCAST_PHASE_ARCHIVED;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastPhase");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastPhase");
   }
 }
 
@@ -587,7 +587,7 @@ export function projectBroadcastPhaseToJSON(object: ProjectBroadcastPhase): stri
     case ProjectBroadcastPhase.PROJECT_BROADCAST_PHASE_ARCHIVED:
       return "PROJECT_BROADCAST_PHASE_ARCHIVED";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastPhase");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastPhase");
   }
 }
 
@@ -610,7 +610,7 @@ export function projectBroadcastPhaseToNumber(object: ProjectBroadcastPhase): nu
     case ProjectBroadcastPhase.PROJECT_BROADCAST_PHASE_ARCHIVED:
       return 7;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastPhase");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastPhase");
   }
 }
 
@@ -648,7 +648,7 @@ export function s3ACLFromJSON(object: any): S3ACL {
     case "S3ACL_BUCKET_OWNER_FULL_CONTROL":
       return S3ACL.S3ACL_BUCKET_OWNER_FULL_CONTROL;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum S3ACL");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum S3ACL");
   }
 }
 
@@ -669,7 +669,7 @@ export function s3ACLToJSON(object: S3ACL): string {
     case S3ACL.S3ACL_BUCKET_OWNER_FULL_CONTROL:
       return "S3ACL_BUCKET_OWNER_FULL_CONTROL";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum S3ACL");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum S3ACL");
   }
 }
 
@@ -690,7 +690,7 @@ export function s3ACLToNumber(object: S3ACL): number {
     case S3ACL.S3ACL_BUCKET_OWNER_FULL_CONTROL:
       return 6;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum S3ACL");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum S3ACL");
   }
 }
 
@@ -714,7 +714,7 @@ export function sourceTriggerActionFromJSON(object: any): SourceTriggerAction {
     case "SOURCE_TRIGGER_ACTION_OR":
       return SourceTriggerAction.SOURCE_TRIGGER_ACTION_OR;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum SourceTriggerAction");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum SourceTriggerAction");
   }
 }
 
@@ -727,7 +727,7 @@ export function sourceTriggerActionToJSON(object: SourceTriggerAction): string {
     case SourceTriggerAction.SOURCE_TRIGGER_ACTION_OR:
       return "SOURCE_TRIGGER_ACTION_OR";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum SourceTriggerAction");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum SourceTriggerAction");
   }
 }
 
@@ -740,7 +740,7 @@ export function sourceTriggerActionToNumber(object: SourceTriggerAction): number
     case SourceTriggerAction.SOURCE_TRIGGER_ACTION_OR:
       return 3;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum SourceTriggerAction");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum SourceTriggerAction");
   }
 }
 
@@ -807,7 +807,7 @@ export function regionFromJSON(object: any): Region {
     case "REGION_EU_WEST_1":
       return Region.REGION_EU_WEST_1;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum Region");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Region");
   }
 }
 
@@ -838,7 +838,7 @@ export function regionToJSON(object: Region): string {
     case Region.REGION_EU_WEST_1:
       return "REGION_EU_WEST_1";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum Region");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Region");
   }
 }
 
@@ -869,7 +869,7 @@ export function regionToNumber(object: Region): number {
     case Region.REGION_EU_WEST_1:
       return 31;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum Region");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Region");
   }
 }
 
@@ -916,7 +916,7 @@ export function roleFromJSON(object: any): Role {
     case "ROLE_IMPERSONATE":
       return Role.ROLE_IMPERSONATE;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum Role");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Role");
   }
 }
 
@@ -941,7 +941,7 @@ export function roleToJSON(object: Role): string {
     case Role.ROLE_IMPERSONATE:
       return "ROLE_IMPERSONATE";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum Role");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Role");
   }
 }
 
@@ -966,7 +966,7 @@ export function roleToNumber(object: Role): number {
     case Role.ROLE_IMPERSONATE:
       return 8;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum Role");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum Role");
   }
 }
 
@@ -989,7 +989,7 @@ export function projectBroadcastErrorFromJSON(object: any): ProjectBroadcastErro
     case "PROJECT_BROADCAST_ERROR_DURATION_EXCEEDED":
       return ProjectBroadcastError.PROJECT_BROADCAST_ERROR_DURATION_EXCEEDED;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastError");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastError");
   }
 }
 
@@ -1002,7 +1002,7 @@ export function projectBroadcastErrorToJSON(object: ProjectBroadcastError): stri
     case ProjectBroadcastError.PROJECT_BROADCAST_ERROR_DURATION_EXCEEDED:
       return "PROJECT_BROADCAST_ERROR_DURATION_EXCEEDED";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastError");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastError");
   }
 }
 
@@ -1015,7 +1015,7 @@ export function projectBroadcastErrorToNumber(object: ProjectBroadcastError): nu
     case ProjectBroadcastError.PROJECT_BROADCAST_ERROR_DURATION_EXCEEDED:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastError");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ProjectBroadcastError");
   }
 }
 
@@ -1038,7 +1038,7 @@ export function connectStateFromJSON(object: any): ConnectState {
     case "CONNECT_STATE_DISCONNECTED":
       return ConnectState.CONNECT_STATE_DISCONNECTED;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ConnectState");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ConnectState");
   }
 }
 
@@ -1051,7 +1051,7 @@ export function connectStateToJSON(object: ConnectState): string {
     case ConnectState.CONNECT_STATE_DISCONNECTED:
       return "CONNECT_STATE_DISCONNECTED";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ConnectState");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ConnectState");
   }
 }
 
@@ -1064,7 +1064,7 @@ export function connectStateToNumber(object: ConnectState): number {
     case ConnectState.CONNECT_STATE_DISCONNECTED:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum ConnectState");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum ConnectState");
   }
 }
 
@@ -1102,7 +1102,7 @@ export function eventSubTypeFromJSON(object: any): EventSubType {
     case "EVENT_SUB_TYPE_STATE":
       return EventSubType.EVENT_SUB_TYPE_STATE;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum EventSubType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventSubType");
   }
 }
 
@@ -1123,7 +1123,7 @@ export function eventSubTypeToJSON(object: EventSubType): string {
     case EventSubType.EVENT_SUB_TYPE_STATE:
       return "EVENT_SUB_TYPE_STATE";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum EventSubType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventSubType");
   }
 }
 
@@ -1144,7 +1144,7 @@ export function eventSubTypeToNumber(object: EventSubType): number {
     case EventSubType.EVENT_SUB_TYPE_STATE:
       return 6;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum EventSubType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventSubType");
   }
 }
 
@@ -1174,7 +1174,7 @@ export function eventTypeFromJSON(object: any): EventType {
     case "EVENT_TYPE_DESTINATION":
       return EventType.EVENT_TYPE_DESTINATION;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum EventType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventType");
   }
 }
 
@@ -1191,7 +1191,7 @@ export function eventTypeToJSON(object: EventType): string {
     case EventType.EVENT_TYPE_DESTINATION:
       return "EVENT_TYPE_DESTINATION";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum EventType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventType");
   }
 }
 
@@ -1208,7 +1208,7 @@ export function eventTypeToNumber(object: EventType): number {
     case EventType.EVENT_TYPE_DESTINATION:
       return 5;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum EventType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventType");
   }
 }
 
@@ -1473,41 +1473,41 @@ export interface DirectSrtAddress {
 /** Runtime sources are configured only when the broadcast is launched. */
 export interface RuntimeSourceAddress {
   /** the rtmp address to pull from */
-  rtmpPull:
+  rtmpPull?:
     | RtmpPullAddress
     | undefined;
   /** the srt address to pull from */
-  srtPull:
+  srtPull?:
     | SrtPullAddress
     | undefined;
   /** the rtmp address to push to */
-  directRtmpPush:
+  directRtmpPush?:
     | DirectRTMPAddress
     | undefined;
   /** the srt address to push to */
-  directSrtPush: DirectSrtAddress | undefined;
+  directSrtPush?: DirectSrtAddress | undefined;
 }
 
 /** live source address (select one) */
 export interface SourceAddress {
   /** rtmp push addressing */
-  rtmpPush:
+  rtmpPush?:
     | SourceRtmpPushAddress
     | undefined;
   /** the srt address to publish to */
-  srtPush:
+  srtPush?:
     | SrtPushAddress
     | undefined;
   /** the rtmp address to pull from */
-  rtmpPull:
+  rtmpPull?:
     | RtmpPullAddress
     | undefined;
   /** the srt address to pull from */
-  srtPull:
+  srtPull?:
     | SrtPullAddress
     | undefined;
   /** configuration is provided when launching a broadcast. */
-  dynamic: DynamicAddress | undefined;
+  dynamic?: DynamicAddress | undefined;
 }
 
 /** rtmp push destination address */
@@ -1555,11 +1555,11 @@ export interface HlsLifecycleVod {
 /** hls lifecycle management */
 export interface HlsLifecycle {
   /** lifecycle of vod */
-  vod:
+  vod?:
     | HlsLifecycleVod
     | undefined;
   /** lifecycle of live */
-  live: HlsLifecycleLive | undefined;
+  live?: HlsLifecycleLive | undefined;
 }
 
 /** hls packaging options */
@@ -1575,7 +1575,7 @@ export interface HlsPackaging {
 /** packaging options for object storage */
 export interface ObjectStoragePackaging {
   /** hls format */
-  hls: HlsPackaging | undefined;
+  hls?: HlsPackaging | undefined;
 }
 
 export interface S3StorageAddress {
@@ -1614,19 +1614,19 @@ export interface S3StorageAddress {
 /** destination address (select one) */
 export interface DestinationAddress {
   /** rtmp push addressing */
-  rtmpPush:
+  rtmpPush?:
     | DestinationRtmpPushAddress
     | undefined;
   /** Agora addressing */
-  agora:
+  agora?:
     | DestinationAgoraPushAddress
     | undefined;
   /** s3 storage addressing */
-  s3Storage:
+  s3Storage?:
     | S3StorageAddress
     | undefined;
   /** srt push addressing */
-  srtPush: DestinationSrtPushAddress | undefined;
+  srtPush?: DestinationSrtPushAddress | undefined;
 }
 
 /** triggers to indicate what actions to take on the project for a given Source */
@@ -1650,7 +1650,7 @@ export interface WebRtcTrigger {
 /** the trigger type (select one) */
 export interface ProjectTrigger {
   /** start/stop project with source */
-  source: SourceTrigger | undefined;
+  source?: SourceTrigger | undefined;
 }
 
 /** request hls preview */
@@ -1716,15 +1716,15 @@ export interface ExternalComposition {
 /** composition source for project (select one) */
 export interface Composition {
   /** compose using an external renderer */
-  external:
+  external?:
     | ExternalComposition
     | undefined;
   /** compose using the studiosdk renderer */
-  studioSdk:
+  studioSdk?:
     | StudioSdkComposition
     | undefined;
   /** compose scenes using the browser-based compositor */
-  scene: SceneComposition | undefined;
+  scene?: SceneComposition | undefined;
 }
 
 /** hosted webrtc configuration */
@@ -1736,7 +1736,7 @@ export interface HostedWebRtc {
 /** webrtc service (select one) */
 export interface WebRtc {
   /** hosted webrtc configuration */
-  hosted: HostedWebRtc | undefined;
+  hosted?: HostedWebRtc | undefined;
 }
 
 /** webrtc access parameters */
@@ -1760,11 +1760,11 @@ export interface DirectIngestUrl {
     | string
     | undefined;
   /** rtmp push addressing */
-  rtmpPush:
+  rtmpPush?:
     | SourceRtmpPushAddress
     | undefined;
   /** the srt address to publish to */
-  srtPush: SrtPushAddress | undefined;
+  srtPush?: SrtPushAddress | undefined;
 }
 
 /** broadcast status */
@@ -2463,8 +2463,8 @@ export interface GuestAccessTokenExchange {
 
 /** the type of access token (selec one) */
 export interface GuestAccessToken {
-  direct: GuestAccessTokenDirect | undefined;
-  exchange: GuestAccessTokenExchange | undefined;
+  direct?: GuestAccessTokenDirect | undefined;
+  exchange?: GuestAccessTokenExchange | undefined;
 }
 
 export interface CreateGuestAccessTokenRequest {
@@ -2606,7 +2606,7 @@ export interface DestinationStateEvent {
   /** destination id */
   destinationId: string;
   /** the state of the connection changed */
-  connect: ConnectState | undefined;
+  connect?: ConnectState | undefined;
 }
 
 /** a project was created */
@@ -2647,8 +2647,8 @@ export interface ProjectBroadcastStateEvent {
   projectId: string;
   /** the id of the broadcast */
   broadcastId: string;
-  phase: ProjectBroadcastPhase | undefined;
-  error: ProjectBroadcastError | undefined;
+  phase?: ProjectBroadcastPhase | undefined;
+  error?: ProjectBroadcastError | undefined;
 }
 
 /** a collection was created */
@@ -2717,44 +2717,44 @@ export interface SourceStateEvent {
   /** destination id */
   sourceId: string;
   /** the state of the connection changed */
-  connect: ConnectState | undefined;
+  connect?: ConnectState | undefined;
 }
 
 export interface CollectionEvent {
-  create: CollectionCreateEvent | undefined;
-  update: CollectionUpdateEvent | undefined;
-  delete: CollectionDeleteEvent | undefined;
+  create?: CollectionCreateEvent | undefined;
+  update?: CollectionUpdateEvent | undefined;
+  delete?: CollectionDeleteEvent | undefined;
 }
 
 export interface DestinationEvent {
-  create: DestinationCreateEvent | undefined;
-  update: DestinationUpdateEvent | undefined;
-  delete: DestinationDeleteEvent | undefined;
-  state: DestinationStateEvent | undefined;
+  create?: DestinationCreateEvent | undefined;
+  update?: DestinationUpdateEvent | undefined;
+  delete?: DestinationDeleteEvent | undefined;
+  state?: DestinationStateEvent | undefined;
 }
 
 export interface ProjectEvent {
-  create: ProjectCreateEvent | undefined;
-  update: ProjectUpdateEvent | undefined;
-  delete: ProjectDeleteEvent | undefined;
-  state: ProjectBroadcastStateEvent | undefined;
+  create?: ProjectCreateEvent | undefined;
+  update?: ProjectUpdateEvent | undefined;
+  delete?: ProjectDeleteEvent | undefined;
+  state?: ProjectBroadcastStateEvent | undefined;
 }
 
 export interface SourceEvent {
-  create: SourceCreateEvent | undefined;
-  update: SourceUpdateEvent | undefined;
-  delete: SourceDeleteEvent | undefined;
-  add: SourceAddEvent | undefined;
-  remove: SourceRemoveEvent | undefined;
-  state: SourceStateEvent | undefined;
+  create?: SourceCreateEvent | undefined;
+  update?: SourceUpdateEvent | undefined;
+  delete?: SourceDeleteEvent | undefined;
+  add?: SourceAddEvent | undefined;
+  remove?: SourceRemoveEvent | undefined;
+  state?: SourceStateEvent | undefined;
 }
 
 export interface LiveEvent {
-  collection: CollectionEvent | undefined;
-  destination: DestinationEvent | undefined;
-  project: ProjectEvent | undefined;
-  source: SourceEvent | undefined;
-  unspecified: NullValue | undefined;
+  collection?: CollectionEvent | undefined;
+  destination?: DestinationEvent | undefined;
+  project?: ProjectEvent | undefined;
+  source?: SourceEvent | undefined;
+  unspecified?: NullValue | undefined;
 }
 
 function createBaseWebhookRequest(): WebhookRequest {
@@ -14272,7 +14272,7 @@ interface Rpc {
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
-var globalThis: any = (() => {
+var tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }
@@ -14289,10 +14289,10 @@ var globalThis: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  if (tsProtoGlobalThis.Buffer) {
+    return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
   } else {
-    const bin = globalThis.atob(b64);
+    const bin = tsProtoGlobalThis.atob(b64);
     const arr = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; ++i) {
       arr[i] = bin.charCodeAt(i);
@@ -14302,14 +14302,14 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
+  if (tsProtoGlobalThis.Buffer) {
+    return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
   } else {
     const bin: string[] = [];
     arr.forEach((byte) => {
       bin.push(String.fromCharCode(byte));
     });
-    return globalThis.btoa(bin.join(""));
+    return tsProtoGlobalThis.btoa(bin.join(""));
   }
 }
 
