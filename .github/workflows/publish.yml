@@ -9,7 +9,7 @@ on:
     branches:
     - main
     paths:
-     - 'sdk/js/*'
+     - 'js/sdk/*'
 
 name: Publish Package
 jobs:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./sdk/js
+        working-directory: ./js/sdk
 
     steps:
       - uses: actions/checkout@v1
@@ -30,4 +30,4 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
-          package: ./sdk/js/package.json
+          package: ./js/sdk/package.json

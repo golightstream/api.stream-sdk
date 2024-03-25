@@ -7,14 +7,14 @@ The API.stream API enables development partners to quickly build web-based video
 
 
 ### SDKs
-- [Java SDK](/sdk/java/)
-- [JavaScript SDK](/sdk/js/)
+- [JavaScript SDK](/js/sdk/)
+- [Java SDK](/java/sdk/)
 
 ### Examples
-- [Scene composition](/examples/js/scenes)
-- [Scene composition with WebRTC](/examples/js/scenes-webrtc)
-- [Backend Authentication via JS](/examples/js/backend-auth-grpcweb)
-- [Backend Authentication via API](/examples/js/backend-auth-rest)
+- [Scene composition](/js/examples/scenes)
+- [Scene composition with WebRTC](/js/examples/scenes-webrtc)
+- [Backend Authentication via JS](/js/examples/backend-auth-grpcweb)
+- [Backend Authentication via API](/js/examples/backend-auth-rest)
 
 ## Features
 

@@ -7,7 +7,7 @@ lib
 bin
 .DS_Store
 dist
-examples/js/*/build
+js/examples/*/build
 .npmrc
 .idea
 .gradle

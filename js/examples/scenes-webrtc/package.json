@@ -1,5 +1,5 @@
 {
-  "name": "@api.stream/examples/js/scenes-webrtc",
+  "name": "@api.stream/js/examples/scenes-webrtc",
   "version": "1.0.0",
   "description": "Exemplary use of API-driven broadcasting with WebRTC",
   "author": "Lightstream",

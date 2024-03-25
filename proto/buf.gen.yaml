@@ -9,5 +9,5 @@ managed:
   enabled: true
 plugins:
   - plugin: buf.build/community/stephenh-ts-proto:v1.137.2
-    out: ../sdk/js/src/liveapi/proto/ts
+    out: ../js/sdk/src/liveapi/proto/ts
     opt: outputServices=generic-definitions,outputServices=default,env=browser,outputJsonMethods=true,esModuleInterop=true,useExactTypes=false,useDate=string,stringEnums=true,unrecognizedEnum=false
