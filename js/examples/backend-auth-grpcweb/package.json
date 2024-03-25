@@ -1,5 +1,5 @@
 {
-  "name": "@api.stream/examples/js/scenes",
+  "name": "@api.stream/js/examples/backend-auth-grpcweb",
   "version": "1.0.0",
   "description": "Exemplary use of API-driven broadcasting",
   "author": "Lightstream",
@@ -29,10 +29,9 @@
     "build:live": "nodemon --delay 500ms --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
   },
   "dependencies": {
-    "@api.stream/sdk": "1.0.22",
+    "@api.stream/sdk": "^1.0.19",
     "axios": "^0.26.1",
-    "express": "^4.17.3",
-    "typescript-logging": "^1.0.0"
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

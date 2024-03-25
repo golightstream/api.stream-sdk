@@ -5,7 +5,7 @@
 
 # todo: expose proto directly, but for now use local repo
 LIGHTSTREAM_PROTO_ROOT=$PWD/../lightstream/proto/idl
-OUTPUT_DIR=$PWD/sdk/js/src/liveapi/proto/ts
+OUTPUT_DIR=$PWD/js/sdk/src/liveapi/proto/ts
 
 # Copy proto files from source
 cp -r $LIGHTSTREAM_PROTO_ROOT/common/v21/* $PWD/proto/common/v21
