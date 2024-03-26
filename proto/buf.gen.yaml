@@ -1,13 +1,24 @@
-/*
----------------------------------------------------------------------------------------------
-Copyright (c) Infiniscene, Inc. All rights reserved.
-Licensed under the MIT License. See License.txt in the project root for license information.
----------------------------------------------------------------------------------------------
-*/
+# ---------------------------------------------------------------------------------------------
+# Copyright (c) Infiniscene, Inc. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# ---------------------------------------------------------------------------------------------
+
 version: v1
 managed:
   enabled: true
+  go_package_prefix:
+    default: github.com/golightstream/api.stream-sdk/go/sdk/proto
+    except:
+      - buf.build/googleapis/googleapis
+      - buf.build/grpc-ecosystem/grpc-gateway
+
 plugins:
   - plugin: buf.build/community/stephenh-ts-proto:v1.137.2
     out: ../js/sdk/src/liveapi/proto/ts
     opt: outputServices=generic-definitions,outputServices=default,env=browser,outputJsonMethods=true,esModuleInterop=true,useExactTypes=false,useDate=string,stringEnums=true,unrecognizedEnum=false
+  - plugin: buf.build/protocolbuffers/go:v1.33.0
+    out: ../go/sdk/proto
+    opt: paths=source_relative
+  - plugin: buf.build/grpc/go:v1.3.0
+    out: ../go/sdk/proto
+    opt: paths=source_relative,require_unimplemented_servers=false
