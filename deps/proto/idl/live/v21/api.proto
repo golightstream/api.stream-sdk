@@ -119,6 +119,130 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   }
 };
 
+enum BroadcastTrigger {
+  BROADCAST_TRIGGER_UNSPECIFIED = 0;
+  BROADCAST_TRIGGER_API = 1;
+  BROADCAST_TRIGGER_SOURCE = 2;
+  BROADCAST_TRIGGER_INTEGRATION = 3;
+}
+
+enum WebhookType {
+  WEBHOOK_TYPE_UNSPECIFIED = 0;
+  WEBHOOK_TYPE_HOOK = 1;
+  WEBHOOK_TYPE_EVENT = 2;
+}
+
+enum WebhookSubtype {
+  WEBHOOK_SUBTYPE_UNSPECIFIED = 0;
+  WEBHOOK_SUBTYPE_START_BROADCAST = 1;
+  WEBHOOK_SUBTYPE_START_WEBRTC = 2;
+  WEBHOOK_SUBTYPE_JOIN_WEBRTC = 3;
+}
+
+message WebhookResponse {
+  string user_id = 1;
+  string collection_id = 2;
+  string project_id = 3;
+  // arbitrary metadata to associate with this project
+  optional google.protobuf.Value trigger_metadata = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
+  optional BroadcastTrigger trigger = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"BROADCAST_TRIGGER_API\""}];
+}
+
+// webhook configuration message
+message WebhookConfiguration {
+  // enable webhook
+  bool enabled = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "true",
+      default: "true"
+  }];
+  // webhook url
+  optional string url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"https://example.webhook.test/start-broadcast\""}];
+  // webhook timeout period in ms
+  optional uint32 timeout_ms = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "5000",
+      default: "5000"
+   }];
+}
+
+// webhook types
+message AccountConfigurationHook {
+  // webhook configuration for start broadcast
+  optional WebhookConfiguration start_broadcast = 1;
+  // webhook configuration for start webrtc
+  optional WebhookConfiguration start_webrtc = 2; // not implemented
+  // webhook configuration for join webrtc
+  optional WebhookConfiguration join_webrtc = 3;  // not implemented
+}
+
+// account configuration message
+message AccountConfiguration {
+  option (common.v21.message_options).database_model = true;
+  // number of concurrent broadcast request allowed
+  optional int32 broadcast_concurrency = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "1"}];
+  // webhook configuration
+  AccountConfigurationHook hooks = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+}
+
+// get account configuration request/response messages
+message GetAccountConfigurationRequest {
+}
+
+// get account configuration request/response messages
+message GetAccountConfigurationResponse {
+  // account configuration response
+  AccountConfiguration account_configuration = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+}
+
+// update account configuration  request/response messages
+message UpdateAccountConfigurationRequest {
+  // number of concurrent broadcast request allowed
+  optional int32 broadcast_concurrency = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "1"}];
+  // webhook configuration
+  AccountConfigurationHook hooks = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+  // fields to update
+  google.protobuf.FieldMask update_mask = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"broadcast_concurrency\""},
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+// update account configuration  request/response messages
+message UpdateAccountConfigurationResponse {
+  // account configuration response
+  AccountConfiguration account_configuration = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default: "{}"}];
+}
+
+// account configuration service
+service AccountConfigurationService {
+  // get account configuration
+  rpc GetAccountConfiguration(GetAccountConfigurationRequest) returns (GetAccountConfigurationResponse) {
+    option (google.api.http) = {get: "/service/configuration"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKey"
+          value: {}
+        }
+      }
+    };
+  }
+  // update account configuration
+  rpc UpdateAccountConfiguration(UpdateAccountConfigurationRequest) returns (UpdateAccountConfigurationResponse) {
+    option (google.api.http) = {
+      put: "/service/configuration",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "ApiKey"
+          value: {}
+        }
+      }
+    };
+  }
+}
+
 // image binary format
 enum ImageFormat {
   IMAGE_FORMAT_UNSPECIFIED = 0;
@@ -915,7 +1039,7 @@ message LatLong {
 // ------------ HIGH-LEVEL CONTAINERS
 
 message DirectIngestUrl {
-  // If this is part of a dynamic source, this is the id of the source
+  // If this is part of a dynamic source, this is the id provided.
   optional string dynamic_id = 1;
   optional string source_id = 2;
 
@@ -955,7 +1079,7 @@ message ProjectBroadcastStatus {
   // datacenter broadcast is located
   optional string datacenter = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"nyc1\""}];
 
-  // the direct ingests you can send video. ID is the source id
+  // the direct ingests you can send video.
   repeated DirectIngestUrl direct_ingests = 10;
 }
 
@@ -1393,6 +1517,9 @@ message StartProjectBroadcastRequest {
 
   // dynamic sources to start the broadcast with.
   map<string, RuntimeSourceAddress> dynamic_sources = 5;
+
+  // arbitrary metadata to associate with this project
+  optional google.protobuf.Value trigger_metadata = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
 }
 
 message StartProjectBroadcastResponse {

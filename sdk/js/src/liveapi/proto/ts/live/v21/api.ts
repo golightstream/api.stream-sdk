@@ -11,6 +11,166 @@ import { Timestamp } from "../../google/protobuf/timestamp";
 
 export const protobufPackage = "live.v21";
 
+export enum BroadcastTrigger {
+  BROADCAST_TRIGGER_UNSPECIFIED = "BROADCAST_TRIGGER_UNSPECIFIED",
+  BROADCAST_TRIGGER_API = "BROADCAST_TRIGGER_API",
+  BROADCAST_TRIGGER_SOURCE = "BROADCAST_TRIGGER_SOURCE",
+  BROADCAST_TRIGGER_INTEGRATION = "BROADCAST_TRIGGER_INTEGRATION",
+}
+
+export function broadcastTriggerFromJSON(object: any): BroadcastTrigger {
+  switch (object) {
+    case 0:
+    case "BROADCAST_TRIGGER_UNSPECIFIED":
+      return BroadcastTrigger.BROADCAST_TRIGGER_UNSPECIFIED;
+    case 1:
+    case "BROADCAST_TRIGGER_API":
+      return BroadcastTrigger.BROADCAST_TRIGGER_API;
+    case 2:
+    case "BROADCAST_TRIGGER_SOURCE":
+      return BroadcastTrigger.BROADCAST_TRIGGER_SOURCE;
+    case 3:
+    case "BROADCAST_TRIGGER_INTEGRATION":
+      return BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION;
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+  }
+}
+
+export function broadcastTriggerToJSON(object: BroadcastTrigger): string {
+  switch (object) {
+    case BroadcastTrigger.BROADCAST_TRIGGER_UNSPECIFIED:
+      return "BROADCAST_TRIGGER_UNSPECIFIED";
+    case BroadcastTrigger.BROADCAST_TRIGGER_API:
+      return "BROADCAST_TRIGGER_API";
+    case BroadcastTrigger.BROADCAST_TRIGGER_SOURCE:
+      return "BROADCAST_TRIGGER_SOURCE";
+    case BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION:
+      return "BROADCAST_TRIGGER_INTEGRATION";
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+  }
+}
+
+export function broadcastTriggerToNumber(object: BroadcastTrigger): number {
+  switch (object) {
+    case BroadcastTrigger.BROADCAST_TRIGGER_UNSPECIFIED:
+      return 0;
+    case BroadcastTrigger.BROADCAST_TRIGGER_API:
+      return 1;
+    case BroadcastTrigger.BROADCAST_TRIGGER_SOURCE:
+      return 2;
+    case BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION:
+      return 3;
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+  }
+}
+
+export enum WebhookType {
+  WEBHOOK_TYPE_UNSPECIFIED = "WEBHOOK_TYPE_UNSPECIFIED",
+  WEBHOOK_TYPE_HOOK = "WEBHOOK_TYPE_HOOK",
+  WEBHOOK_TYPE_EVENT = "WEBHOOK_TYPE_EVENT",
+}
+
+export function webhookTypeFromJSON(object: any): WebhookType {
+  switch (object) {
+    case 0:
+    case "WEBHOOK_TYPE_UNSPECIFIED":
+      return WebhookType.WEBHOOK_TYPE_UNSPECIFIED;
+    case 1:
+    case "WEBHOOK_TYPE_HOOK":
+      return WebhookType.WEBHOOK_TYPE_HOOK;
+    case 2:
+    case "WEBHOOK_TYPE_EVENT":
+      return WebhookType.WEBHOOK_TYPE_EVENT;
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
+  }
+}
+
+export function webhookTypeToJSON(object: WebhookType): string {
+  switch (object) {
+    case WebhookType.WEBHOOK_TYPE_UNSPECIFIED:
+      return "WEBHOOK_TYPE_UNSPECIFIED";
+    case WebhookType.WEBHOOK_TYPE_HOOK:
+      return "WEBHOOK_TYPE_HOOK";
+    case WebhookType.WEBHOOK_TYPE_EVENT:
+      return "WEBHOOK_TYPE_EVENT";
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
+  }
+}
+
+export function webhookTypeToNumber(object: WebhookType): number {
+  switch (object) {
+    case WebhookType.WEBHOOK_TYPE_UNSPECIFIED:
+      return 0;
+    case WebhookType.WEBHOOK_TYPE_HOOK:
+      return 1;
+    case WebhookType.WEBHOOK_TYPE_EVENT:
+      return 2;
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
+  }
+}
+
+export enum WebhookSubtype {
+  WEBHOOK_SUBTYPE_UNSPECIFIED = "WEBHOOK_SUBTYPE_UNSPECIFIED",
+  WEBHOOK_SUBTYPE_START_BROADCAST = "WEBHOOK_SUBTYPE_START_BROADCAST",
+  WEBHOOK_SUBTYPE_START_WEBRTC = "WEBHOOK_SUBTYPE_START_WEBRTC",
+  WEBHOOK_SUBTYPE_JOIN_WEBRTC = "WEBHOOK_SUBTYPE_JOIN_WEBRTC",
+}
+
+export function webhookSubtypeFromJSON(object: any): WebhookSubtype {
+  switch (object) {
+    case 0:
+    case "WEBHOOK_SUBTYPE_UNSPECIFIED":
+      return WebhookSubtype.WEBHOOK_SUBTYPE_UNSPECIFIED;
+    case 1:
+    case "WEBHOOK_SUBTYPE_START_BROADCAST":
+      return WebhookSubtype.WEBHOOK_SUBTYPE_START_BROADCAST;
+    case 2:
+    case "WEBHOOK_SUBTYPE_START_WEBRTC":
+      return WebhookSubtype.WEBHOOK_SUBTYPE_START_WEBRTC;
+    case 3:
+    case "WEBHOOK_SUBTYPE_JOIN_WEBRTC":
+      return WebhookSubtype.WEBHOOK_SUBTYPE_JOIN_WEBRTC;
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
+  }
+}
+
+export function webhookSubtypeToJSON(object: WebhookSubtype): string {
+  switch (object) {
+    case WebhookSubtype.WEBHOOK_SUBTYPE_UNSPECIFIED:
+      return "WEBHOOK_SUBTYPE_UNSPECIFIED";
+    case WebhookSubtype.WEBHOOK_SUBTYPE_START_BROADCAST:
+      return "WEBHOOK_SUBTYPE_START_BROADCAST";
+    case WebhookSubtype.WEBHOOK_SUBTYPE_START_WEBRTC:
+      return "WEBHOOK_SUBTYPE_START_WEBRTC";
+    case WebhookSubtype.WEBHOOK_SUBTYPE_JOIN_WEBRTC:
+      return "WEBHOOK_SUBTYPE_JOIN_WEBRTC";
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
+  }
+}
+
+export function webhookSubtypeToNumber(object: WebhookSubtype): number {
+  switch (object) {
+    case WebhookSubtype.WEBHOOK_SUBTYPE_UNSPECIFIED:
+      return 0;
+    case WebhookSubtype.WEBHOOK_SUBTYPE_START_BROADCAST:
+      return 1;
+    case WebhookSubtype.WEBHOOK_SUBTYPE_START_WEBRTC:
+      return 2;
+    case WebhookSubtype.WEBHOOK_SUBTYPE_JOIN_WEBRTC:
+      return 3;
+    default:
+      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
+  }
+}
+
 /** image binary format */
 export enum ImageFormat {
   IMAGE_FORMAT_UNSPECIFIED = "IMAGE_FORMAT_UNSPECIFIED",
@@ -1052,6 +1212,81 @@ export function eventTypeToNumber(object: EventType): number {
   }
 }
 
+export interface WebhookResponse {
+  userId: string;
+  collectionId: string;
+  projectId: string;
+  /** arbitrary metadata to associate with this project */
+  triggerMetadata?: any | undefined;
+  trigger?: BroadcastTrigger | undefined;
+}
+
+/** webhook configuration message */
+export interface WebhookConfiguration {
+  /** enable webhook */
+  enabled: boolean;
+  /** webhook url */
+  url?:
+    | string
+    | undefined;
+  /** webhook timeout period in ms */
+  timeoutMs?: number | undefined;
+}
+
+/** webhook types */
+export interface AccountConfigurationHook {
+  /** webhook configuration for start broadcast */
+  startBroadcast?:
+    | WebhookConfiguration
+    | undefined;
+  /** webhook configuration for start webrtc */
+  startWebrtc?:
+    | WebhookConfiguration
+    | undefined;
+  /** webhook configuration for join webrtc */
+  joinWebrtc?: WebhookConfiguration | undefined;
+}
+
+/** account configuration message */
+export interface AccountConfiguration {
+  /** number of concurrent broadcast request allowed */
+  broadcastConcurrency?:
+    | number
+    | undefined;
+  /** webhook configuration */
+  hooks: AccountConfigurationHook | undefined;
+}
+
+/** get account configuration request/response messages */
+export interface GetAccountConfigurationRequest {
+}
+
+/** get account configuration request/response messages */
+export interface GetAccountConfigurationResponse {
+  /** account configuration response */
+  accountConfiguration: AccountConfiguration | undefined;
+}
+
+/** update account configuration  request/response messages */
+export interface UpdateAccountConfigurationRequest {
+  /** number of concurrent broadcast request allowed */
+  broadcastConcurrency?:
+    | number
+    | undefined;
+  /** webhook configuration */
+  hooks:
+    | AccountConfigurationHook
+    | undefined;
+  /** fields to update */
+  updateMask: string[] | undefined;
+}
+
+/** update account configuration  request/response messages */
+export interface UpdateAccountConfigurationResponse {
+  /** account configuration response */
+  accountConfiguration: AccountConfiguration | undefined;
+}
+
 /** composition video parameters */
 export interface VideoRendering {
   /** canvas height (pixels) */
@@ -1518,7 +1753,7 @@ export interface LatLong {
 }
 
 export interface DirectIngestUrl {
-  /** If this is part of a dynamic source, this is the id of the source */
+  /** If this is part of a dynamic source, this is the id provided. */
   dynamicId?: string | undefined;
   sourceId?:
     | string
@@ -1562,7 +1797,7 @@ export interface ProjectBroadcastStatus {
   datacenter?:
     | string
     | undefined;
-  /** the direct ingests you can send video. ID is the source id */
+  /** the direct ingests you can send video. */
   directIngests: DirectIngestUrl[];
 }
 
@@ -1842,6 +2077,8 @@ export interface StartProjectBroadcastRequest {
     | undefined;
   /** dynamic sources to start the broadcast with. */
   dynamicSources: { [key: string]: RuntimeSourceAddress };
+  /** arbitrary metadata to associate with this project */
+  triggerMetadata?: any | undefined;
 }
 
 export interface StartProjectBroadcastRequest_DynamicSourcesEntry {
@@ -2518,6 +2755,515 @@ export interface LiveEvent {
   source: SourceEvent | undefined;
   unspecified: NullValue | undefined;
 }
+
+function createBaseWebhookResponse(): WebhookResponse {
+  return { userId: "", collectionId: "", projectId: "", triggerMetadata: undefined, trigger: undefined };
+}
+
+export const WebhookResponse = {
+  encode(message: WebhookResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.userId !== "") {
+      writer.uint32(10).string(message.userId);
+    }
+    if (message.collectionId !== "") {
+      writer.uint32(18).string(message.collectionId);
+    }
+    if (message.projectId !== "") {
+      writer.uint32(26).string(message.projectId);
+    }
+    if (message.triggerMetadata !== undefined) {
+      Value.encode(Value.wrap(message.triggerMetadata), writer.uint32(34).fork()).ldelim();
+    }
+    if (message.trigger !== undefined) {
+      writer.uint32(40).int32(broadcastTriggerToNumber(message.trigger));
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WebhookResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseWebhookResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.userId = reader.string();
+          break;
+        case 2:
+          message.collectionId = reader.string();
+          break;
+        case 3:
+          message.projectId = reader.string();
+          break;
+        case 4:
+          message.triggerMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.trigger = broadcastTriggerFromJSON(reader.int32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): WebhookResponse {
+    return {
+      userId: isSet(object.userId) ? String(object.userId) : "",
+      collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
+      projectId: isSet(object.projectId) ? String(object.projectId) : "",
+      triggerMetadata: isSet(object?.triggerMetadata) ? object.triggerMetadata : undefined,
+      trigger: isSet(object.trigger) ? broadcastTriggerFromJSON(object.trigger) : undefined,
+    };
+  },
+
+  toJSON(message: WebhookResponse): unknown {
+    const obj: any = {};
+    message.userId !== undefined && (obj.userId = message.userId);
+    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
+    message.projectId !== undefined && (obj.projectId = message.projectId);
+    message.triggerMetadata !== undefined && (obj.triggerMetadata = message.triggerMetadata);
+    message.trigger !== undefined &&
+      (obj.trigger = message.trigger !== undefined ? broadcastTriggerToJSON(message.trigger) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<WebhookResponse>): WebhookResponse {
+    const message = createBaseWebhookResponse();
+    message.userId = object.userId ?? "";
+    message.collectionId = object.collectionId ?? "";
+    message.projectId = object.projectId ?? "";
+    message.triggerMetadata = object.triggerMetadata ?? undefined;
+    message.trigger = object.trigger ?? undefined;
+    return message;
+  },
+};
+
+function createBaseWebhookConfiguration(): WebhookConfiguration {
+  return { enabled: false, url: undefined, timeoutMs: undefined };
+}
+
+export const WebhookConfiguration = {
+  encode(message: WebhookConfiguration, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.enabled === true) {
+      writer.uint32(8).bool(message.enabled);
+    }
+    if (message.url !== undefined) {
+      writer.uint32(18).string(message.url);
+    }
+    if (message.timeoutMs !== undefined) {
+      writer.uint32(24).uint32(message.timeoutMs);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WebhookConfiguration {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseWebhookConfiguration();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.enabled = reader.bool();
+          break;
+        case 2:
+          message.url = reader.string();
+          break;
+        case 3:
+          message.timeoutMs = reader.uint32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): WebhookConfiguration {
+    return {
+      enabled: isSet(object.enabled) ? Boolean(object.enabled) : false,
+      url: isSet(object.url) ? String(object.url) : undefined,
+      timeoutMs: isSet(object.timeoutMs) ? Number(object.timeoutMs) : undefined,
+    };
+  },
+
+  toJSON(message: WebhookConfiguration): unknown {
+    const obj: any = {};
+    message.enabled !== undefined && (obj.enabled = message.enabled);
+    message.url !== undefined && (obj.url = message.url);
+    message.timeoutMs !== undefined && (obj.timeoutMs = Math.round(message.timeoutMs));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<WebhookConfiguration>): WebhookConfiguration {
+    const message = createBaseWebhookConfiguration();
+    message.enabled = object.enabled ?? false;
+    message.url = object.url ?? undefined;
+    message.timeoutMs = object.timeoutMs ?? undefined;
+    return message;
+  },
+};
+
+function createBaseAccountConfigurationHook(): AccountConfigurationHook {
+  return { startBroadcast: undefined, startWebrtc: undefined, joinWebrtc: undefined };
+}
+
+export const AccountConfigurationHook = {
+  encode(message: AccountConfigurationHook, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.startBroadcast !== undefined) {
+      WebhookConfiguration.encode(message.startBroadcast, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.startWebrtc !== undefined) {
+      WebhookConfiguration.encode(message.startWebrtc, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.joinWebrtc !== undefined) {
+      WebhookConfiguration.encode(message.joinWebrtc, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AccountConfigurationHook {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAccountConfigurationHook();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.startBroadcast = WebhookConfiguration.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.startWebrtc = WebhookConfiguration.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.joinWebrtc = WebhookConfiguration.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AccountConfigurationHook {
+    return {
+      startBroadcast: isSet(object.startBroadcast) ? WebhookConfiguration.fromJSON(object.startBroadcast) : undefined,
+      startWebrtc: isSet(object.startWebrtc) ? WebhookConfiguration.fromJSON(object.startWebrtc) : undefined,
+      joinWebrtc: isSet(object.joinWebrtc) ? WebhookConfiguration.fromJSON(object.joinWebrtc) : undefined,
+    };
+  },
+
+  toJSON(message: AccountConfigurationHook): unknown {
+    const obj: any = {};
+    message.startBroadcast !== undefined &&
+      (obj.startBroadcast = message.startBroadcast ? WebhookConfiguration.toJSON(message.startBroadcast) : undefined);
+    message.startWebrtc !== undefined &&
+      (obj.startWebrtc = message.startWebrtc ? WebhookConfiguration.toJSON(message.startWebrtc) : undefined);
+    message.joinWebrtc !== undefined &&
+      (obj.joinWebrtc = message.joinWebrtc ? WebhookConfiguration.toJSON(message.joinWebrtc) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<AccountConfigurationHook>): AccountConfigurationHook {
+    const message = createBaseAccountConfigurationHook();
+    message.startBroadcast = (object.startBroadcast !== undefined && object.startBroadcast !== null)
+      ? WebhookConfiguration.fromPartial(object.startBroadcast)
+      : undefined;
+    message.startWebrtc = (object.startWebrtc !== undefined && object.startWebrtc !== null)
+      ? WebhookConfiguration.fromPartial(object.startWebrtc)
+      : undefined;
+    message.joinWebrtc = (object.joinWebrtc !== undefined && object.joinWebrtc !== null)
+      ? WebhookConfiguration.fromPartial(object.joinWebrtc)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseAccountConfiguration(): AccountConfiguration {
+  return { broadcastConcurrency: undefined, hooks: undefined };
+}
+
+export const AccountConfiguration = {
+  encode(message: AccountConfiguration, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.broadcastConcurrency !== undefined) {
+      writer.uint32(16).int32(message.broadcastConcurrency);
+    }
+    if (message.hooks !== undefined) {
+      AccountConfigurationHook.encode(message.hooks, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AccountConfiguration {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAccountConfiguration();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 2:
+          message.broadcastConcurrency = reader.int32();
+          break;
+        case 3:
+          message.hooks = AccountConfigurationHook.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AccountConfiguration {
+    return {
+      broadcastConcurrency: isSet(object.broadcastConcurrency) ? Number(object.broadcastConcurrency) : undefined,
+      hooks: isSet(object.hooks) ? AccountConfigurationHook.fromJSON(object.hooks) : undefined,
+    };
+  },
+
+  toJSON(message: AccountConfiguration): unknown {
+    const obj: any = {};
+    message.broadcastConcurrency !== undefined && (obj.broadcastConcurrency = Math.round(message.broadcastConcurrency));
+    message.hooks !== undefined &&
+      (obj.hooks = message.hooks ? AccountConfigurationHook.toJSON(message.hooks) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<AccountConfiguration>): AccountConfiguration {
+    const message = createBaseAccountConfiguration();
+    message.broadcastConcurrency = object.broadcastConcurrency ?? undefined;
+    message.hooks = (object.hooks !== undefined && object.hooks !== null)
+      ? AccountConfigurationHook.fromPartial(object.hooks)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseGetAccountConfigurationRequest(): GetAccountConfigurationRequest {
+  return {};
+}
+
+export const GetAccountConfigurationRequest = {
+  encode(_: GetAccountConfigurationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetAccountConfigurationRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetAccountConfigurationRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): GetAccountConfigurationRequest {
+    return {};
+  },
+
+  toJSON(_: GetAccountConfigurationRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<GetAccountConfigurationRequest>): GetAccountConfigurationRequest {
+    const message = createBaseGetAccountConfigurationRequest();
+    return message;
+  },
+};
+
+function createBaseGetAccountConfigurationResponse(): GetAccountConfigurationResponse {
+  return { accountConfiguration: undefined };
+}
+
+export const GetAccountConfigurationResponse = {
+  encode(message: GetAccountConfigurationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.accountConfiguration !== undefined) {
+      AccountConfiguration.encode(message.accountConfiguration, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetAccountConfigurationResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetAccountConfigurationResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.accountConfiguration = AccountConfiguration.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetAccountConfigurationResponse {
+    return {
+      accountConfiguration: isSet(object.accountConfiguration)
+        ? AccountConfiguration.fromJSON(object.accountConfiguration)
+        : undefined,
+    };
+  },
+
+  toJSON(message: GetAccountConfigurationResponse): unknown {
+    const obj: any = {};
+    message.accountConfiguration !== undefined && (obj.accountConfiguration = message.accountConfiguration
+      ? AccountConfiguration.toJSON(message.accountConfiguration)
+      : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetAccountConfigurationResponse>): GetAccountConfigurationResponse {
+    const message = createBaseGetAccountConfigurationResponse();
+    message.accountConfiguration = (object.accountConfiguration !== undefined && object.accountConfiguration !== null)
+      ? AccountConfiguration.fromPartial(object.accountConfiguration)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseUpdateAccountConfigurationRequest(): UpdateAccountConfigurationRequest {
+  return { broadcastConcurrency: undefined, hooks: undefined, updateMask: undefined };
+}
+
+export const UpdateAccountConfigurationRequest = {
+  encode(message: UpdateAccountConfigurationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.broadcastConcurrency !== undefined) {
+      writer.uint32(16).int32(message.broadcastConcurrency);
+    }
+    if (message.hooks !== undefined) {
+      AccountConfigurationHook.encode(message.hooks, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.updateMask !== undefined) {
+      FieldMask.encode(FieldMask.wrap(message.updateMask), writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateAccountConfigurationRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateAccountConfigurationRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 2:
+          message.broadcastConcurrency = reader.int32();
+          break;
+        case 3:
+          message.hooks = AccountConfigurationHook.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.updateMask = FieldMask.unwrap(FieldMask.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateAccountConfigurationRequest {
+    return {
+      broadcastConcurrency: isSet(object.broadcastConcurrency) ? Number(object.broadcastConcurrency) : undefined,
+      hooks: isSet(object.hooks) ? AccountConfigurationHook.fromJSON(object.hooks) : undefined,
+      updateMask: isSet(object.updateMask) ? FieldMask.unwrap(FieldMask.fromJSON(object.updateMask)) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateAccountConfigurationRequest): unknown {
+    const obj: any = {};
+    message.broadcastConcurrency !== undefined && (obj.broadcastConcurrency = Math.round(message.broadcastConcurrency));
+    message.hooks !== undefined &&
+      (obj.hooks = message.hooks ? AccountConfigurationHook.toJSON(message.hooks) : undefined);
+    message.updateMask !== undefined && (obj.updateMask = FieldMask.toJSON(FieldMask.wrap(message.updateMask)));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<UpdateAccountConfigurationRequest>): UpdateAccountConfigurationRequest {
+    const message = createBaseUpdateAccountConfigurationRequest();
+    message.broadcastConcurrency = object.broadcastConcurrency ?? undefined;
+    message.hooks = (object.hooks !== undefined && object.hooks !== null)
+      ? AccountConfigurationHook.fromPartial(object.hooks)
+      : undefined;
+    message.updateMask = object.updateMask ?? undefined;
+    return message;
+  },
+};
+
+function createBaseUpdateAccountConfigurationResponse(): UpdateAccountConfigurationResponse {
+  return { accountConfiguration: undefined };
+}
+
+export const UpdateAccountConfigurationResponse = {
+  encode(message: UpdateAccountConfigurationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.accountConfiguration !== undefined) {
+      AccountConfiguration.encode(message.accountConfiguration, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateAccountConfigurationResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateAccountConfigurationResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.accountConfiguration = AccountConfiguration.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateAccountConfigurationResponse {
+    return {
+      accountConfiguration: isSet(object.accountConfiguration)
+        ? AccountConfiguration.fromJSON(object.accountConfiguration)
+        : undefined,
+    };
+  },
+
+  toJSON(message: UpdateAccountConfigurationResponse): unknown {
+    const obj: any = {};
+    message.accountConfiguration !== undefined && (obj.accountConfiguration = message.accountConfiguration
+      ? AccountConfiguration.toJSON(message.accountConfiguration)
+      : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<UpdateAccountConfigurationResponse>): UpdateAccountConfigurationResponse {
+    const message = createBaseUpdateAccountConfigurationResponse();
+    message.accountConfiguration = (object.accountConfiguration !== undefined && object.accountConfiguration !== null)
+      ? AccountConfiguration.fromPartial(object.accountConfiguration)
+      : undefined;
+    return message;
+  },
+};
 
 function createBaseVideoRendering(): VideoRendering {
   return { height: undefined, width: undefined, framerate: undefined, colorSpace: undefined };
@@ -6940,7 +7686,14 @@ export const DeleteProjectResponse = {
 };
 
 function createBaseStartProjectBroadcastRequest(): StartProjectBroadcastRequest {
-  return { collectionId: "", projectId: "", webrtcStart: undefined, async: undefined, dynamicSources: {} };
+  return {
+    collectionId: "",
+    projectId: "",
+    webrtcStart: undefined,
+    async: undefined,
+    dynamicSources: {},
+    triggerMetadata: undefined,
+  };
 }
 
 export const StartProjectBroadcastRequest = {
@@ -6961,6 +7714,9 @@ export const StartProjectBroadcastRequest = {
       StartProjectBroadcastRequest_DynamicSourcesEntry.encode({ key: key as any, value }, writer.uint32(42).fork())
         .ldelim();
     });
+    if (message.triggerMetadata !== undefined) {
+      Value.encode(Value.wrap(message.triggerMetadata), writer.uint32(58).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -6989,6 +7745,9 @@ export const StartProjectBroadcastRequest = {
             message.dynamicSources[entry5.key] = entry5.value;
           }
           break;
+        case 7:
+          message.triggerMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -7009,6 +7768,7 @@ export const StartProjectBroadcastRequest = {
           return acc;
         }, {})
         : {},
+      triggerMetadata: isSet(object?.triggerMetadata) ? object.triggerMetadata : undefined,
     };
   },
 
@@ -7024,6 +7784,7 @@ export const StartProjectBroadcastRequest = {
         obj.dynamicSources[k] = RuntimeSourceAddress.toJSON(v);
       });
     }
+    message.triggerMetadata !== undefined && (obj.triggerMetadata = message.triggerMetadata);
     return obj;
   },
 
@@ -7041,6 +7802,7 @@ export const StartProjectBroadcastRequest = {
       }
       return acc;
     }, {});
+    message.triggerMetadata = object.triggerMetadata ?? undefined;
     return message;
   },
 };
@@ -12346,6 +13108,63 @@ export const LiveEvent = {
     return message;
   },
 };
+
+/** account configuration service */
+export interface AccountConfigurationService {
+  /** get account configuration */
+  GetAccountConfiguration(request: GetAccountConfigurationRequest): Promise<GetAccountConfigurationResponse>;
+  /** update account configuration */
+  UpdateAccountConfiguration(request: UpdateAccountConfigurationRequest): Promise<UpdateAccountConfigurationResponse>;
+}
+
+export class AccountConfigurationServiceClientImpl implements AccountConfigurationService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "live.v21.AccountConfigurationService";
+    this.rpc = rpc;
+    this.GetAccountConfiguration = this.GetAccountConfiguration.bind(this);
+    this.UpdateAccountConfiguration = this.UpdateAccountConfiguration.bind(this);
+  }
+  GetAccountConfiguration(request: GetAccountConfigurationRequest): Promise<GetAccountConfigurationResponse> {
+    const data = GetAccountConfigurationRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetAccountConfiguration", data);
+    return promise.then((data) => GetAccountConfigurationResponse.decode(new _m0.Reader(data)));
+  }
+
+  UpdateAccountConfiguration(request: UpdateAccountConfigurationRequest): Promise<UpdateAccountConfigurationResponse> {
+    const data = UpdateAccountConfigurationRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateAccountConfiguration", data);
+    return promise.then((data) => UpdateAccountConfigurationResponse.decode(new _m0.Reader(data)));
+  }
+}
+
+/** account configuration service */
+export type AccountConfigurationServiceDefinition = typeof AccountConfigurationServiceDefinition;
+export const AccountConfigurationServiceDefinition = {
+  name: "AccountConfigurationService",
+  fullName: "live.v21.AccountConfigurationService",
+  methods: {
+    /** get account configuration */
+    getAccountConfiguration: {
+      name: "GetAccountConfiguration",
+      requestType: GetAccountConfigurationRequest,
+      requestStream: false,
+      responseType: GetAccountConfigurationResponse,
+      responseStream: false,
+      options: {},
+    },
+    /** update account configuration */
+    updateAccountConfiguration: {
+      name: "UpdateAccountConfiguration",
+      requestType: UpdateAccountConfigurationRequest,
+      requestStream: false,
+      responseType: UpdateAccountConfigurationResponse,
+      responseStream: false,
+      options: {},
+    },
+  },
+} as const;
 
 /**
  * The Collection Service operates on collections, which contain projects and
