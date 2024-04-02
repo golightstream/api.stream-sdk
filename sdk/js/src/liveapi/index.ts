@@ -14,8 +14,8 @@ import { EventApi } from '../eventapi';
 
 import * as LiveApiModel from './proto/ts/live/v21/api';
 
-import { EventMessageType } from '../eventapi';
 import { RequiresSdkAuthentication } from '../api/decorator';
+import { EventMessageType } from '../eventapi';
 
 const LOG_CATEGORY = 'LiveApi';
 
@@ -55,6 +55,12 @@ export class LiveApi extends ApiClient {
   backendAuthentication?: NiceGrpc.Client<
     typeof LiveApiModel.BackendAuthenticationServiceDefinition
   >;
+
+  // access to the config service
+  accountConfiguration?: NiceGrpc.Client<
+    typeof LiveApiModel.AccountConfigurationServiceDefinition
+  >;
+
   // access to the demo authentication service
   publicAuthentication: NiceGrpc.Client<
     typeof LiveApiModel.PublicAuthenticationServiceDefinition
@@ -78,6 +84,15 @@ export class LiveApi extends ApiClient {
           '*': { metadata: NiceGrpc.Metadata( { 'X-Api-Key': apiKey } ) }
         },
       );
+
+      this.accountConfiguration = this.clientFactory.create(
+        LiveApiModel.AccountConfigurationServiceDefinition,
+        this.channel,
+        {
+          '*': { metadata: NiceGrpc.Metadata( { 'X-Api-Key': apiKey } ) }
+        },
+      );  
+
     }
 
     this.eventApi.on( 'event', { name: `${ LiveApi.LIVEAPI_EVENT_PREFIX }:*`, ignoreSessionEvents: true, allowedSessionEvents: [ `${ LiveApi.LIVEAPI_EVENT_PREFIX }:EVENT_TYPE_PROJECT:EVENT_SUB_TYPE_STATE` ] }, this.eventCallback.bind( this ) );
