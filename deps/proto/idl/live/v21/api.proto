@@ -158,7 +158,7 @@ message WebhookConfiguration {
       default: "true"
   }];
   // webhook url
-  optional string url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"https://example.webhook.test/start-broadcast\""}];
+  string url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"https://example.webhook.test/start-broadcast\""}];
   // webhook timeout period in ms
   optional uint32 timeout_ms = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "5000",

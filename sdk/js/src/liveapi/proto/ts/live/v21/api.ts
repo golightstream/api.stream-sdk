@@ -1229,9 +1229,7 @@ export interface WebhookConfiguration {
   /** enable webhook */
   enabled: boolean;
   /** webhook url */
-  url?:
-    | string
-    | undefined;
+  url: string;
   /** webhook timeout period in ms */
   timeoutMs?: number | undefined;
 }
@@ -2885,7 +2883,7 @@ export const WebhookResponse = {
 };
 
 function createBaseWebhookConfiguration(): WebhookConfiguration {
-  return { enabled: false, url: undefined, timeoutMs: undefined };
+  return { enabled: false, url: "", timeoutMs: undefined };
 }
 
 export const WebhookConfiguration = {
@@ -2893,7 +2891,7 @@ export const WebhookConfiguration = {
     if (message.enabled === true) {
       writer.uint32(8).bool(message.enabled);
     }
-    if (message.url !== undefined) {
+    if (message.url !== "") {
       writer.uint32(18).string(message.url);
     }
     if (message.timeoutMs !== undefined) {
@@ -2929,7 +2927,7 @@ export const WebhookConfiguration = {
   fromJSON(object: any): WebhookConfiguration {
     return {
       enabled: isSet(object.enabled) ? Boolean(object.enabled) : false,
-      url: isSet(object.url) ? String(object.url) : undefined,
+      url: isSet(object.url) ? String(object.url) : "",
       timeoutMs: isSet(object.timeoutMs) ? Number(object.timeoutMs) : undefined,
     };
   },
@@ -2945,7 +2943,7 @@ export const WebhookConfiguration = {
   fromPartial(object: DeepPartial<WebhookConfiguration>): WebhookConfiguration {
     const message = createBaseWebhookConfiguration();
     message.enabled = object.enabled ?? false;
-    message.url = object.url ?? undefined;
+    message.url = object.url ?? "";
     message.timeoutMs = object.timeoutMs ?? undefined;
     return message;
   },
