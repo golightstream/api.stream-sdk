@@ -1212,13 +1212,16 @@ export function eventTypeToNumber(object: EventType): number {
   }
 }
 
-export interface WebhookResponse {
+export interface WebhookRequest {
   userId: string;
   collectionId: string;
   projectId: string;
   /** arbitrary metadata to associate with this project */
   triggerMetadata?: any | undefined;
   trigger?: BroadcastTrigger | undefined;
+}
+
+export interface WebhookResponse {
 }
 
 /** webhook configuration message */
@@ -2756,12 +2759,12 @@ export interface LiveEvent {
   unspecified: NullValue | undefined;
 }
 
-function createBaseWebhookResponse(): WebhookResponse {
+function createBaseWebhookRequest(): WebhookRequest {
   return { userId: "", collectionId: "", projectId: "", triggerMetadata: undefined, trigger: undefined };
 }
 
-export const WebhookResponse = {
-  encode(message: WebhookResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const WebhookRequest = {
+  encode(message: WebhookRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.userId !== "") {
       writer.uint32(10).string(message.userId);
     }
@@ -2780,10 +2783,10 @@ export const WebhookResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): WebhookResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): WebhookRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseWebhookResponse();
+    const message = createBaseWebhookRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2810,7 +2813,7 @@ export const WebhookResponse = {
     return message;
   },
 
-  fromJSON(object: any): WebhookResponse {
+  fromJSON(object: any): WebhookRequest {
     return {
       userId: isSet(object.userId) ? String(object.userId) : "",
       collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
@@ -2820,7 +2823,7 @@ export const WebhookResponse = {
     };
   },
 
-  toJSON(message: WebhookResponse): unknown {
+  toJSON(message: WebhookRequest): unknown {
     const obj: any = {};
     message.userId !== undefined && (obj.userId = message.userId);
     message.collectionId !== undefined && (obj.collectionId = message.collectionId);
@@ -2831,13 +2834,52 @@ export const WebhookResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<WebhookResponse>): WebhookResponse {
-    const message = createBaseWebhookResponse();
+  fromPartial(object: DeepPartial<WebhookRequest>): WebhookRequest {
+    const message = createBaseWebhookRequest();
     message.userId = object.userId ?? "";
     message.collectionId = object.collectionId ?? "";
     message.projectId = object.projectId ?? "";
     message.triggerMetadata = object.triggerMetadata ?? undefined;
     message.trigger = object.trigger ?? undefined;
+    return message;
+  },
+};
+
+function createBaseWebhookResponse(): WebhookResponse {
+  return {};
+}
+
+export const WebhookResponse = {
+  encode(_: WebhookResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WebhookResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseWebhookResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): WebhookResponse {
+    return {};
+  },
+
+  toJSON(_: WebhookResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<WebhookResponse>): WebhookResponse {
+    const message = createBaseWebhookResponse();
     return message;
   },
 };

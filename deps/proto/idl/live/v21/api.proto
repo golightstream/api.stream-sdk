@@ -139,7 +139,7 @@ enum WebhookSubtype {
   WEBHOOK_SUBTYPE_JOIN_WEBRTC = 3;
 }
 
-message WebhookResponse {
+message WebhookRequest {
   string user_id = 1;
   string collection_id = 2;
   string project_id = 3;
@@ -147,6 +147,8 @@ message WebhookResponse {
   optional google.protobuf.Value trigger_metadata = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "{\"createdBy\": \"Eddie Current\"}"}];
   optional BroadcastTrigger trigger = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"BROADCAST_TRIGGER_API\""}];
 }
+
+message WebhookResponse {}
 
 // webhook configuration message
 message WebhookConfiguration {
