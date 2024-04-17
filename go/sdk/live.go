@@ -8,9 +8,11 @@ package sdk
 
 import (
 	"context"
+	"crypto/tls"
 	"errors"
 	livev21 "github.com/golightstream/api.stream-sdk/go/sdk/proto/live/v21"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
 	"log"
@@ -160,9 +162,16 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 		config: config,
 	}
 
+	transport := insecure.NewCredentials()
+
+	// If port 443 is used, enforce tls
+	if strings.Contains(getLiveApiServer(config), ":443") {
+		transport = credentials.NewTLS(&tls.Config{})
+	}
+
 	dial, err := grpc.Dial(
 		getLiveApiServer(config),
-		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithTransportCredentials(transport),
 		grpc.WithUnaryInterceptor(func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 			mtd, hasCtx := metadata.FromOutgoingContext(ctx)
 
