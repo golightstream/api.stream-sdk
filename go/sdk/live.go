@@ -28,11 +28,12 @@ type APIStreamLiveAPI struct {
 	backendAuthentication *livev21.BackendAuthenticationServiceClient
 
 	// Access Token
-	collection     *livev21.CollectionServiceClient
-	project        *livev21.ProjectServiceClient
-	source         *livev21.SourceServiceClient
-	destination    *livev21.DestinationServiceClient
-	authentication *livev21.AuthenticationServiceClient
+	collection           *livev21.CollectionServiceClient
+	project              *livev21.ProjectServiceClient
+	source               *livev21.SourceServiceClient
+	destination          *livev21.DestinationServiceClient
+	authentication       *livev21.AuthenticationServiceClient
+	accountConfiguration *livev21.AccountConfigurationServiceClient
 }
 
 // GetPublicAuthenticationService returns an instance of the public authentication service. This requires API Key authentication
@@ -63,6 +64,21 @@ func (liveApi *APIStreamLiveAPI) GetBackendAuthenticationService() (livev21.Back
 	}
 
 	return *liveApi.backendAuthentication, nil
+}
+
+// GetAccountConfigurationService returns an instance of the account configuration service. This requires API Key authentication
+func (liveApi *APIStreamLiveAPI) GetAccountConfigurationService() (livev21.AccountConfigurationServiceClient, error) {
+	if !hasAPIKey(liveApi.config) {
+		return nil, errors.New("missing api.stream api key")
+	}
+
+	if liveApi.publicAuthentication == nil {
+		client := livev21.NewAccountConfigurationServiceClient(liveApi.dialer)
+		liveApi.accountConfiguration = &client
+
+	}
+
+	return *liveApi.accountConfiguration, nil
 }
 
 // GetCollectionService returns an instance of the collection service. This requires an access token for authentication.
@@ -145,6 +161,7 @@ func (liveApi *APIStreamLiveAPI) reload(config APIStreamConfig) {
 	if liveApi.config.APIKey == "" {
 		liveApi.publicAuthentication = nil
 		liveApi.backendAuthentication = nil
+		liveApi.accountConfiguration = nil
 	}
 
 	// cleanup access token clients that once existed
@@ -180,7 +197,7 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 			}
 
 			// Only send the API key for relevant services
-			if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") {
+			if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") || strings.Contains(method, "AccountConfiguration") {
 				if api.config.APIKey != "" {
 					mtd.Append("x-api-key", api.config.APIKey)
 				}

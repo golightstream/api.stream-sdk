@@ -30,16 +30,28 @@ type APIStreamConfig struct {
 }
 
 type APIStreamClient struct {
-	config  APIStreamConfig
-	liveApi *APIStreamLiveAPI
+	config    APIStreamConfig
+	liveApi   *APIStreamLiveAPI
+	layoutApi *APIStreamLayoutAPI
+	eventApi  *APIStreamEventAPI
 }
 
 func (client *APIStreamClient) GetLiveAPI() *APIStreamLiveAPI {
 	return client.liveApi
 }
 
+func (client *APIStreamClient) GetEventAPI() *APIStreamEventAPI {
+	return client.eventApi
+}
+
+func (client *APIStreamClient) GetLayoutAPI() *APIStreamLayoutAPI {
+	return client.layoutApi
+}
+
 func (client *APIStreamClient) Load(token string) {
 	client.config.AccessToken = token
+	client.eventApi.reload(client.config)
+	client.layoutApi.reload(client.config)
 	client.liveApi.reload(client.config)
 }
 
@@ -49,5 +61,5 @@ func NewAPIStreamClient(config APIStreamConfig) *APIStreamClient {
 		config.Env = "prod"
 	}
 
-	return &APIStreamClient{config: config, liveApi: newAPIStreamLiveAPI(config)}
+	return &APIStreamClient{config: config, liveApi: newAPIStreamLiveAPI(config), layoutApi: newAPIStreamLayoutAPI(config), eventApi: newAPIStreamEventAPI(config)}
 }
