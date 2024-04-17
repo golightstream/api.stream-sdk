@@ -30,6 +30,135 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	AccountConfigurationService_GetAccountConfiguration_FullMethodName    = "/live.v21.AccountConfigurationService/GetAccountConfiguration"
+	AccountConfigurationService_UpdateAccountConfiguration_FullMethodName = "/live.v21.AccountConfigurationService/UpdateAccountConfiguration"
+)
+
+// AccountConfigurationServiceClient is the client API for AccountConfigurationService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type AccountConfigurationServiceClient interface {
+	// get account configuration
+	GetAccountConfiguration(ctx context.Context, in *GetAccountConfigurationRequest, opts ...grpc.CallOption) (*GetAccountConfigurationResponse, error)
+	// update account configuration
+	UpdateAccountConfiguration(ctx context.Context, in *UpdateAccountConfigurationRequest, opts ...grpc.CallOption) (*UpdateAccountConfigurationResponse, error)
+}
+
+type accountConfigurationServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAccountConfigurationServiceClient(cc grpc.ClientConnInterface) AccountConfigurationServiceClient {
+	return &accountConfigurationServiceClient{cc}
+}
+
+func (c *accountConfigurationServiceClient) GetAccountConfiguration(ctx context.Context, in *GetAccountConfigurationRequest, opts ...grpc.CallOption) (*GetAccountConfigurationResponse, error) {
+	out := new(GetAccountConfigurationResponse)
+	err := c.cc.Invoke(ctx, AccountConfigurationService_GetAccountConfiguration_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountConfigurationServiceClient) UpdateAccountConfiguration(ctx context.Context, in *UpdateAccountConfigurationRequest, opts ...grpc.CallOption) (*UpdateAccountConfigurationResponse, error) {
+	out := new(UpdateAccountConfigurationResponse)
+	err := c.cc.Invoke(ctx, AccountConfigurationService_UpdateAccountConfiguration_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AccountConfigurationServiceServer is the server API for AccountConfigurationService service.
+// All implementations should embed UnimplementedAccountConfigurationServiceServer
+// for forward compatibility
+type AccountConfigurationServiceServer interface {
+	// get account configuration
+	GetAccountConfiguration(context.Context, *GetAccountConfigurationRequest) (*GetAccountConfigurationResponse, error)
+	// update account configuration
+	UpdateAccountConfiguration(context.Context, *UpdateAccountConfigurationRequest) (*UpdateAccountConfigurationResponse, error)
+}
+
+// UnimplementedAccountConfigurationServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedAccountConfigurationServiceServer struct {
+}
+
+func (UnimplementedAccountConfigurationServiceServer) GetAccountConfiguration(context.Context, *GetAccountConfigurationRequest) (*GetAccountConfigurationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountConfiguration not implemented")
+}
+func (UnimplementedAccountConfigurationServiceServer) UpdateAccountConfiguration(context.Context, *UpdateAccountConfigurationRequest) (*UpdateAccountConfigurationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountConfiguration not implemented")
+}
+
+// UnsafeAccountConfigurationServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AccountConfigurationServiceServer will
+// result in compilation errors.
+type UnsafeAccountConfigurationServiceServer interface {
+	mustEmbedUnimplementedAccountConfigurationServiceServer()
+}
+
+func RegisterAccountConfigurationServiceServer(s grpc.ServiceRegistrar, srv AccountConfigurationServiceServer) {
+	s.RegisterService(&AccountConfigurationService_ServiceDesc, srv)
+}
+
+func _AccountConfigurationService_GetAccountConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountConfigurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountConfigurationServiceServer).GetAccountConfiguration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountConfigurationService_GetAccountConfiguration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountConfigurationServiceServer).GetAccountConfiguration(ctx, req.(*GetAccountConfigurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountConfigurationService_UpdateAccountConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountConfigurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountConfigurationServiceServer).UpdateAccountConfiguration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountConfigurationService_UpdateAccountConfiguration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountConfigurationServiceServer).UpdateAccountConfiguration(ctx, req.(*UpdateAccountConfigurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// AccountConfigurationService_ServiceDesc is the grpc.ServiceDesc for AccountConfigurationService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var AccountConfigurationService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "live.v21.AccountConfigurationService",
+	HandlerType: (*AccountConfigurationServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetAccountConfiguration",
+			Handler:    _AccountConfigurationService_GetAccountConfiguration_Handler,
+		},
+		{
+			MethodName: "UpdateAccountConfiguration",
+			Handler:    _AccountConfigurationService_UpdateAccountConfiguration_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "live/v21/api.proto",
+}
+
+const (
 	CollectionService_CreateCollection_FullMethodName = "/live.v21.CollectionService/CreateCollection"
 	CollectionService_GetCollection_FullMethodName    = "/live.v21.CollectionService/GetCollection"
 	CollectionService_GetCollections_FullMethodName   = "/live.v21.CollectionService/GetCollections"

@@ -39,8 +39,6 @@ func (client *APIStreamClient) GetLiveAPI() *APIStreamLiveAPI {
 }
 
 func (client *APIStreamClient) Load(token string) {
-	// todo: refresh guest control?
-
 	client.config.AccessToken = token
 	client.liveApi.reload(client.config)
 }

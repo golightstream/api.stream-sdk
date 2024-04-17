@@ -66,6 +66,10 @@ export class LiveApi extends ApiClient {
     typeof LiveApiModel.PublicAuthenticationServiceDefinition
   >;
 
+  accountConfiguration: NiceGrpc.Client<
+    typeof LiveApiModel.AccountConfigurationServiceDefinition
+  >;
+
   constructor ( sessionId: string, eventApi: EventApi, server: string, onAccessTokenRefresh: LiveApi.AccessTokenRefreshCallback, apiKey?: string, sdkVersion?: string, apiLogCallback?: ApiClient.ApiLogCallback ) {
     super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback );
     this.eventApi = eventApi;

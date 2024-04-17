@@ -33,7 +33,7 @@ export function broadcastTriggerFromJSON(object: any): BroadcastTrigger {
     case "BROADCAST_TRIGGER_INTEGRATION":
       return BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
   }
 }
 
@@ -48,7 +48,7 @@ export function broadcastTriggerToJSON(object: BroadcastTrigger): string {
     case BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION:
       return "BROADCAST_TRIGGER_INTEGRATION";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
   }
 }
 
@@ -63,7 +63,7 @@ export function broadcastTriggerToNumber(object: BroadcastTrigger): number {
     case BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION:
       return 3;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
   }
 }
 
@@ -85,7 +85,7 @@ export function webhookTypeFromJSON(object: any): WebhookType {
     case "WEBHOOK_TYPE_EVENT":
       return WebhookType.WEBHOOK_TYPE_EVENT;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
   }
 }
 
@@ -98,7 +98,7 @@ export function webhookTypeToJSON(object: WebhookType): string {
     case WebhookType.WEBHOOK_TYPE_EVENT:
       return "WEBHOOK_TYPE_EVENT";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
   }
 }
 
@@ -111,7 +111,7 @@ export function webhookTypeToNumber(object: WebhookType): number {
     case WebhookType.WEBHOOK_TYPE_EVENT:
       return 2;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum WebhookType");
   }
 }
 
@@ -137,7 +137,7 @@ export function webhookSubtypeFromJSON(object: any): WebhookSubtype {
     case "WEBHOOK_SUBTYPE_JOIN_WEBRTC":
       return WebhookSubtype.WEBHOOK_SUBTYPE_JOIN_WEBRTC;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
   }
 }
 
@@ -152,7 +152,7 @@ export function webhookSubtypeToJSON(object: WebhookSubtype): string {
     case WebhookSubtype.WEBHOOK_SUBTYPE_JOIN_WEBRTC:
       return "WEBHOOK_SUBTYPE_JOIN_WEBRTC";
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
   }
 }
 
@@ -167,7 +167,7 @@ export function webhookSubtypeToNumber(object: WebhookSubtype): number {
     case WebhookSubtype.WEBHOOK_SUBTYPE_JOIN_WEBRTC:
       return 3;
     default:
-      throw new globalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum WebhookSubtype");
   }
 }
 

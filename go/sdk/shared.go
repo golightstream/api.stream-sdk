@@ -8,8 +8,8 @@ package sdk
 
 var LiveAPIServers = map[Environment]string{
 	"local": "localhost:8090",
-	"stage": "rpc.stream.horse:443",
-	"prod":  "rpc.api.stream:443",
+	"stage": "live.silly.horse:443",
+	"prod":  "live.api.stream:443",
 }
 
 func hasAPIKey(config APIStreamConfig) bool {
