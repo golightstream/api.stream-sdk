@@ -18,7 +18,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          cd examples/js/scenes-demo
+          cd js/examples/scenes-demo
           npm run publish-demo
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
