@@ -57,6 +57,11 @@ export class LiveApi extends ApiClient {
   >;
 
   // access to the config service
+  account?: NiceGrpc.Client<
+    typeof LiveApiModel.AccountServiceDefinition
+  >;
+
+  // access to the config service
   accountConfiguration?: NiceGrpc.Client<
     typeof LiveApiModel.AccountConfigurationServiceDefinition
   >;
@@ -67,7 +72,7 @@ export class LiveApi extends ApiClient {
   >;
 
   constructor ( sessionId: string, eventApi: EventApi, server: string, onAccessTokenRefresh: LiveApi.AccessTokenRefreshCallback, apiKey?: string, sdkVersion?: string, apiLogCallback?: ApiClient.ApiLogCallback ) {
-    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback );
+    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, undefined, apiKey);
     this.eventApi = eventApi;
     this.accessTokenRefreshCallback = onAccessTokenRefresh;
 
@@ -81,7 +86,7 @@ export class LiveApi extends ApiClient {
         LiveApiModel.BackendAuthenticationServiceDefinition,
         this.channel,
         {
-          '*': { metadata: NiceGrpc.Metadata( { 'X-Api-Key': apiKey } ) }
+          '*': this.makeGrpcMetadataApikey()
         },
       );
 
@@ -89,10 +94,17 @@ export class LiveApi extends ApiClient {
         LiveApiModel.AccountConfigurationServiceDefinition,
         this.channel,
         {
-          '*': { metadata: NiceGrpc.Metadata( { 'X-Api-Key': apiKey } ) }
+          '*': this.makeGrpcMetadataApikey()
         },
       );  
 
+      this.account = this.clientFactory.create(
+        LiveApiModel.AccountServiceDefinition,
+        this.channel,
+        {
+          '*': this.makeGrpcMetadataApikey()
+        },
+      );  
     }
 
     this.eventApi.on( 'event', { name: `${ LiveApi.LIVEAPI_EVENT_PREFIX }:*`, ignoreSessionEvents: true, allowedSessionEvents: [ `${ LiveApi.LIVEAPI_EVENT_PREFIX }:EVENT_TYPE_PROJECT:EVENT_SUB_TYPE_STATE` ] }, this.eventCallback.bind( this ) );

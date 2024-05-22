@@ -91,6 +91,7 @@ export class EventApi extends ApiClient {
   private badAuthentication: boolean = false;
 
   private eventsClient?: NiceGrpc.Client<typeof EventApiModel.EventServiceDefinition> = null;
+  public webhookClient: NiceGrpc.Client<typeof EventApiModel.WebhookServiceDefinition> = null;
 
   constructor (
     sessionId: string,
@@ -98,9 +99,20 @@ export class EventApi extends ApiClient {
     private readonly websocketServer: string,
     sdkVersion: string,
     apiLogCallback?: ApiClient.ApiLogCallback,
-    eventLogCallback?: ApiClient.EventLogCallback
+    eventLogCallback?: ApiClient.EventLogCallback,
+    apikey?: string,
   ) {
-    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, eventLogCallback );
+    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, eventLogCallback, apikey );
+
+    if (this.apikey !== undefined) {
+      this.webhookClient = this.clientFactory.create(
+        EventApiModel.WebhookServiceDefinition,
+        this.channel,
+        {
+          '*': this.makeGrpcMetadataApikey()
+        },
+      );
+    }
   }
 
   /**
@@ -131,7 +143,7 @@ export class EventApi extends ApiClient {
       const currentAccessToken = this.accessToken;
 
       // Open new connection
-      const query = [ `version=${ clientVersion }`, `sessionid=${ this.sessionId }` ];
+      const query = [ `version=${ clientVersion }`, `sessionid=${ this.sessionId }`, 'clienttype=nodejs' ];
 
       if ( this.sdkVersion ) {
         query.push( `sdkversion=${ this.sdkVersion }` );
@@ -215,7 +227,7 @@ export class EventApi extends ApiClient {
    * @param type 
    * @param payload 
    */
-  public async subscribe ( name: string, payload: Omit<EventApiModel.SubscribePayload, 'name'> = {} ): Promise<void> {
+  public async subscribe ( name: string, payload: Omit<EventApiModel.SubscribePayload, 'name' | 'events'> = {} ): Promise<void> {
     return this.call( 'subscribe', { name, ...payload } )
       .then( () => {
         this.subscriptions.add( JSON.stringify( { name, ...payload } ) );
@@ -227,7 +239,7 @@ export class EventApi extends ApiClient {
    * @param type 
    * @param payload 
    */
-  public async unsubscribe ( name: string, payload: Omit<EventApiModel.SubscribePayload, 'name'> = {} ): Promise<void> {
+  public async unsubscribe ( name: string, payload: Omit<EventApiModel.SubscribePayload, 'name' | 'events'> = {} ): Promise<void> {
     this.subscriptions.delete( JSON.stringify( { name, payload } ) );
 
     await this.call( 'unsubscribe', { name, ...payload } );
@@ -306,7 +318,7 @@ export class EventApi extends ApiClient {
     this.cleanup();
   }
 
-  protected _setup ( options: NiceGrpc.CallOptions ): void {
+  protected _setup(options: NiceGrpc.CallOptions, apiKey?: string ): void {
     this.eventsClient = this.clientFactory.create(
       EventApiModel.EventServiceDefinition,
       this.channel,

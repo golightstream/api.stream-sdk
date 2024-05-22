@@ -193,8 +193,8 @@ export class ApiStream {
     if ( overrideEndpoints.eventApiWebSocketServer == undefined )
       overrideEndpoints.eventApiWebSocketServer = EVENTAPI_WS_SERVERS[ this.env ];
 
-    this.eventApi = new EventApi( sessionId, overrideEndpoints.eventApiServer, overrideEndpoints.eventApiWebSocketServer, options.sdkVersion, options.apiLogCallback, options.eventLogCallback );
-    this.layoutApi = new LayoutApi( sessionId, this.eventApi, overrideEndpoints.layoutApiServer, options.sdkVersion, options.apiLogCallback );
+    this.eventApi = new EventApi(sessionId, overrideEndpoints.eventApiServer, overrideEndpoints.eventApiWebSocketServer, options.sdkVersion, options.apiLogCallback, options.eventLogCallback, options.apiKey);
+    this.layoutApi = new LayoutApi(sessionId, this.eventApi, overrideEndpoints.layoutApiServer, options.sdkVersion, options.apiLogCallback, options.apiKey);
     this.liveApi = new LiveApi( sessionId, this.eventApi, overrideEndpoints.liveApiServer, this.setAccessToken.bind( this ), options.apiKey, options.sdkVersion, options.apiLogCallback );
 
     // Handle the event api's authentication expiring

@@ -1626,7 +1626,11 @@ export interface DestinationAddress {
     | S3StorageAddress
     | undefined;
   /** srt push addressing */
-  srtPush?: DestinationSrtPushAddress | undefined;
+  srtPush?:
+    | DestinationSrtPushAddress
+    | undefined;
+  /** webrtc addressing */
+  webrtcPreview?: PreviewWebRtcAddress | undefined;
 }
 
 /** triggers to indicate what actions to take on the project for a given Source */
@@ -2755,6 +2759,20 @@ export interface LiveEvent {
   project?: ProjectEvent | undefined;
   source?: SourceEvent | undefined;
   unspecified?: NullValue | undefined;
+}
+
+export interface GetServiceRequest {
+}
+
+export interface Service {
+  serviceName: string;
+  serviceId: string;
+  enabled: boolean;
+  demo: boolean;
+}
+
+export interface GetServiceResponse {
+  service: Service | undefined;
 }
 
 function createBaseWebhookRequest(): WebhookRequest {
@@ -5042,7 +5060,7 @@ export const S3StorageAddress = {
 };
 
 function createBaseDestinationAddress(): DestinationAddress {
-  return { rtmpPush: undefined, agora: undefined, s3Storage: undefined, srtPush: undefined };
+  return { rtmpPush: undefined, agora: undefined, s3Storage: undefined, srtPush: undefined, webrtcPreview: undefined };
 }
 
 export const DestinationAddress = {
@@ -5058,6 +5076,9 @@ export const DestinationAddress = {
     }
     if (message.srtPush !== undefined) {
       DestinationSrtPushAddress.encode(message.srtPush, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.webrtcPreview !== undefined) {
+      PreviewWebRtcAddress.encode(message.webrtcPreview, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -5081,6 +5102,9 @@ export const DestinationAddress = {
         case 4:
           message.srtPush = DestinationSrtPushAddress.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.webrtcPreview = PreviewWebRtcAddress.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -5095,6 +5119,7 @@ export const DestinationAddress = {
       agora: isSet(object.agora) ? DestinationAgoraPushAddress.fromJSON(object.agora) : undefined,
       s3Storage: isSet(object.s3Storage) ? S3StorageAddress.fromJSON(object.s3Storage) : undefined,
       srtPush: isSet(object.srtPush) ? DestinationSrtPushAddress.fromJSON(object.srtPush) : undefined,
+      webrtcPreview: isSet(object.webrtcPreview) ? PreviewWebRtcAddress.fromJSON(object.webrtcPreview) : undefined,
     };
   },
 
@@ -5108,6 +5133,8 @@ export const DestinationAddress = {
       (obj.s3Storage = message.s3Storage ? S3StorageAddress.toJSON(message.s3Storage) : undefined);
     message.srtPush !== undefined &&
       (obj.srtPush = message.srtPush ? DestinationSrtPushAddress.toJSON(message.srtPush) : undefined);
+    message.webrtcPreview !== undefined &&
+      (obj.webrtcPreview = message.webrtcPreview ? PreviewWebRtcAddress.toJSON(message.webrtcPreview) : undefined);
     return obj;
   },
 
@@ -5124,6 +5151,9 @@ export const DestinationAddress = {
       : undefined;
     message.srtPush = (object.srtPush !== undefined && object.srtPush !== null)
       ? DestinationSrtPushAddress.fromPartial(object.srtPush)
+      : undefined;
+    message.webrtcPreview = (object.webrtcPreview !== undefined && object.webrtcPreview !== null)
+      ? PreviewWebRtcAddress.fromPartial(object.webrtcPreview)
       : undefined;
     return message;
   },
@@ -13149,6 +13179,170 @@ export const LiveEvent = {
   },
 };
 
+function createBaseGetServiceRequest(): GetServiceRequest {
+  return {};
+}
+
+export const GetServiceRequest = {
+  encode(_: GetServiceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetServiceRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetServiceRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): GetServiceRequest {
+    return {};
+  },
+
+  toJSON(_: GetServiceRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<GetServiceRequest>): GetServiceRequest {
+    const message = createBaseGetServiceRequest();
+    return message;
+  },
+};
+
+function createBaseService(): Service {
+  return { serviceName: "", serviceId: "", enabled: false, demo: false };
+}
+
+export const Service = {
+  encode(message: Service, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.serviceName !== "") {
+      writer.uint32(18).string(message.serviceName);
+    }
+    if (message.serviceId !== "") {
+      writer.uint32(26).string(message.serviceId);
+    }
+    if (message.enabled === true) {
+      writer.uint32(72).bool(message.enabled);
+    }
+    if (message.demo === true) {
+      writer.uint32(88).bool(message.demo);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): Service {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseService();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 2:
+          message.serviceName = reader.string();
+          break;
+        case 3:
+          message.serviceId = reader.string();
+          break;
+        case 9:
+          message.enabled = reader.bool();
+          break;
+        case 11:
+          message.demo = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Service {
+    return {
+      serviceName: isSet(object.serviceName) ? String(object.serviceName) : "",
+      serviceId: isSet(object.serviceId) ? String(object.serviceId) : "",
+      enabled: isSet(object.enabled) ? Boolean(object.enabled) : false,
+      demo: isSet(object.demo) ? Boolean(object.demo) : false,
+    };
+  },
+
+  toJSON(message: Service): unknown {
+    const obj: any = {};
+    message.serviceName !== undefined && (obj.serviceName = message.serviceName);
+    message.serviceId !== undefined && (obj.serviceId = message.serviceId);
+    message.enabled !== undefined && (obj.enabled = message.enabled);
+    message.demo !== undefined && (obj.demo = message.demo);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<Service>): Service {
+    const message = createBaseService();
+    message.serviceName = object.serviceName ?? "";
+    message.serviceId = object.serviceId ?? "";
+    message.enabled = object.enabled ?? false;
+    message.demo = object.demo ?? false;
+    return message;
+  },
+};
+
+function createBaseGetServiceResponse(): GetServiceResponse {
+  return { service: undefined };
+}
+
+export const GetServiceResponse = {
+  encode(message: GetServiceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.service !== undefined) {
+      Service.encode(message.service, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetServiceResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetServiceResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.service = Service.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetServiceResponse {
+    return { service: isSet(object.service) ? Service.fromJSON(object.service) : undefined };
+  },
+
+  toJSON(message: GetServiceResponse): unknown {
+    const obj: any = {};
+    message.service !== undefined && (obj.service = message.service ? Service.toJSON(message.service) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetServiceResponse>): GetServiceResponse {
+    const message = createBaseGetServiceResponse();
+    message.service = (object.service !== undefined && object.service !== null)
+      ? Service.fromPartial(object.service)
+      : undefined;
+    return message;
+  },
+};
+
 /** account configuration service */
 export interface AccountConfigurationService {
   /** get account configuration */
@@ -14259,6 +14453,45 @@ export const PublicAuthenticationServiceDefinition = {
       requestType: GuestCodeRedirectRequest,
       requestStream: false,
       responseType: GuestCodeRedirectResponse,
+      responseStream: false,
+      options: {},
+    },
+  },
+} as const;
+
+/** account configuration service */
+export interface AccountService {
+  /** get account configuration */
+  GetService(request: GetServiceRequest): Promise<GetServiceResponse>;
+}
+
+export class AccountServiceClientImpl implements AccountService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "live.v21.AccountService";
+    this.rpc = rpc;
+    this.GetService = this.GetService.bind(this);
+  }
+  GetService(request: GetServiceRequest): Promise<GetServiceResponse> {
+    const data = GetServiceRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetService", data);
+    return promise.then((data) => GetServiceResponse.decode(new _m0.Reader(data)));
+  }
+}
+
+/** account configuration service */
+export type AccountServiceDefinition = typeof AccountServiceDefinition;
+export const AccountServiceDefinition = {
+  name: "AccountService",
+  fullName: "live.v21.AccountService",
+  methods: {
+    /** get account configuration */
+    getService: {
+      name: "GetService",
+      requestType: GetServiceRequest,
+      requestStream: false,
+      responseType: GetServiceResponse,
       responseStream: false,
       options: {},
     },

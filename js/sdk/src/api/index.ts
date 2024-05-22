@@ -31,6 +31,7 @@ export class ApiClient {
   protected grpcOptions: NiceGrpc.CallOptions;
   protected apiLogCallback?: ApiClient.ApiLogCallback;
   protected eventLogCallback?: ApiClient.EventLogCallback;
+  protected apikey?: string;
 
   async * logMiddleware<Request, Response> (
     call: NiceGrpc.ClientMiddlewareCall<Request, Response>,
@@ -69,13 +70,14 @@ export class ApiClient {
     }
   }
 
-  constructor ( sessionId: string, server: string, sdkVersion?: string, logCategory?: string, apiLogCallback?: ApiClient.ApiLogCallback, eventLogCallback?: ApiClient.EventLogCallback ) {
+  constructor ( sessionId: string, server: string, sdkVersion?: string, logCategory?: string, apiLogCallback?: ApiClient.ApiLogCallback, eventLogCallback?: ApiClient.EventLogCallback, apikey?: string) {
     this.sessionId = sessionId;
     this.sdkVersion = sdkVersion;
     this.version = clientVersion;
     this.apiLogCallback = apiLogCallback;
     this.eventLogCallback = eventLogCallback;
     this.log = logger.getCategory( logCategory );
+    this.apikey = apikey;
 
     // If we're running under node, we need to use a specific transport (nice-grpc-web doesn't work natively).
     this.channel = NiceGrpc.createChannel( server, detectNode ? NodeTransport.NodeHttpTransport() : undefined );
@@ -93,11 +95,25 @@ export class ApiClient {
   protected makeGrpcMetadata (): NiceGrpc.Metadata {
     let metadata = NiceGrpc.Metadata( {
       Authorization: `Bearer ${ this.accessToken }`,
+      ClientType: 'nodejs',
       Version: this.version,
       SessionId: this.sessionId
     } );
     if ( this.sdkVersion != undefined ) {
       metadata.set( "SdkVersion", this.sdkVersion );
+    }
+    return metadata;
+  }
+
+  protected makeGrpcMetadataApikey(): NiceGrpc.Metadata {
+    let metadata = NiceGrpc.Metadata({
+      'x-api-key': this.apikey,
+      ClientType: 'nodejs',
+      Version: this.version,
+      SessionId: this.sessionId
+    });
+    if (this.sdkVersion != undefined) {
+      metadata.set("SdkVersion", this.sdkVersion);
     }
     return metadata;
   }

@@ -106,6 +106,27 @@ export interface EventTarget {
   layoutId?: string | undefined;
 }
 
+export interface ServiceEventTarget {
+  /** Subscribe to events in a given collection. */
+  userId?:
+    | string
+    | undefined;
+  /** Subscribe to events in a given collection. */
+  collectionId?:
+    | string
+    | undefined;
+  /** Subscribe to events in a given project. */
+  projectId?:
+    | string
+    | undefined;
+  /**
+   * Stream events to a specific layout.
+   * Note: when specified, collection_id and project_id are implictly defined. If you choose
+   * to define them, you they _must_ match the layout.
+   */
+  layoutId?: string | undefined;
+}
+
 /** Publish a custom event */
 export interface PublishEventRequest {
   /** Name of the event. */
@@ -151,13 +172,62 @@ export interface PublishEventResponse {
   id: string;
 }
 
+export interface WebhookSubscription {
+  /** Subscription identifier */
+  webhookId: string;
+  /** Event name to subscribe to for custom events, this can be a wildcard `my_service:*` */
+  events: string[];
+  /** The target to subscribe to. If not defined, all events will be sent. */
+  target?:
+    | ServiceEventTarget
+    | undefined;
+  /** The URL to send the event to. */
+  url: string;
+  timeoutMs?: number | undefined;
+}
+
+export interface ListWebhookSubscriptionsRequest {
+  /** The target to filter by. */
+  target?: ServiceEventTarget | undefined;
+}
+
+export interface ListWebhookSubscriptionsResponse {
+  subscriptions: WebhookSubscription[];
+}
+
+export interface CreateWebhookSubscriptionRequest {
+  /** Event's to subscribe to for custom events, this can be a wildcard `my_service:*` */
+  events: string[];
+  /** The target to subscribe to. If not defined, all events will be sent. */
+  target?:
+    | ServiceEventTarget
+    | undefined;
+  /** The URL to send the event to. */
+  url: string;
+  timeoutMs?: number | undefined;
+}
+
+export interface CreateWebhookSubscriptionResponse {
+  subscription: WebhookSubscription | undefined;
+}
+
+export interface DeleteWebhookSubscriptionRequest {
+  /** The webhook subscription identifier. */
+  webhookId: string;
+}
+
+export interface DeleteWebhookSubscriptionResponse {
+}
+
 /** Payload to subscribe or unsubscribe from an event */
 export interface SubscribePayload {
   /**
    * Event name to subscribe to for custom events.
-   * This can be a wildcard `my_service:*` or multiple events `my_event|my_other_event`.
+   * This can be a wildcard `my_service:*` or multiple events `my_event|my_other_event`. This is deprecated, prefer `events`.
    */
   name: string;
+  /** Event name to subscribe to for custom events, this can be a wildcard `my_service:*` */
+  events: string[];
   /** The target to subscribe to. */
   target?: EventTarget | undefined;
 }
@@ -316,6 +386,82 @@ export const EventTarget = {
 
   fromPartial(object: DeepPartial<EventTarget>): EventTarget {
     const message = createBaseEventTarget();
+    message.collectionId = object.collectionId ?? undefined;
+    message.projectId = object.projectId ?? undefined;
+    message.layoutId = object.layoutId ?? undefined;
+    return message;
+  },
+};
+
+function createBaseServiceEventTarget(): ServiceEventTarget {
+  return { userId: undefined, collectionId: undefined, projectId: undefined, layoutId: undefined };
+}
+
+export const ServiceEventTarget = {
+  encode(message: ServiceEventTarget, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.userId !== undefined) {
+      writer.uint32(10).string(message.userId);
+    }
+    if (message.collectionId !== undefined) {
+      writer.uint32(18).string(message.collectionId);
+    }
+    if (message.projectId !== undefined) {
+      writer.uint32(26).string(message.projectId);
+    }
+    if (message.layoutId !== undefined) {
+      writer.uint32(34).string(message.layoutId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ServiceEventTarget {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseServiceEventTarget();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.userId = reader.string();
+          break;
+        case 2:
+          message.collectionId = reader.string();
+          break;
+        case 3:
+          message.projectId = reader.string();
+          break;
+        case 4:
+          message.layoutId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ServiceEventTarget {
+    return {
+      userId: isSet(object.userId) ? String(object.userId) : undefined,
+      collectionId: isSet(object.collectionId) ? String(object.collectionId) : undefined,
+      projectId: isSet(object.projectId) ? String(object.projectId) : undefined,
+      layoutId: isSet(object.layoutId) ? String(object.layoutId) : undefined,
+    };
+  },
+
+  toJSON(message: ServiceEventTarget): unknown {
+    const obj: any = {};
+    message.userId !== undefined && (obj.userId = message.userId);
+    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
+    message.projectId !== undefined && (obj.projectId = message.projectId);
+    message.layoutId !== undefined && (obj.layoutId = message.layoutId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ServiceEventTarget>): ServiceEventTarget {
+    const message = createBaseServiceEventTarget();
+    message.userId = object.userId ?? undefined;
     message.collectionId = object.collectionId ?? undefined;
     message.projectId = object.projectId ?? undefined;
     message.layoutId = object.layoutId ?? undefined;
@@ -488,14 +634,433 @@ export const PublishEventResponse = {
   },
 };
 
+function createBaseWebhookSubscription(): WebhookSubscription {
+  return { webhookId: "", events: [], target: undefined, url: "", timeoutMs: undefined };
+}
+
+export const WebhookSubscription = {
+  encode(message: WebhookSubscription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.webhookId !== "") {
+      writer.uint32(10).string(message.webhookId);
+    }
+    for (const v of message.events) {
+      writer.uint32(18).string(v!);
+    }
+    if (message.target !== undefined) {
+      ServiceEventTarget.encode(message.target, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.url !== "") {
+      writer.uint32(34).string(message.url);
+    }
+    if (message.timeoutMs !== undefined) {
+      writer.uint32(40).uint32(message.timeoutMs);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WebhookSubscription {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseWebhookSubscription();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.webhookId = reader.string();
+          break;
+        case 2:
+          message.events.push(reader.string());
+          break;
+        case 3:
+          message.target = ServiceEventTarget.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.url = reader.string();
+          break;
+        case 5:
+          message.timeoutMs = reader.uint32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): WebhookSubscription {
+    return {
+      webhookId: isSet(object.webhookId) ? String(object.webhookId) : "",
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => String(e)) : [],
+      target: isSet(object.target) ? ServiceEventTarget.fromJSON(object.target) : undefined,
+      url: isSet(object.url) ? String(object.url) : "",
+      timeoutMs: isSet(object.timeoutMs) ? Number(object.timeoutMs) : undefined,
+    };
+  },
+
+  toJSON(message: WebhookSubscription): unknown {
+    const obj: any = {};
+    message.webhookId !== undefined && (obj.webhookId = message.webhookId);
+    if (message.events) {
+      obj.events = message.events.map((e) => e);
+    } else {
+      obj.events = [];
+    }
+    message.target !== undefined &&
+      (obj.target = message.target ? ServiceEventTarget.toJSON(message.target) : undefined);
+    message.url !== undefined && (obj.url = message.url);
+    message.timeoutMs !== undefined && (obj.timeoutMs = Math.round(message.timeoutMs));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<WebhookSubscription>): WebhookSubscription {
+    const message = createBaseWebhookSubscription();
+    message.webhookId = object.webhookId ?? "";
+    message.events = object.events?.map((e) => e) || [];
+    message.target = (object.target !== undefined && object.target !== null)
+      ? ServiceEventTarget.fromPartial(object.target)
+      : undefined;
+    message.url = object.url ?? "";
+    message.timeoutMs = object.timeoutMs ?? undefined;
+    return message;
+  },
+};
+
+function createBaseListWebhookSubscriptionsRequest(): ListWebhookSubscriptionsRequest {
+  return { target: undefined };
+}
+
+export const ListWebhookSubscriptionsRequest = {
+  encode(message: ListWebhookSubscriptionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.target !== undefined) {
+      ServiceEventTarget.encode(message.target, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListWebhookSubscriptionsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListWebhookSubscriptionsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.target = ServiceEventTarget.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListWebhookSubscriptionsRequest {
+    return { target: isSet(object.target) ? ServiceEventTarget.fromJSON(object.target) : undefined };
+  },
+
+  toJSON(message: ListWebhookSubscriptionsRequest): unknown {
+    const obj: any = {};
+    message.target !== undefined &&
+      (obj.target = message.target ? ServiceEventTarget.toJSON(message.target) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ListWebhookSubscriptionsRequest>): ListWebhookSubscriptionsRequest {
+    const message = createBaseListWebhookSubscriptionsRequest();
+    message.target = (object.target !== undefined && object.target !== null)
+      ? ServiceEventTarget.fromPartial(object.target)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseListWebhookSubscriptionsResponse(): ListWebhookSubscriptionsResponse {
+  return { subscriptions: [] };
+}
+
+export const ListWebhookSubscriptionsResponse = {
+  encode(message: ListWebhookSubscriptionsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.subscriptions) {
+      WebhookSubscription.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListWebhookSubscriptionsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListWebhookSubscriptionsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.subscriptions.push(WebhookSubscription.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListWebhookSubscriptionsResponse {
+    return {
+      subscriptions: Array.isArray(object?.subscriptions)
+        ? object.subscriptions.map((e: any) => WebhookSubscription.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: ListWebhookSubscriptionsResponse): unknown {
+    const obj: any = {};
+    if (message.subscriptions) {
+      obj.subscriptions = message.subscriptions.map((e) => e ? WebhookSubscription.toJSON(e) : undefined);
+    } else {
+      obj.subscriptions = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ListWebhookSubscriptionsResponse>): ListWebhookSubscriptionsResponse {
+    const message = createBaseListWebhookSubscriptionsResponse();
+    message.subscriptions = object.subscriptions?.map((e) => WebhookSubscription.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseCreateWebhookSubscriptionRequest(): CreateWebhookSubscriptionRequest {
+  return { events: [], target: undefined, url: "", timeoutMs: undefined };
+}
+
+export const CreateWebhookSubscriptionRequest = {
+  encode(message: CreateWebhookSubscriptionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.events) {
+      writer.uint32(10).string(v!);
+    }
+    if (message.target !== undefined) {
+      ServiceEventTarget.encode(message.target, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.url !== "") {
+      writer.uint32(26).string(message.url);
+    }
+    if (message.timeoutMs !== undefined) {
+      writer.uint32(32).uint32(message.timeoutMs);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateWebhookSubscriptionRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateWebhookSubscriptionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.events.push(reader.string());
+          break;
+        case 2:
+          message.target = ServiceEventTarget.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.url = reader.string();
+          break;
+        case 4:
+          message.timeoutMs = reader.uint32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateWebhookSubscriptionRequest {
+    return {
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => String(e)) : [],
+      target: isSet(object.target) ? ServiceEventTarget.fromJSON(object.target) : undefined,
+      url: isSet(object.url) ? String(object.url) : "",
+      timeoutMs: isSet(object.timeoutMs) ? Number(object.timeoutMs) : undefined,
+    };
+  },
+
+  toJSON(message: CreateWebhookSubscriptionRequest): unknown {
+    const obj: any = {};
+    if (message.events) {
+      obj.events = message.events.map((e) => e);
+    } else {
+      obj.events = [];
+    }
+    message.target !== undefined &&
+      (obj.target = message.target ? ServiceEventTarget.toJSON(message.target) : undefined);
+    message.url !== undefined && (obj.url = message.url);
+    message.timeoutMs !== undefined && (obj.timeoutMs = Math.round(message.timeoutMs));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CreateWebhookSubscriptionRequest>): CreateWebhookSubscriptionRequest {
+    const message = createBaseCreateWebhookSubscriptionRequest();
+    message.events = object.events?.map((e) => e) || [];
+    message.target = (object.target !== undefined && object.target !== null)
+      ? ServiceEventTarget.fromPartial(object.target)
+      : undefined;
+    message.url = object.url ?? "";
+    message.timeoutMs = object.timeoutMs ?? undefined;
+    return message;
+  },
+};
+
+function createBaseCreateWebhookSubscriptionResponse(): CreateWebhookSubscriptionResponse {
+  return { subscription: undefined };
+}
+
+export const CreateWebhookSubscriptionResponse = {
+  encode(message: CreateWebhookSubscriptionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.subscription !== undefined) {
+      WebhookSubscription.encode(message.subscription, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateWebhookSubscriptionResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateWebhookSubscriptionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.subscription = WebhookSubscription.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateWebhookSubscriptionResponse {
+    return { subscription: isSet(object.subscription) ? WebhookSubscription.fromJSON(object.subscription) : undefined };
+  },
+
+  toJSON(message: CreateWebhookSubscriptionResponse): unknown {
+    const obj: any = {};
+    message.subscription !== undefined &&
+      (obj.subscription = message.subscription ? WebhookSubscription.toJSON(message.subscription) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CreateWebhookSubscriptionResponse>): CreateWebhookSubscriptionResponse {
+    const message = createBaseCreateWebhookSubscriptionResponse();
+    message.subscription = (object.subscription !== undefined && object.subscription !== null)
+      ? WebhookSubscription.fromPartial(object.subscription)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseDeleteWebhookSubscriptionRequest(): DeleteWebhookSubscriptionRequest {
+  return { webhookId: "" };
+}
+
+export const DeleteWebhookSubscriptionRequest = {
+  encode(message: DeleteWebhookSubscriptionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.webhookId !== "") {
+      writer.uint32(10).string(message.webhookId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteWebhookSubscriptionRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteWebhookSubscriptionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.webhookId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteWebhookSubscriptionRequest {
+    return { webhookId: isSet(object.webhookId) ? String(object.webhookId) : "" };
+  },
+
+  toJSON(message: DeleteWebhookSubscriptionRequest): unknown {
+    const obj: any = {};
+    message.webhookId !== undefined && (obj.webhookId = message.webhookId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DeleteWebhookSubscriptionRequest>): DeleteWebhookSubscriptionRequest {
+    const message = createBaseDeleteWebhookSubscriptionRequest();
+    message.webhookId = object.webhookId ?? "";
+    return message;
+  },
+};
+
+function createBaseDeleteWebhookSubscriptionResponse(): DeleteWebhookSubscriptionResponse {
+  return {};
+}
+
+export const DeleteWebhookSubscriptionResponse = {
+  encode(_: DeleteWebhookSubscriptionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteWebhookSubscriptionResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteWebhookSubscriptionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): DeleteWebhookSubscriptionResponse {
+    return {};
+  },
+
+  toJSON(_: DeleteWebhookSubscriptionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<DeleteWebhookSubscriptionResponse>): DeleteWebhookSubscriptionResponse {
+    const message = createBaseDeleteWebhookSubscriptionResponse();
+    return message;
+  },
+};
+
 function createBaseSubscribePayload(): SubscribePayload {
-  return { name: "", target: undefined };
+  return { name: "", events: [], target: undefined };
 }
 
 export const SubscribePayload = {
   encode(message: SubscribePayload, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
+    }
+    for (const v of message.events) {
+      writer.uint32(26).string(v!);
     }
     if (message.target !== undefined) {
       EventTarget.encode(message.target, writer.uint32(18).fork()).ldelim();
@@ -513,6 +1078,9 @@ export const SubscribePayload = {
         case 1:
           message.name = reader.string();
           break;
+        case 3:
+          message.events.push(reader.string());
+          break;
         case 2:
           message.target = EventTarget.decode(reader, reader.uint32());
           break;
@@ -527,6 +1095,7 @@ export const SubscribePayload = {
   fromJSON(object: any): SubscribePayload {
     return {
       name: isSet(object.name) ? String(object.name) : "",
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => String(e)) : [],
       target: isSet(object.target) ? EventTarget.fromJSON(object.target) : undefined,
     };
   },
@@ -534,6 +1103,11 @@ export const SubscribePayload = {
   toJSON(message: SubscribePayload): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
+    if (message.events) {
+      obj.events = message.events.map((e) => e);
+    } else {
+      obj.events = [];
+    }
     message.target !== undefined && (obj.target = message.target ? EventTarget.toJSON(message.target) : undefined);
     return obj;
   },
@@ -541,6 +1115,7 @@ export const SubscribePayload = {
   fromPartial(object: DeepPartial<SubscribePayload>): SubscribePayload {
     const message = createBaseSubscribePayload();
     message.name = object.name ?? "";
+    message.events = object.events?.map((e) => e) || [];
     message.target = (object.target !== undefined && object.target !== null)
       ? EventTarget.fromPartial(object.target)
       : undefined;
@@ -987,6 +1562,87 @@ export const EventServiceDefinition = {
       requestType: PublishEventRequest,
       requestStream: false,
       responseType: PublishEventResponse,
+      responseStream: false,
+      options: {},
+    },
+  },
+} as const;
+
+/** Webhook service for managing subscriptions */
+export interface WebhookService {
+  /** List all webhook subscriptions. */
+  ListWebhookSubscriptions(request: ListWebhookSubscriptionsRequest): Promise<ListWebhookSubscriptionsResponse>;
+  /** Create a new webhook subscription. */
+  CreateWebhookSubscription(request: CreateWebhookSubscriptionRequest): Promise<CreateWebhookSubscriptionResponse>;
+  /**
+   * Delete a webhook subscription.
+   * Existing events queued will be delivered before the subscription is removed.
+   */
+  DeleteWebhookSubscription(request: DeleteWebhookSubscriptionRequest): Promise<DeleteWebhookSubscriptionResponse>;
+}
+
+export class WebhookServiceClientImpl implements WebhookService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "apis.event.v2.WebhookService";
+    this.rpc = rpc;
+    this.ListWebhookSubscriptions = this.ListWebhookSubscriptions.bind(this);
+    this.CreateWebhookSubscription = this.CreateWebhookSubscription.bind(this);
+    this.DeleteWebhookSubscription = this.DeleteWebhookSubscription.bind(this);
+  }
+  ListWebhookSubscriptions(request: ListWebhookSubscriptionsRequest): Promise<ListWebhookSubscriptionsResponse> {
+    const data = ListWebhookSubscriptionsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "ListWebhookSubscriptions", data);
+    return promise.then((data) => ListWebhookSubscriptionsResponse.decode(new _m0.Reader(data)));
+  }
+
+  CreateWebhookSubscription(request: CreateWebhookSubscriptionRequest): Promise<CreateWebhookSubscriptionResponse> {
+    const data = CreateWebhookSubscriptionRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateWebhookSubscription", data);
+    return promise.then((data) => CreateWebhookSubscriptionResponse.decode(new _m0.Reader(data)));
+  }
+
+  DeleteWebhookSubscription(request: DeleteWebhookSubscriptionRequest): Promise<DeleteWebhookSubscriptionResponse> {
+    const data = DeleteWebhookSubscriptionRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteWebhookSubscription", data);
+    return promise.then((data) => DeleteWebhookSubscriptionResponse.decode(new _m0.Reader(data)));
+  }
+}
+
+/** Webhook service for managing subscriptions */
+export type WebhookServiceDefinition = typeof WebhookServiceDefinition;
+export const WebhookServiceDefinition = {
+  name: "WebhookService",
+  fullName: "apis.event.v2.WebhookService",
+  methods: {
+    /** List all webhook subscriptions. */
+    listWebhookSubscriptions: {
+      name: "ListWebhookSubscriptions",
+      requestType: ListWebhookSubscriptionsRequest,
+      requestStream: false,
+      responseType: ListWebhookSubscriptionsResponse,
+      responseStream: false,
+      options: {},
+    },
+    /** Create a new webhook subscription. */
+    createWebhookSubscription: {
+      name: "CreateWebhookSubscription",
+      requestType: CreateWebhookSubscriptionRequest,
+      requestStream: false,
+      responseType: CreateWebhookSubscriptionResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * Delete a webhook subscription.
+     * Existing events queued will be delivered before the subscription is removed.
+     */
+    deleteWebhookSubscription: {
+      name: "DeleteWebhookSubscription",
+      requestType: DeleteWebhookSubscriptionRequest,
+      requestStream: false,
+      responseType: DeleteWebhookSubscriptionResponse,
       responseStream: false,
       options: {},
     },

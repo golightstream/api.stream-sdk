@@ -40,9 +40,10 @@ export class LayoutApi extends ApiClient {
     eventApi: EventApi,
     server: string,
     sdkVersion?: string,
-    apiLogCallback?: ApiClient.ApiLogCallback
+    apiLogCallback?: ApiClient.ApiLogCallback,
+    apikey?: string
   ) {
-    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback );
+    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, undefined, apikey );
     this.eventApi = eventApi;
 
     this.eventApi.on( 'event', { name: `${ LayoutApi.LAYOUTAPI_EVENT_PREFIX }:*`, ignoreSessionEvents: true }, ( evt ) => {
