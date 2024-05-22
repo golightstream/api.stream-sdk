@@ -23,7 +23,8 @@ type APIStreamEventAPI struct {
 	config APIStreamConfig
 	dialer *grpc.ClientConn
 
-	event *eventv2.EventServiceClient
+	event   *eventv2.EventServiceClient
+	webhook *eventv2.WebhookServiceClient
 }
 
 // GetEventService returns an instance of the event service. This requires an access token for authentication.
@@ -41,12 +42,31 @@ func (eventApi *APIStreamEventAPI) GetEventService() (eventv2.EventServiceClient
 	return *eventApi.event, nil
 }
 
+// GetWebhookService returns an instance of the event service. This requires an apikey for authentication.
+func (eventApi *APIStreamEventAPI) GetWebhookService() (eventv2.WebhookServiceClient, error) {
+	if !hasAPIKey(eventApi.config) {
+		return nil, errors.New("missing api.stream api key")
+	}
+
+	if eventApi.webhook == nil {
+		client := eventv2.NewWebhookServiceClient(eventApi.dialer)
+		eventApi.webhook = &client
+
+	}
+
+	return *eventApi.webhook, nil
+}
+
 func (eventApi *APIStreamEventAPI) reload(config APIStreamConfig) {
 	eventApi.config = config
 
 	// cleanup access token clients that once existed
 	if eventApi.config.AccessToken == "" {
 		eventApi.event = nil
+	}
+
+	if eventApi.config.APIKey == "" {
+		eventApi.webhook = nil
 	}
 }
 
@@ -73,8 +93,19 @@ func newAPIStreamEventAPI(config APIStreamConfig) *APIStreamEventAPI {
 			}
 
 			// Only send the API key for relevant services
-			if api.config.AccessToken != "" {
-				mtd.Append("authorization", "Bearer "+api.config.AccessToken)
+			if strings.Contains(method, "Webhook") {
+				if api.config.APIKey != "" {
+					mtd.Append("x-api-key", api.config.APIKey)
+				}
+			} else {
+				if api.config.AccessToken != "" {
+					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
+				}
+			}
+
+			mtd.Append("ClientType", "golang")
+			if config.clientVersion != "" {
+				mtd.Append("Version", config.clientVersion)
 			}
 
 			return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)

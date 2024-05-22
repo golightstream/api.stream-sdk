@@ -24,16 +24,32 @@ type APIStreamLiveAPI struct {
 	dialer *grpc.ClientConn
 
 	// API Key
+	account               *livev21.AccountServiceClient
 	publicAuthentication  *livev21.PublicAuthenticationServiceClient
 	backendAuthentication *livev21.BackendAuthenticationServiceClient
+	accountConfiguration  *livev21.AccountConfigurationServiceClient
 
 	// Access Token
-	collection           *livev21.CollectionServiceClient
-	project              *livev21.ProjectServiceClient
-	source               *livev21.SourceServiceClient
-	destination          *livev21.DestinationServiceClient
-	authentication       *livev21.AuthenticationServiceClient
-	accountConfiguration *livev21.AccountConfigurationServiceClient
+	collection     *livev21.CollectionServiceClient
+	project        *livev21.ProjectServiceClient
+	source         *livev21.SourceServiceClient
+	destination    *livev21.DestinationServiceClient
+	authentication *livev21.AuthenticationServiceClient
+}
+
+// GetAccountService returns an instance of account service. This requires API Key authentication
+func (liveApi *APIStreamLiveAPI) GetAccountService() (livev21.AccountServiceClient, error) {
+	if !hasAPIKey(liveApi.config) {
+		return nil, errors.New("missing api.stream api key")
+	}
+
+	if liveApi.account == nil {
+		client := livev21.NewAccountServiceClient(liveApi.dialer)
+		liveApi.account = &client
+
+	}
+
+	return *liveApi.account, nil
 }
 
 // GetPublicAuthenticationService returns an instance of the public authentication service. This requires API Key authentication
@@ -162,6 +178,7 @@ func (liveApi *APIStreamLiveAPI) reload(config APIStreamConfig) {
 		liveApi.publicAuthentication = nil
 		liveApi.backendAuthentication = nil
 		liveApi.accountConfiguration = nil
+		liveApi.account = nil
 	}
 
 	// cleanup access token clients that once existed
@@ -197,7 +214,7 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 			}
 
 			// Only send the API key for relevant services
-			if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") || strings.Contains(method, "AccountConfiguration") {
+			if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") || strings.Contains(method, "AccountConfiguration") || strings.Contains(method, "Account") {
 				if api.config.APIKey != "" {
 					mtd.Append("x-api-key", api.config.APIKey)
 				}
@@ -205,6 +222,11 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 				if api.config.AccessToken != "" {
 					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
 				}
+			}
+
+			mtd.Append("ClientType", "golang")
+			if config.clientVersion != "" {
+				mtd.Append("Version", config.clientVersion)
 			}
 
 			return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)

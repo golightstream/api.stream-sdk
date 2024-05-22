@@ -6,6 +6,8 @@ Licensed under the MIT License. See License.txt in the project root for license 
 */
 package sdk
 
+import "runtime/debug"
+
 type Environment string
 
 const (
@@ -27,6 +29,8 @@ type APIStreamConfig struct {
 	Env Environment
 
 	OverrideEndpoint APIStreamConfigOverrides
+
+	clientVersion string
 }
 
 type APIStreamClient struct {
@@ -59,6 +63,12 @@ func (client *APIStreamClient) Load(token string) {
 func NewAPIStreamClient(config APIStreamConfig) *APIStreamClient {
 	if config.Env == "" {
 		config.Env = "prod"
+	}
+
+	bi, ok := debug.ReadBuildInfo()
+
+	if ok {
+		config.clientVersion = bi.Main.Version
 	}
 
 	return &APIStreamClient{config: config, liveApi: newAPIStreamLiveAPI(config), layoutApi: newAPIStreamLayoutAPI(config), eventApi: newAPIStreamEventAPI(config)}

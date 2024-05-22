@@ -94,6 +94,11 @@ func newAPIStreamLayoutAPI(config APIStreamConfig) *APIStreamLayoutAPI {
 				mtd.Append("authorization", "Bearer "+api.config.AccessToken)
 			}
 
+			mtd.Append("ClientType", "golang")
+			if config.clientVersion != "" {
+				mtd.Append("Version", config.clientVersion)
+			}
+
 			return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
 		}),
 	)

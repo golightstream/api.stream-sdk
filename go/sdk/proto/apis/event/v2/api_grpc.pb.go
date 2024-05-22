@@ -193,3 +193,173 @@ var EventService_ServiceDesc = grpc.ServiceDesc{
 	},
 	Metadata: "apis/event/v2/api.proto",
 }
+
+const (
+	WebhookService_ListWebhookSubscriptions_FullMethodName  = "/apis.event.v2.WebhookService/ListWebhookSubscriptions"
+	WebhookService_CreateWebhookSubscription_FullMethodName = "/apis.event.v2.WebhookService/CreateWebhookSubscription"
+	WebhookService_DeleteWebhookSubscription_FullMethodName = "/apis.event.v2.WebhookService/DeleteWebhookSubscription"
+)
+
+// WebhookServiceClient is the client API for WebhookService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type WebhookServiceClient interface {
+	// List all webhook subscriptions.
+	ListWebhookSubscriptions(ctx context.Context, in *ListWebhookSubscriptionsRequest, opts ...grpc.CallOption) (*ListWebhookSubscriptionsResponse, error)
+	// Create a new webhook subscription.
+	CreateWebhookSubscription(ctx context.Context, in *CreateWebhookSubscriptionRequest, opts ...grpc.CallOption) (*CreateWebhookSubscriptionResponse, error)
+	// Delete a webhook subscription.
+	// Existing events queued will be delivered before the subscription is removed.
+	DeleteWebhookSubscription(ctx context.Context, in *DeleteWebhookSubscriptionRequest, opts ...grpc.CallOption) (*DeleteWebhookSubscriptionResponse, error)
+}
+
+type webhookServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewWebhookServiceClient(cc grpc.ClientConnInterface) WebhookServiceClient {
+	return &webhookServiceClient{cc}
+}
+
+func (c *webhookServiceClient) ListWebhookSubscriptions(ctx context.Context, in *ListWebhookSubscriptionsRequest, opts ...grpc.CallOption) (*ListWebhookSubscriptionsResponse, error) {
+	out := new(ListWebhookSubscriptionsResponse)
+	err := c.cc.Invoke(ctx, WebhookService_ListWebhookSubscriptions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *webhookServiceClient) CreateWebhookSubscription(ctx context.Context, in *CreateWebhookSubscriptionRequest, opts ...grpc.CallOption) (*CreateWebhookSubscriptionResponse, error) {
+	out := new(CreateWebhookSubscriptionResponse)
+	err := c.cc.Invoke(ctx, WebhookService_CreateWebhookSubscription_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *webhookServiceClient) DeleteWebhookSubscription(ctx context.Context, in *DeleteWebhookSubscriptionRequest, opts ...grpc.CallOption) (*DeleteWebhookSubscriptionResponse, error) {
+	out := new(DeleteWebhookSubscriptionResponse)
+	err := c.cc.Invoke(ctx, WebhookService_DeleteWebhookSubscription_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// WebhookServiceServer is the server API for WebhookService service.
+// All implementations should embed UnimplementedWebhookServiceServer
+// for forward compatibility
+type WebhookServiceServer interface {
+	// List all webhook subscriptions.
+	ListWebhookSubscriptions(context.Context, *ListWebhookSubscriptionsRequest) (*ListWebhookSubscriptionsResponse, error)
+	// Create a new webhook subscription.
+	CreateWebhookSubscription(context.Context, *CreateWebhookSubscriptionRequest) (*CreateWebhookSubscriptionResponse, error)
+	// Delete a webhook subscription.
+	// Existing events queued will be delivered before the subscription is removed.
+	DeleteWebhookSubscription(context.Context, *DeleteWebhookSubscriptionRequest) (*DeleteWebhookSubscriptionResponse, error)
+}
+
+// UnimplementedWebhookServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedWebhookServiceServer struct {
+}
+
+func (UnimplementedWebhookServiceServer) ListWebhookSubscriptions(context.Context, *ListWebhookSubscriptionsRequest) (*ListWebhookSubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListWebhookSubscriptions not implemented")
+}
+func (UnimplementedWebhookServiceServer) CreateWebhookSubscription(context.Context, *CreateWebhookSubscriptionRequest) (*CreateWebhookSubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateWebhookSubscription not implemented")
+}
+func (UnimplementedWebhookServiceServer) DeleteWebhookSubscription(context.Context, *DeleteWebhookSubscriptionRequest) (*DeleteWebhookSubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteWebhookSubscription not implemented")
+}
+
+// UnsafeWebhookServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WebhookServiceServer will
+// result in compilation errors.
+type UnsafeWebhookServiceServer interface {
+	mustEmbedUnimplementedWebhookServiceServer()
+}
+
+func RegisterWebhookServiceServer(s grpc.ServiceRegistrar, srv WebhookServiceServer) {
+	s.RegisterService(&WebhookService_ServiceDesc, srv)
+}
+
+func _WebhookService_ListWebhookSubscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListWebhookSubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WebhookServiceServer).ListWebhookSubscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WebhookService_ListWebhookSubscriptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WebhookServiceServer).ListWebhookSubscriptions(ctx, req.(*ListWebhookSubscriptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WebhookService_CreateWebhookSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateWebhookSubscriptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WebhookServiceServer).CreateWebhookSubscription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WebhookService_CreateWebhookSubscription_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WebhookServiceServer).CreateWebhookSubscription(ctx, req.(*CreateWebhookSubscriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WebhookService_DeleteWebhookSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteWebhookSubscriptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WebhookServiceServer).DeleteWebhookSubscription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WebhookService_DeleteWebhookSubscription_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WebhookServiceServer).DeleteWebhookSubscription(ctx, req.(*DeleteWebhookSubscriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// WebhookService_ServiceDesc is the grpc.ServiceDesc for WebhookService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var WebhookService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "apis.event.v2.WebhookService",
+	HandlerType: (*WebhookServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListWebhookSubscriptions",
+			Handler:    _WebhookService_ListWebhookSubscriptions_Handler,
+		},
+		{
+			MethodName: "CreateWebhookSubscription",
+			Handler:    _WebhookService_CreateWebhookSubscription_Handler,
+		},
+		{
+			MethodName: "DeleteWebhookSubscription",
+			Handler:    _WebhookService_DeleteWebhookSubscription_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "apis/event/v2/api.proto",
+}
