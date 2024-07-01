@@ -1578,6 +1578,20 @@ export interface ObjectStoragePackaging {
   hls?: HlsPackaging | undefined;
 }
 
+/** webrtc addressing parameters */
+export interface PreviewWebRtcAddress {
+  /** request rtmp preview */
+  enabled?:
+    | boolean
+    | undefined;
+  /** the name this source will use in the webrtc room */
+  displayName?:
+    | string
+    | undefined;
+  /** the id this source was assigned in the webrtc room */
+  participantId?: string | undefined;
+}
+
 export interface S3StorageAddress {
   /** cloud region */
   region: string;
@@ -1665,20 +1679,6 @@ export interface PreviewHlsPullAddress {
     | undefined;
   /** hls manifest url */
   url?: string | undefined;
-}
-
-/** webrtc addressing parameters */
-export interface PreviewWebRtcAddress {
-  /** request rtmp preview */
-  enabled?:
-    | boolean
-    | undefined;
-  /** the name this source will use in the webrtc room */
-  displayName?:
-    | string
-    | undefined;
-  /** the id this source was assigned in the webrtc room */
-  participantId?: string | undefined;
 }
 
 /** addresses of source previews */
@@ -4915,6 +4915,73 @@ export const ObjectStoragePackaging = {
   },
 };
 
+function createBasePreviewWebRtcAddress(): PreviewWebRtcAddress {
+  return { enabled: undefined, displayName: undefined, participantId: undefined };
+}
+
+export const PreviewWebRtcAddress = {
+  encode(message: PreviewWebRtcAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.enabled !== undefined) {
+      writer.uint32(8).bool(message.enabled);
+    }
+    if (message.displayName !== undefined) {
+      writer.uint32(18).string(message.displayName);
+    }
+    if (message.participantId !== undefined) {
+      writer.uint32(26).string(message.participantId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): PreviewWebRtcAddress {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePreviewWebRtcAddress();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.enabled = reader.bool();
+          break;
+        case 2:
+          message.displayName = reader.string();
+          break;
+        case 3:
+          message.participantId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PreviewWebRtcAddress {
+    return {
+      enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
+      displayName: isSet(object.displayName) ? String(object.displayName) : undefined,
+      participantId: isSet(object.participantId) ? String(object.participantId) : undefined,
+    };
+  },
+
+  toJSON(message: PreviewWebRtcAddress): unknown {
+    const obj: any = {};
+    message.enabled !== undefined && (obj.enabled = message.enabled);
+    message.displayName !== undefined && (obj.displayName = message.displayName);
+    message.participantId !== undefined && (obj.participantId = message.participantId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<PreviewWebRtcAddress>): PreviewWebRtcAddress {
+    const message = createBasePreviewWebRtcAddress();
+    message.enabled = object.enabled ?? undefined;
+    message.displayName = object.displayName ?? undefined;
+    message.participantId = object.participantId ?? undefined;
+    return message;
+  },
+};
+
 function createBaseS3StorageAddress(): S3StorageAddress {
   return {
     region: "",
@@ -5379,73 +5446,6 @@ export const PreviewHlsPullAddress = {
     const message = createBasePreviewHlsPullAddress();
     message.enabled = object.enabled ?? undefined;
     message.url = object.url ?? undefined;
-    return message;
-  },
-};
-
-function createBasePreviewWebRtcAddress(): PreviewWebRtcAddress {
-  return { enabled: undefined, displayName: undefined, participantId: undefined };
-}
-
-export const PreviewWebRtcAddress = {
-  encode(message: PreviewWebRtcAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.enabled !== undefined) {
-      writer.uint32(8).bool(message.enabled);
-    }
-    if (message.displayName !== undefined) {
-      writer.uint32(18).string(message.displayName);
-    }
-    if (message.participantId !== undefined) {
-      writer.uint32(26).string(message.participantId);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): PreviewWebRtcAddress {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePreviewWebRtcAddress();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.enabled = reader.bool();
-          break;
-        case 2:
-          message.displayName = reader.string();
-          break;
-        case 3:
-          message.participantId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PreviewWebRtcAddress {
-    return {
-      enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
-      displayName: isSet(object.displayName) ? String(object.displayName) : undefined,
-      participantId: isSet(object.participantId) ? String(object.participantId) : undefined,
-    };
-  },
-
-  toJSON(message: PreviewWebRtcAddress): unknown {
-    const obj: any = {};
-    message.enabled !== undefined && (obj.enabled = message.enabled);
-    message.displayName !== undefined && (obj.displayName = message.displayName);
-    message.participantId !== undefined && (obj.participantId = message.participantId);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<PreviewWebRtcAddress>): PreviewWebRtcAddress {
-    const message = createBasePreviewWebRtcAddress();
-    message.enabled = object.enabled ?? undefined;
-    message.displayName = object.displayName ?? undefined;
-    message.participantId = object.participantId ?? undefined;
     return message;
   },
 };

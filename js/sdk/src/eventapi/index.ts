@@ -91,7 +91,7 @@ export class EventApi extends ApiClient {
   private badAuthentication: boolean = false;
 
   private eventsClient?: NiceGrpc.Client<typeof EventApiModel.EventServiceDefinition> = null;
-  public webhookClient: NiceGrpc.Client<typeof EventApiModel.WebhookServiceDefinition> = null;
+  public webhook: NiceGrpc.Client<typeof EventApiModel.WebhookServiceDefinition> = null;
 
   constructor (
     sessionId: string,
@@ -105,11 +105,11 @@ export class EventApi extends ApiClient {
     super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, eventLogCallback, apikey );
 
     if (this.apikey !== undefined) {
-      this.webhookClient = this.clientFactory.create(
+      this.webhook = this.clientFactory.create(
         EventApiModel.WebhookServiceDefinition,
         this.channel,
         {
-          '*': this.makeGrpcMetadataApikey()
+          '*': { metadata: this.makeGrpcMetadataApikey() }
         },
       );
     }
