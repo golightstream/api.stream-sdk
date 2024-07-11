@@ -1845,7 +1845,14 @@ export interface Destination {
     | DestinationAddress
     | undefined;
   /** timeout (ms) to wait before resetting a connection */
-  timeout?: number | undefined;
+  timeout?:
+    | number
+    | undefined;
+  /**
+   * output delay (in milliseconds) to add to the destination
+   * note: adjusting this will cause broadcast stop to be delayed
+   */
+  outputDelay?: number | undefined;
 }
 
 /** project which owns a broadcast, sources, and destinations */
@@ -2192,7 +2199,14 @@ export interface CreateDestinationRequest {
     | boolean
     | undefined;
   /** timeout (in milliseconds) to wait before resetting a connection */
-  timeout?: number | undefined;
+  timeout?:
+    | number
+    | undefined;
+  /**
+   * output delay (in milliseconds) to add to the destination
+   * note: adjusting this will cause broadcast stop to be delayed
+   */
+  outputDelay?: number | undefined;
 }
 
 export interface CreateDestinationResponse {
@@ -2254,7 +2268,14 @@ export interface UpdateDestinationRequest {
     | boolean
     | undefined;
   /** timeout (in milliseconds) to wait before resetting a connection */
-  timeout?: number | undefined;
+  timeout?:
+    | number
+    | undefined;
+  /**
+   * output delay (in milliseconds) to add to the destination
+   * note: adjusting this will cause broadcast stop to be delayed
+   */
+  outputDelay?: number | undefined;
 }
 
 export interface UpdateDestinationResponse {
@@ -6291,6 +6312,7 @@ function createBaseDestination(): Destination {
     enabled: undefined,
     address: undefined,
     timeout: undefined,
+    outputDelay: undefined,
   };
 }
 
@@ -6316,6 +6338,9 @@ export const Destination = {
     }
     if (message.timeout !== undefined) {
       writer.uint32(56).uint32(message.timeout);
+    }
+    if (message.outputDelay !== undefined) {
+      writer.uint32(72).uint32(message.outputDelay);
     }
     return writer;
   },
@@ -6348,6 +6373,9 @@ export const Destination = {
         case 7:
           message.timeout = reader.uint32();
           break;
+        case 9:
+          message.outputDelay = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -6365,6 +6393,7 @@ export const Destination = {
       enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
       address: isSet(object.address) ? DestinationAddress.fromJSON(object.address) : undefined,
       timeout: isSet(object.timeout) ? Number(object.timeout) : undefined,
+      outputDelay: isSet(object.outputDelay) ? Number(object.outputDelay) : undefined,
     };
   },
 
@@ -6378,6 +6407,7 @@ export const Destination = {
     message.address !== undefined &&
       (obj.address = message.address ? DestinationAddress.toJSON(message.address) : undefined);
     message.timeout !== undefined && (obj.timeout = Math.round(message.timeout));
+    message.outputDelay !== undefined && (obj.outputDelay = Math.round(message.outputDelay));
     return obj;
   },
 
@@ -6392,6 +6422,7 @@ export const Destination = {
       ? DestinationAddress.fromPartial(object.address)
       : undefined;
     message.timeout = object.timeout ?? undefined;
+    message.outputDelay = object.outputDelay ?? undefined;
     return message;
   },
 };
@@ -8662,6 +8693,7 @@ function createBaseCreateDestinationRequest(): CreateDestinationRequest {
     address: undefined,
     enabled: undefined,
     timeout: undefined,
+    outputDelay: undefined,
   };
 }
 
@@ -8684,6 +8716,9 @@ export const CreateDestinationRequest = {
     }
     if (message.timeout !== undefined) {
       writer.uint32(56).uint32(message.timeout);
+    }
+    if (message.outputDelay !== undefined) {
+      writer.uint32(72).uint32(message.outputDelay);
     }
     return writer;
   },
@@ -8713,6 +8748,9 @@ export const CreateDestinationRequest = {
         case 7:
           message.timeout = reader.uint32();
           break;
+        case 9:
+          message.outputDelay = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -8729,6 +8767,7 @@ export const CreateDestinationRequest = {
       address: isSet(object.address) ? DestinationAddress.fromJSON(object.address) : undefined,
       enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
       timeout: isSet(object.timeout) ? Number(object.timeout) : undefined,
+      outputDelay: isSet(object.outputDelay) ? Number(object.outputDelay) : undefined,
     };
   },
 
@@ -8741,6 +8780,7 @@ export const CreateDestinationRequest = {
       (obj.address = message.address ? DestinationAddress.toJSON(message.address) : undefined);
     message.enabled !== undefined && (obj.enabled = message.enabled);
     message.timeout !== undefined && (obj.timeout = Math.round(message.timeout));
+    message.outputDelay !== undefined && (obj.outputDelay = Math.round(message.outputDelay));
     return obj;
   },
 
@@ -8754,6 +8794,7 @@ export const CreateDestinationRequest = {
       : undefined;
     message.enabled = object.enabled ?? undefined;
     message.timeout = object.timeout ?? undefined;
+    message.outputDelay = object.outputDelay ?? undefined;
     return message;
   },
 };
@@ -9058,6 +9099,7 @@ function createBaseUpdateDestinationRequest(): UpdateDestinationRequest {
     address: undefined,
     enabled: undefined,
     timeout: undefined,
+    outputDelay: undefined,
   };
 }
 
@@ -9086,6 +9128,9 @@ export const UpdateDestinationRequest = {
     }
     if (message.timeout !== undefined) {
       writer.uint32(64).uint32(message.timeout);
+    }
+    if (message.outputDelay !== undefined) {
+      writer.uint32(72).uint32(message.outputDelay);
     }
     return writer;
   },
@@ -9121,6 +9166,9 @@ export const UpdateDestinationRequest = {
         case 8:
           message.timeout = reader.uint32();
           break;
+        case 9:
+          message.outputDelay = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -9139,6 +9187,7 @@ export const UpdateDestinationRequest = {
       address: isSet(object.address) ? DestinationAddress.fromJSON(object.address) : undefined,
       enabled: isSet(object.enabled) ? Boolean(object.enabled) : undefined,
       timeout: isSet(object.timeout) ? Number(object.timeout) : undefined,
+      outputDelay: isSet(object.outputDelay) ? Number(object.outputDelay) : undefined,
     };
   },
 
@@ -9153,6 +9202,7 @@ export const UpdateDestinationRequest = {
       (obj.address = message.address ? DestinationAddress.toJSON(message.address) : undefined);
     message.enabled !== undefined && (obj.enabled = message.enabled);
     message.timeout !== undefined && (obj.timeout = Math.round(message.timeout));
+    message.outputDelay !== undefined && (obj.outputDelay = Math.round(message.outputDelay));
     return obj;
   },
 
@@ -9168,6 +9218,7 @@ export const UpdateDestinationRequest = {
       : undefined;
     message.enabled = object.enabled ?? undefined;
     message.timeout = object.timeout ?? undefined;
+    message.outputDelay = object.outputDelay ?? undefined;
     return message;
   },
 };
