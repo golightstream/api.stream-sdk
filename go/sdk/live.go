@@ -229,6 +229,10 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 				mtd.Append("Version", config.clientVersion)
 			}
 
+			if len(config.FeatureOverrides) > 0 {
+				mtd.Append("x-feature-overrides", config.FeatureOverrides...)
+			}
+
 			return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
 		}),
 	)

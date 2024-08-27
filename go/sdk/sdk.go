@@ -30,6 +30,9 @@ type APIStreamConfig struct {
 
 	OverrideEndpoint APIStreamConfigOverrides
 
+	// A list of feature overrides to enable within the target api.
+	FeatureOverrides []string
+
 	clientVersion string
 }
 
@@ -63,6 +66,10 @@ func (client *APIStreamClient) Load(token string) {
 func NewAPIStreamClient(config APIStreamConfig) *APIStreamClient {
 	if config.Env == "" {
 		config.Env = "prod"
+	}
+
+	if config.FeatureOverrides == nil {
+		config.FeatureOverrides = []string{}
 	}
 
 	bi, ok := debug.ReadBuildInfo()
