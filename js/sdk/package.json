@@ -1,6 +1,6 @@
 {
   "name": "@api.stream/sdk",
-  "version": "1.0.34",
+  "version": "1.0.36",
   "description": "JavaScript client for accessing API.stream cloud services",
   "author": "Lightstream",
   "license": "MIT",
@@ -53,7 +53,7 @@
     "jwt-decode": "^3.1.2",
     "livekit-client": "^0.15.2",
     "matcher": "^4.0.0",
-    "nice-grpc-web": "^1.0.3",
+    "nice-grpc-web": "^3.3.4",
     "rxjs": "^7.5.5",
     "typedoc-plugin-missing-exports": "^0.22.6",
     "typescript-logging": "^2.0.1",

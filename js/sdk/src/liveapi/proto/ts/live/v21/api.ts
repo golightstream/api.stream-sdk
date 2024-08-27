@@ -11,59 +11,71 @@ import { Timestamp } from "../../google/protobuf/timestamp";
 
 export const protobufPackage = "live.v21";
 
-export enum BroadcastTrigger {
-  BROADCAST_TRIGGER_UNSPECIFIED = "BROADCAST_TRIGGER_UNSPECIFIED",
-  BROADCAST_TRIGGER_API = "BROADCAST_TRIGGER_API",
-  BROADCAST_TRIGGER_SOURCE = "BROADCAST_TRIGGER_SOURCE",
-  BROADCAST_TRIGGER_INTEGRATION = "BROADCAST_TRIGGER_INTEGRATION",
+export enum BroadcastOrigin {
+  BROADCAST_ORIGIN_UNSPECIFIED = "BROADCAST_ORIGIN_UNSPECIFIED",
+  /** BROADCAST_ORIGIN_API - broadcast was actioned by an API request */
+  BROADCAST_ORIGIN_API = "BROADCAST_ORIGIN_API",
+  /** BROADCAST_ORIGIN_SOURCE - broadcast was actioned by a source trigger */
+  BROADCAST_ORIGIN_SOURCE = "BROADCAST_ORIGIN_SOURCE",
+  /** BROADCAST_ORIGIN_EXTERNAL - broadcast was actioned by an external integration with API.stream. This use is reserved for specific integrations only. */
+  BROADCAST_ORIGIN_EXTERNAL = "BROADCAST_ORIGIN_EXTERNAL",
+  /** BROADCAST_ORIGIN_SYSTEM - broadcast was actioned by an unclassified decision within the platform */
+  BROADCAST_ORIGIN_SYSTEM = "BROADCAST_ORIGIN_SYSTEM",
 }
 
-export function broadcastTriggerFromJSON(object: any): BroadcastTrigger {
+export function broadcastOriginFromJSON(object: any): BroadcastOrigin {
   switch (object) {
     case 0:
-    case "BROADCAST_TRIGGER_UNSPECIFIED":
-      return BroadcastTrigger.BROADCAST_TRIGGER_UNSPECIFIED;
+    case "BROADCAST_ORIGIN_UNSPECIFIED":
+      return BroadcastOrigin.BROADCAST_ORIGIN_UNSPECIFIED;
     case 1:
-    case "BROADCAST_TRIGGER_API":
-      return BroadcastTrigger.BROADCAST_TRIGGER_API;
+    case "BROADCAST_ORIGIN_API":
+      return BroadcastOrigin.BROADCAST_ORIGIN_API;
     case 2:
-    case "BROADCAST_TRIGGER_SOURCE":
-      return BroadcastTrigger.BROADCAST_TRIGGER_SOURCE;
+    case "BROADCAST_ORIGIN_SOURCE":
+      return BroadcastOrigin.BROADCAST_ORIGIN_SOURCE;
     case 3:
-    case "BROADCAST_TRIGGER_INTEGRATION":
-      return BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION;
+    case "BROADCAST_ORIGIN_EXTERNAL":
+      return BroadcastOrigin.BROADCAST_ORIGIN_EXTERNAL;
+    case 4:
+    case "BROADCAST_ORIGIN_SYSTEM":
+      return BroadcastOrigin.BROADCAST_ORIGIN_SYSTEM;
     default:
-      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastOrigin");
   }
 }
 
-export function broadcastTriggerToJSON(object: BroadcastTrigger): string {
+export function broadcastOriginToJSON(object: BroadcastOrigin): string {
   switch (object) {
-    case BroadcastTrigger.BROADCAST_TRIGGER_UNSPECIFIED:
-      return "BROADCAST_TRIGGER_UNSPECIFIED";
-    case BroadcastTrigger.BROADCAST_TRIGGER_API:
-      return "BROADCAST_TRIGGER_API";
-    case BroadcastTrigger.BROADCAST_TRIGGER_SOURCE:
-      return "BROADCAST_TRIGGER_SOURCE";
-    case BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION:
-      return "BROADCAST_TRIGGER_INTEGRATION";
+    case BroadcastOrigin.BROADCAST_ORIGIN_UNSPECIFIED:
+      return "BROADCAST_ORIGIN_UNSPECIFIED";
+    case BroadcastOrigin.BROADCAST_ORIGIN_API:
+      return "BROADCAST_ORIGIN_API";
+    case BroadcastOrigin.BROADCAST_ORIGIN_SOURCE:
+      return "BROADCAST_ORIGIN_SOURCE";
+    case BroadcastOrigin.BROADCAST_ORIGIN_EXTERNAL:
+      return "BROADCAST_ORIGIN_EXTERNAL";
+    case BroadcastOrigin.BROADCAST_ORIGIN_SYSTEM:
+      return "BROADCAST_ORIGIN_SYSTEM";
     default:
-      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastOrigin");
   }
 }
 
-export function broadcastTriggerToNumber(object: BroadcastTrigger): number {
+export function broadcastOriginToNumber(object: BroadcastOrigin): number {
   switch (object) {
-    case BroadcastTrigger.BROADCAST_TRIGGER_UNSPECIFIED:
+    case BroadcastOrigin.BROADCAST_ORIGIN_UNSPECIFIED:
       return 0;
-    case BroadcastTrigger.BROADCAST_TRIGGER_API:
+    case BroadcastOrigin.BROADCAST_ORIGIN_API:
       return 1;
-    case BroadcastTrigger.BROADCAST_TRIGGER_SOURCE:
+    case BroadcastOrigin.BROADCAST_ORIGIN_SOURCE:
       return 2;
-    case BroadcastTrigger.BROADCAST_TRIGGER_INTEGRATION:
+    case BroadcastOrigin.BROADCAST_ORIGIN_EXTERNAL:
       return 3;
+    case BroadcastOrigin.BROADCAST_ORIGIN_SYSTEM:
+      return 4;
     default:
-      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastTrigger");
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum BroadcastOrigin");
   }
 }
 
@@ -1212,13 +1224,32 @@ export function eventTypeToNumber(object: EventType): number {
   }
 }
 
+export interface BroadcastOriginExternalMetadata {
+  name: string;
+  broadcastOriginApiMetadata: any | undefined;
+}
+
+/** todo: add source metadata */
+export interface BroadcastOriginSourceMetadata {
+}
+
 export interface WebhookRequest {
   userId: string;
   collectionId: string;
   projectId: string;
-  /** arbitrary metadata to associate with this project */
-  triggerMetadata?: any | undefined;
-  trigger?: BroadcastTrigger | undefined;
+  broadcastOrigin?:
+    | BroadcastOrigin
+    | undefined;
+  /** present if broadcast_origin is BROADCAST_ORIGIN_API, contains metadata from consumer */
+  broadcastOriginApiMetadata?:
+    | any
+    | undefined;
+  /** present if broadcast_origin is BROADCAST_ORIGIN_SOURCE, contains metadata from source */
+  broadcastOriginSourceMetadata?:
+    | BroadcastOriginSourceMetadata
+    | undefined;
+  /** present if broadcast_origin is BROADCAST_ORIGIN_EXTERNAL, contains metadata from an external integration starting the broadcast */
+  broadcastOriginExternalMetadata?: BroadcastOriginExternalMetadata | undefined;
 }
 
 export interface WebhookResponse {
@@ -1804,6 +1835,19 @@ export interface ProjectBroadcastStatus {
     | undefined;
   /** the direct ingests you can send video. */
   directIngests: DirectIngestUrl[];
+  origin?:
+    | BroadcastOrigin
+    | undefined;
+  /** present if broadcast_origin is BROADCAST_ORIGIN_API, contains metadata from consumer */
+  originApiMetadata?:
+    | any
+    | undefined;
+  /** present if broadcast_origin is BROADCAST_ORIGIN_SOURCE, contains metadata from source */
+  originSourceMetadata?:
+    | BroadcastOriginSourceMetadata
+    | undefined;
+  /** present if broadcast_origin is BROADCAST_ORIGIN_EXTERNAL, contains metadata from an external integration starting the broadcast */
+  originExternalMetadata?: BroadcastOriginExternalMetadata | undefined;
 }
 
 /** collection live source */
@@ -2089,8 +2133,8 @@ export interface StartProjectBroadcastRequest {
     | undefined;
   /** dynamic sources to start the broadcast with. */
   dynamicSources: { [key: string]: RuntimeSourceAddress };
-  /** arbitrary metadata to associate with this project */
-  triggerMetadata?: any | undefined;
+  /** arbitrary metadata to associate with this go-live session. This data will be available in the broadcast status and go-live webhook. */
+  requestMetadata?: any | undefined;
 }
 
 export interface StartProjectBroadcastRequest_DynamicSourcesEntry {
@@ -2796,8 +2840,116 @@ export interface GetServiceResponse {
   service: Service | undefined;
 }
 
+function createBaseBroadcastOriginExternalMetadata(): BroadcastOriginExternalMetadata {
+  return { name: "", broadcastOriginApiMetadata: undefined };
+}
+
+export const BroadcastOriginExternalMetadata = {
+  encode(message: BroadcastOriginExternalMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.broadcastOriginApiMetadata !== undefined) {
+      Value.encode(Value.wrap(message.broadcastOriginApiMetadata), writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BroadcastOriginExternalMetadata {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBroadcastOriginExternalMetadata();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.name = reader.string();
+          break;
+        case 2:
+          message.broadcastOriginApiMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BroadcastOriginExternalMetadata {
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      broadcastOriginApiMetadata: isSet(object?.broadcastOriginApiMetadata)
+        ? object.broadcastOriginApiMetadata
+        : undefined,
+    };
+  },
+
+  toJSON(message: BroadcastOriginExternalMetadata): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.broadcastOriginApiMetadata !== undefined &&
+      (obj.broadcastOriginApiMetadata = message.broadcastOriginApiMetadata);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<BroadcastOriginExternalMetadata>): BroadcastOriginExternalMetadata {
+    const message = createBaseBroadcastOriginExternalMetadata();
+    message.name = object.name ?? "";
+    message.broadcastOriginApiMetadata = object.broadcastOriginApiMetadata ?? undefined;
+    return message;
+  },
+};
+
+function createBaseBroadcastOriginSourceMetadata(): BroadcastOriginSourceMetadata {
+  return {};
+}
+
+export const BroadcastOriginSourceMetadata = {
+  encode(_: BroadcastOriginSourceMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BroadcastOriginSourceMetadata {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBroadcastOriginSourceMetadata();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): BroadcastOriginSourceMetadata {
+    return {};
+  },
+
+  toJSON(_: BroadcastOriginSourceMetadata): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<BroadcastOriginSourceMetadata>): BroadcastOriginSourceMetadata {
+    const message = createBaseBroadcastOriginSourceMetadata();
+    return message;
+  },
+};
+
 function createBaseWebhookRequest(): WebhookRequest {
-  return { userId: "", collectionId: "", projectId: "", triggerMetadata: undefined, trigger: undefined };
+  return {
+    userId: "",
+    collectionId: "",
+    projectId: "",
+    broadcastOrigin: undefined,
+    broadcastOriginApiMetadata: undefined,
+    broadcastOriginSourceMetadata: undefined,
+    broadcastOriginExternalMetadata: undefined,
+  };
 }
 
 export const WebhookRequest = {
@@ -2811,11 +2963,18 @@ export const WebhookRequest = {
     if (message.projectId !== "") {
       writer.uint32(26).string(message.projectId);
     }
-    if (message.triggerMetadata !== undefined) {
-      Value.encode(Value.wrap(message.triggerMetadata), writer.uint32(34).fork()).ldelim();
+    if (message.broadcastOrigin !== undefined) {
+      writer.uint32(56).int32(broadcastOriginToNumber(message.broadcastOrigin));
     }
-    if (message.trigger !== undefined) {
-      writer.uint32(40).int32(broadcastTriggerToNumber(message.trigger));
+    if (message.broadcastOriginApiMetadata !== undefined) {
+      Value.encode(Value.wrap(message.broadcastOriginApiMetadata), writer.uint32(66).fork()).ldelim();
+    }
+    if (message.broadcastOriginSourceMetadata !== undefined) {
+      BroadcastOriginSourceMetadata.encode(message.broadcastOriginSourceMetadata, writer.uint32(74).fork()).ldelim();
+    }
+    if (message.broadcastOriginExternalMetadata !== undefined) {
+      BroadcastOriginExternalMetadata.encode(message.broadcastOriginExternalMetadata, writer.uint32(82).fork())
+        .ldelim();
     }
     return writer;
   },
@@ -2836,11 +2995,17 @@ export const WebhookRequest = {
         case 3:
           message.projectId = reader.string();
           break;
-        case 4:
-          message.triggerMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+        case 7:
+          message.broadcastOrigin = broadcastOriginFromJSON(reader.int32());
           break;
-        case 5:
-          message.trigger = broadcastTriggerFromJSON(reader.int32());
+        case 8:
+          message.broadcastOriginApiMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
+        case 9:
+          message.broadcastOriginSourceMetadata = BroadcastOriginSourceMetadata.decode(reader, reader.uint32());
+          break;
+        case 10:
+          message.broadcastOriginExternalMetadata = BroadcastOriginExternalMetadata.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2855,8 +3020,16 @@ export const WebhookRequest = {
       userId: isSet(object.userId) ? String(object.userId) : "",
       collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
       projectId: isSet(object.projectId) ? String(object.projectId) : "",
-      triggerMetadata: isSet(object?.triggerMetadata) ? object.triggerMetadata : undefined,
-      trigger: isSet(object.trigger) ? broadcastTriggerFromJSON(object.trigger) : undefined,
+      broadcastOrigin: isSet(object.broadcastOrigin) ? broadcastOriginFromJSON(object.broadcastOrigin) : undefined,
+      broadcastOriginApiMetadata: isSet(object?.broadcastOriginApiMetadata)
+        ? object.broadcastOriginApiMetadata
+        : undefined,
+      broadcastOriginSourceMetadata: isSet(object.broadcastOriginSourceMetadata)
+        ? BroadcastOriginSourceMetadata.fromJSON(object.broadcastOriginSourceMetadata)
+        : undefined,
+      broadcastOriginExternalMetadata: isSet(object.broadcastOriginExternalMetadata)
+        ? BroadcastOriginExternalMetadata.fromJSON(object.broadcastOriginExternalMetadata)
+        : undefined,
     };
   },
 
@@ -2865,9 +3038,19 @@ export const WebhookRequest = {
     message.userId !== undefined && (obj.userId = message.userId);
     message.collectionId !== undefined && (obj.collectionId = message.collectionId);
     message.projectId !== undefined && (obj.projectId = message.projectId);
-    message.triggerMetadata !== undefined && (obj.triggerMetadata = message.triggerMetadata);
-    message.trigger !== undefined &&
-      (obj.trigger = message.trigger !== undefined ? broadcastTriggerToJSON(message.trigger) : undefined);
+    message.broadcastOrigin !== undefined && (obj.broadcastOrigin = message.broadcastOrigin !== undefined
+      ? broadcastOriginToJSON(message.broadcastOrigin)
+      : undefined);
+    message.broadcastOriginApiMetadata !== undefined &&
+      (obj.broadcastOriginApiMetadata = message.broadcastOriginApiMetadata);
+    message.broadcastOriginSourceMetadata !== undefined &&
+      (obj.broadcastOriginSourceMetadata = message.broadcastOriginSourceMetadata
+        ? BroadcastOriginSourceMetadata.toJSON(message.broadcastOriginSourceMetadata)
+        : undefined);
+    message.broadcastOriginExternalMetadata !== undefined &&
+      (obj.broadcastOriginExternalMetadata = message.broadcastOriginExternalMetadata
+        ? BroadcastOriginExternalMetadata.toJSON(message.broadcastOriginExternalMetadata)
+        : undefined);
     return obj;
   },
 
@@ -2876,8 +3059,16 @@ export const WebhookRequest = {
     message.userId = object.userId ?? "";
     message.collectionId = object.collectionId ?? "";
     message.projectId = object.projectId ?? "";
-    message.triggerMetadata = object.triggerMetadata ?? undefined;
-    message.trigger = object.trigger ?? undefined;
+    message.broadcastOrigin = object.broadcastOrigin ?? undefined;
+    message.broadcastOriginApiMetadata = object.broadcastOriginApiMetadata ?? undefined;
+    message.broadcastOriginSourceMetadata =
+      (object.broadcastOriginSourceMetadata !== undefined && object.broadcastOriginSourceMetadata !== null)
+        ? BroadcastOriginSourceMetadata.fromPartial(object.broadcastOriginSourceMetadata)
+        : undefined;
+    message.broadcastOriginExternalMetadata =
+      (object.broadcastOriginExternalMetadata !== undefined && object.broadcastOriginExternalMetadata !== null)
+        ? BroadcastOriginExternalMetadata.fromPartial(object.broadcastOriginExternalMetadata)
+        : undefined;
     return message;
   },
 };
@@ -6074,6 +6265,10 @@ function createBaseProjectBroadcastStatus(): ProjectBroadcastStatus {
     region: undefined,
     datacenter: undefined,
     directIngests: [],
+    origin: undefined,
+    originApiMetadata: undefined,
+    originSourceMetadata: undefined,
+    originExternalMetadata: undefined,
   };
 }
 
@@ -6108,6 +6303,18 @@ export const ProjectBroadcastStatus = {
     }
     for (const v of message.directIngests) {
       DirectIngestUrl.encode(v!, writer.uint32(82).fork()).ldelim();
+    }
+    if (message.origin !== undefined) {
+      writer.uint32(88).int32(broadcastOriginToNumber(message.origin));
+    }
+    if (message.originApiMetadata !== undefined) {
+      Value.encode(Value.wrap(message.originApiMetadata), writer.uint32(98).fork()).ldelim();
+    }
+    if (message.originSourceMetadata !== undefined) {
+      BroadcastOriginSourceMetadata.encode(message.originSourceMetadata, writer.uint32(106).fork()).ldelim();
+    }
+    if (message.originExternalMetadata !== undefined) {
+      BroadcastOriginExternalMetadata.encode(message.originExternalMetadata, writer.uint32(114).fork()).ldelim();
     }
     return writer;
   },
@@ -6149,6 +6356,18 @@ export const ProjectBroadcastStatus = {
         case 10:
           message.directIngests.push(DirectIngestUrl.decode(reader, reader.uint32()));
           break;
+        case 11:
+          message.origin = broadcastOriginFromJSON(reader.int32());
+          break;
+        case 12:
+          message.originApiMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
+        case 13:
+          message.originSourceMetadata = BroadcastOriginSourceMetadata.decode(reader, reader.uint32());
+          break;
+        case 14:
+          message.originExternalMetadata = BroadcastOriginExternalMetadata.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -6173,6 +6392,14 @@ export const ProjectBroadcastStatus = {
       directIngests: Array.isArray(object?.directIngests)
         ? object.directIngests.map((e: any) => DirectIngestUrl.fromJSON(e))
         : [],
+      origin: isSet(object.origin) ? broadcastOriginFromJSON(object.origin) : undefined,
+      originApiMetadata: isSet(object?.originApiMetadata) ? object.originApiMetadata : undefined,
+      originSourceMetadata: isSet(object.originSourceMetadata)
+        ? BroadcastOriginSourceMetadata.fromJSON(object.originSourceMetadata)
+        : undefined,
+      originExternalMetadata: isSet(object.originExternalMetadata)
+        ? BroadcastOriginExternalMetadata.fromJSON(object.originExternalMetadata)
+        : undefined,
     };
   },
 
@@ -6193,6 +6420,15 @@ export const ProjectBroadcastStatus = {
     } else {
       obj.directIngests = [];
     }
+    message.origin !== undefined &&
+      (obj.origin = message.origin !== undefined ? broadcastOriginToJSON(message.origin) : undefined);
+    message.originApiMetadata !== undefined && (obj.originApiMetadata = message.originApiMetadata);
+    message.originSourceMetadata !== undefined && (obj.originSourceMetadata = message.originSourceMetadata
+      ? BroadcastOriginSourceMetadata.toJSON(message.originSourceMetadata)
+      : undefined);
+    message.originExternalMetadata !== undefined && (obj.originExternalMetadata = message.originExternalMetadata
+      ? BroadcastOriginExternalMetadata.toJSON(message.originExternalMetadata)
+      : undefined);
     return obj;
   },
 
@@ -6208,6 +6444,15 @@ export const ProjectBroadcastStatus = {
     message.region = object.region ?? undefined;
     message.datacenter = object.datacenter ?? undefined;
     message.directIngests = object.directIngests?.map((e) => DirectIngestUrl.fromPartial(e)) || [];
+    message.origin = object.origin ?? undefined;
+    message.originApiMetadata = object.originApiMetadata ?? undefined;
+    message.originSourceMetadata = (object.originSourceMetadata !== undefined && object.originSourceMetadata !== null)
+      ? BroadcastOriginSourceMetadata.fromPartial(object.originSourceMetadata)
+      : undefined;
+    message.originExternalMetadata =
+      (object.originExternalMetadata !== undefined && object.originExternalMetadata !== null)
+        ? BroadcastOriginExternalMetadata.fromPartial(object.originExternalMetadata)
+        : undefined;
     return message;
   },
 };
@@ -7793,7 +8038,7 @@ function createBaseStartProjectBroadcastRequest(): StartProjectBroadcastRequest 
     webrtcStart: undefined,
     async: undefined,
     dynamicSources: {},
-    triggerMetadata: undefined,
+    requestMetadata: undefined,
   };
 }
 
@@ -7815,8 +8060,8 @@ export const StartProjectBroadcastRequest = {
       StartProjectBroadcastRequest_DynamicSourcesEntry.encode({ key: key as any, value }, writer.uint32(42).fork())
         .ldelim();
     });
-    if (message.triggerMetadata !== undefined) {
-      Value.encode(Value.wrap(message.triggerMetadata), writer.uint32(58).fork()).ldelim();
+    if (message.requestMetadata !== undefined) {
+      Value.encode(Value.wrap(message.requestMetadata), writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -7847,7 +8092,7 @@ export const StartProjectBroadcastRequest = {
           }
           break;
         case 7:
-          message.triggerMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          message.requestMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -7869,7 +8114,7 @@ export const StartProjectBroadcastRequest = {
           return acc;
         }, {})
         : {},
-      triggerMetadata: isSet(object?.triggerMetadata) ? object.triggerMetadata : undefined,
+      requestMetadata: isSet(object?.requestMetadata) ? object.requestMetadata : undefined,
     };
   },
 
@@ -7885,7 +8130,7 @@ export const StartProjectBroadcastRequest = {
         obj.dynamicSources[k] = RuntimeSourceAddress.toJSON(v);
       });
     }
-    message.triggerMetadata !== undefined && (obj.triggerMetadata = message.triggerMetadata);
+    message.requestMetadata !== undefined && (obj.requestMetadata = message.requestMetadata);
     return obj;
   },
 
@@ -7903,7 +8148,7 @@ export const StartProjectBroadcastRequest = {
       }
       return acc;
     }, {});
-    message.triggerMetadata = object.triggerMetadata ?? undefined;
+    message.requestMetadata = object.requestMetadata ?? undefined;
     return message;
   },
 };

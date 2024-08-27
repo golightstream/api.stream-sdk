@@ -7,6 +7,7 @@ import _m0 from "protobufjs/minimal";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Struct, Value } from "../../../google/protobuf/struct";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "apis.event.v2";
 
@@ -107,7 +108,10 @@ export interface EventTarget {
 }
 
 export interface ServiceEventTarget {
-  /** Subscribe to events in a given collection. */
+  /**
+   * Subscribe to events in a given collection.
+   * this is deprecated, prefer `service_user_id`.
+   */
   userId?:
     | string
     | undefined;
@@ -124,7 +128,11 @@ export interface ServiceEventTarget {
    * Note: when specified, collection_id and project_id are implictly defined. If you choose
    * to define them, you they _must_ match the layout.
    */
-  layoutId?: string | undefined;
+  layoutId?:
+    | string
+    | undefined;
+  /** Subscribe to events by a given user, this takes priority over user_id */
+  serviceUserId?: string | undefined;
 }
 
 /** Publish a custom event */
@@ -326,6 +334,126 @@ export interface EventsStreamResponse {
   reconnectBefore?: EventsStreamReconnectRequest | undefined;
 }
 
+export interface GetEventsQuery {
+  /** Defaults to 100 */
+  limit: number;
+  /** Defaults to CREATED_AT_DESC */
+  order: GetEventsQuery_PaginationOrder;
+  events: string[];
+  /** The target to filter by. */
+  target?:
+    | GetEventsQuery_Target
+    | undefined;
+  /** Defaults to 1 day ago */
+  afterTimestamp?:
+    | string
+    | undefined;
+  /** Defaults to now */
+  beforeTimestamp?: string | undefined;
+}
+
+export enum GetEventsQuery_PaginationOrder {
+  PAGINATION_ORDER_UNSPECIFIED = "PAGINATION_ORDER_UNSPECIFIED",
+  PAGINATION_ORDER_CREATED_AT_DESC = "PAGINATION_ORDER_CREATED_AT_DESC",
+  PAGINATION_ORDER_CREATED_AT_ASC = "PAGINATION_ORDER_CREATED_AT_ASC",
+}
+
+export function getEventsQuery_PaginationOrderFromJSON(object: any): GetEventsQuery_PaginationOrder {
+  switch (object) {
+    case 0:
+    case "PAGINATION_ORDER_UNSPECIFIED":
+      return GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED;
+    case 1:
+    case "PAGINATION_ORDER_CREATED_AT_DESC":
+      return GetEventsQuery_PaginationOrder.PAGINATION_ORDER_CREATED_AT_DESC;
+    case 2:
+    case "PAGINATION_ORDER_CREATED_AT_ASC":
+      return GetEventsQuery_PaginationOrder.PAGINATION_ORDER_CREATED_AT_ASC;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum GetEventsQuery_PaginationOrder",
+      );
+  }
+}
+
+export function getEventsQuery_PaginationOrderToJSON(object: GetEventsQuery_PaginationOrder): string {
+  switch (object) {
+    case GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED:
+      return "PAGINATION_ORDER_UNSPECIFIED";
+    case GetEventsQuery_PaginationOrder.PAGINATION_ORDER_CREATED_AT_DESC:
+      return "PAGINATION_ORDER_CREATED_AT_DESC";
+    case GetEventsQuery_PaginationOrder.PAGINATION_ORDER_CREATED_AT_ASC:
+      return "PAGINATION_ORDER_CREATED_AT_ASC";
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum GetEventsQuery_PaginationOrder",
+      );
+  }
+}
+
+export function getEventsQuery_PaginationOrderToNumber(object: GetEventsQuery_PaginationOrder): number {
+  switch (object) {
+    case GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED:
+      return 0;
+    case GetEventsQuery_PaginationOrder.PAGINATION_ORDER_CREATED_AT_DESC:
+      return 1;
+    case GetEventsQuery_PaginationOrder.PAGINATION_ORDER_CREATED_AT_ASC:
+      return 2;
+    default:
+      throw new tsProtoGlobalThis.Error(
+        "Unrecognized enum value " + object + " for enum GetEventsQuery_PaginationOrder",
+      );
+  }
+}
+
+export interface GetEventsQuery_TargetValue {
+  value: string;
+  /**
+   * By default this is assumed to be true, if set to false any events that aren't explicitly targetted will be included.
+   * E.g you want to receive all events for a layout, but also want to receive broadcast events (only scoped to the project).
+   */
+  explicitOnly: boolean;
+}
+
+export interface GetEventsQuery_Target {
+  serviceUserId?: GetEventsQuery_TargetValue | undefined;
+  collectionId?: GetEventsQuery_TargetValue | undefined;
+  projectId?: GetEventsQuery_TargetValue | undefined;
+  layoutId?: GetEventsQuery_TargetValue | undefined;
+}
+
+export interface GetEventsRequest {
+  cursor?: string | undefined;
+  query?: GetEventsQuery | undefined;
+}
+
+export interface GetEventsResponse {
+  events: Event[];
+  nextCursor?: string | undefined;
+}
+
+/** A representation of an event */
+export interface Event {
+  /** Name of the event. */
+  name: string;
+  /** Value of the event. */
+  payload:
+    | { [key: string]: any }
+    | undefined;
+  /** Custom scoping parameters. */
+  target?:
+    | ServiceEventTarget
+    | undefined;
+  /** Metadata associated with the publishing of the event */
+  requestMetadata?:
+    | any
+    | undefined;
+  /** Internal ID of the event. */
+  id: string;
+  /** The time the event was first published. */
+  publishedAt: string | undefined;
+}
+
 function createBaseEventTarget(): EventTarget {
   return { collectionId: undefined, projectId: undefined, layoutId: undefined };
 }
@@ -394,7 +522,13 @@ export const EventTarget = {
 };
 
 function createBaseServiceEventTarget(): ServiceEventTarget {
-  return { userId: undefined, collectionId: undefined, projectId: undefined, layoutId: undefined };
+  return {
+    userId: undefined,
+    collectionId: undefined,
+    projectId: undefined,
+    layoutId: undefined,
+    serviceUserId: undefined,
+  };
 }
 
 export const ServiceEventTarget = {
@@ -410,6 +544,9 @@ export const ServiceEventTarget = {
     }
     if (message.layoutId !== undefined) {
       writer.uint32(34).string(message.layoutId);
+    }
+    if (message.serviceUserId !== undefined) {
+      writer.uint32(42).string(message.serviceUserId);
     }
     return writer;
   },
@@ -433,6 +570,9 @@ export const ServiceEventTarget = {
         case 4:
           message.layoutId = reader.string();
           break;
+        case 5:
+          message.serviceUserId = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -447,6 +587,7 @@ export const ServiceEventTarget = {
       collectionId: isSet(object.collectionId) ? String(object.collectionId) : undefined,
       projectId: isSet(object.projectId) ? String(object.projectId) : undefined,
       layoutId: isSet(object.layoutId) ? String(object.layoutId) : undefined,
+      serviceUserId: isSet(object.serviceUserId) ? String(object.serviceUserId) : undefined,
     };
   },
 
@@ -456,6 +597,7 @@ export const ServiceEventTarget = {
     message.collectionId !== undefined && (obj.collectionId = message.collectionId);
     message.projectId !== undefined && (obj.projectId = message.projectId);
     message.layoutId !== undefined && (obj.layoutId = message.layoutId);
+    message.serviceUserId !== undefined && (obj.serviceUserId = message.serviceUserId);
     return obj;
   },
 
@@ -465,6 +607,7 @@ export const ServiceEventTarget = {
     message.collectionId = object.collectionId ?? undefined;
     message.projectId = object.projectId ?? undefined;
     message.layoutId = object.layoutId ?? undefined;
+    message.serviceUserId = object.serviceUserId ?? undefined;
     return message;
   },
 };
@@ -1489,6 +1632,492 @@ export const EventsStreamResponse = {
   },
 };
 
+function createBaseGetEventsQuery(): GetEventsQuery {
+  return {
+    limit: 0,
+    order: GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED,
+    events: [],
+    target: undefined,
+    afterTimestamp: undefined,
+    beforeTimestamp: undefined,
+  };
+}
+
+export const GetEventsQuery = {
+  encode(message: GetEventsQuery, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.limit !== 0) {
+      writer.uint32(8).int32(message.limit);
+    }
+    if (message.order !== GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED) {
+      writer.uint32(16).int32(getEventsQuery_PaginationOrderToNumber(message.order));
+    }
+    for (const v of message.events) {
+      writer.uint32(26).string(v!);
+    }
+    if (message.target !== undefined) {
+      GetEventsQuery_Target.encode(message.target, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.afterTimestamp !== undefined) {
+      Timestamp.encode(toTimestamp(message.afterTimestamp), writer.uint32(42).fork()).ldelim();
+    }
+    if (message.beforeTimestamp !== undefined) {
+      Timestamp.encode(toTimestamp(message.beforeTimestamp), writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetEventsQuery {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetEventsQuery();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.limit = reader.int32();
+          break;
+        case 2:
+          message.order = getEventsQuery_PaginationOrderFromJSON(reader.int32());
+          break;
+        case 3:
+          message.events.push(reader.string());
+          break;
+        case 4:
+          message.target = GetEventsQuery_Target.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.afterTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 6:
+          message.beforeTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetEventsQuery {
+    return {
+      limit: isSet(object.limit) ? Number(object.limit) : 0,
+      order: isSet(object.order)
+        ? getEventsQuery_PaginationOrderFromJSON(object.order)
+        : GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED,
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => String(e)) : [],
+      target: isSet(object.target) ? GetEventsQuery_Target.fromJSON(object.target) : undefined,
+      afterTimestamp: isSet(object.afterTimestamp) ? String(object.afterTimestamp) : undefined,
+      beforeTimestamp: isSet(object.beforeTimestamp) ? String(object.beforeTimestamp) : undefined,
+    };
+  },
+
+  toJSON(message: GetEventsQuery): unknown {
+    const obj: any = {};
+    message.limit !== undefined && (obj.limit = Math.round(message.limit));
+    message.order !== undefined && (obj.order = getEventsQuery_PaginationOrderToJSON(message.order));
+    if (message.events) {
+      obj.events = message.events.map((e) => e);
+    } else {
+      obj.events = [];
+    }
+    message.target !== undefined &&
+      (obj.target = message.target ? GetEventsQuery_Target.toJSON(message.target) : undefined);
+    message.afterTimestamp !== undefined && (obj.afterTimestamp = message.afterTimestamp);
+    message.beforeTimestamp !== undefined && (obj.beforeTimestamp = message.beforeTimestamp);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetEventsQuery>): GetEventsQuery {
+    const message = createBaseGetEventsQuery();
+    message.limit = object.limit ?? 0;
+    message.order = object.order ?? GetEventsQuery_PaginationOrder.PAGINATION_ORDER_UNSPECIFIED;
+    message.events = object.events?.map((e) => e) || [];
+    message.target = (object.target !== undefined && object.target !== null)
+      ? GetEventsQuery_Target.fromPartial(object.target)
+      : undefined;
+    message.afterTimestamp = object.afterTimestamp ?? undefined;
+    message.beforeTimestamp = object.beforeTimestamp ?? undefined;
+    return message;
+  },
+};
+
+function createBaseGetEventsQuery_TargetValue(): GetEventsQuery_TargetValue {
+  return { value: "", explicitOnly: false };
+}
+
+export const GetEventsQuery_TargetValue = {
+  encode(message: GetEventsQuery_TargetValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.value !== "") {
+      writer.uint32(10).string(message.value);
+    }
+    if (message.explicitOnly === true) {
+      writer.uint32(16).bool(message.explicitOnly);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetEventsQuery_TargetValue {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetEventsQuery_TargetValue();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.value = reader.string();
+          break;
+        case 2:
+          message.explicitOnly = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetEventsQuery_TargetValue {
+    return {
+      value: isSet(object.value) ? String(object.value) : "",
+      explicitOnly: isSet(object.explicitOnly) ? Boolean(object.explicitOnly) : false,
+    };
+  },
+
+  toJSON(message: GetEventsQuery_TargetValue): unknown {
+    const obj: any = {};
+    message.value !== undefined && (obj.value = message.value);
+    message.explicitOnly !== undefined && (obj.explicitOnly = message.explicitOnly);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetEventsQuery_TargetValue>): GetEventsQuery_TargetValue {
+    const message = createBaseGetEventsQuery_TargetValue();
+    message.value = object.value ?? "";
+    message.explicitOnly = object.explicitOnly ?? false;
+    return message;
+  },
+};
+
+function createBaseGetEventsQuery_Target(): GetEventsQuery_Target {
+  return { serviceUserId: undefined, collectionId: undefined, projectId: undefined, layoutId: undefined };
+}
+
+export const GetEventsQuery_Target = {
+  encode(message: GetEventsQuery_Target, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.serviceUserId !== undefined) {
+      GetEventsQuery_TargetValue.encode(message.serviceUserId, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.collectionId !== undefined) {
+      GetEventsQuery_TargetValue.encode(message.collectionId, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.projectId !== undefined) {
+      GetEventsQuery_TargetValue.encode(message.projectId, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.layoutId !== undefined) {
+      GetEventsQuery_TargetValue.encode(message.layoutId, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetEventsQuery_Target {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetEventsQuery_Target();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.serviceUserId = GetEventsQuery_TargetValue.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.collectionId = GetEventsQuery_TargetValue.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.projectId = GetEventsQuery_TargetValue.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.layoutId = GetEventsQuery_TargetValue.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetEventsQuery_Target {
+    return {
+      serviceUserId: isSet(object.serviceUserId)
+        ? GetEventsQuery_TargetValue.fromJSON(object.serviceUserId)
+        : undefined,
+      collectionId: isSet(object.collectionId) ? GetEventsQuery_TargetValue.fromJSON(object.collectionId) : undefined,
+      projectId: isSet(object.projectId) ? GetEventsQuery_TargetValue.fromJSON(object.projectId) : undefined,
+      layoutId: isSet(object.layoutId) ? GetEventsQuery_TargetValue.fromJSON(object.layoutId) : undefined,
+    };
+  },
+
+  toJSON(message: GetEventsQuery_Target): unknown {
+    const obj: any = {};
+    message.serviceUserId !== undefined &&
+      (obj.serviceUserId = message.serviceUserId
+        ? GetEventsQuery_TargetValue.toJSON(message.serviceUserId)
+        : undefined);
+    message.collectionId !== undefined &&
+      (obj.collectionId = message.collectionId ? GetEventsQuery_TargetValue.toJSON(message.collectionId) : undefined);
+    message.projectId !== undefined &&
+      (obj.projectId = message.projectId ? GetEventsQuery_TargetValue.toJSON(message.projectId) : undefined);
+    message.layoutId !== undefined &&
+      (obj.layoutId = message.layoutId ? GetEventsQuery_TargetValue.toJSON(message.layoutId) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetEventsQuery_Target>): GetEventsQuery_Target {
+    const message = createBaseGetEventsQuery_Target();
+    message.serviceUserId = (object.serviceUserId !== undefined && object.serviceUserId !== null)
+      ? GetEventsQuery_TargetValue.fromPartial(object.serviceUserId)
+      : undefined;
+    message.collectionId = (object.collectionId !== undefined && object.collectionId !== null)
+      ? GetEventsQuery_TargetValue.fromPartial(object.collectionId)
+      : undefined;
+    message.projectId = (object.projectId !== undefined && object.projectId !== null)
+      ? GetEventsQuery_TargetValue.fromPartial(object.projectId)
+      : undefined;
+    message.layoutId = (object.layoutId !== undefined && object.layoutId !== null)
+      ? GetEventsQuery_TargetValue.fromPartial(object.layoutId)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseGetEventsRequest(): GetEventsRequest {
+  return { cursor: undefined, query: undefined };
+}
+
+export const GetEventsRequest = {
+  encode(message: GetEventsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.cursor !== undefined) {
+      writer.uint32(10).string(message.cursor);
+    }
+    if (message.query !== undefined) {
+      GetEventsQuery.encode(message.query, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetEventsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetEventsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.cursor = reader.string();
+          break;
+        case 2:
+          message.query = GetEventsQuery.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetEventsRequest {
+    return {
+      cursor: isSet(object.cursor) ? String(object.cursor) : undefined,
+      query: isSet(object.query) ? GetEventsQuery.fromJSON(object.query) : undefined,
+    };
+  },
+
+  toJSON(message: GetEventsRequest): unknown {
+    const obj: any = {};
+    message.cursor !== undefined && (obj.cursor = message.cursor);
+    message.query !== undefined && (obj.query = message.query ? GetEventsQuery.toJSON(message.query) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetEventsRequest>): GetEventsRequest {
+    const message = createBaseGetEventsRequest();
+    message.cursor = object.cursor ?? undefined;
+    message.query = (object.query !== undefined && object.query !== null)
+      ? GetEventsQuery.fromPartial(object.query)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseGetEventsResponse(): GetEventsResponse {
+  return { events: [], nextCursor: undefined };
+}
+
+export const GetEventsResponse = {
+  encode(message: GetEventsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.events) {
+      Event.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.nextCursor !== undefined) {
+      writer.uint32(18).string(message.nextCursor);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetEventsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetEventsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.events.push(Event.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.nextCursor = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetEventsResponse {
+    return {
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
+      nextCursor: isSet(object.nextCursor) ? String(object.nextCursor) : undefined,
+    };
+  },
+
+  toJSON(message: GetEventsResponse): unknown {
+    const obj: any = {};
+    if (message.events) {
+      obj.events = message.events.map((e) => e ? Event.toJSON(e) : undefined);
+    } else {
+      obj.events = [];
+    }
+    message.nextCursor !== undefined && (obj.nextCursor = message.nextCursor);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetEventsResponse>): GetEventsResponse {
+    const message = createBaseGetEventsResponse();
+    message.events = object.events?.map((e) => Event.fromPartial(e)) || [];
+    message.nextCursor = object.nextCursor ?? undefined;
+    return message;
+  },
+};
+
+function createBaseEvent(): Event {
+  return {
+    name: "",
+    payload: undefined,
+    target: undefined,
+    requestMetadata: undefined,
+    id: "",
+    publishedAt: undefined,
+  };
+}
+
+export const Event = {
+  encode(message: Event, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.payload !== undefined) {
+      Struct.encode(Struct.wrap(message.payload), writer.uint32(18).fork()).ldelim();
+    }
+    if (message.target !== undefined) {
+      ServiceEventTarget.encode(message.target, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.requestMetadata !== undefined) {
+      Value.encode(Value.wrap(message.requestMetadata), writer.uint32(34).fork()).ldelim();
+    }
+    if (message.id !== "") {
+      writer.uint32(42).string(message.id);
+    }
+    if (message.publishedAt !== undefined) {
+      Timestamp.encode(toTimestamp(message.publishedAt), writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): Event {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEvent();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.name = reader.string();
+          break;
+        case 2:
+          message.payload = Struct.unwrap(Struct.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.target = ServiceEventTarget.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.requestMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.id = reader.string();
+          break;
+        case 6:
+          message.publishedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Event {
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      payload: isObject(object.payload) ? object.payload : undefined,
+      target: isSet(object.target) ? ServiceEventTarget.fromJSON(object.target) : undefined,
+      requestMetadata: isSet(object?.requestMetadata) ? object.requestMetadata : undefined,
+      id: isSet(object.id) ? String(object.id) : "",
+      publishedAt: isSet(object.publishedAt) ? String(object.publishedAt) : undefined,
+    };
+  },
+
+  toJSON(message: Event): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.payload !== undefined && (obj.payload = message.payload);
+    message.target !== undefined &&
+      (obj.target = message.target ? ServiceEventTarget.toJSON(message.target) : undefined);
+    message.requestMetadata !== undefined && (obj.requestMetadata = message.requestMetadata);
+    message.id !== undefined && (obj.id = message.id);
+    message.publishedAt !== undefined && (obj.publishedAt = message.publishedAt);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<Event>): Event {
+    const message = createBaseEvent();
+    message.name = object.name ?? "";
+    message.payload = object.payload ?? undefined;
+    message.target = (object.target !== undefined && object.target !== null)
+      ? ServiceEventTarget.fromPartial(object.target)
+      : undefined;
+    message.requestMetadata = object.requestMetadata ?? undefined;
+    message.id = object.id ?? "";
+    message.publishedAt = object.publishedAt ?? undefined;
+    return message;
+  },
+};
+
 /**
  * The event API provides a mechanism for you to subscribe and publish events between
  * your backend services and the composition, as well as receive events from the live and layout api.
@@ -1649,6 +2278,41 @@ export const WebhookServiceDefinition = {
   },
 } as const;
 
+export interface HistoryService {
+  GetEvents(request: GetEventsRequest): Promise<GetEventsResponse>;
+}
+
+export class HistoryServiceClientImpl implements HistoryService {
+  private readonly rpc: Rpc;
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "apis.event.v2.HistoryService";
+    this.rpc = rpc;
+    this.GetEvents = this.GetEvents.bind(this);
+  }
+  GetEvents(request: GetEventsRequest): Promise<GetEventsResponse> {
+    const data = GetEventsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetEvents", data);
+    return promise.then((data) => GetEventsResponse.decode(new _m0.Reader(data)));
+  }
+}
+
+export type HistoryServiceDefinition = typeof HistoryServiceDefinition;
+export const HistoryServiceDefinition = {
+  name: "HistoryService",
+  fullName: "apis.event.v2.HistoryService",
+  methods: {
+    getEvents: {
+      name: "GetEvents",
+      requestType: GetEventsRequest,
+      requestStream: false,
+      responseType: GetEventsResponse,
+      responseStream: false,
+      options: {},
+    },
+  },
+} as const;
+
 interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
   clientStreamingRequest(service: string, method: string, data: Observable<Uint8Array>): Promise<Uint8Array>;
@@ -1681,6 +2345,19 @@ export type DeepPartial<T> = T extends Builtin ? T
   : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function toTimestamp(dateStr: string): Timestamp {
+  const date = new Date(dateStr);
+  const seconds = date.getTime() / 1_000;
+  const nanos = (date.getTime() % 1_000) * 1_000_000;
+  return { seconds, nanos };
+}
+
+function fromTimestamp(t: Timestamp): string {
+  let millis = t.seconds * 1_000;
+  millis += t.nanos / 1_000_000;
+  return new Date(millis).toISOString();
+}
 
 function isObject(value: any): boolean {
   return typeof value === "object" && value !== null;

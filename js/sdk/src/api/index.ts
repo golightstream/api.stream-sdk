@@ -79,8 +79,7 @@ export class ApiClient {
     this.log = logger.getCategory( logCategory );
     this.apikey = apikey;
 
-    // If we're running under node, we need to use a specific transport (nice-grpc-web doesn't work natively).
-    this.channel = NiceGrpc.createChannel( server, detectNode ? NodeTransport.NodeHttpTransport() : undefined );
+    this.channel = NiceGrpc.createChannel( server, NiceGrpc.FetchTransport());
     this.clientFactory = NiceGrpc.createClientFactory().use( this.logMiddleware.bind( this ) );
   }
 
