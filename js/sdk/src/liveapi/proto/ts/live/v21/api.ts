@@ -1226,7 +1226,7 @@ export function eventTypeToNumber(object: EventType): number {
 
 export interface BroadcastOriginExternalMetadata {
   name: string;
-  broadcastOriginApiMetadata: any | undefined;
+  value: any | undefined;
 }
 
 /** todo: add source metadata */
@@ -2841,7 +2841,7 @@ export interface GetServiceResponse {
 }
 
 function createBaseBroadcastOriginExternalMetadata(): BroadcastOriginExternalMetadata {
-  return { name: "", broadcastOriginApiMetadata: undefined };
+  return { name: "", value: undefined };
 }
 
 export const BroadcastOriginExternalMetadata = {
@@ -2849,8 +2849,8 @@ export const BroadcastOriginExternalMetadata = {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
-    if (message.broadcastOriginApiMetadata !== undefined) {
-      Value.encode(Value.wrap(message.broadcastOriginApiMetadata), writer.uint32(18).fork()).ldelim();
+    if (message.value !== undefined) {
+      Value.encode(Value.wrap(message.value), writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -2866,7 +2866,7 @@ export const BroadcastOriginExternalMetadata = {
           message.name = reader.string();
           break;
         case 2:
-          message.broadcastOriginApiMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          message.value = Value.unwrap(Value.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -2879,24 +2879,21 @@ export const BroadcastOriginExternalMetadata = {
   fromJSON(object: any): BroadcastOriginExternalMetadata {
     return {
       name: isSet(object.name) ? String(object.name) : "",
-      broadcastOriginApiMetadata: isSet(object?.broadcastOriginApiMetadata)
-        ? object.broadcastOriginApiMetadata
-        : undefined,
+      value: isSet(object?.value) ? object.value : undefined,
     };
   },
 
   toJSON(message: BroadcastOriginExternalMetadata): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
-    message.broadcastOriginApiMetadata !== undefined &&
-      (obj.broadcastOriginApiMetadata = message.broadcastOriginApiMetadata);
+    message.value !== undefined && (obj.value = message.value);
     return obj;
   },
 
   fromPartial(object: DeepPartial<BroadcastOriginExternalMetadata>): BroadcastOriginExternalMetadata {
     const message = createBaseBroadcastOriginExternalMetadata();
     message.name = object.name ?? "";
-    message.broadcastOriginApiMetadata = object.broadcastOriginApiMetadata ?? undefined;
+    message.value = object.value ?? undefined;
     return message;
   },
 };
