@@ -363,3 +363,91 @@ var WebhookService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "apis/event/v2/api.proto",
 }
+
+const (
+	HistoryService_GetEvents_FullMethodName = "/apis.event.v2.HistoryService/GetEvents"
+)
+
+// HistoryServiceClient is the client API for HistoryService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type HistoryServiceClient interface {
+	GetEvents(ctx context.Context, in *GetEventsRequest, opts ...grpc.CallOption) (*GetEventsResponse, error)
+}
+
+type historyServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewHistoryServiceClient(cc grpc.ClientConnInterface) HistoryServiceClient {
+	return &historyServiceClient{cc}
+}
+
+func (c *historyServiceClient) GetEvents(ctx context.Context, in *GetEventsRequest, opts ...grpc.CallOption) (*GetEventsResponse, error) {
+	out := new(GetEventsResponse)
+	err := c.cc.Invoke(ctx, HistoryService_GetEvents_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// HistoryServiceServer is the server API for HistoryService service.
+// All implementations should embed UnimplementedHistoryServiceServer
+// for forward compatibility
+type HistoryServiceServer interface {
+	GetEvents(context.Context, *GetEventsRequest) (*GetEventsResponse, error)
+}
+
+// UnimplementedHistoryServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedHistoryServiceServer struct {
+}
+
+func (UnimplementedHistoryServiceServer) GetEvents(context.Context, *GetEventsRequest) (*GetEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEvents not implemented")
+}
+
+// UnsafeHistoryServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to HistoryServiceServer will
+// result in compilation errors.
+type UnsafeHistoryServiceServer interface {
+	mustEmbedUnimplementedHistoryServiceServer()
+}
+
+func RegisterHistoryServiceServer(s grpc.ServiceRegistrar, srv HistoryServiceServer) {
+	s.RegisterService(&HistoryService_ServiceDesc, srv)
+}
+
+func _HistoryService_GetEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEventsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HistoryServiceServer).GetEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: HistoryService_GetEvents_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HistoryServiceServer).GetEvents(ctx, req.(*GetEventsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// HistoryService_ServiceDesc is the grpc.ServiceDesc for HistoryService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var HistoryService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "apis.event.v2.HistoryService",
+	HandlerType: (*HistoryServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetEvents",
+			Handler:    _HistoryService_GetEvents_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "apis/event/v2/api.proto",
+}

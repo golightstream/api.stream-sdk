@@ -24,6 +24,7 @@ type APIStreamEventAPI struct {
 	dialer *grpc.ClientConn
 
 	event   *eventv2.EventServiceClient
+	history *eventv2.HistoryServiceClient
 	webhook *eventv2.WebhookServiceClient
 }
 
@@ -42,7 +43,7 @@ func (eventApi *APIStreamEventAPI) GetEventService() (eventv2.EventServiceClient
 	return *eventApi.event, nil
 }
 
-// GetWebhookService returns an instance of the event service. This requires an apikey for authentication.
+// GetWebhookService returns an instance of the webhook service. This requires an apikey for authentication.
 func (eventApi *APIStreamEventAPI) GetWebhookService() (eventv2.WebhookServiceClient, error) {
 	if !hasAPIKey(eventApi.config) {
 		return nil, errors.New("missing api.stream api key")
@@ -57,6 +58,21 @@ func (eventApi *APIStreamEventAPI) GetWebhookService() (eventv2.WebhookServiceCl
 	return *eventApi.webhook, nil
 }
 
+// GetHistoryService returns an instance of the event history service. This requires an apikey for authentication.
+func (eventApi *APIStreamEventAPI) GetHistoryService() (eventv2.HistoryServiceClient, error) {
+	if !hasAPIKey(eventApi.config) {
+		return nil, errors.New("missing api.stream api key")
+	}
+
+	if eventApi.webhook == nil {
+		client := eventv2.NewHistoryServiceClient(eventApi.dialer)
+		eventApi.history = &client
+
+	}
+
+	return *eventApi.history, nil
+}
+
 func (eventApi *APIStreamEventAPI) reload(config APIStreamConfig) {
 	eventApi.config = config
 
@@ -67,6 +83,7 @@ func (eventApi *APIStreamEventAPI) reload(config APIStreamConfig) {
 
 	if eventApi.config.APIKey == "" {
 		eventApi.webhook = nil
+		eventApi.history = nil
 	}
 }
 
@@ -93,7 +110,7 @@ func newAPIStreamEventAPI(config APIStreamConfig) *APIStreamEventAPI {
 			}
 
 			// Only send the API key for relevant services
-			if strings.Contains(method, "Webhook") {
+			if strings.Contains(method, "Webhook") || strings.Contains(method, "History") {
 				if api.config.APIKey != "" {
 					mtd.Append("x-api-key", api.config.APIKey)
 				}
