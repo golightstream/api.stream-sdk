@@ -1286,7 +1286,11 @@ export interface AccountConfiguration {
     | number
     | undefined;
   /** webhook configuration */
-  hooks: AccountConfigurationHook | undefined;
+  hooks:
+    | AccountConfigurationHook
+    | undefined;
+  /** the base url to prefix guest codes with, defaults to an api.stream url */
+  guestCodeUrl?: string | undefined;
 }
 
 /** get account configuration request/response messages */
@@ -1308,6 +1312,10 @@ export interface UpdateAccountConfigurationRequest {
   /** webhook configuration */
   hooks:
     | AccountConfigurationHook
+    | undefined;
+  /** the base url to prefix guest codes with, defaults to an api.stream url */
+  guestCodeUrl?:
+    | string
     | undefined;
   /** fields to update */
   updateMask: string[] | undefined;
@@ -1939,7 +1947,7 @@ export interface Project {
   location?:
     | LatLong
     | undefined;
-  /** guest codes associated with this project */
+  /** deprecated: guest codes associated with this project */
   guestCodes: GuestCode[];
 }
 
@@ -2516,6 +2524,15 @@ export interface CreateAccessTokenResponse {
   accessToken: string;
 }
 
+export interface LookupGuestCodeRequest {
+  code: string;
+}
+
+export interface LookupGuestCodeResponse {
+  /** the access token for the guest */
+  url: string;
+}
+
 /** create an immutable, single-use guest access token */
 export interface GuestAccessTokenDirect {
   /** display name of the guest (used to generate webrtc particpant name) */
@@ -2551,7 +2568,7 @@ export interface CreateGuestAccessTokenRequest {
   token:
     | GuestAccessToken
     | undefined;
-  /** request a shortened url */
+  /** deprecated: request a shortened url, see createGuestCode() */
   url?: string | undefined;
 }
 
@@ -2603,6 +2620,89 @@ export interface GuestCodeRedirectRequest {
 }
 
 export interface GuestCodeRedirectResponse {
+}
+
+export interface IssuedGuestCode {
+  /** id of the collection this token is allowed to access */
+  collectionId: string;
+  /** id of the project this token is allowed to access */
+  projectId: string;
+  /** requested duration (ms) of token before it expires */
+  maxDuration?:
+    | number
+    | undefined;
+  /** the requested role of the guest */
+  role: Role;
+  /** the type of token */
+  token:
+    | GuestAccessToken
+    | undefined;
+  /** the destination to forward to. */
+  targetUrl: string;
+  /** the short identifier of the guest code */
+  code: string;
+  /** the endpoint to forward the user to. */
+  linkUrl: string;
+}
+
+export interface CreateGuestCodeRequest {
+  /** id of the collection this token is allowed to access */
+  collectionId: string;
+  /** id of the project this token is allowed to access */
+  projectId: string;
+  /** requested duration (ms) of token before it expires */
+  maxDuration?:
+    | number
+    | undefined;
+  /** the requested role of the guest */
+  role: Role;
+  /** the type of token */
+  token:
+    | GuestAccessToken
+    | undefined;
+  /** the target to redirect to */
+  url: string;
+}
+
+export interface CreateGuestCodeResponse {
+  /** the guest token details. */
+  guestCode: IssuedGuestCode | undefined;
+}
+
+export interface GetGuestCodeRequest {
+  /** the short url code */
+  code: string;
+}
+
+export interface GetGuestCodeResponse {
+  /** the guest token details. */
+  guestCode: IssuedGuestCode | undefined;
+}
+
+export interface GetGuestCodesRequest {
+  /** id of the collection to filter by */
+  collectionId?:
+    | string
+    | undefined;
+  /** id of the project to filter by */
+  projectId?:
+    | string
+    | undefined;
+  /** role to filter by */
+  role?: Role | undefined;
+}
+
+export interface GetGuestCodesResponse {
+  /** matching guest tokens */
+  guestCodes: IssuedGuestCode[];
+}
+
+export interface DeleteGuestCodeRequest {
+  /** the short url code */
+  code: string;
+}
+
+export interface DeleteGuestCodeResponse {
 }
 
 export interface JsonWebKey {
@@ -3253,7 +3353,7 @@ export const AccountConfigurationHook = {
 };
 
 function createBaseAccountConfiguration(): AccountConfiguration {
-  return { broadcastConcurrency: undefined, hooks: undefined };
+  return { broadcastConcurrency: undefined, hooks: undefined, guestCodeUrl: undefined };
 }
 
 export const AccountConfiguration = {
@@ -3263,6 +3363,9 @@ export const AccountConfiguration = {
     }
     if (message.hooks !== undefined) {
       AccountConfigurationHook.encode(message.hooks, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.guestCodeUrl !== undefined) {
+      writer.uint32(34).string(message.guestCodeUrl);
     }
     return writer;
   },
@@ -3280,6 +3383,9 @@ export const AccountConfiguration = {
         case 3:
           message.hooks = AccountConfigurationHook.decode(reader, reader.uint32());
           break;
+        case 4:
+          message.guestCodeUrl = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3292,6 +3398,7 @@ export const AccountConfiguration = {
     return {
       broadcastConcurrency: isSet(object.broadcastConcurrency) ? Number(object.broadcastConcurrency) : undefined,
       hooks: isSet(object.hooks) ? AccountConfigurationHook.fromJSON(object.hooks) : undefined,
+      guestCodeUrl: isSet(object.guestCodeUrl) ? String(object.guestCodeUrl) : undefined,
     };
   },
 
@@ -3300,6 +3407,7 @@ export const AccountConfiguration = {
     message.broadcastConcurrency !== undefined && (obj.broadcastConcurrency = Math.round(message.broadcastConcurrency));
     message.hooks !== undefined &&
       (obj.hooks = message.hooks ? AccountConfigurationHook.toJSON(message.hooks) : undefined);
+    message.guestCodeUrl !== undefined && (obj.guestCodeUrl = message.guestCodeUrl);
     return obj;
   },
 
@@ -3309,6 +3417,7 @@ export const AccountConfiguration = {
     message.hooks = (object.hooks !== undefined && object.hooks !== null)
       ? AccountConfigurationHook.fromPartial(object.hooks)
       : undefined;
+    message.guestCodeUrl = object.guestCodeUrl ?? undefined;
     return message;
   },
 };
@@ -3408,7 +3517,7 @@ export const GetAccountConfigurationResponse = {
 };
 
 function createBaseUpdateAccountConfigurationRequest(): UpdateAccountConfigurationRequest {
-  return { broadcastConcurrency: undefined, hooks: undefined, updateMask: undefined };
+  return { broadcastConcurrency: undefined, hooks: undefined, guestCodeUrl: undefined, updateMask: undefined };
 }
 
 export const UpdateAccountConfigurationRequest = {
@@ -3418,6 +3527,9 @@ export const UpdateAccountConfigurationRequest = {
     }
     if (message.hooks !== undefined) {
       AccountConfigurationHook.encode(message.hooks, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.guestCodeUrl !== undefined) {
+      writer.uint32(42).string(message.guestCodeUrl);
     }
     if (message.updateMask !== undefined) {
       FieldMask.encode(FieldMask.wrap(message.updateMask), writer.uint32(34).fork()).ldelim();
@@ -3438,6 +3550,9 @@ export const UpdateAccountConfigurationRequest = {
         case 3:
           message.hooks = AccountConfigurationHook.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.guestCodeUrl = reader.string();
+          break;
         case 4:
           message.updateMask = FieldMask.unwrap(FieldMask.decode(reader, reader.uint32()));
           break;
@@ -3453,6 +3568,7 @@ export const UpdateAccountConfigurationRequest = {
     return {
       broadcastConcurrency: isSet(object.broadcastConcurrency) ? Number(object.broadcastConcurrency) : undefined,
       hooks: isSet(object.hooks) ? AccountConfigurationHook.fromJSON(object.hooks) : undefined,
+      guestCodeUrl: isSet(object.guestCodeUrl) ? String(object.guestCodeUrl) : undefined,
       updateMask: isSet(object.updateMask) ? FieldMask.unwrap(FieldMask.fromJSON(object.updateMask)) : undefined,
     };
   },
@@ -3462,6 +3578,7 @@ export const UpdateAccountConfigurationRequest = {
     message.broadcastConcurrency !== undefined && (obj.broadcastConcurrency = Math.round(message.broadcastConcurrency));
     message.hooks !== undefined &&
       (obj.hooks = message.hooks ? AccountConfigurationHook.toJSON(message.hooks) : undefined);
+    message.guestCodeUrl !== undefined && (obj.guestCodeUrl = message.guestCodeUrl);
     message.updateMask !== undefined && (obj.updateMask = FieldMask.toJSON(FieldMask.wrap(message.updateMask)));
     return obj;
   },
@@ -3472,6 +3589,7 @@ export const UpdateAccountConfigurationRequest = {
     message.hooks = (object.hooks !== undefined && object.hooks !== null)
       ? AccountConfigurationHook.fromPartial(object.hooks)
       : undefined;
+    message.guestCodeUrl = object.guestCodeUrl ?? undefined;
     message.updateMask = object.updateMask ?? undefined;
     return message;
   },
@@ -10800,6 +10918,100 @@ export const CreateAccessTokenResponse = {
   },
 };
 
+function createBaseLookupGuestCodeRequest(): LookupGuestCodeRequest {
+  return { code: "" };
+}
+
+export const LookupGuestCodeRequest = {
+  encode(message: LookupGuestCodeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.code !== "") {
+      writer.uint32(10).string(message.code);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LookupGuestCodeRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLookupGuestCodeRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.code = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LookupGuestCodeRequest {
+    return { code: isSet(object.code) ? String(object.code) : "" };
+  },
+
+  toJSON(message: LookupGuestCodeRequest): unknown {
+    const obj: any = {};
+    message.code !== undefined && (obj.code = message.code);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<LookupGuestCodeRequest>): LookupGuestCodeRequest {
+    const message = createBaseLookupGuestCodeRequest();
+    message.code = object.code ?? "";
+    return message;
+  },
+};
+
+function createBaseLookupGuestCodeResponse(): LookupGuestCodeResponse {
+  return { url: "" };
+}
+
+export const LookupGuestCodeResponse = {
+  encode(message: LookupGuestCodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.url !== "") {
+      writer.uint32(10).string(message.url);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LookupGuestCodeResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLookupGuestCodeResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.url = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LookupGuestCodeResponse {
+    return { url: isSet(object.url) ? String(object.url) : "" };
+  },
+
+  toJSON(message: LookupGuestCodeResponse): unknown {
+    const obj: any = {};
+    message.url !== undefined && (obj.url = message.url);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<LookupGuestCodeResponse>): LookupGuestCodeResponse {
+    const message = createBaseLookupGuestCodeResponse();
+    message.url = object.url ?? "";
+    return message;
+  },
+};
+
 function createBaseGuestAccessTokenDirect(): GuestAccessTokenDirect {
   return { displayName: "", serviceUserId: undefined };
 }
@@ -11503,6 +11715,587 @@ export const GuestCodeRedirectResponse = {
 
   fromPartial(_: DeepPartial<GuestCodeRedirectResponse>): GuestCodeRedirectResponse {
     const message = createBaseGuestCodeRedirectResponse();
+    return message;
+  },
+};
+
+function createBaseIssuedGuestCode(): IssuedGuestCode {
+  return {
+    collectionId: "",
+    projectId: "",
+    maxDuration: undefined,
+    role: Role.ROLE_UNSPECIFIED,
+    token: undefined,
+    targetUrl: "",
+    code: "",
+    linkUrl: "",
+  };
+}
+
+export const IssuedGuestCode = {
+  encode(message: IssuedGuestCode, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.collectionId !== "") {
+      writer.uint32(10).string(message.collectionId);
+    }
+    if (message.projectId !== "") {
+      writer.uint32(18).string(message.projectId);
+    }
+    if (message.maxDuration !== undefined) {
+      writer.uint32(24).uint32(message.maxDuration);
+    }
+    if (message.role !== Role.ROLE_UNSPECIFIED) {
+      writer.uint32(32).int32(roleToNumber(message.role));
+    }
+    if (message.token !== undefined) {
+      GuestAccessToken.encode(message.token, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.targetUrl !== "") {
+      writer.uint32(50).string(message.targetUrl);
+    }
+    if (message.code !== "") {
+      writer.uint32(58).string(message.code);
+    }
+    if (message.linkUrl !== "") {
+      writer.uint32(74).string(message.linkUrl);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): IssuedGuestCode {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseIssuedGuestCode();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collectionId = reader.string();
+          break;
+        case 2:
+          message.projectId = reader.string();
+          break;
+        case 3:
+          message.maxDuration = reader.uint32();
+          break;
+        case 4:
+          message.role = roleFromJSON(reader.int32());
+          break;
+        case 5:
+          message.token = GuestAccessToken.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.targetUrl = reader.string();
+          break;
+        case 7:
+          message.code = reader.string();
+          break;
+        case 9:
+          message.linkUrl = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): IssuedGuestCode {
+    return {
+      collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
+      projectId: isSet(object.projectId) ? String(object.projectId) : "",
+      maxDuration: isSet(object.maxDuration) ? Number(object.maxDuration) : undefined,
+      role: isSet(object.role) ? roleFromJSON(object.role) : Role.ROLE_UNSPECIFIED,
+      token: isSet(object.token) ? GuestAccessToken.fromJSON(object.token) : undefined,
+      targetUrl: isSet(object.targetUrl) ? String(object.targetUrl) : "",
+      code: isSet(object.code) ? String(object.code) : "",
+      linkUrl: isSet(object.linkUrl) ? String(object.linkUrl) : "",
+    };
+  },
+
+  toJSON(message: IssuedGuestCode): unknown {
+    const obj: any = {};
+    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
+    message.projectId !== undefined && (obj.projectId = message.projectId);
+    message.maxDuration !== undefined && (obj.maxDuration = Math.round(message.maxDuration));
+    message.role !== undefined && (obj.role = roleToJSON(message.role));
+    message.token !== undefined && (obj.token = message.token ? GuestAccessToken.toJSON(message.token) : undefined);
+    message.targetUrl !== undefined && (obj.targetUrl = message.targetUrl);
+    message.code !== undefined && (obj.code = message.code);
+    message.linkUrl !== undefined && (obj.linkUrl = message.linkUrl);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<IssuedGuestCode>): IssuedGuestCode {
+    const message = createBaseIssuedGuestCode();
+    message.collectionId = object.collectionId ?? "";
+    message.projectId = object.projectId ?? "";
+    message.maxDuration = object.maxDuration ?? undefined;
+    message.role = object.role ?? Role.ROLE_UNSPECIFIED;
+    message.token = (object.token !== undefined && object.token !== null)
+      ? GuestAccessToken.fromPartial(object.token)
+      : undefined;
+    message.targetUrl = object.targetUrl ?? "";
+    message.code = object.code ?? "";
+    message.linkUrl = object.linkUrl ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateGuestCodeRequest(): CreateGuestCodeRequest {
+  return {
+    collectionId: "",
+    projectId: "",
+    maxDuration: undefined,
+    role: Role.ROLE_UNSPECIFIED,
+    token: undefined,
+    url: "",
+  };
+}
+
+export const CreateGuestCodeRequest = {
+  encode(message: CreateGuestCodeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.collectionId !== "") {
+      writer.uint32(10).string(message.collectionId);
+    }
+    if (message.projectId !== "") {
+      writer.uint32(18).string(message.projectId);
+    }
+    if (message.maxDuration !== undefined) {
+      writer.uint32(24).uint32(message.maxDuration);
+    }
+    if (message.role !== Role.ROLE_UNSPECIFIED) {
+      writer.uint32(32).int32(roleToNumber(message.role));
+    }
+    if (message.token !== undefined) {
+      GuestAccessToken.encode(message.token, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.url !== "") {
+      writer.uint32(50).string(message.url);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateGuestCodeRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateGuestCodeRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collectionId = reader.string();
+          break;
+        case 2:
+          message.projectId = reader.string();
+          break;
+        case 3:
+          message.maxDuration = reader.uint32();
+          break;
+        case 4:
+          message.role = roleFromJSON(reader.int32());
+          break;
+        case 5:
+          message.token = GuestAccessToken.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.url = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateGuestCodeRequest {
+    return {
+      collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
+      projectId: isSet(object.projectId) ? String(object.projectId) : "",
+      maxDuration: isSet(object.maxDuration) ? Number(object.maxDuration) : undefined,
+      role: isSet(object.role) ? roleFromJSON(object.role) : Role.ROLE_UNSPECIFIED,
+      token: isSet(object.token) ? GuestAccessToken.fromJSON(object.token) : undefined,
+      url: isSet(object.url) ? String(object.url) : "",
+    };
+  },
+
+  toJSON(message: CreateGuestCodeRequest): unknown {
+    const obj: any = {};
+    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
+    message.projectId !== undefined && (obj.projectId = message.projectId);
+    message.maxDuration !== undefined && (obj.maxDuration = Math.round(message.maxDuration));
+    message.role !== undefined && (obj.role = roleToJSON(message.role));
+    message.token !== undefined && (obj.token = message.token ? GuestAccessToken.toJSON(message.token) : undefined);
+    message.url !== undefined && (obj.url = message.url);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CreateGuestCodeRequest>): CreateGuestCodeRequest {
+    const message = createBaseCreateGuestCodeRequest();
+    message.collectionId = object.collectionId ?? "";
+    message.projectId = object.projectId ?? "";
+    message.maxDuration = object.maxDuration ?? undefined;
+    message.role = object.role ?? Role.ROLE_UNSPECIFIED;
+    message.token = (object.token !== undefined && object.token !== null)
+      ? GuestAccessToken.fromPartial(object.token)
+      : undefined;
+    message.url = object.url ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateGuestCodeResponse(): CreateGuestCodeResponse {
+  return { guestCode: undefined };
+}
+
+export const CreateGuestCodeResponse = {
+  encode(message: CreateGuestCodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.guestCode !== undefined) {
+      IssuedGuestCode.encode(message.guestCode, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateGuestCodeResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateGuestCodeResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.guestCode = IssuedGuestCode.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateGuestCodeResponse {
+    return { guestCode: isSet(object.guestCode) ? IssuedGuestCode.fromJSON(object.guestCode) : undefined };
+  },
+
+  toJSON(message: CreateGuestCodeResponse): unknown {
+    const obj: any = {};
+    message.guestCode !== undefined &&
+      (obj.guestCode = message.guestCode ? IssuedGuestCode.toJSON(message.guestCode) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CreateGuestCodeResponse>): CreateGuestCodeResponse {
+    const message = createBaseCreateGuestCodeResponse();
+    message.guestCode = (object.guestCode !== undefined && object.guestCode !== null)
+      ? IssuedGuestCode.fromPartial(object.guestCode)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseGetGuestCodeRequest(): GetGuestCodeRequest {
+  return { code: "" };
+}
+
+export const GetGuestCodeRequest = {
+  encode(message: GetGuestCodeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.code !== "") {
+      writer.uint32(10).string(message.code);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetGuestCodeRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetGuestCodeRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.code = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetGuestCodeRequest {
+    return { code: isSet(object.code) ? String(object.code) : "" };
+  },
+
+  toJSON(message: GetGuestCodeRequest): unknown {
+    const obj: any = {};
+    message.code !== undefined && (obj.code = message.code);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetGuestCodeRequest>): GetGuestCodeRequest {
+    const message = createBaseGetGuestCodeRequest();
+    message.code = object.code ?? "";
+    return message;
+  },
+};
+
+function createBaseGetGuestCodeResponse(): GetGuestCodeResponse {
+  return { guestCode: undefined };
+}
+
+export const GetGuestCodeResponse = {
+  encode(message: GetGuestCodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.guestCode !== undefined) {
+      IssuedGuestCode.encode(message.guestCode, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetGuestCodeResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetGuestCodeResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.guestCode = IssuedGuestCode.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetGuestCodeResponse {
+    return { guestCode: isSet(object.guestCode) ? IssuedGuestCode.fromJSON(object.guestCode) : undefined };
+  },
+
+  toJSON(message: GetGuestCodeResponse): unknown {
+    const obj: any = {};
+    message.guestCode !== undefined &&
+      (obj.guestCode = message.guestCode ? IssuedGuestCode.toJSON(message.guestCode) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetGuestCodeResponse>): GetGuestCodeResponse {
+    const message = createBaseGetGuestCodeResponse();
+    message.guestCode = (object.guestCode !== undefined && object.guestCode !== null)
+      ? IssuedGuestCode.fromPartial(object.guestCode)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseGetGuestCodesRequest(): GetGuestCodesRequest {
+  return { collectionId: undefined, projectId: undefined, role: undefined };
+}
+
+export const GetGuestCodesRequest = {
+  encode(message: GetGuestCodesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.collectionId !== undefined) {
+      writer.uint32(10).string(message.collectionId);
+    }
+    if (message.projectId !== undefined) {
+      writer.uint32(18).string(message.projectId);
+    }
+    if (message.role !== undefined) {
+      writer.uint32(24).int32(roleToNumber(message.role));
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetGuestCodesRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetGuestCodesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collectionId = reader.string();
+          break;
+        case 2:
+          message.projectId = reader.string();
+          break;
+        case 3:
+          message.role = roleFromJSON(reader.int32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetGuestCodesRequest {
+    return {
+      collectionId: isSet(object.collectionId) ? String(object.collectionId) : undefined,
+      projectId: isSet(object.projectId) ? String(object.projectId) : undefined,
+      role: isSet(object.role) ? roleFromJSON(object.role) : undefined,
+    };
+  },
+
+  toJSON(message: GetGuestCodesRequest): unknown {
+    const obj: any = {};
+    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
+    message.projectId !== undefined && (obj.projectId = message.projectId);
+    message.role !== undefined && (obj.role = message.role !== undefined ? roleToJSON(message.role) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetGuestCodesRequest>): GetGuestCodesRequest {
+    const message = createBaseGetGuestCodesRequest();
+    message.collectionId = object.collectionId ?? undefined;
+    message.projectId = object.projectId ?? undefined;
+    message.role = object.role ?? undefined;
+    return message;
+  },
+};
+
+function createBaseGetGuestCodesResponse(): GetGuestCodesResponse {
+  return { guestCodes: [] };
+}
+
+export const GetGuestCodesResponse = {
+  encode(message: GetGuestCodesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.guestCodes) {
+      IssuedGuestCode.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetGuestCodesResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetGuestCodesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.guestCodes.push(IssuedGuestCode.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetGuestCodesResponse {
+    return {
+      guestCodes: Array.isArray(object?.guestCodes)
+        ? object.guestCodes.map((e: any) => IssuedGuestCode.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: GetGuestCodesResponse): unknown {
+    const obj: any = {};
+    if (message.guestCodes) {
+      obj.guestCodes = message.guestCodes.map((e) => e ? IssuedGuestCode.toJSON(e) : undefined);
+    } else {
+      obj.guestCodes = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetGuestCodesResponse>): GetGuestCodesResponse {
+    const message = createBaseGetGuestCodesResponse();
+    message.guestCodes = object.guestCodes?.map((e) => IssuedGuestCode.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseDeleteGuestCodeRequest(): DeleteGuestCodeRequest {
+  return { code: "" };
+}
+
+export const DeleteGuestCodeRequest = {
+  encode(message: DeleteGuestCodeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.code !== "") {
+      writer.uint32(10).string(message.code);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteGuestCodeRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteGuestCodeRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.code = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteGuestCodeRequest {
+    return { code: isSet(object.code) ? String(object.code) : "" };
+  },
+
+  toJSON(message: DeleteGuestCodeRequest): unknown {
+    const obj: any = {};
+    message.code !== undefined && (obj.code = message.code);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DeleteGuestCodeRequest>): DeleteGuestCodeRequest {
+    const message = createBaseDeleteGuestCodeRequest();
+    message.code = object.code ?? "";
+    return message;
+  },
+};
+
+function createBaseDeleteGuestCodeResponse(): DeleteGuestCodeResponse {
+  return {};
+}
+
+export const DeleteGuestCodeResponse = {
+  encode(_: DeleteGuestCodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteGuestCodeResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteGuestCodeResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): DeleteGuestCodeResponse {
+    return {};
+  },
+
+  toJSON(_: DeleteGuestCodeResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<DeleteGuestCodeResponse>): DeleteGuestCodeResponse {
+    const message = createBaseDeleteGuestCodeResponse();
     return message;
   },
 };
@@ -14538,6 +15331,7 @@ export interface BackendAuthenticationService {
    * Create an access token for a session host
    */
   CreateAccessToken(request: CreateAccessTokenRequest): Promise<CreateAccessTokenResponse>;
+  LookupGuestCode(request: LookupGuestCodeRequest): Promise<LookupGuestCodeResponse>;
 }
 
 export class BackendAuthenticationServiceClientImpl implements BackendAuthenticationService {
@@ -14547,11 +15341,18 @@ export class BackendAuthenticationServiceClientImpl implements BackendAuthentica
     this.service = opts?.service || "live.v21.BackendAuthenticationService";
     this.rpc = rpc;
     this.CreateAccessToken = this.CreateAccessToken.bind(this);
+    this.LookupGuestCode = this.LookupGuestCode.bind(this);
   }
   CreateAccessToken(request: CreateAccessTokenRequest): Promise<CreateAccessTokenResponse> {
     const data = CreateAccessTokenRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateAccessToken", data);
     return promise.then((data) => CreateAccessTokenResponse.decode(new _m0.Reader(data)));
+  }
+
+  LookupGuestCode(request: LookupGuestCodeRequest): Promise<LookupGuestCodeResponse> {
+    const data = LookupGuestCodeRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "LookupGuestCode", data);
+    return promise.then((data) => LookupGuestCodeResponse.decode(new _m0.Reader(data)));
   }
 }
 
@@ -14574,6 +15375,14 @@ export const BackendAuthenticationServiceDefinition = {
       requestType: CreateAccessTokenRequest,
       requestStream: false,
       responseType: CreateAccessTokenResponse,
+      responseStream: false,
+      options: {},
+    },
+    lookupGuestCode: {
+      name: "LookupGuestCode",
+      requestType: LookupGuestCodeRequest,
+      requestStream: false,
+      responseType: LookupGuestCodeResponse,
       responseStream: false,
       options: {},
     },
@@ -14600,6 +15409,30 @@ export interface AuthenticationService {
    * Create a WebRTC Access Token
    */
   CreateWebRtcAccessToken(request: CreateWebRtcAccessTokenRequest): Promise<CreateWebRtcAccessTokenResponse>;
+  /**
+   * Create a new guest code
+   *
+   * Create a new guest code
+   */
+  CreateGuestCode(request: CreateGuestCodeRequest): Promise<CreateGuestCodeResponse>;
+  /**
+   * Get Guest code
+   *
+   * Get an existing guest code
+   */
+  GetGuestCode(request: GetGuestCodeRequest): Promise<GetGuestCodeResponse>;
+  /**
+   * Get Guest Codes
+   *
+   * Get all guest codes owned by the user, optionally associated with a collection or project.
+   */
+  GetGuestCodes(request: GetGuestCodesRequest): Promise<GetGuestCodesResponse>;
+  /**
+   * Delete Guest Code
+   *
+   * Delete a guest code
+   */
+  DeleteGuestCode(request: DeleteGuestCodeRequest): Promise<DeleteGuestCodeResponse>;
 }
 
 export class AuthenticationServiceClientImpl implements AuthenticationService {
@@ -14611,6 +15444,10 @@ export class AuthenticationServiceClientImpl implements AuthenticationService {
     this.CreateGuestAccessToken = this.CreateGuestAccessToken.bind(this);
     this.RefreshAccessToken = this.RefreshAccessToken.bind(this);
     this.CreateWebRtcAccessToken = this.CreateWebRtcAccessToken.bind(this);
+    this.CreateGuestCode = this.CreateGuestCode.bind(this);
+    this.GetGuestCode = this.GetGuestCode.bind(this);
+    this.GetGuestCodes = this.GetGuestCodes.bind(this);
+    this.DeleteGuestCode = this.DeleteGuestCode.bind(this);
   }
   CreateGuestAccessToken(request: CreateGuestAccessTokenRequest): Promise<CreateGuestAccessTokenResponse> {
     const data = CreateGuestAccessTokenRequest.encode(request).finish();
@@ -14628,6 +15465,30 @@ export class AuthenticationServiceClientImpl implements AuthenticationService {
     const data = CreateWebRtcAccessTokenRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateWebRtcAccessToken", data);
     return promise.then((data) => CreateWebRtcAccessTokenResponse.decode(new _m0.Reader(data)));
+  }
+
+  CreateGuestCode(request: CreateGuestCodeRequest): Promise<CreateGuestCodeResponse> {
+    const data = CreateGuestCodeRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateGuestCode", data);
+    return promise.then((data) => CreateGuestCodeResponse.decode(new _m0.Reader(data)));
+  }
+
+  GetGuestCode(request: GetGuestCodeRequest): Promise<GetGuestCodeResponse> {
+    const data = GetGuestCodeRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetGuestCode", data);
+    return promise.then((data) => GetGuestCodeResponse.decode(new _m0.Reader(data)));
+  }
+
+  GetGuestCodes(request: GetGuestCodesRequest): Promise<GetGuestCodesResponse> {
+    const data = GetGuestCodesRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetGuestCodes", data);
+    return promise.then((data) => GetGuestCodesResponse.decode(new _m0.Reader(data)));
+  }
+
+  DeleteGuestCode(request: DeleteGuestCodeRequest): Promise<DeleteGuestCodeResponse> {
+    const data = DeleteGuestCodeRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteGuestCode", data);
+    return promise.then((data) => DeleteGuestCodeResponse.decode(new _m0.Reader(data)));
   }
 }
 
@@ -14673,6 +15534,58 @@ export const AuthenticationServiceDefinition = {
       requestType: CreateWebRtcAccessTokenRequest,
       requestStream: false,
       responseType: CreateWebRtcAccessTokenResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * Create a new guest code
+     *
+     * Create a new guest code
+     */
+    createGuestCode: {
+      name: "CreateGuestCode",
+      requestType: CreateGuestCodeRequest,
+      requestStream: false,
+      responseType: CreateGuestCodeResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * Get Guest code
+     *
+     * Get an existing guest code
+     */
+    getGuestCode: {
+      name: "GetGuestCode",
+      requestType: GetGuestCodeRequest,
+      requestStream: false,
+      responseType: GetGuestCodeResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * Get Guest Codes
+     *
+     * Get all guest codes owned by the user, optionally associated with a collection or project.
+     */
+    getGuestCodes: {
+      name: "GetGuestCodes",
+      requestType: GetGuestCodesRequest,
+      requestStream: false,
+      responseType: GetGuestCodesResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * Delete Guest Code
+     *
+     * Delete a guest code
+     */
+    deleteGuestCode: {
+      name: "DeleteGuestCode",
+      requestType: DeleteGuestCodeRequest,
+      requestStream: false,
+      responseType: DeleteGuestCodeResponse,
       responseStream: false,
       options: {},
     },

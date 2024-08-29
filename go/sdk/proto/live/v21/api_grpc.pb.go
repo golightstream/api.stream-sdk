@@ -1572,6 +1572,7 @@ var SourceService_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	BackendAuthenticationService_CreateAccessToken_FullMethodName = "/live.v21.BackendAuthenticationService/CreateAccessToken"
+	BackendAuthenticationService_LookupGuestCode_FullMethodName   = "/live.v21.BackendAuthenticationService/LookupGuestCode"
 )
 
 // BackendAuthenticationServiceClient is the client API for BackendAuthenticationService service.
@@ -1582,6 +1583,7 @@ type BackendAuthenticationServiceClient interface {
 	//
 	// Create an access token for a session host
 	CreateAccessToken(ctx context.Context, in *CreateAccessTokenRequest, opts ...grpc.CallOption) (*CreateAccessTokenResponse, error)
+	LookupGuestCode(ctx context.Context, in *LookupGuestCodeRequest, opts ...grpc.CallOption) (*LookupGuestCodeResponse, error)
 }
 
 type backendAuthenticationServiceClient struct {
@@ -1601,6 +1603,15 @@ func (c *backendAuthenticationServiceClient) CreateAccessToken(ctx context.Conte
 	return out, nil
 }
 
+func (c *backendAuthenticationServiceClient) LookupGuestCode(ctx context.Context, in *LookupGuestCodeRequest, opts ...grpc.CallOption) (*LookupGuestCodeResponse, error) {
+	out := new(LookupGuestCodeResponse)
+	err := c.cc.Invoke(ctx, BackendAuthenticationService_LookupGuestCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BackendAuthenticationServiceServer is the server API for BackendAuthenticationService service.
 // All implementations should embed UnimplementedBackendAuthenticationServiceServer
 // for forward compatibility
@@ -1609,6 +1620,7 @@ type BackendAuthenticationServiceServer interface {
 	//
 	// Create an access token for a session host
 	CreateAccessToken(context.Context, *CreateAccessTokenRequest) (*CreateAccessTokenResponse, error)
+	LookupGuestCode(context.Context, *LookupGuestCodeRequest) (*LookupGuestCodeResponse, error)
 }
 
 // UnimplementedBackendAuthenticationServiceServer should be embedded to have forward compatible implementations.
@@ -1617,6 +1629,9 @@ type UnimplementedBackendAuthenticationServiceServer struct {
 
 func (UnimplementedBackendAuthenticationServiceServer) CreateAccessToken(context.Context, *CreateAccessTokenRequest) (*CreateAccessTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccessToken not implemented")
+}
+func (UnimplementedBackendAuthenticationServiceServer) LookupGuestCode(context.Context, *LookupGuestCodeRequest) (*LookupGuestCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LookupGuestCode not implemented")
 }
 
 // UnsafeBackendAuthenticationServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1648,6 +1663,24 @@ func _BackendAuthenticationService_CreateAccessToken_Handler(srv interface{}, ct
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BackendAuthenticationService_LookupGuestCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookupGuestCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BackendAuthenticationServiceServer).LookupGuestCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BackendAuthenticationService_LookupGuestCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BackendAuthenticationServiceServer).LookupGuestCode(ctx, req.(*LookupGuestCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BackendAuthenticationService_ServiceDesc is the grpc.ServiceDesc for BackendAuthenticationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1659,6 +1692,10 @@ var BackendAuthenticationService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "CreateAccessToken",
 			Handler:    _BackendAuthenticationService_CreateAccessToken_Handler,
 		},
+		{
+			MethodName: "LookupGuestCode",
+			Handler:    _BackendAuthenticationService_LookupGuestCode_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "live/v21/api.proto",
@@ -1668,6 +1705,10 @@ const (
 	AuthenticationService_CreateGuestAccessToken_FullMethodName  = "/live.v21.AuthenticationService/CreateGuestAccessToken"
 	AuthenticationService_RefreshAccessToken_FullMethodName      = "/live.v21.AuthenticationService/RefreshAccessToken"
 	AuthenticationService_CreateWebRtcAccessToken_FullMethodName = "/live.v21.AuthenticationService/CreateWebRtcAccessToken"
+	AuthenticationService_CreateGuestCode_FullMethodName         = "/live.v21.AuthenticationService/CreateGuestCode"
+	AuthenticationService_GetGuestCode_FullMethodName            = "/live.v21.AuthenticationService/GetGuestCode"
+	AuthenticationService_GetGuestCodes_FullMethodName           = "/live.v21.AuthenticationService/GetGuestCodes"
+	AuthenticationService_DeleteGuestCode_FullMethodName         = "/live.v21.AuthenticationService/DeleteGuestCode"
 )
 
 // AuthenticationServiceClient is the client API for AuthenticationService service.
@@ -1686,6 +1727,22 @@ type AuthenticationServiceClient interface {
 	//
 	// Create a WebRTC Access Token
 	CreateWebRtcAccessToken(ctx context.Context, in *CreateWebRtcAccessTokenRequest, opts ...grpc.CallOption) (*CreateWebRtcAccessTokenResponse, error)
+	// Create a new guest code
+	//
+	// Create a new guest code
+	CreateGuestCode(ctx context.Context, in *CreateGuestCodeRequest, opts ...grpc.CallOption) (*CreateGuestCodeResponse, error)
+	// Get Guest code
+	//
+	// Get an existing guest code
+	GetGuestCode(ctx context.Context, in *GetGuestCodeRequest, opts ...grpc.CallOption) (*GetGuestCodeResponse, error)
+	// Get Guest Codes
+	//
+	// Get all guest codes owned by the user, optionally associated with a collection or project.
+	GetGuestCodes(ctx context.Context, in *GetGuestCodesRequest, opts ...grpc.CallOption) (*GetGuestCodesResponse, error)
+	// Delete Guest Code
+	//
+	// Delete a guest code
+	DeleteGuestCode(ctx context.Context, in *DeleteGuestCodeRequest, opts ...grpc.CallOption) (*DeleteGuestCodeResponse, error)
 }
 
 type authenticationServiceClient struct {
@@ -1723,6 +1780,42 @@ func (c *authenticationServiceClient) CreateWebRtcAccessToken(ctx context.Contex
 	return out, nil
 }
 
+func (c *authenticationServiceClient) CreateGuestCode(ctx context.Context, in *CreateGuestCodeRequest, opts ...grpc.CallOption) (*CreateGuestCodeResponse, error) {
+	out := new(CreateGuestCodeResponse)
+	err := c.cc.Invoke(ctx, AuthenticationService_CreateGuestCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authenticationServiceClient) GetGuestCode(ctx context.Context, in *GetGuestCodeRequest, opts ...grpc.CallOption) (*GetGuestCodeResponse, error) {
+	out := new(GetGuestCodeResponse)
+	err := c.cc.Invoke(ctx, AuthenticationService_GetGuestCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authenticationServiceClient) GetGuestCodes(ctx context.Context, in *GetGuestCodesRequest, opts ...grpc.CallOption) (*GetGuestCodesResponse, error) {
+	out := new(GetGuestCodesResponse)
+	err := c.cc.Invoke(ctx, AuthenticationService_GetGuestCodes_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authenticationServiceClient) DeleteGuestCode(ctx context.Context, in *DeleteGuestCodeRequest, opts ...grpc.CallOption) (*DeleteGuestCodeResponse, error) {
+	out := new(DeleteGuestCodeResponse)
+	err := c.cc.Invoke(ctx, AuthenticationService_DeleteGuestCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthenticationServiceServer is the server API for AuthenticationService service.
 // All implementations should embed UnimplementedAuthenticationServiceServer
 // for forward compatibility
@@ -1739,6 +1832,22 @@ type AuthenticationServiceServer interface {
 	//
 	// Create a WebRTC Access Token
 	CreateWebRtcAccessToken(context.Context, *CreateWebRtcAccessTokenRequest) (*CreateWebRtcAccessTokenResponse, error)
+	// Create a new guest code
+	//
+	// Create a new guest code
+	CreateGuestCode(context.Context, *CreateGuestCodeRequest) (*CreateGuestCodeResponse, error)
+	// Get Guest code
+	//
+	// Get an existing guest code
+	GetGuestCode(context.Context, *GetGuestCodeRequest) (*GetGuestCodeResponse, error)
+	// Get Guest Codes
+	//
+	// Get all guest codes owned by the user, optionally associated with a collection or project.
+	GetGuestCodes(context.Context, *GetGuestCodesRequest) (*GetGuestCodesResponse, error)
+	// Delete Guest Code
+	//
+	// Delete a guest code
+	DeleteGuestCode(context.Context, *DeleteGuestCodeRequest) (*DeleteGuestCodeResponse, error)
 }
 
 // UnimplementedAuthenticationServiceServer should be embedded to have forward compatible implementations.
@@ -1753,6 +1862,18 @@ func (UnimplementedAuthenticationServiceServer) RefreshAccessToken(context.Conte
 }
 func (UnimplementedAuthenticationServiceServer) CreateWebRtcAccessToken(context.Context, *CreateWebRtcAccessTokenRequest) (*CreateWebRtcAccessTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateWebRtcAccessToken not implemented")
+}
+func (UnimplementedAuthenticationServiceServer) CreateGuestCode(context.Context, *CreateGuestCodeRequest) (*CreateGuestCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGuestCode not implemented")
+}
+func (UnimplementedAuthenticationServiceServer) GetGuestCode(context.Context, *GetGuestCodeRequest) (*GetGuestCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGuestCode not implemented")
+}
+func (UnimplementedAuthenticationServiceServer) GetGuestCodes(context.Context, *GetGuestCodesRequest) (*GetGuestCodesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGuestCodes not implemented")
+}
+func (UnimplementedAuthenticationServiceServer) DeleteGuestCode(context.Context, *DeleteGuestCodeRequest) (*DeleteGuestCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteGuestCode not implemented")
 }
 
 // UnsafeAuthenticationServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1820,6 +1941,78 @@ func _AuthenticationService_CreateWebRtcAccessToken_Handler(srv interface{}, ctx
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthenticationService_CreateGuestCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGuestCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthenticationServiceServer).CreateGuestCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthenticationService_CreateGuestCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthenticationServiceServer).CreateGuestCode(ctx, req.(*CreateGuestCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthenticationService_GetGuestCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGuestCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthenticationServiceServer).GetGuestCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthenticationService_GetGuestCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthenticationServiceServer).GetGuestCode(ctx, req.(*GetGuestCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthenticationService_GetGuestCodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGuestCodesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthenticationServiceServer).GetGuestCodes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthenticationService_GetGuestCodes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthenticationServiceServer).GetGuestCodes(ctx, req.(*GetGuestCodesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthenticationService_DeleteGuestCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteGuestCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthenticationServiceServer).DeleteGuestCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthenticationService_DeleteGuestCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthenticationServiceServer).DeleteGuestCode(ctx, req.(*DeleteGuestCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthenticationService_ServiceDesc is the grpc.ServiceDesc for AuthenticationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1838,6 +2031,22 @@ var AuthenticationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateWebRtcAccessToken",
 			Handler:    _AuthenticationService_CreateWebRtcAccessToken_Handler,
+		},
+		{
+			MethodName: "CreateGuestCode",
+			Handler:    _AuthenticationService_CreateGuestCode_Handler,
+		},
+		{
+			MethodName: "GetGuestCode",
+			Handler:    _AuthenticationService_GetGuestCode_Handler,
+		},
+		{
+			MethodName: "GetGuestCodes",
+			Handler:    _AuthenticationService_GetGuestCodes_Handler,
+		},
+		{
+			MethodName: "DeleteGuestCode",
+			Handler:    _AuthenticationService_DeleteGuestCode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
