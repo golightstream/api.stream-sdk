@@ -6,7 +6,11 @@ Licensed under the MIT License. See License.txt in the project root for license 
 */
 package sdk
 
-import "runtime/debug"
+import (
+	"context"
+	"google.golang.org/grpc"
+	"runtime/debug"
+)
 
 type Environment string
 
@@ -34,6 +38,9 @@ type APIStreamConfig struct {
 	FeatureOverrides []string
 
 	clientVersion string
+
+	// Optional: An interceptor to apply for unary grpc requests. This can be used to enable tracing.
+	UnaryInterceptor grpc.UnaryClientInterceptor
 }
 
 type APIStreamClient struct {
@@ -70,6 +77,12 @@ func NewAPIStreamClient(config APIStreamConfig) *APIStreamClient {
 
 	if config.FeatureOverrides == nil {
 		config.FeatureOverrides = []string{}
+	}
+
+	if config.UnaryInterceptor == nil {
+		config.UnaryInterceptor = func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+			return invoker(ctx, method, req, reply, cc, opts...)
+		}
 	}
 
 	bi, ok := debug.ReadBuildInfo()

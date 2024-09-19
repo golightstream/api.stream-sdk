@@ -207,33 +207,35 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 		getLiveApiServer(config),
 		grpc.WithTransportCredentials(transport),
 		grpc.WithUnaryInterceptor(func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
-			mtd, hasCtx := metadata.FromOutgoingContext(ctx)
+			return config.UnaryInterceptor(ctx, method, req, reply, cc, func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, opts ...grpc.CallOption) error {
+				mtd, hasCtx := metadata.FromOutgoingContext(ctx)
 
-			if !hasCtx {
-				mtd = metadata.New(map[string]string{})
-			}
-
-			// Only send the API key for relevant services
-			if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") || strings.Contains(method, "AccountConfiguration") || strings.Contains(method, "Account") {
-				if api.config.APIKey != "" {
-					mtd.Append("x-api-key", api.config.APIKey)
+				if !hasCtx {
+					mtd = metadata.New(map[string]string{})
 				}
-			} else {
-				if api.config.AccessToken != "" {
-					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
+
+				// Only send the API key for relevant services
+				if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") || strings.Contains(method, "AccountConfiguration") || strings.Contains(method, "Account") {
+					if api.config.APIKey != "" {
+						mtd.Append("x-api-key", api.config.APIKey)
+					}
+				} else {
+					if api.config.AccessToken != "" {
+						mtd.Append("authorization", "Bearer "+api.config.AccessToken)
+					}
 				}
-			}
 
-			mtd.Append("ClientType", "golang")
-			if config.clientVersion != "" {
-				mtd.Append("Version", config.clientVersion)
-			}
+				mtd.Append("ClientType", "golang")
+				if config.clientVersion != "" {
+					mtd.Append("Version", config.clientVersion)
+				}
 
-			if len(config.FeatureOverrides) > 0 {
-				mtd.Append("x-feature-overrides", config.FeatureOverrides...)
-			}
+				if len(config.FeatureOverrides) > 0 {
+					mtd.Append("x-feature-overrides", config.FeatureOverrides...)
+				}
 
-			return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
+				return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
+			}, opts...)
 		}),
 	)
 
