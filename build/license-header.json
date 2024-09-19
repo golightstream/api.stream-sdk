@@ -15,6 +15,7 @@
     "**/.idea/**",
     "**/gradlew",
     "**/gradlew.bat",
+    "**/go.sum",
     "deps/**"
   ],
   "license": "build/LICENSE.snippet.txt",
