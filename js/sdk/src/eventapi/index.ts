@@ -102,8 +102,9 @@ export class EventApi extends ApiClient {
     apiLogCallback?: ApiClient.ApiLogCallback,
     eventLogCallback?: ApiClient.EventLogCallback,
     apikey?: string,
+    featureOverrides?: string[]
   ) {
-    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, eventLogCallback, apikey );
+    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, eventLogCallback, apikey, featureOverrides);
 
     if (this.apikey !== undefined) {
       this.webhook = this.clientFactory.create(

@@ -71,8 +71,8 @@ export class LiveApi extends ApiClient {
     typeof LiveApiModel.PublicAuthenticationServiceDefinition
   >;
 
-  constructor ( sessionId: string, eventApi: EventApi, server: string, onAccessTokenRefresh: LiveApi.AccessTokenRefreshCallback, apiKey?: string, sdkVersion?: string, apiLogCallback?: ApiClient.ApiLogCallback ) {
-    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, undefined, apiKey);
+  constructor(sessionId: string, eventApi: EventApi, server: string, onAccessTokenRefresh: LiveApi.AccessTokenRefreshCallback, apiKey?: string, sdkVersion?: string, apiLogCallback?: ApiClient.ApiLogCallback, featureOverrides?: string[]) {
+    super( sessionId, server, sdkVersion, LOG_CATEGORY, apiLogCallback, undefined, apiKey, featureOverrides);
     this.eventApi = eventApi;
     this.accessTokenRefreshCallback = onAccessTokenRefresh;
 

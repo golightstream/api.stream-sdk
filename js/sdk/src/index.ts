@@ -100,6 +100,9 @@ export module ApiStream {
     // override auto-gen sessionId for this client
     sessionId?: string,
 
+    // A list of feature overrides to enable within the target api.
+    featureOverrides?: string[],
+
     // Override API endpoints
     overrideEndpoints?: {
       // override the auto-selected live-api backend server (used for debugging)
@@ -195,7 +198,7 @@ export class ApiStream {
 
     this.eventApi = new EventApi(sessionId, overrideEndpoints.eventApiServer, overrideEndpoints.eventApiWebSocketServer, options.sdkVersion, options.apiLogCallback, options.eventLogCallback, options.apiKey);
     this.layoutApi = new LayoutApi(sessionId, this.eventApi, overrideEndpoints.layoutApiServer, options.sdkVersion, options.apiLogCallback, options.apiKey);
-    this.liveApi = new LiveApi( sessionId, this.eventApi, overrideEndpoints.liveApiServer, this.setAccessToken.bind( this ), options.apiKey, options.sdkVersion, options.apiLogCallback );
+    this.liveApi = new LiveApi( sessionId, this.eventApi, overrideEndpoints.liveApiServer, this.setAccessToken.bind( this ), options.apiKey, options.sdkVersion, options.apiLogCallback, options.featureOverrides );
 
     // Handle the event api's authentication expiring
     // this handles the case where no calls have been made to the live API but the access

@@ -70,7 +70,7 @@ export class ApiClient {
     }
   }
 
-  constructor ( sessionId: string, server: string, sdkVersion?: string, logCategory?: string, apiLogCallback?: ApiClient.ApiLogCallback, eventLogCallback?: ApiClient.EventLogCallback, apikey?: string) {
+  constructor ( sessionId: string, server: string, sdkVersion?: string, logCategory?: string, apiLogCallback?: ApiClient.ApiLogCallback, eventLogCallback?: ApiClient.EventLogCallback, apikey?: string, private featureOverrides?: string[]) {
     this.sessionId = sessionId;
     this.sdkVersion = sdkVersion;
     this.version = clientVersion;
@@ -101,6 +101,11 @@ export class ApiClient {
     if ( this.sdkVersion != undefined ) {
       metadata.set( "SdkVersion", this.sdkVersion );
     }
+
+    if ( this.featureOverrides?.length ) {
+      metadata.set( "apistream-feature-overrides", this.featureOverrides);
+    }
+
     return metadata;
   }
 
@@ -114,6 +119,10 @@ export class ApiClient {
     if (this.sdkVersion != undefined) {
       metadata.set("SdkVersion", this.sdkVersion);
     }
+    if (this.featureOverrides?.length) {
+      metadata.set("apistream-feature-overrides", this.featureOverrides);
+    }
+
     return metadata;
   }
 
