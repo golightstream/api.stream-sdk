@@ -10,13 +10,14 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
+	"log"
+	"strings"
+
 	layoutv2 "github.com/golightstream/api.stream-sdk/go/sdk/proto/apis/layout/v2"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
-	"log"
-	"strings"
 )
 
 type APIStreamLayoutAPI struct {
@@ -90,14 +91,19 @@ func newAPIStreamLayoutAPI(config APIStreamConfig) *APIStreamLayoutAPI {
 					mtd = metadata.New(map[string]string{})
 				}
 
-				// Only send the API key for relevant services
+				if api.config.APIKey != "" {
+					mtd.Append("x-api-key", api.config.APIKey)
+				}
+
 				if api.config.AccessToken != "" {
 					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
 				}
 
 				mtd.Append("ClientType", "golang")
+				mtd.Append("apistream-sdk-type", "golang")
 				if config.clientVersion != "" {
 					mtd.Append("Version", config.clientVersion)
+					mtd.Append("apistream-sdk-version", config.clientVersion)
 				}
 
 				if len(config.FeatureOverrides) > 0 {

@@ -10,13 +10,14 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
+	"log"
+	"strings"
+
 	eventv2 "github.com/golightstream/api.stream-sdk/go/sdk/proto/apis/event/v2"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
-	"log"
-	"strings"
 )
 
 type APIStreamEventAPI struct {
@@ -110,26 +111,25 @@ func newAPIStreamEventAPI(config APIStreamConfig) *APIStreamEventAPI {
 					mtd = metadata.New(map[string]string{})
 				}
 
-				// Only send the API key for relevant services
-				if strings.Contains(method, "Webhook") || strings.Contains(method, "History") {
-					if api.config.APIKey != "" {
-						mtd.Append("x-api-key", api.config.APIKey)
-					}
-				} else {
-					if api.config.AccessToken != "" {
-						mtd.Append("authorization", "Bearer "+api.config.AccessToken)
-					}
+				if api.config.APIKey != "" {
+					mtd.Append("x-api-key", api.config.APIKey)
+				}
+
+				if api.config.AccessToken != "" {
+					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
 				}
 
 				mtd.Append("ClientType", "golang")
+				mtd.Append("apistream-sdk-type", "golang")
+
 				if config.clientVersion != "" {
 					mtd.Append("Version", config.clientVersion)
+					mtd.Append("apistream-sdk-version", config.clientVersion)
 				}
 
 				if len(config.FeatureOverrides) > 0 {
 					mtd.Append("apistream-feature-overrides", config.FeatureOverrides...)
 				}
-
 				return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
 			}, opts...)
 		}),

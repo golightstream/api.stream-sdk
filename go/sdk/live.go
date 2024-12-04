@@ -10,13 +10,14 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
+	"log"
+	"strings"
+
 	livev21 "github.com/golightstream/api.stream-sdk/go/sdk/proto/live/v21"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
-	"log"
-	"strings"
 )
 
 type APIStreamLiveAPI struct {
@@ -214,20 +215,19 @@ func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
 					mtd = metadata.New(map[string]string{})
 				}
 
-				// Only send the API key for relevant services
-				if strings.Contains(method, "BackendAuthentication") || strings.Contains(method, "PublicAuthentication") || strings.Contains(method, "AccountConfiguration") || strings.Contains(method, "Account") {
-					if api.config.APIKey != "" {
-						mtd.Append("x-api-key", api.config.APIKey)
-					}
-				} else {
-					if api.config.AccessToken != "" {
-						mtd.Append("authorization", "Bearer "+api.config.AccessToken)
-					}
+				if api.config.APIKey != "" {
+					mtd.Append("x-api-key", api.config.APIKey)
+				}
+
+				if api.config.AccessToken != "" {
+					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
 				}
 
 				mtd.Append("ClientType", "golang")
+				mtd.Append("apistream-sdk-type", "golang")
 				if config.clientVersion != "" {
 					mtd.Append("Version", config.clientVersion)
+					mtd.Append("apistream-sdk-version", config.clientVersion)
 				}
 
 				if len(config.FeatureOverrides) > 0 {
