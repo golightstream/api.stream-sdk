@@ -86,7 +86,7 @@ export class LiveApi extends ApiClient {
         LiveApiModel.BackendAuthenticationServiceDefinition,
         this.channel,
         {
-          '*': { metadata: this.makeGrpcMetadataApikey() }
+          '*': { metadata: this.makeGrpcMetadata() }
         },
       );
 
@@ -94,7 +94,7 @@ export class LiveApi extends ApiClient {
         LiveApiModel.AccountConfigurationServiceDefinition,
         this.channel,
         {
-          '*': { metadata: this.makeGrpcMetadataApikey() }
+          '*': { metadata: this.makeGrpcMetadata() }
         },
       );  
 
@@ -102,7 +102,7 @@ export class LiveApi extends ApiClient {
         LiveApiModel.AccountServiceDefinition,
         this.channel,
         {
-          '*': { metadata: this.makeGrpcMetadataApikey() }
+          '*': { metadata: this.makeGrpcMetadata() }
         },
       );  
     }

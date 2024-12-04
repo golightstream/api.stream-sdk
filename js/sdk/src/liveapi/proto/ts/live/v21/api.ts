@@ -2643,6 +2643,8 @@ export interface IssuedGuestCode {
   code: string;
   /** the endpoint to forward the user to. */
   linkUrl: string;
+  /** the endpoint to forward the user to. */
+  accessToken: string;
 }
 
 export interface CreateGuestCodeRequest {
@@ -11729,6 +11731,7 @@ function createBaseIssuedGuestCode(): IssuedGuestCode {
     targetUrl: "",
     code: "",
     linkUrl: "",
+    accessToken: "",
   };
 }
 
@@ -11757,6 +11760,9 @@ export const IssuedGuestCode = {
     }
     if (message.linkUrl !== "") {
       writer.uint32(74).string(message.linkUrl);
+    }
+    if (message.accessToken !== "") {
+      writer.uint32(82).string(message.accessToken);
     }
     return writer;
   },
@@ -11792,6 +11798,9 @@ export const IssuedGuestCode = {
         case 9:
           message.linkUrl = reader.string();
           break;
+        case 10:
+          message.accessToken = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -11810,6 +11819,7 @@ export const IssuedGuestCode = {
       targetUrl: isSet(object.targetUrl) ? String(object.targetUrl) : "",
       code: isSet(object.code) ? String(object.code) : "",
       linkUrl: isSet(object.linkUrl) ? String(object.linkUrl) : "",
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "",
     };
   },
 
@@ -11823,6 +11833,7 @@ export const IssuedGuestCode = {
     message.targetUrl !== undefined && (obj.targetUrl = message.targetUrl);
     message.code !== undefined && (obj.code = message.code);
     message.linkUrl !== undefined && (obj.linkUrl = message.linkUrl);
+    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
     return obj;
   },
 
@@ -11838,6 +11849,7 @@ export const IssuedGuestCode = {
     message.targetUrl = object.targetUrl ?? "";
     message.code = object.code ?? "";
     message.linkUrl = object.linkUrl ?? "";
+    message.accessToken = object.accessToken ?? "";
     return message;
   },
 };

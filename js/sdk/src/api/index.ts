@@ -8,8 +8,6 @@
 
 import * as NiceGrpc from 'nice-grpc-web';
 import { isAbortError } from 'abort-controller-x';
-import detectNode from 'detect-node';
-import * as NodeTransport from '@improbable-eng/grpc-web-node-http-transport';
 import { Category } from 'typescript-logging-category-style';
 import { logger } from './logger';
 
@@ -94,38 +92,32 @@ export class ApiClient {
   protected makeGrpcMetadata (): NiceGrpc.Metadata {
     let metadata = NiceGrpc.Metadata( {
       Authorization: `Bearer ${ this.accessToken }`,
+
       ClientType: 'nodejs',
+      'apistream-sdk-type': 'nodejs',
+
       Version: this.version,
-      SessionId: this.sessionId
+      'apistream-sdk-version': this.version,
+
+      SessionId: this.sessionId,
+      'apistream-sessionid': this.sessionId,
     } );
+
     if ( this.sdkVersion != undefined ) {
       metadata.set( "SdkVersion", this.sdkVersion );
+      metadata.set( "apistream-studiokit-version", this.sdkVersion );
     }
 
     if ( this.featureOverrides?.length ) {
       metadata.set( "apistream-feature-overrides", this.featureOverrides);
     }
 
-    return metadata;
-  }
-
-  protected makeGrpcMetadataApikey(): NiceGrpc.Metadata {
-    let metadata = NiceGrpc.Metadata({
-      'x-api-key': this.apikey,
-      ClientType: 'nodejs',
-      Version: this.version,
-      SessionId: this.sessionId
-    });
-    if (this.sdkVersion != undefined) {
-      metadata.set("SdkVersion", this.sdkVersion);
-    }
-    if (this.featureOverrides?.length) {
-      metadata.set("apistream-feature-overrides", this.featureOverrides);
+    if (this.apikey) {
+      metadata.set("x-api-key", this.apikey);
     }
 
     return metadata;
   }
-
   protected setup (): void {
     let options = {
       metadata: this.makeGrpcMetadata(),

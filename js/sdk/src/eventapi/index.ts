@@ -111,14 +111,14 @@ export class EventApi extends ApiClient {
         EventApiModel.WebhookServiceDefinition,
         this.channel,
         {
-          '*': { metadata: this.makeGrpcMetadataApikey() }
+          '*': { metadata: this.makeGrpcMetadata() }
         },
       );
       this.history = this.clientFactory.create(
         EventApiModel.HistoryServiceDefinition,
         this.channel,
         {
-          '*': { metadata: this.makeGrpcMetadataApikey() }
+          '*': { metadata: this.makeGrpcMetadata() }
         },
       );
 
