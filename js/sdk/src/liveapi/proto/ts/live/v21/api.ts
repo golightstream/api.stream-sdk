@@ -1366,11 +1366,7 @@ export interface Rendering {
     | RenderingQuality
     | undefined;
   /** target end-to-end latency (in ms) */
-  targetLatency?:
-    | number
-    | undefined;
-  /** estimated composition complexity (where 0 is nominal complexity) */
-  complexity?: number | undefined;
+  targetLatency?: number | undefined;
 }
 
 /** video encoding CBR rate control params */
@@ -1740,6 +1736,16 @@ export interface StudioSdkComposition {
   version?: string | undefined;
 }
 
+/** compose using the studio renderer */
+export interface StudioRendererComposition {
+  /** the page to render studio kit with. If set, this takes priority over `version` */
+  rendererUrl?:
+    | string
+    | undefined;
+  /** the version of the studio renderer to use. Ignored if renderer_url is set */
+  version?: string | undefined;
+}
+
 /** compose scenes using the browser-based compositor */
 export interface SceneComposition {
   /** the url to pass to the studiosdk */
@@ -1765,6 +1771,10 @@ export interface Composition {
   /** compose using the studiosdk renderer */
   studioSdk?:
     | StudioSdkComposition
+    | undefined;
+  /** studio renderer url */
+  studioRenderer?:
+    | StudioRendererComposition
     | undefined;
   /** compose scenes using the browser-based compositor */
   scene?: SceneComposition | undefined;
@@ -1944,11 +1954,7 @@ export interface Project {
   /** external triggers to start and stop this broadcast */
   triggers: ProjectTrigger[];
   /** optional optimal location to start broadcast */
-  location?:
-    | LatLong
-    | undefined;
-  /** deprecated: guest codes associated with this project */
-  guestCodes: GuestCode[];
+  location?: LatLong | undefined;
 }
 
 /** a Collection of Projects and Sources */
@@ -2565,11 +2571,7 @@ export interface CreateGuestAccessTokenRequest {
   /** the requested role of the guest */
   role: Role;
   /** the type of token */
-  token:
-    | GuestAccessToken
-    | undefined;
-  /** deprecated: request a shortened url, see createGuestCode() */
-  url?: string | undefined;
+  token: GuestAccessToken | undefined;
 }
 
 export interface CreateGuestAccessTokenResponse {
@@ -2597,19 +2599,6 @@ export interface RefreshAccessTokenRequest {
 }
 
 export interface RefreshAccessTokenResponse {
-}
-
-export interface GuestCode {
-  /** collection which owns the project */
-  collectionId: string;
-  /** project id */
-  projectId: string;
-  /** the short url code */
-  code: string;
-  /** the short url */
-  url: string;
-  /** auto-delete after time */
-  autoDelete: string | undefined;
 }
 
 export interface GuestCodeRedirectRequest {
@@ -2643,8 +2632,6 @@ export interface IssuedGuestCode {
   code: string;
   /** the endpoint to forward the user to. */
   linkUrl: string;
-  /** the endpoint to forward the user to. */
-  accessToken: string;
 }
 
 export interface CreateGuestCodeRequest {
@@ -3781,7 +3768,7 @@ export const AudioRendering = {
 };
 
 function createBaseRendering(): Rendering {
-  return { video: undefined, audio: undefined, quality: undefined, targetLatency: undefined, complexity: undefined };
+  return { video: undefined, audio: undefined, quality: undefined, targetLatency: undefined };
 }
 
 export const Rendering = {
@@ -3797,9 +3784,6 @@ export const Rendering = {
     }
     if (message.targetLatency !== undefined) {
       writer.uint32(32).uint32(message.targetLatency);
-    }
-    if (message.complexity !== undefined) {
-      writer.uint32(40).int32(message.complexity);
     }
     return writer;
   },
@@ -3823,9 +3807,6 @@ export const Rendering = {
         case 4:
           message.targetLatency = reader.uint32();
           break;
-        case 5:
-          message.complexity = reader.int32();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3840,7 +3821,6 @@ export const Rendering = {
       audio: isSet(object.audio) ? AudioRendering.fromJSON(object.audio) : undefined,
       quality: isSet(object.quality) ? renderingQualityFromJSON(object.quality) : undefined,
       targetLatency: isSet(object.targetLatency) ? Number(object.targetLatency) : undefined,
-      complexity: isSet(object.complexity) ? Number(object.complexity) : undefined,
     };
   },
 
@@ -3851,7 +3831,6 @@ export const Rendering = {
     message.quality !== undefined &&
       (obj.quality = message.quality !== undefined ? renderingQualityToJSON(message.quality) : undefined);
     message.targetLatency !== undefined && (obj.targetLatency = Math.round(message.targetLatency));
-    message.complexity !== undefined && (obj.complexity = Math.round(message.complexity));
     return obj;
   },
 
@@ -3865,7 +3844,6 @@ export const Rendering = {
       : undefined;
     message.quality = object.quality ?? undefined;
     message.targetLatency = object.targetLatency ?? undefined;
-    message.complexity = object.complexity ?? undefined;
     return message;
   },
 };
@@ -5887,6 +5865,64 @@ export const StudioSdkComposition = {
   },
 };
 
+function createBaseStudioRendererComposition(): StudioRendererComposition {
+  return { rendererUrl: undefined, version: undefined };
+}
+
+export const StudioRendererComposition = {
+  encode(message: StudioRendererComposition, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.rendererUrl !== undefined) {
+      writer.uint32(10).string(message.rendererUrl);
+    }
+    if (message.version !== undefined) {
+      writer.uint32(18).string(message.version);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): StudioRendererComposition {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseStudioRendererComposition();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.rendererUrl = reader.string();
+          break;
+        case 2:
+          message.version = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): StudioRendererComposition {
+    return {
+      rendererUrl: isSet(object.rendererUrl) ? String(object.rendererUrl) : undefined,
+      version: isSet(object.version) ? String(object.version) : undefined,
+    };
+  },
+
+  toJSON(message: StudioRendererComposition): unknown {
+    const obj: any = {};
+    message.rendererUrl !== undefined && (obj.rendererUrl = message.rendererUrl);
+    message.version !== undefined && (obj.version = message.version);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<StudioRendererComposition>): StudioRendererComposition {
+    const message = createBaseStudioRendererComposition();
+    message.rendererUrl = object.rendererUrl ?? undefined;
+    message.version = object.version ?? undefined;
+    return message;
+  },
+};
+
 function createBaseSceneComposition(): SceneComposition {
   return { rendererUrl: undefined, selectedLayoutId: undefined, debug: undefined };
 }
@@ -6002,7 +6038,7 @@ export const ExternalComposition = {
 };
 
 function createBaseComposition(): Composition {
-  return { external: undefined, studioSdk: undefined, scene: undefined };
+  return { external: undefined, studioSdk: undefined, studioRenderer: undefined, scene: undefined };
 }
 
 export const Composition = {
@@ -6012,6 +6048,9 @@ export const Composition = {
     }
     if (message.studioSdk !== undefined) {
       StudioSdkComposition.encode(message.studioSdk, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.studioRenderer !== undefined) {
+      StudioRendererComposition.encode(message.studioRenderer, writer.uint32(26).fork()).ldelim();
     }
     if (message.scene !== undefined) {
       SceneComposition.encode(message.scene, writer.uint32(34).fork()).ldelim();
@@ -6032,6 +6071,9 @@ export const Composition = {
         case 2:
           message.studioSdk = StudioSdkComposition.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.studioRenderer = StudioRendererComposition.decode(reader, reader.uint32());
+          break;
         case 4:
           message.scene = SceneComposition.decode(reader, reader.uint32());
           break;
@@ -6047,6 +6089,9 @@ export const Composition = {
     return {
       external: isSet(object.external) ? ExternalComposition.fromJSON(object.external) : undefined,
       studioSdk: isSet(object.studioSdk) ? StudioSdkComposition.fromJSON(object.studioSdk) : undefined,
+      studioRenderer: isSet(object.studioRenderer)
+        ? StudioRendererComposition.fromJSON(object.studioRenderer)
+        : undefined,
       scene: isSet(object.scene) ? SceneComposition.fromJSON(object.scene) : undefined,
     };
   },
@@ -6057,6 +6102,9 @@ export const Composition = {
       (obj.external = message.external ? ExternalComposition.toJSON(message.external) : undefined);
     message.studioSdk !== undefined &&
       (obj.studioSdk = message.studioSdk ? StudioSdkComposition.toJSON(message.studioSdk) : undefined);
+    message.studioRenderer !== undefined && (obj.studioRenderer = message.studioRenderer
+      ? StudioRendererComposition.toJSON(message.studioRenderer)
+      : undefined);
     message.scene !== undefined && (obj.scene = message.scene ? SceneComposition.toJSON(message.scene) : undefined);
     return obj;
   },
@@ -6068,6 +6116,9 @@ export const Composition = {
       : undefined;
     message.studioSdk = (object.studioSdk !== undefined && object.studioSdk !== null)
       ? StudioSdkComposition.fromPartial(object.studioSdk)
+      : undefined;
+    message.studioRenderer = (object.studioRenderer !== undefined && object.studioRenderer !== null)
+      ? StudioRendererComposition.fromPartial(object.studioRenderer)
       : undefined;
     message.scene = (object.scene !== undefined && object.scene !== null)
       ? SceneComposition.fromPartial(object.scene)
@@ -6803,7 +6854,6 @@ function createBaseProject(): Project {
     webrtc: undefined,
     triggers: [],
     location: undefined,
-    guestCodes: [],
   };
 }
 
@@ -6844,9 +6894,6 @@ export const Project = {
     }
     if (message.location !== undefined) {
       LatLong.encode(message.location, writer.uint32(98).fork()).ldelim();
-    }
-    for (const v of message.guestCodes) {
-      GuestCode.encode(v!, writer.uint32(106).fork()).ldelim();
     }
     return writer;
   },
@@ -6894,9 +6941,6 @@ export const Project = {
         case 12:
           message.location = LatLong.decode(reader, reader.uint32());
           break;
-        case 13:
-          message.guestCodes.push(GuestCode.decode(reader, reader.uint32()));
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -6921,7 +6965,6 @@ export const Project = {
       webrtc: isSet(object.webrtc) ? WebRtc.fromJSON(object.webrtc) : undefined,
       triggers: Array.isArray(object?.triggers) ? object.triggers.map((e: any) => ProjectTrigger.fromJSON(e)) : [],
       location: isSet(object.location) ? LatLong.fromJSON(object.location) : undefined,
-      guestCodes: Array.isArray(object?.guestCodes) ? object.guestCodes.map((e: any) => GuestCode.fromJSON(e)) : [],
     };
   },
 
@@ -6953,11 +6996,6 @@ export const Project = {
       obj.triggers = [];
     }
     message.location !== undefined && (obj.location = message.location ? LatLong.toJSON(message.location) : undefined);
-    if (message.guestCodes) {
-      obj.guestCodes = message.guestCodes.map((e) => e ? GuestCode.toJSON(e) : undefined);
-    } else {
-      obj.guestCodes = [];
-    }
     return obj;
   },
 
@@ -6985,7 +7023,6 @@ export const Project = {
     message.location = (object.location !== undefined && object.location !== null)
       ? LatLong.fromPartial(object.location)
       : undefined;
-    message.guestCodes = object.guestCodes?.map((e) => GuestCode.fromPartial(e)) || [];
     return message;
   },
 };
@@ -11184,14 +11221,7 @@ export const GuestAccessToken = {
 };
 
 function createBaseCreateGuestAccessTokenRequest(): CreateGuestAccessTokenRequest {
-  return {
-    collectionId: "",
-    projectId: "",
-    maxDuration: undefined,
-    role: Role.ROLE_UNSPECIFIED,
-    token: undefined,
-    url: undefined,
-  };
+  return { collectionId: "", projectId: "", maxDuration: undefined, role: Role.ROLE_UNSPECIFIED, token: undefined };
 }
 
 export const CreateGuestAccessTokenRequest = {
@@ -11210,9 +11240,6 @@ export const CreateGuestAccessTokenRequest = {
     }
     if (message.token !== undefined) {
       GuestAccessToken.encode(message.token, writer.uint32(42).fork()).ldelim();
-    }
-    if (message.url !== undefined) {
-      writer.uint32(50).string(message.url);
     }
     return writer;
   },
@@ -11239,9 +11266,6 @@ export const CreateGuestAccessTokenRequest = {
         case 5:
           message.token = GuestAccessToken.decode(reader, reader.uint32());
           break;
-        case 6:
-          message.url = reader.string();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -11257,7 +11281,6 @@ export const CreateGuestAccessTokenRequest = {
       maxDuration: isSet(object.maxDuration) ? Number(object.maxDuration) : undefined,
       role: isSet(object.role) ? roleFromJSON(object.role) : Role.ROLE_UNSPECIFIED,
       token: isSet(object.token) ? GuestAccessToken.fromJSON(object.token) : undefined,
-      url: isSet(object.url) ? String(object.url) : undefined,
     };
   },
 
@@ -11268,7 +11291,6 @@ export const CreateGuestAccessTokenRequest = {
     message.maxDuration !== undefined && (obj.maxDuration = Math.round(message.maxDuration));
     message.role !== undefined && (obj.role = roleToJSON(message.role));
     message.token !== undefined && (obj.token = message.token ? GuestAccessToken.toJSON(message.token) : undefined);
-    message.url !== undefined && (obj.url = message.url);
     return obj;
   },
 
@@ -11281,7 +11303,6 @@ export const CreateGuestAccessTokenRequest = {
     message.token = (object.token !== undefined && object.token !== null)
       ? GuestAccessToken.fromPartial(object.token)
       : undefined;
-    message.url = object.url ?? undefined;
     return message;
   },
 };
@@ -11539,91 +11560,6 @@ export const RefreshAccessTokenResponse = {
   },
 };
 
-function createBaseGuestCode(): GuestCode {
-  return { collectionId: "", projectId: "", code: "", url: "", autoDelete: undefined };
-}
-
-export const GuestCode = {
-  encode(message: GuestCode, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.collectionId !== "") {
-      writer.uint32(10).string(message.collectionId);
-    }
-    if (message.projectId !== "") {
-      writer.uint32(18).string(message.projectId);
-    }
-    if (message.code !== "") {
-      writer.uint32(26).string(message.code);
-    }
-    if (message.url !== "") {
-      writer.uint32(34).string(message.url);
-    }
-    if (message.autoDelete !== undefined) {
-      Timestamp.encode(toTimestamp(message.autoDelete), writer.uint32(42).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): GuestCode {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGuestCode();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.collectionId = reader.string();
-          break;
-        case 2:
-          message.projectId = reader.string();
-          break;
-        case 3:
-          message.code = reader.string();
-          break;
-        case 4:
-          message.url = reader.string();
-          break;
-        case 5:
-          message.autoDelete = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): GuestCode {
-    return {
-      collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
-      projectId: isSet(object.projectId) ? String(object.projectId) : "",
-      code: isSet(object.code) ? String(object.code) : "",
-      url: isSet(object.url) ? String(object.url) : "",
-      autoDelete: isSet(object.autoDelete) ? String(object.autoDelete) : undefined,
-    };
-  },
-
-  toJSON(message: GuestCode): unknown {
-    const obj: any = {};
-    message.collectionId !== undefined && (obj.collectionId = message.collectionId);
-    message.projectId !== undefined && (obj.projectId = message.projectId);
-    message.code !== undefined && (obj.code = message.code);
-    message.url !== undefined && (obj.url = message.url);
-    message.autoDelete !== undefined && (obj.autoDelete = message.autoDelete);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<GuestCode>): GuestCode {
-    const message = createBaseGuestCode();
-    message.collectionId = object.collectionId ?? "";
-    message.projectId = object.projectId ?? "";
-    message.code = object.code ?? "";
-    message.url = object.url ?? "";
-    message.autoDelete = object.autoDelete ?? undefined;
-    return message;
-  },
-};
-
 function createBaseGuestCodeRedirectRequest(): GuestCodeRedirectRequest {
   return { serviceId: "", code: "" };
 }
@@ -11731,7 +11667,6 @@ function createBaseIssuedGuestCode(): IssuedGuestCode {
     targetUrl: "",
     code: "",
     linkUrl: "",
-    accessToken: "",
   };
 }
 
@@ -11760,9 +11695,6 @@ export const IssuedGuestCode = {
     }
     if (message.linkUrl !== "") {
       writer.uint32(74).string(message.linkUrl);
-    }
-    if (message.accessToken !== "") {
-      writer.uint32(82).string(message.accessToken);
     }
     return writer;
   },
@@ -11798,9 +11730,6 @@ export const IssuedGuestCode = {
         case 9:
           message.linkUrl = reader.string();
           break;
-        case 10:
-          message.accessToken = reader.string();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -11819,7 +11748,6 @@ export const IssuedGuestCode = {
       targetUrl: isSet(object.targetUrl) ? String(object.targetUrl) : "",
       code: isSet(object.code) ? String(object.code) : "",
       linkUrl: isSet(object.linkUrl) ? String(object.linkUrl) : "",
-      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "",
     };
   },
 
@@ -11833,7 +11761,6 @@ export const IssuedGuestCode = {
     message.targetUrl !== undefined && (obj.targetUrl = message.targetUrl);
     message.code !== undefined && (obj.code = message.code);
     message.linkUrl !== undefined && (obj.linkUrl = message.linkUrl);
-    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
     return obj;
   },
 
@@ -11849,7 +11776,6 @@ export const IssuedGuestCode = {
     message.targetUrl = object.targetUrl ?? "";
     message.code = object.code ?? "";
     message.linkUrl = object.linkUrl ?? "";
-    message.accessToken = object.accessToken ?? "";
     return message;
   },
 };
