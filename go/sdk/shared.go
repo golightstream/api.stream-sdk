@@ -8,7 +8,7 @@ package sdk
 
 var LiveAPIServers = map[Environment]string{
 	"local": "localhost:8090",
-	"stage": "live.silly.horse:443",
+	"stage": "live.stream.horse:443",
 	"prod":  "live.api.stream:443",
 }
 

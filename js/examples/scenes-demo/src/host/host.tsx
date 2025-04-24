@@ -24,7 +24,7 @@ import { Scene } from '../scene';
 import { Login } from '../login';
 import { ButtonGroupConfig, CreateButtonGroupState, IsFulfilled, Sleep } from '../shared/utils';
 
-//const DEBUG_DEV_SERVER = 'https://live.silly.horse/live/v2';
+//const DEBUG_DEV_SERVER = 'https://live.stream.horse/live/v2';
 const DEBUG_DEV_SERVER = 'http://127.0.0.1:7070';
 
 const API_KEY: string | undefined = undefined;

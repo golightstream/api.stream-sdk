@@ -15,9 +15,9 @@ cp -r $LIGHTSTREAM_PROTO_ROOT/live/v21/api.proto $PWD/proto/live/v21
 
 # Copy the layout services
 mkdir -p $PWD/proto/apis/layout/v2
-curl -o $PWD/proto/apis/layout/v2/api.proto https://live.silly.horse/layout/v2/api.proto
+curl -o $PWD/proto/apis/layout/v2/api.proto https://live.stream.horse/layout/v2/api.proto
 mkdir -p $PWD/proto/apis/event/v2
-curl -o $PWD/proto/apis/event/v2/api.proto https://live.silly.horse/event/v2/api.proto
+curl -o $PWD/proto/apis/event/v2/api.proto https://live.stream.horse/event/v2/api.proto
 
 # Generate everything
 (cd proto && buf generate)
