@@ -1743,7 +1743,11 @@ export interface StudioRendererComposition {
     | string
     | undefined;
   /** the version of the studio renderer to use. Ignored if renderer_url is set */
-  version?: string | undefined;
+  version?:
+    | string
+    | undefined;
+  /** the active "scene" to render */
+  activeSceneId?: string | undefined;
 }
 
 /** compose scenes using the browser-based compositor */
@@ -5866,7 +5870,7 @@ export const StudioSdkComposition = {
 };
 
 function createBaseStudioRendererComposition(): StudioRendererComposition {
-  return { rendererUrl: undefined, version: undefined };
+  return { rendererUrl: undefined, version: undefined, activeSceneId: undefined };
 }
 
 export const StudioRendererComposition = {
@@ -5876,6 +5880,9 @@ export const StudioRendererComposition = {
     }
     if (message.version !== undefined) {
       writer.uint32(18).string(message.version);
+    }
+    if (message.activeSceneId !== undefined) {
+      writer.uint32(26).string(message.activeSceneId);
     }
     return writer;
   },
@@ -5893,6 +5900,9 @@ export const StudioRendererComposition = {
         case 2:
           message.version = reader.string();
           break;
+        case 3:
+          message.activeSceneId = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -5905,6 +5915,7 @@ export const StudioRendererComposition = {
     return {
       rendererUrl: isSet(object.rendererUrl) ? String(object.rendererUrl) : undefined,
       version: isSet(object.version) ? String(object.version) : undefined,
+      activeSceneId: isSet(object.activeSceneId) ? String(object.activeSceneId) : undefined,
     };
   },
 
@@ -5912,6 +5923,7 @@ export const StudioRendererComposition = {
     const obj: any = {};
     message.rendererUrl !== undefined && (obj.rendererUrl = message.rendererUrl);
     message.version !== undefined && (obj.version = message.version);
+    message.activeSceneId !== undefined && (obj.activeSceneId = message.activeSceneId);
     return obj;
   },
 
@@ -5919,6 +5931,7 @@ export const StudioRendererComposition = {
     const message = createBaseStudioRendererComposition();
     message.rendererUrl = object.rendererUrl ?? undefined;
     message.version = object.version ?? undefined;
+    message.activeSceneId = object.activeSceneId ?? undefined;
     return message;
   },
 };
