@@ -11,6 +11,121 @@ import { Timestamp } from "../../google/protobuf/timestamp";
 
 export const protobufPackage = "live.v21";
 
+export enum RateLimiterType {
+  RATE_LIMITER_TYPE_UNSPECIFIED = "RATE_LIMITER_TYPE_UNSPECIFIED",
+  RATE_LIMITER_TYPE_ACCOUNT_ID = "RATE_LIMITER_TYPE_ACCOUNT_ID",
+  RATE_LIMITER_TYPE_USER_ID = "RATE_LIMITER_TYPE_USER_ID",
+  RATE_LIMITER_TYPE_PROJECT_ID = "RATE_LIMITER_TYPE_PROJECT_ID",
+}
+
+export function rateLimiterTypeFromJSON(object: any): RateLimiterType {
+  switch (object) {
+    case 0:
+    case "RATE_LIMITER_TYPE_UNSPECIFIED":
+      return RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED;
+    case 1:
+    case "RATE_LIMITER_TYPE_ACCOUNT_ID":
+      return RateLimiterType.RATE_LIMITER_TYPE_ACCOUNT_ID;
+    case 2:
+    case "RATE_LIMITER_TYPE_USER_ID":
+      return RateLimiterType.RATE_LIMITER_TYPE_USER_ID;
+    case 3:
+    case "RATE_LIMITER_TYPE_PROJECT_ID":
+      return RateLimiterType.RATE_LIMITER_TYPE_PROJECT_ID;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RateLimiterType");
+  }
+}
+
+export function rateLimiterTypeToJSON(object: RateLimiterType): string {
+  switch (object) {
+    case RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED:
+      return "RATE_LIMITER_TYPE_UNSPECIFIED";
+    case RateLimiterType.RATE_LIMITER_TYPE_ACCOUNT_ID:
+      return "RATE_LIMITER_TYPE_ACCOUNT_ID";
+    case RateLimiterType.RATE_LIMITER_TYPE_USER_ID:
+      return "RATE_LIMITER_TYPE_USER_ID";
+    case RateLimiterType.RATE_LIMITER_TYPE_PROJECT_ID:
+      return "RATE_LIMITER_TYPE_PROJECT_ID";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RateLimiterType");
+  }
+}
+
+export function rateLimiterTypeToNumber(object: RateLimiterType): number {
+  switch (object) {
+    case RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED:
+      return 0;
+    case RateLimiterType.RATE_LIMITER_TYPE_ACCOUNT_ID:
+      return 1;
+    case RateLimiterType.RATE_LIMITER_TYPE_USER_ID:
+      return 2;
+    case RateLimiterType.RATE_LIMITER_TYPE_PROJECT_ID:
+      return 3;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RateLimiterType");
+  }
+}
+
+export enum RateLimiterBucket {
+  RATE_LIMITER_BUCKET_UNSPECIFIED = "RATE_LIMITER_BUCKET_UNSPECIFIED",
+  /** RATE_LIMITER_BUCKET_READ_WRITE - general read/write */
+  RATE_LIMITER_BUCKET_READ_WRITE = "RATE_LIMITER_BUCKET_READ_WRITE",
+  /** RATE_LIMITER_BUCKET_BROADCAST_CONTROL - endpoints managing broadcast state */
+  RATE_LIMITER_BUCKET_BROADCAST_CONTROL = "RATE_LIMITER_BUCKET_BROADCAST_CONTROL",
+  /** RATE_LIMITER_BUCKET_ENGINE - endpoints called by engine */
+  RATE_LIMITER_BUCKET_ENGINE = "RATE_LIMITER_BUCKET_ENGINE",
+}
+
+export function rateLimiterBucketFromJSON(object: any): RateLimiterBucket {
+  switch (object) {
+    case 0:
+    case "RATE_LIMITER_BUCKET_UNSPECIFIED":
+      return RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED;
+    case 1:
+    case "RATE_LIMITER_BUCKET_READ_WRITE":
+      return RateLimiterBucket.RATE_LIMITER_BUCKET_READ_WRITE;
+    case 2:
+    case "RATE_LIMITER_BUCKET_BROADCAST_CONTROL":
+      return RateLimiterBucket.RATE_LIMITER_BUCKET_BROADCAST_CONTROL;
+    case 3:
+    case "RATE_LIMITER_BUCKET_ENGINE":
+      return RateLimiterBucket.RATE_LIMITER_BUCKET_ENGINE;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RateLimiterBucket");
+  }
+}
+
+export function rateLimiterBucketToJSON(object: RateLimiterBucket): string {
+  switch (object) {
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED:
+      return "RATE_LIMITER_BUCKET_UNSPECIFIED";
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_READ_WRITE:
+      return "RATE_LIMITER_BUCKET_READ_WRITE";
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_BROADCAST_CONTROL:
+      return "RATE_LIMITER_BUCKET_BROADCAST_CONTROL";
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_ENGINE:
+      return "RATE_LIMITER_BUCKET_ENGINE";
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RateLimiterBucket");
+  }
+}
+
+export function rateLimiterBucketToNumber(object: RateLimiterBucket): number {
+  switch (object) {
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED:
+      return 0;
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_READ_WRITE:
+      return 1;
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_BROADCAST_CONTROL:
+      return 2;
+    case RateLimiterBucket.RATE_LIMITER_BUCKET_ENGINE:
+      return 3;
+    default:
+      throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum RateLimiterBucket");
+  }
+}
+
 export enum BroadcastOrigin {
   BROADCAST_ORIGIN_UNSPECIFIED = "BROADCAST_ORIGIN_UNSPECIFIED",
   /** BROADCAST_ORIGIN_API - broadcast was actioned by an API request */
@@ -1222,6 +1337,15 @@ export function eventTypeToNumber(object: EventType): number {
     default:
       throw new tsProtoGlobalThis.Error("Unrecognized enum value " + object + " for enum EventType");
   }
+}
+
+export interface RateLimiter {
+  target: RateLimiterType;
+  bucket: RateLimiterBucket;
+}
+
+export interface RateLimitConfig {
+  limits: RateLimiter[];
 }
 
 export interface BroadcastOriginExternalMetadata {
@@ -2592,6 +2716,7 @@ export interface CreateWebRtcAccessTokenRequest {
   projectId: string;
   /** display name of the guest (used to generate webrtc particpant name) */
   displayName: string;
+  participantMetadata: any | undefined;
 }
 
 export interface CreateWebRtcAccessTokenResponse {
@@ -2878,6 +3003,10 @@ export interface SourceStateEvent {
   projectId: string;
   /** destination id */
   sourceId: string;
+  /** if the source is configured for direct ingestion, this is the remote address */
+  remoteAddress?:
+    | string
+    | undefined;
   /** the state of the connection changed */
   connect?: ConnectState | undefined;
 }
@@ -2932,6 +3061,122 @@ export interface Service {
 export interface GetServiceResponse {
   service: Service | undefined;
 }
+
+function createBaseRateLimiter(): RateLimiter {
+  return {
+    target: RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED,
+    bucket: RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED,
+  };
+}
+
+export const RateLimiter = {
+  encode(message: RateLimiter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.target !== RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED) {
+      writer.uint32(8).int32(rateLimiterTypeToNumber(message.target));
+    }
+    if (message.bucket !== RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED) {
+      writer.uint32(16).int32(rateLimiterBucketToNumber(message.bucket));
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): RateLimiter {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRateLimiter();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.target = rateLimiterTypeFromJSON(reader.int32());
+          break;
+        case 2:
+          message.bucket = rateLimiterBucketFromJSON(reader.int32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RateLimiter {
+    return {
+      target: isSet(object.target)
+        ? rateLimiterTypeFromJSON(object.target)
+        : RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED,
+      bucket: isSet(object.bucket)
+        ? rateLimiterBucketFromJSON(object.bucket)
+        : RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED,
+    };
+  },
+
+  toJSON(message: RateLimiter): unknown {
+    const obj: any = {};
+    message.target !== undefined && (obj.target = rateLimiterTypeToJSON(message.target));
+    message.bucket !== undefined && (obj.bucket = rateLimiterBucketToJSON(message.bucket));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<RateLimiter>): RateLimiter {
+    const message = createBaseRateLimiter();
+    message.target = object.target ?? RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED;
+    message.bucket = object.bucket ?? RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED;
+    return message;
+  },
+};
+
+function createBaseRateLimitConfig(): RateLimitConfig {
+  return { limits: [] };
+}
+
+export const RateLimitConfig = {
+  encode(message: RateLimitConfig, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.limits) {
+      RateLimiter.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): RateLimitConfig {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRateLimitConfig();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.limits.push(RateLimiter.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RateLimitConfig {
+    return { limits: Array.isArray(object?.limits) ? object.limits.map((e: any) => RateLimiter.fromJSON(e)) : [] };
+  },
+
+  toJSON(message: RateLimitConfig): unknown {
+    const obj: any = {};
+    if (message.limits) {
+      obj.limits = message.limits.map((e) => e ? RateLimiter.toJSON(e) : undefined);
+    } else {
+      obj.limits = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<RateLimitConfig>): RateLimitConfig {
+    const message = createBaseRateLimitConfig();
+    message.limits = object.limits?.map((e) => RateLimiter.fromPartial(e)) || [];
+    return message;
+  },
+};
 
 function createBaseBroadcastOriginExternalMetadata(): BroadcastOriginExternalMetadata {
   return { name: "", value: undefined };
@@ -11379,7 +11624,7 @@ export const CreateGuestAccessTokenResponse = {
 };
 
 function createBaseCreateWebRtcAccessTokenRequest(): CreateWebRtcAccessTokenRequest {
-  return { collectionId: "", projectId: "", displayName: "" };
+  return { collectionId: "", projectId: "", displayName: "", participantMetadata: undefined };
 }
 
 export const CreateWebRtcAccessTokenRequest = {
@@ -11392,6 +11637,9 @@ export const CreateWebRtcAccessTokenRequest = {
     }
     if (message.displayName !== "") {
       writer.uint32(26).string(message.displayName);
+    }
+    if (message.participantMetadata !== undefined) {
+      Value.encode(Value.wrap(message.participantMetadata), writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -11412,6 +11660,9 @@ export const CreateWebRtcAccessTokenRequest = {
         case 3:
           message.displayName = reader.string();
           break;
+        case 4:
+          message.participantMetadata = Value.unwrap(Value.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -11425,6 +11676,7 @@ export const CreateWebRtcAccessTokenRequest = {
       collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
       projectId: isSet(object.projectId) ? String(object.projectId) : "",
       displayName: isSet(object.displayName) ? String(object.displayName) : "",
+      participantMetadata: isSet(object?.participantMetadata) ? object.participantMetadata : undefined,
     };
   },
 
@@ -11433,6 +11685,7 @@ export const CreateWebRtcAccessTokenRequest = {
     message.collectionId !== undefined && (obj.collectionId = message.collectionId);
     message.projectId !== undefined && (obj.projectId = message.projectId);
     message.displayName !== undefined && (obj.displayName = message.displayName);
+    message.participantMetadata !== undefined && (obj.participantMetadata = message.participantMetadata);
     return obj;
   },
 
@@ -11441,6 +11694,7 @@ export const CreateWebRtcAccessTokenRequest = {
     message.collectionId = object.collectionId ?? "";
     message.projectId = object.projectId ?? "";
     message.displayName = object.displayName ?? "";
+    message.participantMetadata = object.participantMetadata ?? undefined;
     return message;
   },
 };
@@ -13669,7 +13923,7 @@ export const SourceRemoveEvent = {
 };
 
 function createBaseSourceStateEvent(): SourceStateEvent {
-  return { collectionId: "", projectId: "", sourceId: "", connect: undefined };
+  return { collectionId: "", projectId: "", sourceId: "", remoteAddress: undefined, connect: undefined };
 }
 
 export const SourceStateEvent = {
@@ -13682,6 +13936,9 @@ export const SourceStateEvent = {
     }
     if (message.sourceId !== "") {
       writer.uint32(26).string(message.sourceId);
+    }
+    if (message.remoteAddress !== undefined) {
+      writer.uint32(42).string(message.remoteAddress);
     }
     if (message.connect !== undefined) {
       writer.uint32(32).int32(connectStateToNumber(message.connect));
@@ -13705,6 +13962,9 @@ export const SourceStateEvent = {
         case 3:
           message.sourceId = reader.string();
           break;
+        case 5:
+          message.remoteAddress = reader.string();
+          break;
         case 4:
           message.connect = connectStateFromJSON(reader.int32());
           break;
@@ -13721,6 +13981,7 @@ export const SourceStateEvent = {
       collectionId: isSet(object.collectionId) ? String(object.collectionId) : "",
       projectId: isSet(object.projectId) ? String(object.projectId) : "",
       sourceId: isSet(object.sourceId) ? String(object.sourceId) : "",
+      remoteAddress: isSet(object.remoteAddress) ? String(object.remoteAddress) : undefined,
       connect: isSet(object.connect) ? connectStateFromJSON(object.connect) : undefined,
     };
   },
@@ -13730,6 +13991,7 @@ export const SourceStateEvent = {
     message.collectionId !== undefined && (obj.collectionId = message.collectionId);
     message.projectId !== undefined && (obj.projectId = message.projectId);
     message.sourceId !== undefined && (obj.sourceId = message.sourceId);
+    message.remoteAddress !== undefined && (obj.remoteAddress = message.remoteAddress);
     message.connect !== undefined &&
       (obj.connect = message.connect !== undefined ? connectStateToJSON(message.connect) : undefined);
     return obj;
@@ -13740,6 +14002,7 @@ export const SourceStateEvent = {
     message.collectionId = object.collectionId ?? "";
     message.projectId = object.projectId ?? "";
     message.sourceId = object.sourceId ?? "";
+    message.remoteAddress = object.remoteAddress ?? undefined;
     message.connect = object.connect ?? undefined;
     return message;
   },
