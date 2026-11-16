@@ -7,6 +7,7 @@ import (
 	"sync/atomic"
 	"testing"
 
+	eventv2 "github.com/golightstream/api.stream-sdk/go/sdk/proto/apis/event/v2"
 	layoutv2 "github.com/golightstream/api.stream-sdk/go/sdk/proto/apis/layout/v2"
 	livev21 "github.com/golightstream/api.stream-sdk/go/sdk/proto/live/v21"
 	"google.golang.org/grpc"
@@ -41,6 +42,18 @@ func (s *recordingProjectServer) GetProjectBroadcastStatus(ctx context.Context, 
 	return &livev21.GetProjectBroadcastStatusResponse{}, nil
 }
 
+type recordingEventServer struct {
+	eventv2.UnimplementedEventServiceServer
+	metadata chan metadata.MD
+}
+
+func (s *recordingEventServer) Stream(stream eventv2.EventService_StreamServer) error {
+	md, _ := metadata.FromIncomingContext(stream.Context())
+	s.metadata <- md
+
+	return nil
+}
+
 func startServer(t *testing.T) (*countingListener, *recordingProjectServer) {
 	t.Helper()
 
@@ -53,6 +66,7 @@ func startServer(t *testing.T) (*countingListener, *recordingProjectServer) {
 	recorder := &recordingProjectServer{metadata: make(chan metadata.MD, 1)}
 	server := grpc.NewServer()
 	livev21.RegisterProjectServiceServer(server, recorder)
+	eventv2.RegisterEventServiceServer(server, &recordingEventServer{metadata: recorder.metadata})
 	go server.Serve(lis)
 	t.Cleanup(server.Stop)
 
@@ -196,5 +210,31 @@ func TestDialOptionsKeepTheSDKHeaders(t *testing.T) {
 
 	if got := intercepted.Load(); got != 1 {
 		t.Fatalf("caller interceptor calls = %d, want 1", got)
+	}
+}
+
+func TestStreamsSendTheSDKHeaders(t *testing.T) {
+	lis, recorder := startServer(t)
+	client := newTestClient(t, lis, APIStreamConfig{APIKey: "key"})
+
+	events, err := client.GetEventAPI().GetEventService()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	stream, err := events.Stream(WithAccessToken(context.Background(), "token"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	stream.Recv()
+
+	md := <-recorder.metadata
+
+	if got := md.Get("authorization"); len(got) != 1 || got[0] != "Bearer token" {
+		t.Fatalf("authorization = %q, want [\"Bearer token\"]", got)
+	}
+
+	if got := md.Get("x-api-key"); len(got) != 1 || got[0] != "key" {
+		t.Fatalf("x-api-key = %q, want [\"key\"]", got)
 	}
 }
