@@ -135,6 +135,7 @@ func (client *APIStreamClient) connect() *grpc.ClientConn {
 	options := append([]grpc.DialOption{
 		grpc.WithTransportCredentials(transport),
 		grpc.WithChainUnaryInterceptor(client.intercept),
+		grpc.WithChainStreamInterceptor(client.interceptStream),
 	}, client.config.DialOptions...)
 
 	conn, err := grpc.NewClient(server, options...)
@@ -147,35 +148,43 @@ func (client *APIStreamClient) connect() *grpc.ClientConn {
 
 func (client *APIStreamClient) intercept(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 	return client.config.UnaryInterceptor(ctx, method, req, reply, cc, func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, opts ...grpc.CallOption) error {
-		config := client.config
-		mtd, hasCtx := metadata.FromOutgoingContext(ctx)
-
-		if !hasCtx {
-			mtd = metadata.New(map[string]string{})
-		}
-
-		if config.APIKey != "" {
-			mtd.Append("x-api-key", config.APIKey)
-		}
-
-		if token, ok := ctx.Value(accessTokenKey{}).(string); ok && token != "" {
-			mtd.Set("authorization", "Bearer "+token)
-		} else if config.AccessToken != "" && len(mtd.Get("authorization")) == 0 {
-			mtd.Append("authorization", "Bearer "+config.AccessToken)
-		}
-
-		mtd.Append("ClientType", "golang")
-		mtd.Append("apistream-sdk-type", "golang")
-
-		if config.clientVersion != "" {
-			mtd.Append("Version", config.clientVersion)
-			mtd.Append("apistream-sdk-version", config.clientVersion)
-		}
-
-		if len(config.FeatureOverrides) > 0 {
-			mtd.Append("apistream-feature-overrides", config.FeatureOverrides...)
-		}
-
-		return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
+		return invoker(client.withHeaders(ctx), method, req, reply, cc, opts...)
 	}, opts...)
+}
+
+func (client *APIStreamClient) interceptStream(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
+	return streamer(client.withHeaders(ctx), desc, cc, method, opts...)
+}
+
+func (client *APIStreamClient) withHeaders(ctx context.Context) context.Context {
+	config := client.config
+	mtd, hasCtx := metadata.FromOutgoingContext(ctx)
+
+	if !hasCtx {
+		mtd = metadata.New(map[string]string{})
+	}
+
+	if config.APIKey != "" {
+		mtd.Append("x-api-key", config.APIKey)
+	}
+
+	if token, ok := ctx.Value(accessTokenKey{}).(string); ok && token != "" {
+		mtd.Set("authorization", "Bearer "+token)
+	} else if config.AccessToken != "" && len(mtd.Get("authorization")) == 0 {
+		mtd.Append("authorization", "Bearer "+config.AccessToken)
+	}
+
+	mtd.Append("ClientType", "golang")
+	mtd.Append("apistream-sdk-type", "golang")
+
+	if config.clientVersion != "" {
+		mtd.Append("Version", config.clientVersion)
+		mtd.Append("apistream-sdk-version", config.clientVersion)
+	}
+
+	if len(config.FeatureOverrides) > 0 {
+		mtd.Append("apistream-feature-overrides", config.FeatureOverrides...)
+	}
+
+	return metadata.NewOutgoingContext(ctx, mtd)
 }
