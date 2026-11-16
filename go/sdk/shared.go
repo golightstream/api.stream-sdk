@@ -16,10 +16,6 @@ func hasAPIKey(config APIStreamConfig) bool {
 	return config.APIKey != ""
 }
 
-func hasAccessToken(config APIStreamConfig) bool {
-	return config.AccessToken != ""
-}
-
 func getLiveApiServer(config APIStreamConfig) string {
 	if config.OverrideEndpoint.LiveAPIServer != "" {
 		return config.OverrideEndpoint.LiveAPIServer

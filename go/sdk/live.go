@@ -7,17 +7,10 @@ Licensed under the MIT License. See License.txt in the project root for license 
 package sdk
 
 import (
-	"context"
-	"crypto/tls"
 	"errors"
-	"log"
-	"strings"
 
 	livev21 "github.com/golightstream/api.stream-sdk/go/sdk/proto/live/v21"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/credentials/insecure"
-	"google.golang.org/grpc/metadata"
 )
 
 type APIStreamLiveAPI struct {
@@ -100,10 +93,6 @@ func (liveApi *APIStreamLiveAPI) GetAccountConfigurationService() (livev21.Accou
 
 // GetCollectionService returns an instance of the collection service. This requires an access token for authentication.
 func (liveApi *APIStreamLiveAPI) GetCollectionService() (livev21.CollectionServiceClient, error) {
-	if !hasAccessToken(liveApi.config) {
-		return nil, errors.New("missing api.stream access token")
-	}
-
 	if liveApi.collection == nil {
 		client := livev21.NewCollectionServiceClient(liveApi.dialer)
 		liveApi.collection = &client
@@ -115,10 +104,6 @@ func (liveApi *APIStreamLiveAPI) GetCollectionService() (livev21.CollectionServi
 
 // GetProjectService returns an instance of the project service. This requires an access token for authentication.
 func (liveApi *APIStreamLiveAPI) GetProjectService() (livev21.ProjectServiceClient, error) {
-	if !hasAccessToken(liveApi.config) {
-		return nil, errors.New("missing api.stream access token")
-	}
-
 	if liveApi.project == nil {
 		client := livev21.NewProjectServiceClient(liveApi.dialer)
 		liveApi.project = &client
@@ -130,10 +115,6 @@ func (liveApi *APIStreamLiveAPI) GetProjectService() (livev21.ProjectServiceClie
 
 // GetSourceService returns an instance of the source service. This requires an access token for authentication.
 func (liveApi *APIStreamLiveAPI) GetSourceService() (livev21.SourceServiceClient, error) {
-	if !hasAccessToken(liveApi.config) {
-		return nil, errors.New("missing api.stream access token")
-	}
-
 	if liveApi.source == nil {
 		client := livev21.NewSourceServiceClient(liveApi.dialer)
 		liveApi.source = &client
@@ -144,10 +125,6 @@ func (liveApi *APIStreamLiveAPI) GetSourceService() (livev21.SourceServiceClient
 
 // GetDestinationService returns an instance of the destination service. This requires an access token for authentication.
 func (liveApi *APIStreamLiveAPI) GetDestinationService() (livev21.DestinationServiceClient, error) {
-	if !hasAccessToken(liveApi.config) {
-		return nil, errors.New("missing api.stream access token")
-	}
-
 	if liveApi.destination == nil {
 		client := livev21.NewDestinationServiceClient(liveApi.dialer)
 		liveApi.destination = &client
@@ -158,10 +135,6 @@ func (liveApi *APIStreamLiveAPI) GetDestinationService() (livev21.DestinationSer
 
 // GetAuthenticationService returns an instance of the authentication service. This requires an access token for authentication.
 func (liveApi *APIStreamLiveAPI) GetAuthenticationService() (livev21.AuthenticationServiceClient, error) {
-	if !hasAccessToken(liveApi.config) {
-		return nil, errors.New("missing api.stream access token")
-	}
-
 	if liveApi.authentication == nil {
 		client := livev21.NewAuthenticationServiceClient(liveApi.dialer)
 		liveApi.authentication = &client
@@ -181,69 +154,11 @@ func (liveApi *APIStreamLiveAPI) reload(config APIStreamConfig) {
 		liveApi.accountConfiguration = nil
 		liveApi.account = nil
 	}
-
-	// cleanup access token clients that once existed
-	if liveApi.config.AccessToken == "" {
-		liveApi.collection = nil
-		liveApi.project = nil
-		liveApi.source = nil
-		liveApi.destination = nil
-		liveApi.authentication = nil
-	}
 }
 
-func newAPIStreamLiveAPI(config APIStreamConfig) *APIStreamLiveAPI {
-	api := &APIStreamLiveAPI{
+func newAPIStreamLiveAPI(config APIStreamConfig, dialer *grpc.ClientConn) *APIStreamLiveAPI {
+	return &APIStreamLiveAPI{
 		config: config,
+		dialer: dialer,
 	}
-
-	transport := insecure.NewCredentials()
-
-	// If port 443 is used, enforce tls
-	if strings.Contains(getLiveApiServer(config), ":443") {
-		transport = credentials.NewTLS(&tls.Config{})
-	}
-
-	dial, err := grpc.Dial(
-		getLiveApiServer(config),
-		grpc.WithTransportCredentials(transport),
-		grpc.WithUnaryInterceptor(func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
-			return config.UnaryInterceptor(ctx, method, req, reply, cc, func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, opts ...grpc.CallOption) error {
-				mtd, hasCtx := metadata.FromOutgoingContext(ctx)
-
-				if !hasCtx {
-					mtd = metadata.New(map[string]string{})
-				}
-
-				if api.config.APIKey != "" {
-					mtd.Append("x-api-key", api.config.APIKey)
-				}
-
-				if api.config.AccessToken != "" {
-					mtd.Append("authorization", "Bearer "+api.config.AccessToken)
-				}
-
-				mtd.Append("ClientType", "golang")
-				mtd.Append("apistream-sdk-type", "golang")
-				if config.clientVersion != "" {
-					mtd.Append("Version", config.clientVersion)
-					mtd.Append("apistream-sdk-version", config.clientVersion)
-				}
-
-				if len(config.FeatureOverrides) > 0 {
-					mtd.Append("apistream-feature-overrides", config.FeatureOverrides...)
-				}
-
-				return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
-			}, opts...)
-		}),
-	)
-
-	if err != nil {
-		log.Println(err, "unable to create dialer")
-	}
-
-	api.dialer = dial
-
-	return api
 }
