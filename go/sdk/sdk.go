@@ -8,8 +8,15 @@ package sdk
 
 import (
 	"context"
-	"google.golang.org/grpc"
+	"crypto/tls"
+	"log"
 	"runtime/debug"
+	"strings"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 )
 
 type Environment string
@@ -41,10 +48,13 @@ type APIStreamConfig struct {
 
 	// Optional: An interceptor to apply for unary grpc requests. This can be used to enable tracing.
 	UnaryInterceptor grpc.UnaryClientInterceptor
+
+	DialOptions []grpc.DialOption
 }
 
 type APIStreamClient struct {
 	config    APIStreamConfig
+	conn      *grpc.ClientConn
 	liveApi   *APIStreamLiveAPI
 	layoutApi *APIStreamLayoutAPI
 	eventApi  *APIStreamEventAPI
@@ -69,6 +79,20 @@ func (client *APIStreamClient) Load(token string) {
 	client.liveApi.reload(client.config)
 }
 
+func (client *APIStreamClient) Close() error {
+	if client.conn == nil {
+		return nil
+	}
+
+	return client.conn.Close()
+}
+
+type accessTokenKey struct{}
+
+func WithAccessToken(ctx context.Context, token string) context.Context {
+	return context.WithValue(ctx, accessTokenKey{}, token)
+}
+
 // NewAPIStreamClient returns a new instance of the API.stream client
 func NewAPIStreamClient(config APIStreamConfig) *APIStreamClient {
 	if config.Env == "" {
@@ -91,5 +115,67 @@ func NewAPIStreamClient(config APIStreamConfig) *APIStreamClient {
 		config.clientVersion = bi.Main.Version
 	}
 
-	return &APIStreamClient{config: config, liveApi: newAPIStreamLiveAPI(config), layoutApi: newAPIStreamLayoutAPI(config), eventApi: newAPIStreamEventAPI(config)}
+	client := &APIStreamClient{config: config}
+	client.conn = client.connect()
+	client.liveApi = newAPIStreamLiveAPI(config, client.conn)
+	client.layoutApi = newAPIStreamLayoutAPI(config, client.conn)
+	client.eventApi = newAPIStreamEventAPI(config, client.conn)
+
+	return client
+}
+
+func (client *APIStreamClient) connect() *grpc.ClientConn {
+	server := getLiveApiServer(client.config)
+	transport := insecure.NewCredentials()
+
+	if strings.Contains(server, ":443") {
+		transport = credentials.NewTLS(&tls.Config{})
+	}
+
+	options := append([]grpc.DialOption{
+		grpc.WithTransportCredentials(transport),
+		grpc.WithChainUnaryInterceptor(client.intercept),
+	}, client.config.DialOptions...)
+
+	conn, err := grpc.NewClient(server, options...)
+	if err != nil {
+		log.Println(err, "unable to create dialer")
+	}
+
+	return conn
+}
+
+func (client *APIStreamClient) intercept(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+	return client.config.UnaryInterceptor(ctx, method, req, reply, cc, func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, opts ...grpc.CallOption) error {
+		config := client.config
+		mtd, hasCtx := metadata.FromOutgoingContext(ctx)
+
+		if !hasCtx {
+			mtd = metadata.New(map[string]string{})
+		}
+
+		if config.APIKey != "" {
+			mtd.Append("x-api-key", config.APIKey)
+		}
+
+		if token, ok := ctx.Value(accessTokenKey{}).(string); ok && token != "" {
+			mtd.Set("authorization", "Bearer "+token)
+		} else if config.AccessToken != "" && len(mtd.Get("authorization")) == 0 {
+			mtd.Append("authorization", "Bearer "+config.AccessToken)
+		}
+
+		mtd.Append("ClientType", "golang")
+		mtd.Append("apistream-sdk-type", "golang")
+
+		if config.clientVersion != "" {
+			mtd.Append("Version", config.clientVersion)
+			mtd.Append("apistream-sdk-version", config.clientVersion)
+		}
+
+		if len(config.FeatureOverrides) > 0 {
+			mtd.Append("apistream-feature-overrides", config.FeatureOverrides...)
+		}
+
+		return invoker(metadata.NewOutgoingContext(ctx, mtd), method, req, reply, cc, opts...)
+	}, opts...)
 }
