@@ -75,6 +75,9 @@ function getAugmentedNamespace(n2) {
   });
   return a;
 }
+function commonjsRequire(path) {
+  throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+}
 var reactDom = { exports: {} };
 var reactDom_production_min = {};
 var react = { exports: {} };
@@ -7975,30 +7978,29 @@ function validate(key, value) {
 function isIterable$1(value) {
   return Symbol.iterator in value;
 }
-var Status = {};
-(function(exports) {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Status = void 0;
-  (function(Status2) {
-    Status2[Status2["OK"] = 0] = "OK";
-    Status2[Status2["CANCELLED"] = 1] = "CANCELLED";
-    Status2[Status2["UNKNOWN"] = 2] = "UNKNOWN";
-    Status2[Status2["INVALID_ARGUMENT"] = 3] = "INVALID_ARGUMENT";
-    Status2[Status2["DEADLINE_EXCEEDED"] = 4] = "DEADLINE_EXCEEDED";
-    Status2[Status2["NOT_FOUND"] = 5] = "NOT_FOUND";
-    Status2[Status2["ALREADY_EXISTS"] = 6] = "ALREADY_EXISTS";
-    Status2[Status2["PERMISSION_DENIED"] = 7] = "PERMISSION_DENIED";
-    Status2[Status2["RESOURCE_EXHAUSTED"] = 8] = "RESOURCE_EXHAUSTED";
-    Status2[Status2["FAILED_PRECONDITION"] = 9] = "FAILED_PRECONDITION";
-    Status2[Status2["ABORTED"] = 10] = "ABORTED";
-    Status2[Status2["OUT_OF_RANGE"] = 11] = "OUT_OF_RANGE";
-    Status2[Status2["UNIMPLEMENTED"] = 12] = "UNIMPLEMENTED";
-    Status2[Status2["INTERNAL"] = 13] = "INTERNAL";
-    Status2[Status2["UNAVAILABLE"] = 14] = "UNAVAILABLE";
-    Status2[Status2["DATA_LOSS"] = 15] = "DATA_LOSS";
-    Status2[Status2["UNAUTHENTICATED"] = 16] = "UNAUTHENTICATED";
-  })(exports.Status || (exports.Status = {}));
-})(Status);
+var Status$1 = {};
+Object.defineProperty(Status$1, "__esModule", { value: true });
+Status$1.Status = void 0;
+var Status;
+(function(Status2) {
+  Status2[Status2["OK"] = 0] = "OK";
+  Status2[Status2["CANCELLED"] = 1] = "CANCELLED";
+  Status2[Status2["UNKNOWN"] = 2] = "UNKNOWN";
+  Status2[Status2["INVALID_ARGUMENT"] = 3] = "INVALID_ARGUMENT";
+  Status2[Status2["DEADLINE_EXCEEDED"] = 4] = "DEADLINE_EXCEEDED";
+  Status2[Status2["NOT_FOUND"] = 5] = "NOT_FOUND";
+  Status2[Status2["ALREADY_EXISTS"] = 6] = "ALREADY_EXISTS";
+  Status2[Status2["PERMISSION_DENIED"] = 7] = "PERMISSION_DENIED";
+  Status2[Status2["RESOURCE_EXHAUSTED"] = 8] = "RESOURCE_EXHAUSTED";
+  Status2[Status2["FAILED_PRECONDITION"] = 9] = "FAILED_PRECONDITION";
+  Status2[Status2["ABORTED"] = 10] = "ABORTED";
+  Status2[Status2["OUT_OF_RANGE"] = 11] = "OUT_OF_RANGE";
+  Status2[Status2["UNIMPLEMENTED"] = 12] = "UNIMPLEMENTED";
+  Status2[Status2["INTERNAL"] = 13] = "INTERNAL";
+  Status2[Status2["UNAVAILABLE"] = 14] = "UNAVAILABLE";
+  Status2[Status2["DATA_LOSS"] = 15] = "DATA_LOSS";
+  Status2[Status2["UNAUTHENTICATED"] = 16] = "UNAUTHENTICATED";
+})(Status || (Status$1.Status = Status = {}));
 var MethodDescriptor = {};
 Object.defineProperty(MethodDescriptor, "__esModule", { value: true });
 var CallOptions = {};
@@ -8007,7 +8009,7 @@ var ClientMiddleware = {};
 Object.defineProperty(ClientMiddleware, "__esModule", { value: true });
 var composeClientMiddleware$1 = {};
 Object.defineProperty(composeClientMiddleware$1, "__esModule", { value: true });
-composeClientMiddleware$1.composeClientMiddleware = void 0;
+composeClientMiddleware$1.composeClientMiddleware = composeClientMiddleware;
 function composeClientMiddleware(middleware1, middleware2) {
   return (call, options) => {
     return middleware2(Object.assign(Object.assign({}, call), { next: (request2, options2) => {
@@ -8015,7 +8017,6 @@ function composeClientMiddleware(middleware1, middleware2) {
     } }), options);
   };
 }
-composeClientMiddleware$1.composeClientMiddleware = composeClientMiddleware;
 var ClientError$1 = {};
 var cjs = {};
 var helpers = {};
@@ -8163,7 +8164,7 @@ helpers.objectCreate = objectCreate;
 Object.defineProperty(ClientError$1, "__esModule", { value: true });
 ClientError$1.ClientError = void 0;
 const ts_error_1$1 = cjs;
-const Status_1$1 = Status;
+const Status_1$1 = Status$1;
 class ClientError extends ts_error_1$1.ExtendableError {
   constructor(path, code, details) {
     super(`${path} ${Status_1$1.Status[code]}: ${details}`);
@@ -8192,7 +8193,7 @@ var ServerMiddleware = {};
 Object.defineProperty(ServerMiddleware, "__esModule", { value: true });
 var composeServerMiddleware$1 = {};
 Object.defineProperty(composeServerMiddleware$1, "__esModule", { value: true });
-composeServerMiddleware$1.composeServerMiddleware = void 0;
+composeServerMiddleware$1.composeServerMiddleware = composeServerMiddleware;
 function composeServerMiddleware(middleware1, middleware2) {
   return (call, context) => {
     return middleware1(Object.assign(Object.assign({}, call), { next: (request2, context1) => {
@@ -8200,12 +8201,11 @@ function composeServerMiddleware(middleware1, middleware2) {
     } }), context);
   };
 }
-composeServerMiddleware$1.composeServerMiddleware = composeServerMiddleware;
 var ServerError$1 = {};
 Object.defineProperty(ServerError$1, "__esModule", { value: true });
 ServerError$1.ServerError = void 0;
 const ts_error_1 = cjs;
-const Status_1 = Status;
+const Status_1 = Status$1;
 class ServerError extends ts_error_1.ExtendableError {
   constructor(code, details) {
     super(`${Status_1.Status[code]}: ${details}`);
@@ -8250,7 +8250,7 @@ ServerError$1.ServerError = ServerError;
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   __exportStar(Metadata, exports);
-  __exportStar(Status, exports);
+  __exportStar(Status$1, exports);
   __exportStar(MethodDescriptor, exports);
   __exportStar(CallOptions, exports);
   __exportStar(ClientMiddleware, exports);
@@ -8337,14 +8337,19 @@ function normalizeServiceDefinition(definition) {
 }
 var channel = {};
 var fetch$1 = {};
-class AbortError extends Error {
-  constructor() {
-    super("The operation has been aborted");
-    this.message = "The operation has been aborted";
+class AbortError {
+  constructor(message = "The operation has been aborted", captureStackTrace = true) {
+    var _a;
+    this.message = message;
     this.name = "AbortError";
-    if (typeof Error.captureStackTrace === "function") {
-      Error.captureStackTrace(this, this.constructor);
+    this.stack = "";
+    if (captureStackTrace) {
+      (_a = Error.captureStackTrace) == null ? void 0 : _a.call(Error, this, this.constructor);
     }
+    Object.setPrototypeOf(this, Error.prototype);
+  }
+  static [Symbol.hasInstance](instance) {
+    return isAbortError(instance);
   }
 }
 function isAbortError(error2) {
@@ -8369,8 +8374,9 @@ function catchAbortError(error2) {
 }
 function execute(signal, executor) {
   return new Promise((resolve, reject) => {
+    var _a;
     if (signal.aborted) {
-      reject(new AbortError());
+      reject((_a = signal.reason) != null ? _a : new AbortError());
       return;
     }
     let removeAbortListener;
@@ -8391,22 +8397,24 @@ function execute(signal, executor) {
       finish2();
     });
     if (!finished) {
-      const listener = () => {
-        const callbackResult = callback();
+      const abortListener = () => {
+        var _a2;
+        const callbackResult = callback(signal.reason);
         if (callbackResult == null) {
-          reject(new AbortError());
+          reject((_a2 = signal.reason) != null ? _a2 : new AbortError());
         } else {
           callbackResult.then(() => {
-            reject(new AbortError());
+            var _a3;
+            reject((_a3 = signal.reason) != null ? _a3 : new AbortError());
           }, (reason) => {
             reject(reason);
           });
         }
         finish2();
       };
-      signal.addEventListener("abort", listener);
+      signal.addEventListener("abort", abortListener);
       removeAbortListener = () => {
-        signal.removeEventListener("abort", listener);
+        signal.removeEventListener("abort", abortListener);
       };
     }
   });
@@ -8486,8 +8494,9 @@ function isEventTarget(sourceObj) {
 const isFunction$2 = (obj) => typeof obj === "function";
 function all(signal, executor) {
   return new Promise((resolve, reject) => {
+    var _a;
     if (signal.aborted) {
-      reject(new AbortError());
+      reject((_a = signal.reason) != null ? _a : new AbortError());
       return;
     }
     const innerAbortController = new AbortController();
@@ -8497,7 +8506,8 @@ function all(signal, executor) {
       return;
     }
     const abortListener = () => {
-      innerAbortController.abort();
+      var _a2;
+      innerAbortController.abort((_a2 = signal.reason) != null ? _a2 : new AbortError());
     };
     signal.addEventListener("abort", abortListener);
     let rejection;
@@ -8519,7 +8529,7 @@ function all(signal, executor) {
         results[i2] = value;
         settled();
       }, (reason) => {
-        innerAbortController.abort();
+        innerAbortController.abort(new AbortError("One of the promises passed to all() rejected", false));
         if (rejection == null || !isAbortError(reason) && isAbortError(rejection.reason)) {
           rejection = { reason };
         }
@@ -8530,19 +8540,21 @@ function all(signal, executor) {
 }
 function race$2(signal, executor) {
   return new Promise((resolve, reject) => {
+    var _a;
     if (signal.aborted) {
-      reject(new AbortError());
+      reject((_a = signal.reason) != null ? _a : new AbortError());
       return;
     }
     const innerAbortController = new AbortController();
     const promises = executor(innerAbortController.signal);
     const abortListener = () => {
-      innerAbortController.abort();
+      var _a2;
+      innerAbortController.abort((_a2 = signal.reason) != null ? _a2 : new AbortError());
     };
     signal.addEventListener("abort", abortListener);
     let settledCount = 0;
     function settled(result2) {
-      innerAbortController.abort();
+      innerAbortController.abort(new AbortError("One of the promises passed to race() settled", false));
       settledCount += 1;
       if (settledCount === promises.length) {
         signal.removeEventListener("abort", abortListener);
@@ -8607,12 +8619,13 @@ function spawn(signal, fn) {
   const deferredFunctions = [];
   const spawnAbortController = new AbortController();
   const spawnSignal = spawnAbortController.signal;
-  const abortSpawn = () => {
-    spawnAbortController.abort();
+  const abortListener = () => {
+    var _a;
+    spawnAbortController.abort((_a = signal.reason) != null ? _a : new AbortError());
   };
-  signal.addEventListener("abort", abortSpawn);
+  signal.addEventListener("abort", abortListener);
   const removeAbortListener = () => {
-    signal.removeEventListener("abort", abortSpawn);
+    signal.removeEventListener("abort", abortListener);
   };
   const tasks = /* @__PURE__ */ new Set();
   const abortTasks = () => {
@@ -8633,10 +8646,10 @@ function spawn(signal, fn) {
       },
       fork: fork2
     })).join().then((value) => {
-      spawnAbortController.abort();
+      spawnAbortController.abort(new AbortError("spawn() function finished", false));
       result = { value };
     }, (error2) => {
-      spawnAbortController.abort();
+      spawnAbortController.abort(isAbortError(error2) ? error2 : new AbortError("spawn() function threw", false));
       if (!isAbortError(error2) || failure == null) {
         failure = { error: error2 };
       }
@@ -8663,7 +8676,7 @@ function spawn(signal, fn) {
       tasks.add(task);
       taskPromise.catch(catchAbortError).catch((error2) => {
         failure = { error: error2 };
-        spawnAbortController.abort();
+        spawnAbortController.abort(new AbortError("A function forked by spawn() threw", false));
       }).finally(() => {
         tasks.delete(task);
         if (tasks.size === 0) {
@@ -8703,7 +8716,7 @@ function proactiveRetry(signal, fn, options = {}) {
     let attemptsExhausted = false;
     const promises = /* @__PURE__ */ new Map();
     function handleFulfilled(value) {
-      innerAbortController.abort();
+      innerAbortController.abort(new AbortError("One of the proactiveRetry() attempts fulfilled", false));
       promises.clear();
       resolve(value);
     }
@@ -8720,7 +8733,7 @@ function proactiveRetry(signal, fn, options = {}) {
         try {
           onError(err, attempt);
         } catch (err2) {
-          innerAbortController.abort();
+          innerAbortController.abort(new AbortError("Error was thrown from proactiveRetry() onError callback", false));
           promises.clear();
           reject(err2);
         }
@@ -8741,8 +8754,8 @@ function proactiveRetry(signal, fn, options = {}) {
       attemptsExhausted = true;
     }
     makeAttempts(innerAbortController.signal).catch(catchAbortError);
-    return () => {
-      innerAbortController.abort();
+    return (reason) => {
+      innerAbortController.abort(reason != null ? reason : new AbortError());
     };
   });
 }
@@ -8769,12 +8782,11 @@ var require$$1$4 = /* @__PURE__ */ getAugmentedNamespace(es);
 var base64$2 = { exports: {} };
 (function(module, exports) {
   (function(global2, factory2) {
-    module.exports = factory2();
-  })(typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof commonjsGlobal !== "undefined" ? commonjsGlobal : commonjsGlobal, function() {
-    var version2 = "3.7.7";
+    factory2(exports);
+  })(commonjsGlobal, function(exports2) {
+    var version2 = "3.9.6";
     var VERSION2 = version2;
-    var _hasBuffer = typeof Buffer === "function";
-    var _TD = typeof TextDecoder === "function" ? new TextDecoder() : void 0;
+    var _TD = typeof TextDecoder === "function" ? new TextDecoder("utf-8", { ignoreBOM: true }) : void 0;
     var _TE = typeof TextEncoder === "function" ? new TextEncoder() : void 0;
     var b64ch = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
     var b64chs = Array.prototype.slice.call(b64ch);
@@ -8811,12 +8823,8 @@ var base64$2 = { exports: {} };
     };
     var _btoa = typeof btoa === "function" ? function(bin) {
       return btoa(bin);
-    } : _hasBuffer ? function(bin) {
-      return Buffer.from(bin, "binary").toString("base64");
     } : btoaPolyfill;
-    var _fromUint8Array = _hasBuffer ? function(u8a) {
-      return Buffer.from(u8a).toString("base64");
-    } : function(u8a) {
+    var _fromUint8Array = typeof Uint8Array.prototype.toBase64 === "function" ? Function.prototype.call.bind(Uint8Array.prototype.toBase64) : function(u8a) {
       var maxargs = 4096;
       var strs = [];
       for (var i2 = 0, l2 = u8a.length; i2 < l2; i2 += maxargs) {
@@ -8839,13 +8847,11 @@ var base64$2 = { exports: {} };
         return _fromCC(240 | cc2 >>> 18 & 7) + _fromCC(128 | cc2 >>> 12 & 63) + _fromCC(128 | cc2 >>> 6 & 63) + _fromCC(128 | cc2 & 63);
       }
     };
-    var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
+    var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFF]|[^\x00-\x7F]/g;
     var utob = function(u2) {
       return u2.replace(re_utob, cb_utob);
     };
-    var _encode = _hasBuffer ? function(s) {
-      return Buffer.from(s, "utf8").toString("base64");
-    } : _TE ? function(s) {
+    var _encode = _TE ? function(s) {
       return _fromUint8Array(_TE.encode(s));
     } : function(s) {
       return _btoa(utob(s));
@@ -8879,20 +8885,25 @@ var base64$2 = { exports: {} };
       if (!b64re.test(asc))
         throw new TypeError("malformed base64.");
       asc += "==".slice(2 - (asc.length & 3));
-      var u24, bin = "", r1, r2;
+      var u24, r1, r2;
+      var binArray = [];
       for (var i2 = 0; i2 < asc.length; ) {
         u24 = b64tab[asc.charAt(i2++)] << 18 | b64tab[asc.charAt(i2++)] << 12 | (r1 = b64tab[asc.charAt(i2++)]) << 6 | (r2 = b64tab[asc.charAt(i2++)]);
-        bin += r1 === 64 ? _fromCC(u24 >> 16 & 255) : r2 === 64 ? _fromCC(u24 >> 16 & 255, u24 >> 8 & 255) : _fromCC(u24 >> 16 & 255, u24 >> 8 & 255, u24 & 255);
+        if (r1 === 64) {
+          binArray.push(_fromCC(u24 >> 16 & 255));
+        } else if (r2 === 64) {
+          binArray.push(_fromCC(u24 >> 16 & 255, u24 >> 8 & 255));
+        } else {
+          binArray.push(_fromCC(u24 >> 16 & 255, u24 >> 8 & 255, u24 & 255));
+        }
       }
-      return bin;
+      return binArray.join("");
     };
     var _atob = typeof atob === "function" ? function(asc) {
       return atob(_tidyB64(asc));
-    } : _hasBuffer ? function(asc) {
-      return Buffer.from(asc, "base64").toString("binary");
     } : atobPolyfill;
-    var _toUint8Array = _hasBuffer ? function(a) {
-      return _U8Afrom(Buffer.from(a, "base64"));
+    var _toUint8Array = typeof Uint8Array.fromBase64 === "function" ? function(a) {
+      return Uint8Array.fromBase64(a);
     } : function(a) {
       return _U8Afrom(_atob(a).split("").map(function(c2) {
         return c2.charCodeAt(0);
@@ -8901,9 +8912,7 @@ var base64$2 = { exports: {} };
     var toUint8Array = function(a) {
       return _toUint8Array(_unURI(a));
     };
-    var _decode = _hasBuffer ? function(a) {
-      return Buffer.from(a, "base64").toString("utf8");
-    } : _TD ? function(a) {
+    var _decode = _TD ? function(a) {
       return _TD.decode(_toUint8Array(a));
     } : function(a) {
       return btou(_atob(a));
@@ -8920,6 +8929,8 @@ var base64$2 = { exports: {} };
       if (typeof src !== "string")
         return false;
       var s = src.replace(/\s+/g, "").replace(/={0,2}$/, "");
+      if (s.length % 4 === 1)
+        return false;
       return !/[^\s0-9a-zA-Z\+/]/.test(s) || !/[^\s0-9a-zA-Z\-_]/.test(s);
     };
     var _noEnum = function(v2) {
@@ -8990,13 +9001,29 @@ var base64$2 = { exports: {} };
       extendUint8Array,
       extendBuiltins
     };
-    gBase64.Base64 = {};
-    Object.keys(gBase64).forEach(function(k2) {
-      return gBase64.Base64[k2] = gBase64[k2];
-    });
-    return gBase64;
+    exports2.Base64 = gBase64;
+    exports2.VERSION = VERSION2;
+    exports2.atob = _atob;
+    exports2.atobPolyfill = atobPolyfill;
+    exports2.btoa = _btoa;
+    exports2.btoaPolyfill = btoaPolyfill;
+    exports2.btou = btou;
+    exports2.decode = decode;
+    exports2.encode = encode2;
+    exports2.encodeURI = encodeURI;
+    exports2.encodeURL = encodeURI;
+    exports2.extendBuiltins = extendBuiltins;
+    exports2.extendString = extendString;
+    exports2.extendUint8Array = extendUint8Array;
+    exports2.fromBase64 = decode;
+    exports2.fromUint8Array = fromUint8Array;
+    exports2.isValid = isValid;
+    exports2.toBase64 = encode2;
+    exports2.toUint8Array = toUint8Array;
+    exports2.utob = utob;
+    exports2.version = version2;
   });
-})(base64$2);
+})(base64$2, base64$2.exports);
 Object.defineProperty(fetch$1, "__esModule", { value: true });
 fetch$1.FetchTransport = FetchTransport;
 const abort_controller_x_1$3 = require$$1$4;
@@ -9356,6 +9383,7 @@ const makeInternalErrorMessage_1 = makeInternalErrorMessage$1;
 const parseTrailer_1 = parseTrailer$1;
 async function* makeCall(definition, channel2, request2, options) {
   const { metadata, signal = new AbortController().signal, onHeader, onTrailer } = options;
+  (0, abort_controller_x_1$2.throwIfAborted)(signal);
   let receivedTrailersOnly = false;
   let status;
   let message;
@@ -9802,8 +9830,8 @@ class AsyncSink {
   }
 }
 AsyncSink$1.AsyncSink = AsyncSink;
-var __importDefault$7 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$7 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(websocket, "__esModule", { value: true });
 websocket.WebsocketTransport = WebsocketTransport;
@@ -9851,23 +9879,30 @@ function WebsocketTransport() {
       return yield* frames;
     } finally {
       pipeAbortController.abort();
-      webSocket.close();
+      if (webSocket.readyState === isomorphic_ws_1$1.default.OPEN || webSocket.readyState === isomorphic_ws_1$1.default.CONNECTING) {
+        webSocket.close();
+      }
     }
   };
+}
+function sendIfOpen(webSocket, data2) {
+  if (webSocket.readyState === isomorphic_ws_1$1.default.OPEN) {
+    webSocket.send(data2);
+  }
 }
 async function pipeBody(signal, metadata, body, webSocket) {
   if (webSocket.readyState == isomorphic_ws_1$1.default.CONNECTING) {
     await (0, abort_controller_x_1$1.waitForEvent)(signal, webSocket, "open");
   }
-  webSocket.send(encodeMetadata(metadata));
+  sendIfOpen(webSocket, encodeMetadata(metadata));
   for await (const chunk of body) {
     (0, abort_controller_x_1$1.throwIfAborted)(signal);
     const data2 = new Uint8Array(chunk.length + 1);
     data2.set([0], 0);
     data2.set(chunk, 1);
-    webSocket.send(data2);
+    sendIfOpen(webSocket, data2);
   }
-  webSocket.send(new Uint8Array([1]));
+  sendIfOpen(webSocket, new Uint8Array([1]));
 }
 function encodeMetadata(metadata) {
   let result = "";
@@ -11088,7 +11123,7 @@ var base64$1 = {};
 })(base64$1);
 var eventemitter = EventEmitter;
 function EventEmitter() {
-  this._listeners = {};
+  this._listeners = /* @__PURE__ */ Object.create(null);
 }
 EventEmitter.prototype.on = function on(evt, fn, ctx) {
   (this._listeners[evt] || (this._listeners[evt] = [])).push({
@@ -11099,12 +11134,14 @@ EventEmitter.prototype.on = function on(evt, fn, ctx) {
 };
 EventEmitter.prototype.off = function off(evt, fn) {
   if (evt === void 0)
-    this._listeners = {};
+    this._listeners = /* @__PURE__ */ Object.create(null);
   else {
     if (fn === void 0)
       this._listeners[evt] = [];
     else {
       var listeners = this._listeners[evt];
+      if (!listeners)
+        return this;
       for (var i2 = 0; i2 < listeners.length; )
         if (listeners[i2].fn === fn)
           listeners.splice(i2, 1);
@@ -11307,16 +11344,20 @@ function readUintBE(buf, pos) {
 var inquire_1 = inquire;
 function inquire(moduleName) {
   try {
-    var mod = eval("quire".replace(/^/, "re"))(moduleName);
+    if (typeof commonjsRequire !== "function") {
+      return null;
+    }
+    var mod = commonjsRequire(moduleName);
     if (mod && (mod.length || Object.keys(mod).length))
       return mod;
-  } catch (e2) {
+    return null;
+  } catch (err) {
+    return null;
   }
-  return null;
 }
 var utf8$2 = {};
 (function(exports) {
-  var utf82 = exports;
+  var utf82 = exports, replacementCharCode = 65533;
   utf82.length = function utf8_length(string) {
     var len = 0, c2 = 0;
     for (var i2 = 0; i2 < string.length; ++i2) {
@@ -11334,24 +11375,31 @@ var utf8$2 = {};
     return len;
   };
   utf82.read = function utf8_read(buffer2, start, end2) {
-    var len = end2 - start;
-    if (len < 1)
+    if (end2 - start < 1)
       return "";
-    var parts = null, chunk = [], i2 = 0, t2;
+    var parts = null, chunk = [], i2 = 0, t2, t22, c2, c3;
     while (start < end2) {
       t2 = buffer2[start++];
-      if (t2 < 128)
+      if (t2 <= 127) {
         chunk[i2++] = t2;
-      else if (t2 > 191 && t2 < 224)
-        chunk[i2++] = (t2 & 31) << 6 | buffer2[start++] & 63;
-      else if (t2 > 239 && t2 < 365) {
-        t2 = ((t2 & 7) << 18 | (buffer2[start++] & 63) << 12 | (buffer2[start++] & 63) << 6 | buffer2[start++] & 63) - 65536;
-        chunk[i2++] = 55296 + (t2 >> 10);
-        chunk[i2++] = 56320 + (t2 & 1023);
-      } else
-        chunk[i2++] = (t2 & 15) << 12 | (buffer2[start++] & 63) << 6 | buffer2[start++] & 63;
+      } else if (t2 >= 192 && t2 < 224) {
+        c2 = (t2 & 31) << 6 | buffer2[start++] & 63;
+        chunk[i2++] = c2 >= 128 ? c2 : replacementCharCode;
+      } else if (t2 >= 224 && t2 < 240) {
+        c3 = (t2 & 15) << 12 | (buffer2[start++] & 63) << 6 | buffer2[start++] & 63;
+        chunk[i2++] = c3 >= 2048 ? c3 : replacementCharCode;
+      } else if (t2 >= 240) {
+        t22 = (t2 & 7) << 18 | (buffer2[start++] & 63) << 12 | (buffer2[start++] & 63) << 6 | buffer2[start++] & 63;
+        if (t22 < 65536 || t22 > 1114111)
+          chunk[i2++] = replacementCharCode;
+        else {
+          t22 -= 65536;
+          chunk[i2++] = 55296 + (t22 >> 10);
+          chunk[i2++] = 56320 + (t22 & 1023);
+        }
+      }
       if (i2 > 8191) {
-        (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
+        (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
         i2 = 0;
       }
     }
@@ -11532,8 +11580,8 @@ LongBits$2.prototype.length = function length2() {
   };
   util2.Buffer = function() {
     try {
-      var Buffer2 = util2.inquire("buffer").Buffer;
-      return Buffer2.prototype.utf8Write ? Buffer2 : null;
+      var Buffer = util2.inquire("buffer").Buffer;
+      return Buffer.prototype.utf8Write ? Buffer : null;
     } catch (e2) {
       return null;
     }
@@ -11616,16 +11664,16 @@ LongBits$2.prototype.length = function length2() {
     json: true
   };
   util2._configure = function() {
-    var Buffer2 = util2.Buffer;
-    if (!Buffer2) {
+    var Buffer = util2.Buffer;
+    if (!Buffer) {
       util2._Buffer_from = util2._Buffer_allocUnsafe = null;
       return;
     }
-    util2._Buffer_from = Buffer2.from !== Uint8Array.from && Buffer2.from || function Buffer_from(value, encoding) {
-      return new Buffer2(value, encoding);
+    util2._Buffer_from = Buffer.from !== Uint8Array.from && Buffer.from || function Buffer_from(value, encoding) {
+      return new Buffer(value, encoding);
     };
-    util2._Buffer_allocUnsafe = Buffer2.allocUnsafe || function Buffer_allocUnsafe(size) {
-      return new Buffer2(size);
+    util2._Buffer_allocUnsafe = Buffer.allocUnsafe || function Buffer_allocUnsafe(size) {
+      return new Buffer(size);
     };
   };
 })(minimal$1);
@@ -12191,20 +12239,20 @@ var struct$2 = {};
   } : function(o2, v2) {
     o2["default"] = v2;
   });
-  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-    if (mod2 && mod2.__esModule)
-      return mod2;
+  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+    if (mod && mod.__esModule)
+      return mod;
     var result = {};
-    if (mod2 != null) {
-      for (var k2 in mod2)
-        if (k2 !== "default" && Object.hasOwnProperty.call(mod2, k2))
-          __createBinding2(result, mod2, k2);
+    if (mod != null) {
+      for (var k2 in mod)
+        if (k2 !== "default" && Object.hasOwnProperty.call(mod, k2))
+          __createBinding2(result, mod, k2);
     }
-    __setModuleDefault2(result, mod2);
+    __setModuleDefault2(result, mod);
     return result;
   };
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ListValue = exports.Value = exports.Struct_FieldsEntry = exports.Struct = exports.nullValueToNumber = exports.nullValueToJSON = exports.nullValueFromJSON = exports.NullValue = exports.protobufPackage = void 0;
@@ -12600,20 +12648,20 @@ var struct$2 = {};
   } : function(o2, v2) {
     o2["default"] = v2;
   });
-  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-    if (mod2 && mod2.__esModule)
-      return mod2;
+  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+    if (mod && mod.__esModule)
+      return mod;
     var result = {};
-    if (mod2 != null) {
-      for (var k2 in mod2)
-        if (k2 !== "default" && Object.hasOwnProperty.call(mod2, k2))
-          __createBinding2(result, mod2, k2);
+    if (mod != null) {
+      for (var k2 in mod)
+        if (k2 !== "default" && Object.hasOwnProperty.call(mod, k2))
+          __createBinding2(result, mod, k2);
     }
-    __setModuleDefault2(result, mod2);
+    __setModuleDefault2(result, mod);
     return result;
   };
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.LayoutServiceDefinition = exports.LayoutServiceClientImpl = exports.LayerServiceDefinition = exports.LayerServiceClientImpl = exports.Event = exports.LayerEvent = exports.LayoutEvent = exports.BatchLayerRequest_BatchItem = exports.BatchLayerRequest = exports.BatchDeleteLayerRequest = exports.DeleteLayerPayload = exports.UpdateLayerRequest = exports.GetLayerRequest = exports.CreateLayerRequest = exports.ListLayersResponse = exports.ListLayersRequest = exports.PartialLayerWithID = exports.PartialLayer = exports.LayerAnimation = exports.DeleteLayoutResponse = exports.DeleteLayoutRequest = exports.DeleteLayoutPayload = exports.UpdateLayoutRequest = exports.GetLayoutRequest = exports.CreateLayoutRequest = exports.ListLayoutsResponse = exports.ListLayoutsRequest = exports.PartialLayout = exports.BatchLayerResponse_BatchLayerItem = exports.BatchLayerResponse = exports.DeleteLayerResponse = exports.DeleteLayerRequest = exports.Layer = exports.Layout = exports.Transition_TransitionStinger = exports.Transition_TransitionStingerCut = exports.Transition_TransitionSwipe = exports.Transition_TransitionCrossfade = exports.Transition_TransitionFadeToColor = exports.Transition_TransitionCut = exports.Transition_TransitionMediaType = exports.Transition = exports.transition_TransitionSwipeTypeToNumber = exports.transition_TransitionSwipeTypeToJSON = exports.transition_TransitionSwipeTypeFromJSON = exports.Transition_TransitionSwipeType = exports.transition_TransitionDirectionToNumber = exports.transition_TransitionDirectionToJSON = exports.transition_TransitionDirectionFromJSON = exports.Transition_TransitionDirection = exports.eventTypeToNumber = exports.eventTypeToJSON = exports.eventTypeFromJSON = exports.EventType = exports.eventSubTypeToNumber = exports.eventSubTypeToJSON = exports.eventSubTypeFromJSON = exports.EventSubType = exports.requestAnimationModeToNumber = exports.requestAnimationModeToJSON = exports.requestAnimationModeFromJSON = exports.RequestAnimationMode = exports.layoutTypeToNumber = exports.layoutTypeToJSON = exports.layoutTypeFromJSON = exports.LayoutType = exports.protobufPackage = void 0;
@@ -16833,7 +16881,7 @@ logger.logger = void 0;
 const typescript_logging_1 = require$$2$2;
 const typescript_logging_category_style_1 = require$$1$2;
 logger.logger = typescript_logging_category_style_1.CategoryProvider.createProvider("ApiStream", { allowSameCategoryName: true, level: typescript_logging_1.LogLevel.Warn });
-var version$1 = "1.0.41";
+var version$1 = "1.0.42";
 var __createBinding$2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o2, m2, k2, k22) {
   if (k22 === void 0)
     k22 = k2;
@@ -16854,16 +16902,16 @@ var __setModuleDefault$2 = commonjsGlobal && commonjsGlobal.__setModuleDefault |
 } : function(o2, v2) {
   o2["default"] = v2;
 });
-var __importStar$2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-  if (mod2 && mod2.__esModule)
-    return mod2;
+var __importStar$2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+  if (mod && mod.__esModule)
+    return mod;
   var result = {};
-  if (mod2 != null) {
-    for (var k2 in mod2)
-      if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod2, k2))
-        __createBinding$2(result, mod2, k2);
+  if (mod != null) {
+    for (var k2 in mod)
+      if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2))
+        __createBinding$2(result, mod, k2);
   }
-  __setModuleDefault$2(result, mod2);
+  __setModuleDefault$2(result, mod);
   return result;
 };
 Object.defineProperty(api$2, "__esModule", { value: true });
@@ -17003,16 +17051,16 @@ var __decorate = commonjsGlobal && commonjsGlobal.__decorate || function(decorat
         r2 = (c2 < 3 ? d2(r2) : c2 > 3 ? d2(target, key, r2) : d2(target, key)) || r2;
   return c2 > 3 && r2 && Object.defineProperty(target, key, r2), r2;
 };
-var __importStar$1 = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-  if (mod2 && mod2.__esModule)
-    return mod2;
+var __importStar$1 = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+  if (mod && mod.__esModule)
+    return mod;
   var result = {};
-  if (mod2 != null) {
-    for (var k2 in mod2)
-      if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod2, k2))
-        __createBinding$1(result, mod2, k2);
+  if (mod != null) {
+    for (var k2 in mod)
+      if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2))
+        __createBinding$1(result, mod, k2);
   }
-  __setModuleDefault$1(result, mod2);
+  __setModuleDefault$1(result, mod);
   return result;
 };
 var __metadata = commonjsGlobal && commonjsGlobal.__metadata || function(k2, v2) {
@@ -17096,8 +17144,8 @@ var liveapi = {};
 var api$1 = {};
 var httpbody = {};
 var any = {};
-var __importDefault$6 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$6 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(any, "__esModule", { value: true });
 any.Any = any.protobufPackage = void 0;
@@ -17197,8 +17245,8 @@ function base64FromBytes$1(arr) {
 function isSet$3(value) {
   return value !== null && value !== void 0;
 }
-var __importDefault$5 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$5 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(httpbody, "__esModule", { value: true });
 httpbody.HttpBody = httpbody.protobufPackage = void 0;
@@ -17313,8 +17361,8 @@ function isSet$2(value) {
   return value !== null && value !== void 0;
 }
 var field_mask = {};
-var __importDefault$4 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$4 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(field_mask, "__esModule", { value: true });
 field_mask.FieldMask = field_mask.protobufPackage = void 0;
@@ -17372,8 +17420,8 @@ field_mask.FieldMask = {
 };
 var struct$1 = {};
 (function(exports) {
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ListValue = exports.Value = exports.Struct_FieldsEntry = exports.Struct = exports.nullValueToNumber = exports.nullValueToJSON = exports.nullValueFromJSON = exports.NullValue = exports.protobufPackage = void 0;
@@ -17747,8 +17795,8 @@ var struct$1 = {};
   }
 })(struct$1);
 var timestamp$2 = {};
-var __importDefault$3 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$3 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(timestamp$2, "__esModule", { value: true });
 timestamp$2.Timestamp = timestamp$2.protobufPackage = void 0;
@@ -17837,22 +17885,134 @@ function isSet$1(value) {
   return value !== null && value !== void 0;
 }
 (function(exports) {
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  exports.S3ACL = exports.projectBroadcastPhaseToNumber = exports.projectBroadcastPhaseToJSON = exports.projectBroadcastPhaseFromJSON = exports.ProjectBroadcastPhase = exports.videoCodecRateControlModeToNumber = exports.videoCodecRateControlModeToJSON = exports.videoCodecRateControlModeFromJSON = exports.VideoCodecRateControlMode = exports.audioCodecToNumber = exports.audioCodecToJSON = exports.audioCodecFromJSON = exports.AudioCodec = exports.videoCodecProfileToNumber = exports.videoCodecProfileToJSON = exports.videoCodecProfileFromJSON = exports.VideoCodecProfile = exports.videoCodecToNumber = exports.videoCodecToJSON = exports.videoCodecFromJSON = exports.VideoCodec = exports.renderingQualityToNumber = exports.renderingQualityToJSON = exports.renderingQualityFromJSON = exports.RenderingQuality = exports.audioChannelLayoutToNumber = exports.audioChannelLayoutToJSON = exports.audioChannelLayoutFromJSON = exports.AudioChannelLayout = exports.videoColorSpaceToNumber = exports.videoColorSpaceToJSON = exports.videoColorSpaceFromJSON = exports.VideoColorSpace = exports.imageFormatToNumber = exports.imageFormatToJSON = exports.imageFormatFromJSON = exports.ImageFormat = exports.webhookSubtypeToNumber = exports.webhookSubtypeToJSON = exports.webhookSubtypeFromJSON = exports.WebhookSubtype = exports.webhookTypeToNumber = exports.webhookTypeToJSON = exports.webhookTypeFromJSON = exports.WebhookType = exports.broadcastOriginToNumber = exports.broadcastOriginToJSON = exports.broadcastOriginFromJSON = exports.BroadcastOrigin = exports.protobufPackage = void 0;
-  exports.SourceRtmpPushAddress = exports.Encoding = exports.AudioEncoding = exports.VideoEncoding = exports.VideoCodecRateControl = exports.Rendering = exports.AudioRendering = exports.VideoRendering = exports.UpdateAccountConfigurationResponse = exports.UpdateAccountConfigurationRequest = exports.GetAccountConfigurationResponse = exports.GetAccountConfigurationRequest = exports.AccountConfiguration = exports.AccountConfigurationHook = exports.WebhookConfiguration = exports.WebhookResponse = exports.WebhookRequest = exports.BroadcastOriginSourceMetadata = exports.BroadcastOriginExternalMetadata = exports.eventTypeToNumber = exports.eventTypeToJSON = exports.eventTypeFromJSON = exports.EventType = exports.eventSubTypeToNumber = exports.eventSubTypeToJSON = exports.eventSubTypeFromJSON = exports.EventSubType = exports.connectStateToNumber = exports.connectStateToJSON = exports.connectStateFromJSON = exports.ConnectState = exports.projectBroadcastErrorToNumber = exports.projectBroadcastErrorToJSON = exports.projectBroadcastErrorFromJSON = exports.ProjectBroadcastError = exports.roleToNumber = exports.roleToJSON = exports.roleFromJSON = exports.Role = exports.regionToNumber = exports.regionToJSON = exports.regionFromJSON = exports.Region = exports.sourceTriggerActionToNumber = exports.sourceTriggerActionToJSON = exports.sourceTriggerActionFromJSON = exports.SourceTriggerAction = exports.s3ACLToNumber = exports.s3ACLToJSON = exports.s3ACLFromJSON = void 0;
-  exports.CreateProjectRequest = exports.GetCollectionsResponse = exports.GetCollectionsRequest = exports.DeleteCollectionResponse = exports.DeleteCollectionRequest = exports.UpdateCollectionResponse = exports.UpdateCollectionRequest = exports.GetCollectionResponse = exports.GetCollectionRequest = exports.CreateCollectionResponse = exports.CreateCollectionRequest = exports.Collection = exports.Project = exports.Destination = exports.Source = exports.ProjectBroadcastStatus = exports.DirectIngestUrl = exports.LatLong = exports.WebRtcAccess = exports.WebRtc = exports.HostedWebRtc = exports.Composition = exports.ExternalComposition = exports.SceneComposition = exports.StudioRendererComposition = exports.StudioSdkComposition = exports.PreviewAddress = exports.PreviewHlsPullAddress = exports.ProjectTrigger = exports.WebRtcTrigger = exports.SourceTrigger = exports.DestinationAddress = exports.S3StorageAddress = exports.PreviewWebRtcAddress = exports.ObjectStoragePackaging = exports.HlsPackaging = exports.HlsLifecycle = exports.HlsLifecycleVod = exports.HlsLifecycleLive = exports.DestinationAgoraPushAddress = exports.DestinationSrtPushAddress = exports.DestinationRtmpPushAddress = exports.SourceAddress = exports.RuntimeSourceAddress = exports.DirectSrtAddress = exports.DirectRTMPAddress = exports.DynamicAddress = exports.SrtPullAddress = exports.RtmpPullAddress = exports.SrtPushAddress = void 0;
-  exports.LookupGuestCodeResponse = exports.LookupGuestCodeRequest = exports.CreateAccessTokenResponse = exports.CreateAccessTokenRequest = exports.GetSourcePlaylistResponse = exports.GetSourcePlaylistRequest = exports.RemoveSourceFromProjectResponse = exports.RemoveSourceFromProjectRequest = exports.UpdateSourceResponse = exports.UpdateSourceRequest = exports.GetSourcesResponse = exports.GetSourcesRequest = exports.GetSourceResponse = exports.GetSourceRequest = exports.UpdateSourceInProjectResponse = exports.UpdateSourceInProjectRequest = exports.AddSourceToProjectResponse = exports.AddSourceToProjectRequest = exports.DeleteSourceResponse = exports.DeleteSourceRequest = exports.CreateSourceResponse = exports.CreateSourceRequest = exports.UpdateDestinationResponse = exports.UpdateDestinationRequest = exports.DeleteDestinationResponse = exports.DeleteDestinationRequest = exports.GetDestinationResponse = exports.GetDestinationRequest = exports.CreateDestinationResponse = exports.CreateDestinationRequest = exports.StopProjectWebRtcResponse = exports.StopProjectWebRtcRequest = exports.StartProjectWebRtcResponse = exports.StartProjectWebRtcRequest = exports.GetProjectBroadcastStatusResponse = exports.GetProjectBroadcastStatusRequest = exports.GetProjectBroadcastSnapshotResponse = exports.GetProjectBroadcastSnapshotRequest = exports.GetProjectResponse = exports.GetProjectRequest = exports.StopProjectBroadcastResponse = exports.StopProjectBroadcastRequest = exports.StartProjectBroadcastResponse = exports.StartProjectBroadcastRequest_DynamicSourcesEntry = exports.StartProjectBroadcastRequest = exports.DeleteProjectResponse = exports.DeleteProjectRequest = exports.UpdateProjectResponse = exports.UpdateProjectRequest = exports.CreateProjectResponse = void 0;
-  exports.GetServiceResponse = exports.Service = exports.GetServiceRequest = exports.LiveEvent = exports.SourceEvent = exports.ProjectEvent = exports.DestinationEvent = exports.CollectionEvent = exports.SourceStateEvent = exports.SourceRemoveEvent = exports.SourceAddEvent = exports.SourceUpdateEvent = exports.SourceDeleteEvent = exports.SourceCreateEvent = exports.CollectionUpdateEvent = exports.CollectionDeleteEvent = exports.CollectionCreateEvent = exports.ProjectBroadcastStateEvent = exports.ProjectUpdateEvent = exports.ProjectDeleteEvent = exports.ProjectCreateEvent = exports.DestinationStateEvent = exports.DestinationUpdateEvent = exports.DestinationDeleteEvent = exports.DestinationCreateEvent = exports.GetTestTokenResponse = exports.GetTestTokenRequest = exports.GetJsonWebKeySetResponse = exports.GetJsonWebKeySetRequest = exports.JsonWebKey = exports.DeleteGuestCodeResponse = exports.DeleteGuestCodeRequest = exports.GetGuestCodesResponse = exports.GetGuestCodesRequest = exports.GetGuestCodeResponse = exports.GetGuestCodeRequest = exports.CreateGuestCodeResponse = exports.CreateGuestCodeRequest = exports.IssuedGuestCode = exports.GuestCodeRedirectResponse = exports.GuestCodeRedirectRequest = exports.RefreshAccessTokenResponse = exports.RefreshAccessTokenRequest = exports.CreateWebRtcAccessTokenResponse = exports.CreateWebRtcAccessTokenRequest = exports.CreateGuestAccessTokenResponse = exports.CreateGuestAccessTokenRequest = exports.GuestAccessToken = exports.GuestAccessTokenExchange = exports.GuestAccessTokenDirect = void 0;
-  exports.AccountServiceDefinition = exports.AccountServiceClientImpl = exports.PublicAuthenticationServiceDefinition = exports.PublicAuthenticationServiceClientImpl = exports.AuthenticationServiceDefinition = exports.AuthenticationServiceClientImpl = exports.BackendAuthenticationServiceDefinition = exports.BackendAuthenticationServiceClientImpl = exports.SourceServiceDefinition = exports.SourceServiceClientImpl = exports.DestinationServiceDefinition = exports.DestinationServiceClientImpl = exports.ProjectServiceDefinition = exports.ProjectServiceClientImpl = exports.CollectionServiceDefinition = exports.CollectionServiceClientImpl = exports.AccountConfigurationServiceDefinition = exports.AccountConfigurationServiceClientImpl = void 0;
+  exports.VideoCodecRateControlMode = exports.audioCodecToNumber = exports.audioCodecToJSON = exports.audioCodecFromJSON = exports.AudioCodec = exports.videoCodecProfileToNumber = exports.videoCodecProfileToJSON = exports.videoCodecProfileFromJSON = exports.VideoCodecProfile = exports.videoCodecToNumber = exports.videoCodecToJSON = exports.videoCodecFromJSON = exports.VideoCodec = exports.renderingQualityToNumber = exports.renderingQualityToJSON = exports.renderingQualityFromJSON = exports.RenderingQuality = exports.audioChannelLayoutToNumber = exports.audioChannelLayoutToJSON = exports.audioChannelLayoutFromJSON = exports.AudioChannelLayout = exports.videoColorSpaceToNumber = exports.videoColorSpaceToJSON = exports.videoColorSpaceFromJSON = exports.VideoColorSpace = exports.imageFormatToNumber = exports.imageFormatToJSON = exports.imageFormatFromJSON = exports.ImageFormat = exports.webhookSubtypeToNumber = exports.webhookSubtypeToJSON = exports.webhookSubtypeFromJSON = exports.WebhookSubtype = exports.webhookTypeToNumber = exports.webhookTypeToJSON = exports.webhookTypeFromJSON = exports.WebhookType = exports.broadcastOriginToNumber = exports.broadcastOriginToJSON = exports.broadcastOriginFromJSON = exports.BroadcastOrigin = exports.rateLimiterBucketToNumber = exports.rateLimiterBucketToJSON = exports.rateLimiterBucketFromJSON = exports.RateLimiterBucket = exports.rateLimiterTypeToNumber = exports.rateLimiterTypeToJSON = exports.rateLimiterTypeFromJSON = exports.RateLimiterType = exports.protobufPackage = void 0;
+  exports.GetAccountConfigurationResponse = exports.GetAccountConfigurationRequest = exports.AccountConfiguration = exports.AccountConfigurationHook = exports.WebhookConfiguration = exports.WebhookResponse = exports.WebhookRequest = exports.BroadcastOriginSourceMetadata = exports.BroadcastOriginExternalMetadata = exports.RateLimitConfig = exports.RateLimiter = exports.eventTypeToNumber = exports.eventTypeToJSON = exports.eventTypeFromJSON = exports.EventType = exports.eventSubTypeToNumber = exports.eventSubTypeToJSON = exports.eventSubTypeFromJSON = exports.EventSubType = exports.connectStateToNumber = exports.connectStateToJSON = exports.connectStateFromJSON = exports.ConnectState = exports.projectBroadcastErrorToNumber = exports.projectBroadcastErrorToJSON = exports.projectBroadcastErrorFromJSON = exports.ProjectBroadcastError = exports.roleToNumber = exports.roleToJSON = exports.roleFromJSON = exports.Role = exports.regionToNumber = exports.regionToJSON = exports.regionFromJSON = exports.Region = exports.sourceTriggerActionToNumber = exports.sourceTriggerActionToJSON = exports.sourceTriggerActionFromJSON = exports.SourceTriggerAction = exports.s3ACLToNumber = exports.s3ACLToJSON = exports.s3ACLFromJSON = exports.S3ACL = exports.projectBroadcastPhaseToNumber = exports.projectBroadcastPhaseToJSON = exports.projectBroadcastPhaseFromJSON = exports.ProjectBroadcastPhase = exports.videoCodecRateControlModeToNumber = exports.videoCodecRateControlModeToJSON = exports.videoCodecRateControlModeFromJSON = void 0;
+  exports.CreateCollectionRequest = exports.Collection = exports.Project = exports.Destination = exports.Source = exports.ProjectBroadcastStatus = exports.DirectIngestUrl = exports.LatLong = exports.WebRtcAccess = exports.WebRtc = exports.HostedWebRtc = exports.Composition = exports.ExternalComposition = exports.SceneComposition = exports.StudioRendererComposition = exports.StudioSdkComposition = exports.PreviewAddress = exports.PreviewHlsPullAddress = exports.ProjectTrigger = exports.WebRtcTrigger = exports.SourceTrigger = exports.DestinationAddress = exports.S3StorageAddress = exports.PreviewWebRtcAddress = exports.ObjectStoragePackaging = exports.HlsPackaging = exports.HlsLifecycle = exports.HlsLifecycleVod = exports.HlsLifecycleLive = exports.DestinationAgoraPushAddress = exports.DestinationSrtPushAddress = exports.DestinationRtmpPushAddress = exports.SourceAddress = exports.RuntimeSourceAddress = exports.DirectSrtAddress = exports.DirectRTMPAddress = exports.DynamicAddress = exports.SrtPullAddress = exports.RtmpPullAddress = exports.SrtPushAddress = exports.SourceRtmpPushAddress = exports.Encoding = exports.AudioEncoding = exports.VideoEncoding = exports.VideoCodecRateControl = exports.Rendering = exports.AudioRendering = exports.VideoRendering = exports.UpdateAccountConfigurationResponse = exports.UpdateAccountConfigurationRequest = void 0;
+  exports.GetSourcesResponse = exports.GetSourcesRequest = exports.GetSourceResponse = exports.GetSourceRequest = exports.UpdateSourceInProjectResponse = exports.UpdateSourceInProjectRequest = exports.AddSourceToProjectResponse = exports.AddSourceToProjectRequest = exports.DeleteSourceResponse = exports.DeleteSourceRequest = exports.CreateSourceResponse = exports.CreateSourceRequest = exports.UpdateDestinationResponse = exports.UpdateDestinationRequest = exports.DeleteDestinationResponse = exports.DeleteDestinationRequest = exports.GetDestinationResponse = exports.GetDestinationRequest = exports.CreateDestinationResponse = exports.CreateDestinationRequest = exports.StopProjectWebRtcResponse = exports.StopProjectWebRtcRequest = exports.StartProjectWebRtcResponse = exports.StartProjectWebRtcRequest = exports.GetProjectBroadcastStatusResponse = exports.GetProjectBroadcastStatusRequest = exports.GetProjectBroadcastSnapshotResponse = exports.GetProjectBroadcastSnapshotRequest = exports.GetProjectResponse = exports.GetProjectRequest = exports.StopProjectBroadcastResponse = exports.StopProjectBroadcastRequest = exports.StartProjectBroadcastResponse = exports.StartProjectBroadcastRequest_DynamicSourcesEntry = exports.StartProjectBroadcastRequest = exports.DeleteProjectResponse = exports.DeleteProjectRequest = exports.UpdateProjectResponse = exports.UpdateProjectRequest = exports.CreateProjectResponse = exports.CreateProjectRequest = exports.GetCollectionsResponse = exports.GetCollectionsRequest = exports.DeleteCollectionResponse = exports.DeleteCollectionRequest = exports.UpdateCollectionResponse = exports.UpdateCollectionRequest = exports.GetCollectionResponse = exports.GetCollectionRequest = exports.CreateCollectionResponse = void 0;
+  exports.SourceAddEvent = exports.SourceUpdateEvent = exports.SourceDeleteEvent = exports.SourceCreateEvent = exports.CollectionUpdateEvent = exports.CollectionDeleteEvent = exports.CollectionCreateEvent = exports.ProjectBroadcastStateEvent = exports.ProjectUpdateEvent = exports.ProjectDeleteEvent = exports.ProjectCreateEvent = exports.DestinationStateEvent = exports.DestinationUpdateEvent = exports.DestinationDeleteEvent = exports.DestinationCreateEvent = exports.GetTestTokenResponse = exports.GetTestTokenRequest = exports.GetJsonWebKeySetResponse = exports.GetJsonWebKeySetRequest = exports.JsonWebKey = exports.DeleteGuestCodeResponse = exports.DeleteGuestCodeRequest = exports.GetGuestCodesResponse = exports.GetGuestCodesRequest = exports.GetGuestCodeResponse = exports.GetGuestCodeRequest = exports.CreateGuestCodeResponse = exports.CreateGuestCodeRequest = exports.IssuedGuestCode = exports.GuestCodeRedirectResponse = exports.GuestCodeRedirectRequest = exports.RefreshAccessTokenResponse = exports.RefreshAccessTokenRequest = exports.CreateWebRtcAccessTokenResponse = exports.CreateWebRtcAccessTokenRequest = exports.CreateGuestAccessTokenResponse = exports.CreateGuestAccessTokenRequest = exports.GuestAccessToken = exports.GuestAccessTokenExchange = exports.GuestAccessTokenDirect = exports.LookupGuestCodeResponse = exports.LookupGuestCodeRequest = exports.CreateAccessTokenResponse = exports.CreateAccessTokenRequest = exports.GetSourcePlaylistResponse = exports.GetSourcePlaylistRequest = exports.RemoveSourceFromProjectResponse = exports.RemoveSourceFromProjectRequest = exports.UpdateSourceResponse = exports.UpdateSourceRequest = void 0;
+  exports.AccountServiceDefinition = exports.AccountServiceClientImpl = exports.PublicAuthenticationServiceDefinition = exports.PublicAuthenticationServiceClientImpl = exports.AuthenticationServiceDefinition = exports.AuthenticationServiceClientImpl = exports.BackendAuthenticationServiceDefinition = exports.BackendAuthenticationServiceClientImpl = exports.SourceServiceDefinition = exports.SourceServiceClientImpl = exports.DestinationServiceDefinition = exports.DestinationServiceClientImpl = exports.ProjectServiceDefinition = exports.ProjectServiceClientImpl = exports.CollectionServiceDefinition = exports.CollectionServiceClientImpl = exports.AccountConfigurationServiceDefinition = exports.AccountConfigurationServiceClientImpl = exports.GetServiceResponse = exports.Service = exports.GetServiceRequest = exports.LiveEvent = exports.SourceEvent = exports.ProjectEvent = exports.DestinationEvent = exports.CollectionEvent = exports.SourceStateEvent = exports.SourceRemoveEvent = void 0;
   const minimal_12 = __importDefault2(minimal);
   const httpbody_1 = httpbody;
   const field_mask_1 = field_mask;
   const struct_1 = struct$1;
   const timestamp_1 = timestamp$2;
   exports.protobufPackage = "live.v21";
+  var RateLimiterType;
+  (function(RateLimiterType2) {
+    RateLimiterType2["RATE_LIMITER_TYPE_UNSPECIFIED"] = "RATE_LIMITER_TYPE_UNSPECIFIED";
+    RateLimiterType2["RATE_LIMITER_TYPE_ACCOUNT_ID"] = "RATE_LIMITER_TYPE_ACCOUNT_ID";
+    RateLimiterType2["RATE_LIMITER_TYPE_USER_ID"] = "RATE_LIMITER_TYPE_USER_ID";
+    RateLimiterType2["RATE_LIMITER_TYPE_PROJECT_ID"] = "RATE_LIMITER_TYPE_PROJECT_ID";
+  })(RateLimiterType = exports.RateLimiterType || (exports.RateLimiterType = {}));
+  function rateLimiterTypeFromJSON(object) {
+    switch (object) {
+      case 0:
+      case "RATE_LIMITER_TYPE_UNSPECIFIED":
+        return RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED;
+      case 1:
+      case "RATE_LIMITER_TYPE_ACCOUNT_ID":
+        return RateLimiterType.RATE_LIMITER_TYPE_ACCOUNT_ID;
+      case 2:
+      case "RATE_LIMITER_TYPE_USER_ID":
+        return RateLimiterType.RATE_LIMITER_TYPE_USER_ID;
+      case 3:
+      case "RATE_LIMITER_TYPE_PROJECT_ID":
+        return RateLimiterType.RATE_LIMITER_TYPE_PROJECT_ID;
+      default:
+        throw new tsProtoGlobalThis2.Error("Unrecognized enum value " + object + " for enum RateLimiterType");
+    }
+  }
+  exports.rateLimiterTypeFromJSON = rateLimiterTypeFromJSON;
+  function rateLimiterTypeToJSON(object) {
+    switch (object) {
+      case RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED:
+        return "RATE_LIMITER_TYPE_UNSPECIFIED";
+      case RateLimiterType.RATE_LIMITER_TYPE_ACCOUNT_ID:
+        return "RATE_LIMITER_TYPE_ACCOUNT_ID";
+      case RateLimiterType.RATE_LIMITER_TYPE_USER_ID:
+        return "RATE_LIMITER_TYPE_USER_ID";
+      case RateLimiterType.RATE_LIMITER_TYPE_PROJECT_ID:
+        return "RATE_LIMITER_TYPE_PROJECT_ID";
+      default:
+        throw new tsProtoGlobalThis2.Error("Unrecognized enum value " + object + " for enum RateLimiterType");
+    }
+  }
+  exports.rateLimiterTypeToJSON = rateLimiterTypeToJSON;
+  function rateLimiterTypeToNumber(object) {
+    switch (object) {
+      case RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED:
+        return 0;
+      case RateLimiterType.RATE_LIMITER_TYPE_ACCOUNT_ID:
+        return 1;
+      case RateLimiterType.RATE_LIMITER_TYPE_USER_ID:
+        return 2;
+      case RateLimiterType.RATE_LIMITER_TYPE_PROJECT_ID:
+        return 3;
+      default:
+        throw new tsProtoGlobalThis2.Error("Unrecognized enum value " + object + " for enum RateLimiterType");
+    }
+  }
+  exports.rateLimiterTypeToNumber = rateLimiterTypeToNumber;
+  var RateLimiterBucket;
+  (function(RateLimiterBucket2) {
+    RateLimiterBucket2["RATE_LIMITER_BUCKET_UNSPECIFIED"] = "RATE_LIMITER_BUCKET_UNSPECIFIED";
+    RateLimiterBucket2["RATE_LIMITER_BUCKET_READ_WRITE"] = "RATE_LIMITER_BUCKET_READ_WRITE";
+    RateLimiterBucket2["RATE_LIMITER_BUCKET_BROADCAST_CONTROL"] = "RATE_LIMITER_BUCKET_BROADCAST_CONTROL";
+    RateLimiterBucket2["RATE_LIMITER_BUCKET_ENGINE"] = "RATE_LIMITER_BUCKET_ENGINE";
+  })(RateLimiterBucket = exports.RateLimiterBucket || (exports.RateLimiterBucket = {}));
+  function rateLimiterBucketFromJSON(object) {
+    switch (object) {
+      case 0:
+      case "RATE_LIMITER_BUCKET_UNSPECIFIED":
+        return RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED;
+      case 1:
+      case "RATE_LIMITER_BUCKET_READ_WRITE":
+        return RateLimiterBucket.RATE_LIMITER_BUCKET_READ_WRITE;
+      case 2:
+      case "RATE_LIMITER_BUCKET_BROADCAST_CONTROL":
+        return RateLimiterBucket.RATE_LIMITER_BUCKET_BROADCAST_CONTROL;
+      case 3:
+      case "RATE_LIMITER_BUCKET_ENGINE":
+        return RateLimiterBucket.RATE_LIMITER_BUCKET_ENGINE;
+      default:
+        throw new tsProtoGlobalThis2.Error("Unrecognized enum value " + object + " for enum RateLimiterBucket");
+    }
+  }
+  exports.rateLimiterBucketFromJSON = rateLimiterBucketFromJSON;
+  function rateLimiterBucketToJSON(object) {
+    switch (object) {
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED:
+        return "RATE_LIMITER_BUCKET_UNSPECIFIED";
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_READ_WRITE:
+        return "RATE_LIMITER_BUCKET_READ_WRITE";
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_BROADCAST_CONTROL:
+        return "RATE_LIMITER_BUCKET_BROADCAST_CONTROL";
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_ENGINE:
+        return "RATE_LIMITER_BUCKET_ENGINE";
+      default:
+        throw new tsProtoGlobalThis2.Error("Unrecognized enum value " + object + " for enum RateLimiterBucket");
+    }
+  }
+  exports.rateLimiterBucketToJSON = rateLimiterBucketToJSON;
+  function rateLimiterBucketToNumber(object) {
+    switch (object) {
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED:
+        return 0;
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_READ_WRITE:
+        return 1;
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_BROADCAST_CONTROL:
+        return 2;
+      case RateLimiterBucket.RATE_LIMITER_BUCKET_ENGINE:
+        return 3;
+      default:
+        throw new tsProtoGlobalThis2.Error("Unrecognized enum value " + object + " for enum RateLimiterBucket");
+    }
+  }
+  exports.rateLimiterBucketToNumber = rateLimiterBucketToNumber;
   var BroadcastOrigin;
   (function(BroadcastOrigin2) {
     BroadcastOrigin2["BROADCAST_ORIGIN_UNSPECIFIED"] = "BROADCAST_ORIGIN_UNSPECIFIED";
@@ -19037,6 +19197,108 @@ function isSet$1(value) {
     }
   }
   exports.eventTypeToNumber = eventTypeToNumber;
+  function createBaseRateLimiter() {
+    return {
+      target: RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED,
+      bucket: RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED
+    };
+  }
+  exports.RateLimiter = {
+    encode(message, writer2 = minimal_12.default.Writer.create()) {
+      if (message.target !== RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED) {
+        writer2.uint32(8).int32(rateLimiterTypeToNumber(message.target));
+      }
+      if (message.bucket !== RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED) {
+        writer2.uint32(16).int32(rateLimiterBucketToNumber(message.bucket));
+      }
+      return writer2;
+    },
+    decode(input, length3) {
+      const reader2 = input instanceof minimal_12.default.Reader ? input : new minimal_12.default.Reader(input);
+      let end2 = length3 === void 0 ? reader2.len : reader2.pos + length3;
+      const message = createBaseRateLimiter();
+      while (reader2.pos < end2) {
+        const tag2 = reader2.uint32();
+        switch (tag2 >>> 3) {
+          case 1:
+            message.target = rateLimiterTypeFromJSON(reader2.int32());
+            break;
+          case 2:
+            message.bucket = rateLimiterBucketFromJSON(reader2.int32());
+            break;
+          default:
+            reader2.skipType(tag2 & 7);
+            break;
+        }
+      }
+      return message;
+    },
+    fromJSON(object) {
+      return {
+        target: isSet2(object.target) ? rateLimiterTypeFromJSON(object.target) : RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED,
+        bucket: isSet2(object.bucket) ? rateLimiterBucketFromJSON(object.bucket) : RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED
+      };
+    },
+    toJSON(message) {
+      const obj = {};
+      message.target !== void 0 && (obj.target = rateLimiterTypeToJSON(message.target));
+      message.bucket !== void 0 && (obj.bucket = rateLimiterBucketToJSON(message.bucket));
+      return obj;
+    },
+    fromPartial(object) {
+      var _a, _b;
+      const message = createBaseRateLimiter();
+      message.target = (_a = object.target) !== null && _a !== void 0 ? _a : RateLimiterType.RATE_LIMITER_TYPE_UNSPECIFIED;
+      message.bucket = (_b = object.bucket) !== null && _b !== void 0 ? _b : RateLimiterBucket.RATE_LIMITER_BUCKET_UNSPECIFIED;
+      return message;
+    }
+  };
+  function createBaseRateLimitConfig() {
+    return { limits: [] };
+  }
+  exports.RateLimitConfig = {
+    encode(message, writer2 = minimal_12.default.Writer.create()) {
+      for (const v2 of message.limits) {
+        exports.RateLimiter.encode(v2, writer2.uint32(10).fork()).ldelim();
+      }
+      return writer2;
+    },
+    decode(input, length3) {
+      const reader2 = input instanceof minimal_12.default.Reader ? input : new minimal_12.default.Reader(input);
+      let end2 = length3 === void 0 ? reader2.len : reader2.pos + length3;
+      const message = createBaseRateLimitConfig();
+      while (reader2.pos < end2) {
+        const tag2 = reader2.uint32();
+        switch (tag2 >>> 3) {
+          case 1:
+            message.limits.push(exports.RateLimiter.decode(reader2, reader2.uint32()));
+            break;
+          default:
+            reader2.skipType(tag2 & 7);
+            break;
+        }
+      }
+      return message;
+    },
+    fromJSON(object) {
+      return { limits: Array.isArray(object === null || object === void 0 ? void 0 : object.limits) ? object.limits.map((e2) => exports.RateLimiter.fromJSON(e2)) : [] };
+    },
+    toJSON(message) {
+      const obj = {};
+      if (message.limits) {
+        obj.limits = message.limits.map((e2) => e2 ? exports.RateLimiter.toJSON(e2) : void 0);
+      } else {
+        obj.limits = [];
+      }
+      return obj;
+    },
+    fromPartial(object) {
+      var _a;
+      const message = createBaseRateLimitConfig();
+      message.limits = ((_a = object.limits) === null || _a === void 0 ? void 0 : _a.map((e2) => exports.RateLimiter.fromPartial(e2))) || [];
+      return message;
+    }
+  };
   function createBaseBroadcastOriginExternalMetadata() {
     return { name: "", value: void 0 };
   }
@@ -26523,7 +26785,7 @@ function isSet$1(value) {
     }
   };
   function createBaseCreateWebRtcAccessTokenRequest() {
-    return { collectionId: "", projectId: "", displayName: "" };
+    return { collectionId: "", projectId: "", displayName: "", participantMetadata: void 0 };
   }
   exports.CreateWebRtcAccessTokenRequest = {
     encode(message, writer2 = minimal_12.default.Writer.create()) {
@@ -26535,6 +26797,9 @@ function isSet$1(value) {
       }
       if (message.displayName !== "") {
         writer2.uint32(26).string(message.displayName);
+      }
+      if (message.participantMetadata !== void 0) {
+        struct_1.Value.encode(struct_1.Value.wrap(message.participantMetadata), writer2.uint32(34).fork()).ldelim();
       }
       return writer2;
     },
@@ -26554,6 +26819,9 @@ function isSet$1(value) {
           case 3:
             message.displayName = reader2.string();
             break;
+          case 4:
+            message.participantMetadata = struct_1.Value.unwrap(struct_1.Value.decode(reader2, reader2.uint32()));
+            break;
           default:
             reader2.skipType(tag2 & 7);
             break;
@@ -26565,7 +26833,8 @@ function isSet$1(value) {
       return {
         collectionId: isSet2(object.collectionId) ? String(object.collectionId) : "",
         projectId: isSet2(object.projectId) ? String(object.projectId) : "",
-        displayName: isSet2(object.displayName) ? String(object.displayName) : ""
+        displayName: isSet2(object.displayName) ? String(object.displayName) : "",
+        participantMetadata: isSet2(object === null || object === void 0 ? void 0 : object.participantMetadata) ? object.participantMetadata : void 0
       };
     },
     toJSON(message) {
@@ -26573,14 +26842,16 @@ function isSet$1(value) {
       message.collectionId !== void 0 && (obj.collectionId = message.collectionId);
       message.projectId !== void 0 && (obj.projectId = message.projectId);
       message.displayName !== void 0 && (obj.displayName = message.displayName);
+      message.participantMetadata !== void 0 && (obj.participantMetadata = message.participantMetadata);
       return obj;
     },
     fromPartial(object) {
-      var _a, _b, _c;
+      var _a, _b, _c, _d;
       const message = createBaseCreateWebRtcAccessTokenRequest();
       message.collectionId = (_a = object.collectionId) !== null && _a !== void 0 ? _a : "";
       message.projectId = (_b = object.projectId) !== null && _b !== void 0 ? _b : "";
       message.displayName = (_c = object.displayName) !== null && _c !== void 0 ? _c : "";
+      message.participantMetadata = (_d = object.participantMetadata) !== null && _d !== void 0 ? _d : void 0;
       return message;
     }
   };
@@ -28584,7 +28855,7 @@ function isSet$1(value) {
     }
   };
   function createBaseSourceStateEvent() {
-    return { collectionId: "", projectId: "", sourceId: "", connect: void 0 };
+    return { collectionId: "", projectId: "", sourceId: "", remoteAddress: void 0, connect: void 0 };
   }
   exports.SourceStateEvent = {
     encode(message, writer2 = minimal_12.default.Writer.create()) {
@@ -28596,6 +28867,9 @@ function isSet$1(value) {
       }
       if (message.sourceId !== "") {
         writer2.uint32(26).string(message.sourceId);
+      }
+      if (message.remoteAddress !== void 0) {
+        writer2.uint32(42).string(message.remoteAddress);
       }
       if (message.connect !== void 0) {
         writer2.uint32(32).int32(connectStateToNumber(message.connect));
@@ -28618,6 +28892,9 @@ function isSet$1(value) {
           case 3:
             message.sourceId = reader2.string();
             break;
+          case 5:
+            message.remoteAddress = reader2.string();
+            break;
           case 4:
             message.connect = connectStateFromJSON(reader2.int32());
             break;
@@ -28633,6 +28910,7 @@ function isSet$1(value) {
         collectionId: isSet2(object.collectionId) ? String(object.collectionId) : "",
         projectId: isSet2(object.projectId) ? String(object.projectId) : "",
         sourceId: isSet2(object.sourceId) ? String(object.sourceId) : "",
+        remoteAddress: isSet2(object.remoteAddress) ? String(object.remoteAddress) : void 0,
         connect: isSet2(object.connect) ? connectStateFromJSON(object.connect) : void 0
       };
     },
@@ -28641,16 +28919,18 @@ function isSet$1(value) {
       message.collectionId !== void 0 && (obj.collectionId = message.collectionId);
       message.projectId !== void 0 && (obj.projectId = message.projectId);
       message.sourceId !== void 0 && (obj.sourceId = message.sourceId);
+      message.remoteAddress !== void 0 && (obj.remoteAddress = message.remoteAddress);
       message.connect !== void 0 && (obj.connect = message.connect !== void 0 ? connectStateToJSON(message.connect) : void 0);
       return obj;
     },
     fromPartial(object) {
-      var _a, _b, _c, _d;
+      var _a, _b, _c, _d, _e;
       const message = createBaseSourceStateEvent();
       message.collectionId = (_a = object.collectionId) !== null && _a !== void 0 ? _a : "";
       message.projectId = (_b = object.projectId) !== null && _b !== void 0 ? _b : "";
       message.sourceId = (_c = object.sourceId) !== null && _c !== void 0 ? _c : "";
-      message.connect = (_d = object.connect) !== null && _d !== void 0 ? _d : void 0;
+      message.remoteAddress = (_d = object.remoteAddress) !== null && _d !== void 0 ? _d : void 0;
+      message.connect = (_e = object.connect) !== null && _e !== void 0 ? _e : void 0;
       return message;
     }
   };
@@ -29973,16 +30253,16 @@ function isSet$1(value) {
           r2 = (c2 < 3 ? d2(r2) : c2 > 3 ? d2(target, key, r2) : d2(target, key)) || r2;
     return c2 > 3 && r2 && Object.defineProperty(target, key, r2), r2;
   };
-  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-    if (mod2 && mod2.__esModule)
-      return mod2;
+  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+    if (mod && mod.__esModule)
+      return mod;
     var result = {};
-    if (mod2 != null) {
-      for (var k2 in mod2)
-        if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod2, k2))
-          __createBinding2(result, mod2, k2);
+    if (mod != null) {
+      for (var k2 in mod)
+        if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2))
+          __createBinding2(result, mod, k2);
     }
-    __setModuleDefault2(result, mod2);
+    __setModuleDefault2(result, mod);
     return result;
   };
   var __metadata2 = commonjsGlobal && commonjsGlobal.__metadata || function(k2, v2) {
@@ -36999,8 +37279,8 @@ var operators = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePrope
 var require$$1$1 = /* @__PURE__ */ getAugmentedNamespace(operators);
 var struct = {};
 (function(exports) {
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ListValue = exports.Value = exports.Struct_FieldsEntry = exports.Struct = exports.nullValueToNumber = exports.nullValueToJSON = exports.nullValueFromJSON = exports.NullValue = exports.protobufPackage = void 0;
@@ -37374,8 +37654,8 @@ var struct = {};
   }
 })(struct);
 var timestamp = {};
-var __importDefault$2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(timestamp, "__esModule", { value: true });
 timestamp.Timestamp = timestamp.protobufPackage = void 0;
@@ -37464,8 +37744,8 @@ function isSet(value) {
   return value !== null && value !== void 0;
 }
 (function(exports) {
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.HistoryServiceDefinition = exports.HistoryServiceClientImpl = exports.WebhookServiceDefinition = exports.WebhookServiceClientImpl = exports.EventServiceDefinition = exports.EventServiceClientImpl = exports.Event = exports.GetEventsResponse = exports.GetEventsRequest = exports.GetEventsQuery_Target = exports.GetEventsQuery_TargetValue = exports.GetEventsQuery = exports.EventsStreamResponse = exports.EventsStreamRequest = exports.EventsStreamReconnectRequest = exports.EventsStreamError = exports.SubscribePayload = exports.DeleteWebhookSubscriptionResponse = exports.DeleteWebhookSubscriptionRequest = exports.CreateWebhookSubscriptionResponse = exports.CreateWebhookSubscriptionRequest = exports.ListWebhookSubscriptionsResponse = exports.ListWebhookSubscriptionsRequest = exports.WebhookSubscription = exports.PublishEventResponse = exports.PublishEventRequest = exports.ServiceEventTarget = exports.EventTarget = exports.getEventsQuery_PaginationOrderToNumber = exports.getEventsQuery_PaginationOrderToJSON = exports.getEventsQuery_PaginationOrderFromJSON = exports.GetEventsQuery_PaginationOrder = exports.eventsStreamMessageTypeToNumber = exports.eventsStreamMessageTypeToJSON = exports.eventsStreamMessageTypeFromJSON = exports.EventsStreamMessageType = exports.protobufPackage = void 0;
@@ -39374,20 +39654,20 @@ var __setModuleDefault = commonjsGlobal && commonjsGlobal.__setModuleDefault || 
 } : function(o2, v2) {
   o2["default"] = v2;
 });
-var __importStar = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-  if (mod2 && mod2.__esModule)
-    return mod2;
+var __importStar = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+  if (mod && mod.__esModule)
+    return mod;
   var result = {};
-  if (mod2 != null) {
-    for (var k2 in mod2)
-      if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod2, k2))
-        __createBinding(result, mod2, k2);
+  if (mod != null) {
+    for (var k2 in mod)
+      if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2))
+        __createBinding(result, mod, k2);
   }
-  __setModuleDefault(result, mod2);
+  __setModuleDefault(result, mod);
   return result;
 };
-var __importDefault$1 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault$1 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(eventapi, "__esModule", { value: true });
 eventapi.EventApi = void 0;
@@ -39681,8 +39961,8 @@ class EventApi extends api_1.ApiClient {
 eventapi.EventApi = EventApi;
 EventApi.APISTREAM_EVENT_PREFIX = "apistream";
 var livekit = {};
-var __importDefault = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-  return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+var __importDefault = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+  return mod && mod.__esModule ? mod : { "default": mod };
 };
 Object.defineProperty(livekit, "__esModule", { value: true });
 livekit.LiveKitUtils = void 0;
@@ -39722,20 +40002,20 @@ livekit.LiveKitUtils = LiveKitUtils;
   } : function(o2, v2) {
     o2["default"] = v2;
   });
-  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
-    if (mod2 && mod2.__esModule)
-      return mod2;
+  var __importStar2 = commonjsGlobal && commonjsGlobal.__importStar || function(mod) {
+    if (mod && mod.__esModule)
+      return mod;
     var result = {};
-    if (mod2 != null) {
-      for (var k2 in mod2)
-        if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod2, k2))
-          __createBinding2(result, mod2, k2);
+    if (mod != null) {
+      for (var k2 in mod)
+        if (k2 !== "default" && Object.prototype.hasOwnProperty.call(mod, k2))
+          __createBinding2(result, mod, k2);
     }
-    __setModuleDefault2(result, mod2);
+    __setModuleDefault2(result, mod);
     return result;
   };
-  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
-    return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
+  var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.ApiStream = exports.LiveKitUtils = exports.EventApiModel = exports.LayoutApiModel = exports.LiveApiModel = void 0;
@@ -42378,7 +42658,7 @@ function keyframes() {
     }
   };
 }
-var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|disableRemotePlayback|download|draggable|encType|enterKeyHint|fetchpriority|fetchPriority|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
+var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|disableRemotePlayback|download|draggable|encType|enterKeyHint|fetchpriority|fetchPriority|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|popover|popoverTarget|popoverTargetAction|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
 var isPropValid = /* @__PURE__ */ memoize$1(
   function(prop) {
     return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110 && prop.charCodeAt(2) < 91;
@@ -43998,8 +44278,7 @@ var reactIs_production = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
-var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference");
+var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference");
 function typeOf(object) {
   if ("object" === typeof object && null !== object) {
     var $$typeof = object.$$typeof;
@@ -44080,7 +44359,7 @@ reactIs_production.isSuspenseList = function(object) {
   return typeOf(object) === REACT_SUSPENSE_LIST_TYPE;
 };
 reactIs_production.isValidElementType = function(type) {
-  return "string" === typeof type || "function" === typeof type || type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || "object" === typeof type && null !== type && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_CONSUMER_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_CLIENT_REFERENCE || void 0 !== type.getModuleId) ? true : false;
+  return "string" === typeof type || "function" === typeof type || type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_VIEW_TRANSITION_TYPE || "object" === typeof type && null !== type && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_CONSUMER_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_CLIENT_REFERENCE || void 0 !== type.getModuleId) ? true : false;
 };
 reactIs_production.typeOf = typeOf;
 {
@@ -44857,17 +45136,17 @@ function _typeof(o2) {
     return o3 && "function" == typeof Symbol && o3.constructor === Symbol && o3 !== Symbol.prototype ? "symbol" : typeof o3;
   }, _typeof(o2);
 }
-function toPrimitive(t2, r2) {
+function toPrimitive(t2, e2) {
   if ("object" != _typeof(t2) || !t2)
     return t2;
-  var e2 = t2[Symbol.toPrimitive];
-  if (void 0 !== e2) {
-    var i2 = e2.call(t2, r2 || "default");
+  var r2;
+  if ("undefined" != typeof Symbol && void 0 !== (r2 = t2[Symbol.toPrimitive])) {
+    var i2 = r2.call(t2, e2 || "default");
     if ("object" != _typeof(i2))
       return i2;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return ("string" === r2 ? String : Number)(t2);
+  return ("string" === e2 ? String : Number)(t2);
 }
 function toPropertyKey(t2) {
   var i2 = toPrimitive(t2, "string");
@@ -53752,7 +54031,7 @@ function defaultRenderer(_ref5) {
       node: node2,
       stylesheet,
       useInlineStyles,
-      key: "code-segement".concat(i2)
+      key: "code-segment-".concat(i2)
     });
   });
 }
@@ -53788,6 +54067,7 @@ function getCodeTree(_ref6) {
 }
 function highlight$2(defaultAstGenerator, defaultStyle2) {
   return function SyntaxHighlighter2(_ref7) {
+    var _code$match$length, _code$match;
     var language = _ref7.language, children = _ref7.children, _ref7$style = _ref7.style, style2 = _ref7$style === void 0 ? defaultStyle2 : _ref7$style, _ref7$customStyle = _ref7.customStyle, customStyle = _ref7$customStyle === void 0 ? {} : _ref7$customStyle, _ref7$codeTagProps = _ref7.codeTagProps, codeTagProps = _ref7$codeTagProps === void 0 ? {
       className: language ? "language-".concat(language) : void 0,
       style: _objectSpread(_objectSpread({}, style2['code[class*="language-"]']), style2['code[class*="language-'.concat(language, '"]')])
@@ -53838,11 +54118,8 @@ function highlight$2(defaultAstGenerator, defaultStyle2) {
     if (codeTree.language === null) {
       codeTree.value = defaultCodeValue;
     }
-    var lineCount = codeTree.value.length;
-    if (lineCount === 1 && codeTree.value[0].type === "text") {
-      lineCount = codeTree.value[0].value.split("\n").length;
-    }
-    var largestLineNumber = lineCount + startingLineNumber;
+    var lineBreakCount = (_code$match$length = (_code$match = code.match(/\n/g)) === null || _code$match === void 0 ? void 0 : _code$match.length) !== null && _code$match$length !== void 0 ? _code$match$length : 0;
+    var largestLineNumber = startingLineNumber + lineBreakCount;
     var rows = processLines(codeTree, wrapLines, lineProps, showLineNumbers, showInlineLineNumbers, startingLineNumber, largestLineNumber, lineNumberStyle, wrapLongLines);
     return /* @__PURE__ */ React.createElement(PreTag, preProps, /* @__PURE__ */ React.createElement(CodeTag, codeTagProps, !showInlineLineNumbers && allLineNumbers, renderer({
       rows,
@@ -89855,4 +90132,4 @@ const Content = () => {
   });
 };
 ReactDOM.render(/* @__PURE__ */ jsx(Content, {}), document.getElementById("root"));
-//# sourceMappingURL=main.d0c25abe.js.map
+//# sourceMappingURL=main.68a9edc4.js.map
