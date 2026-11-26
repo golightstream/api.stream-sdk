@@ -30,4 +30,5 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
+          tag: beta
           package: ./js/sdk/package.json
