@@ -1,0 +1,19 @@
+js/sdk/src/eventapi/index.ts
+  s_240ae3fc54e65b::t_426d81b82345bf 176-177,182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7ec01b3ad7441cf54738ec5d8032827a7cdd003e",
+  "prompts": {},
+  "sessions": {
+    "s_240ae3fc54e65b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71a4919f-6c00-49c3-8725-3c6d8799864e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "maddygoround <m.rathod@xsolla.com>"
+    }
+  }
+}
