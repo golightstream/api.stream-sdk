@@ -173,13 +173,13 @@ export class EventApi extends ApiClient {
           error = data.error;
           this.handleEvent( 'error', {
             error: {
-              code: data.code,
-              message: data.message,
+              code: data.error.code,
+              message: data.error.message,
             }
           } );
 
           // Track disconnects caused by a bad authentication token.
-          if ( [ 'You do not have permission to this resource', 'You do not have permission to this resource' ].includes( data.message ) ) {
+          if ( [ NiceGrpc.Status.PERMISSION_DENIED, NiceGrpc.Status.UNAUTHENTICATED ].includes( data.error.code ) ) {
             this.badAuthentication = true;
           }
         }
